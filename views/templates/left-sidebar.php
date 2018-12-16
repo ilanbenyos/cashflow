@@ -30,8 +30,8 @@
       <ul class="sidebar-menu">
         <?php if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Admin"))
           { ?>
-        <li class="treeview active"> <a href="#"><i class="fa fa-desktop" aria-hidden="true"></i> <span>Configuration</span></a>
-          <ul class="treeview-menu menu-open">
+        <li class="treeview"> <a href="#"><i class="fa fa-desktop" aria-hidden="true"></i> <span>Configuration</span></a>
+          <ul class="treeview-menu">
             <!--<li><a href="<?= base_url('configuration/roles') ?>">Roles</a></li> -->
             <li><a href="<?= base_url('configuration/users')?>">Users</a></li>
             <li><a href="<?= base_url('configuration/bank')?>">Banks</a></li>

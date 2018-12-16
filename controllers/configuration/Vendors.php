@@ -93,6 +93,17 @@ echo '<pre/>';
 				}else{ 
 				$Comments=" ";
 				}
+
+				if ($sInvoiceType == 'Weekly') {
+					$reminderOn = $this->input->post('weekly_reminder');
+				}else if($sInvoiceType == 'Monthly'){
+					$reminderOn = $this->input->post('monthly_reminder');
+				}else if($sInvoiceType == 'Quarterly'){
+					$reminderOn = $this->input->post('quartely_reminder');
+				}else{
+					$reminderOn = "";
+				}
+
     	        $aVendorInfo = array(
     	            
     	            'VendorName' => $sVname,
@@ -100,18 +111,18 @@ echo '<pre/>';
 					'Comments' => $Comments,
     	            'InvoiceType' => $sInvoiceType,
     	            'Currency' => $Currency,
+    	            'ReminderOn' => $reminderOn,
     	            //'BankId' => $BankId,
 					'Active' => $Status,
 					'CreatedBy' => $uid,
 					'CreatedOn' =>$date
     	        );
-					
     	        $user = $this->db->insert('vendormaster',$aVendorInfo);
 				
-                $_SESSION['pop_mes'] = "VendorInfo Added Successfully."; 
+                $_SESSION['pop_mes'] = "New Vendor Created."; 
     	       redirect('configuration/vendors');
     	    }else{
-    	        $_SESSION['pop_mes'] = "Token does not matched.";
+    	        $_SESSION['pop_mes'] = "Token does not match.";
     	      redirect('configuration/vendors');
     	    }
     			
@@ -163,12 +174,31 @@ echo '<pre/>';
 				$Status= $this->input->post('Status');
     	       	$Comments= $this->input->post('Comments');
     	       	$uid = $this->input->post('userid');
+
+
+    	       	if(	$this->input->post('Comments') 	!= ""){
+						$Comments= $this->input->post('Comments');
+				}else{ 
+				$Comments=" ";
+				}
+
+				if ($sInvoiceType == 'Weekly') {
+					$reminderOn = $this->input->post('weekly_reminder');
+				}else if($sInvoiceType == 'Monthly'){
+					$reminderOn = $this->input->post('monthly_reminder');
+				}else if($sInvoiceType == 'Quarterly'){
+					$reminderOn = $this->input->post('quartely_reminder');
+				}else{
+					$reminderOn = "";
+				}
+
 			   $aVendorInfo = array(
     	            
     	            'VendorName' => $sVname,
     	         //   'CategoryId' => $ExpCatID,
     	            'InvoiceType' => $sInvoiceType,
     	            'Currency' => $Currency,
+    	            'ReminderOn' => $reminderOn,
     	            //'BankId' => $BankId,
 					'Comments' => $Comments,
 					'Active' => $Status,
@@ -184,7 +214,7 @@ echo '<pre/>';
 					
 				}
 				else{
-					$_SESSION['pop_mes'] = "Token does not matched."; 
+					$_SESSION['pop_mes'] = "Token does not match."; 
 				
 					redirect('configuration/vendors');
 					
@@ -192,5 +222,30 @@ echo '<pre/>';
 		
 			
 		}
+	}
+	public function update_notification($id) {
+		if (! isset ( $_SESSION ['logged_in'] )) {
+			redirect ( $this->uri->segment ( 1 ) . '/login' );
+		}
+		//update notification status 
+		$userinfo = array (
+				'ReminderStatus' => '1' 
+		);
+		
+		$this->db->where ( 'VendorId', $id );
+		$this->db->update ( 'vendormaster', $userinfo );
+		
+		redirect('configuration/vendors');
+	}
+	public function notification(){
+		if (! isset ( $_SESSION ['logged_in'] )) {
+			redirect ( $this->uri->segment ( 1 ) . '/login' );
+		}
+			$data['notification'] = $this->all_model->getAllNotifications();
+			$this->load->view('templates/header');
+			$this->load->view('templates/left-sidebar');
+			$this->load->view('notification',$data);
+			$this->load->view('templates/footer');
+
 	}
 }

@@ -11,6 +11,20 @@ $(document).ready(function(){
             $(".user-dropdown").slideUp("fast");
         }            
     });
+
+$(document).ready(function(){
+        // Show hide popover
+        $(".notification-detail").click(function(){
+            $(this).find(".notification-dropdown").slideToggle("fast");
+        });
+    });
+    $(document).on("click", function(event){
+        var $trigger = $(".notification-detail");
+        if($trigger !== event.target && !$trigger.has(event.target).length){
+            $(".notification-dropdown").slideUp("fast");
+        }            
+    });	
+	
 	$(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
@@ -50,27 +64,42 @@ var url = window.location;
 //}).closest('.treeview').addClass('active');
 
 
+//jQuery(function ($) {
+//    $(".sidebar-menu li a")
+//        .click(function(e) {
+//            var link = $(this);
+//
+//            var item = link.parent("li");
+//            
+//            if (item.hasClass("active")) {
+//                item.removeClass("active").children("a").removeClass("active");
+//            } else {
+//                item.addClass("active").children("a").addClass("active");
+//            }
+//
+//            if (item.children("ul").length > 0) {
+//                var href = link.attr("href");
+//                link.attr("href");
+//                setTimeout(function () { 
+//                    link.attr("href", href);
+//                }, 300);
+//                e.preventDefault();
+//            }
+//        })
+//        .each(function() {
+//            var link = $(this);
+//            if (link.get(0).href === location.href) {
+//                link.addClass("active").parents("li").addClass("active");
+//                return false;
+//            }
+//        });
+//});
+
 jQuery(function ($) {
     $(".treeview li a")
         .click(function(e) {
             var link = $(this);
-
             var item = link.parent("li");
-            
-            if (item.hasClass("active")) {
-                item.removeClass("active").children("a").removeClass("active");
-            } else {
-                item.addClass("active").children("a").addClass("active");
-            }
-
-            if (item.children("ul").length > 0) {
-                var href = link.attr("href");
-                link.attr("href", "#");
-                setTimeout(function () { 
-                    link.attr("href", href);
-                }, 300);
-                e.preventDefault();
-            }
         })
         .each(function() {
             var link = $(this);
@@ -80,6 +109,30 @@ jQuery(function ($) {
             }
         });
 });
+
+jQuery(function ($) {
+$('sidebar-menu li a').click( function(){
+    if ( $(this).hasClass('current') ) {
+        $(this).removeClass('current');
+    } else {
+        $('a.current').removeClass('current');
+        $(this).addClass('current');    
+    }
+});
+});
+//$(".sidebar-menu li a").click(function() {
+//    $(this).parent().addClass('active').siblings().removeClass('active');
+//
+//    });
+
+//jQuery(function ($) {
+//	$(".sidebar-menu a").on("click", function() {
+//  $(".sidebar-menu").find(".active").removeClass("active");
+//  $(this).parent().addClass("active");
+//});
+//});
+
+
 
 //Clone the hidden element and shows it
 /*

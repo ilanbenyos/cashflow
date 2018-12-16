@@ -62,7 +62,7 @@ class All_model extends CI_Model {
 	    return $this->db->get ()->result(); 
 	}
 	public function get_vendor_details_byid($id){
-	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Currency,v.Active,v.Comments , c.CurId,c.CurName' );
+	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Currency,v.Active,v.Comments,v.ReminderOn, c.CurId,c.CurName' );
 	    $this->db->from ( 'vendormaster v' );
 	    $this->db->join('currencymaster c','c.CurId = v.Currency');
 		//$this->db->join('expcategory c', 'v.CategoryId=c.CatId');
@@ -108,6 +108,7 @@ class All_model extends CI_Model {
 		$this->db->select('BankId,BankName');
 		$this->db->from('bankmaster');
 		$this->db->where('Active',1);
+		$this->db->order_by('BankName','ASC');
 		return $this->db->get ()->result();
 	}
 	public function get_psp($id){
@@ -115,7 +116,7 @@ class All_model extends CI_Model {
 		$this->db->from('pspmaster p');
 		$this->db->join('bankmaster b','b.BankId = p.BankId');
 		$this->db->join('currencymaster cm','cm.CurId = b.CurId');
-		$this->db->where('PspId',$id);
+		$this->db->where('p.PspId',$id);
 		return $this->db->get()->row();
 	}
 	public function getPspIncome(){

@@ -135,7 +135,10 @@ if (isset ( $_SESSION ['pop_mes'] )) {
               <div class="form-group">
               <label class="col-md-6 col-sm-6 col-xs-12">Reminder On</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="month" class="form-control" name="quartely_reminder" id="quartely_reminder" />
+                <div class="input-group date" data-provide="datepicker">
+                    <input type="text" class="form-control" name="quartely_reminder" id="quartely_reminder" />
+                    <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+                    </div>
               </div>
               </div>
             </div>
@@ -236,8 +239,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
       var reminderValue = $("#InvoiceType").val();
       if(reminderValue == 'Weekly'){
         $("#weekly").show();
-        $("#monthly").attr('disabled',true);
-        $("#quartely").attr('disabled',true);
+        $("#monthly").hide();
+        $("#quartely").hide();
       }else if(reminderValue == 'Monthly'){
         $("#monthly").show();
         $("#weekly").hide();

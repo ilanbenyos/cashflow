@@ -1,5 +1,4 @@
 <!-- Page Content  -->
-
 <div id="content">
   <div class="container-fluid">
     <div class="white-bg">
@@ -44,22 +43,64 @@
 							</div>
 						  </div>
 						</div>--> 
-						<div class="col-md-12 col-sm-12 col-xs-12">
-						  <div class="form-group">
-							<label class="col-md-4 col-sm-4 col-xs-12">Invoice Frequency</label>
-							<div class="col-md-8 col-sm-8 col-xs-12">
-							  <select class="form-control" name="InvoiceType" id="InvoiceType" onchange="">
-								<option value="<?php echo $Vendor_details->InvoiceType; ?> "><?php echo $Vendor_details->InvoiceType; ?></option>
-								<option value="Weekly">Weekly</option>
-								<option value="Monthly">Monthly</option>
-								<option value ="Quarterly">Quarterly</option>
-								<option value="Yearly">Yearly</option>
-								<option value="PerTransaction">Per Transaction</option>
-							  </select>
-							</div>
-						  </div>
+					<div class="col-md-12 col-sm-12 col-xs-12">
+					  <div class="form-group">
+						<label class="col-md-4 col-sm-4 col-xs-12">Invoice Frequency</label>
+						<div class="col-md-8 col-sm-8 col-xs-12">
+						  <select class="form-control" name="InvoiceType" id="InvoiceType" onchange="">
+							<option value="<?php echo $Vendor_details->InvoiceType; ?> "><?php echo $Vendor_details->InvoiceType; ?></option>
+							<option value="Weekly">Weekly</option>
+							<option value="Monthly">Monthly</option>
+							<option value ="Quarterly">Quarterly</option>
+							<option value="Yearly">Yearly</option>
+							<option value="PerTransaction">Per Transaction</option>
+						  </select>
 						</div>
-						
+					  </div>
+					</div>
+					<?php if ($Vendor_details->InvoiceType == 'Weekly') { ?>
+						<div class="col-md-12 col-sm-12 col-xs-12" id="weekly" >
+		              <div class="form-group">
+		              <label class="col-md-4 col-sm-4 col-xs-12">Reminder On</label>
+		              <div class="col-md-8 col-sm-8 col-xs-12">
+		                 <select class="form-control" name="weekly_reminder" id="weekly_reminder" onchange="">
+		                  <option selected="selected" value="<?php echo $Vendor_details->ReminderOn ?>"><?php echo $Vendor_details->ReminderOn  ?></option>
+		                  <option value="Sunday">Sunday</option>
+		                  <option value="Monday">Monday</option>
+		                  <option value="Tuesday">Tuesday</option>
+		                  <option value="Wednesday">Wednesday</option>
+		                  <option value="Thursday">Thursday</option>
+		                  <option value="Friday">Friday</option>
+		                  <option value="Saturday">Saturday</option>
+		                </select> 
+		              </div>
+		              </div>
+            		</div>
+					<?php }elseif ($Vendor_details->InvoiceType == 'Monthly') { ?>
+						<div class="col-md-12 col-sm-12 col-xs-12" id="monthly" >
+		              <div class="form-group">
+		              <label class="col-md-4 col-sm-4 col-xs-12">Reminder On</label>
+		              <div class="col-md-8 col-sm-8 col-xs-12">
+		                 <div class="input-group date" data-provide="datepicker">
+		                    <input type="text" class="form-control" name="monthly_reminder" id="monthly_reminder" value="<?php echo $Vendor_details->ReminderOn ?>" />
+		                    <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+		                  </div>
+		              </div>
+		              </div>
+		            </div>
+					<?php }elseif ($Vendor_details->InvoiceType == 'Quarterly') { ?>
+						<div class="col-md-12 col-sm-12 col-xs-12" id="quartely" >
+		              <div class="form-group">
+		              <label class="col-md-4 col-sm-4 col-xs-12">Reminder On</label>
+		              <div class="col-md-8 col-sm-8 col-xs-12">
+		                <div class="input-group date" data-provide="datepicker">
+		                    <input type="text" class="form-control" name="quartely_reminder" id="quartely_reminder" value="<?php echo $Vendor_details->ReminderOn ?>"/>
+		                    <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+		                    </div>
+		              </div>
+		              </div>
+		            </div>
+					<?php } ?>
                     <div class="col-md-12 col-sm-12 col-xs-12">
 						  <div class="form-group">
 							<label class="col-md-4 col-sm-4 col-xs-12">Comments</label>
@@ -129,9 +170,32 @@
 </div>
 <!-- Modal -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-
-
+<!-- <script type="text/javascript">
+  $(document).ready(function(){
+    $("#weekly").hide();
+    $("#InvoiceType").on('change',function(){
+      var reminderValue = $("#InvoiceType").val();
+      if(reminderValue == 'Weekly'){
+        $("#weekly").show();
+        $("#monthly").hide();
+        $("#quartely").hide();
+      }else if(reminderValue == 'Monthly'){
+        $("#monthly").show();
+        $("#weekly").hide();
+        $("#quartely").hide();
+      }else if(reminderValue == 'Quarterly'){
+        $("#monthly").hide();
+        $("#weekly").hide();
+        $("#quartely").show();
+      }
+      else{
+        $("#monthly").hide();
+        $("#weekly").hide();
+        $("#quartely").hide();
+      }
+    });
+  });
+</script> -->
 <script type="text/javascript">
   (function($){
 

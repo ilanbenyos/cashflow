@@ -61,22 +61,32 @@ header { position:relative; background: #fff; }
 .navbar-bars { display: inline-block; margin-left: 0; margin-right: 0; position: absolute; left: 290px; top: 24px; z-index: 1; }
 .top-header-right { padding-top: 23px; padding-bottom: 23px; }
 .navbar-bars .navbar-toggle { background: transparent; outline: none; border: 2px solid #b9b9b9; color: #b9b9b9; font-size: 18px; cursor: pointer; display: block; padding: 0 6px; float: none; margin: 0; border-radius: 0; }
-.user-detail { float: right; position: relative; padding: 10px 30px 10px 12px; background: #20a0a7; color: #fff; }
+.user-detail, .notification-detail { float: right; position: relative; padding: 10px 30px 10px 12px; background: #20a0a7; color: #fff; }
 .user-detail a, .user-detail a:hover, .user-detail a:focus { color: #fff; text-decoration:none; }
 .user-detail a span i { padding-right: 8px; font-size: 15px; }
 .user-detail a span { position:relative; }
 .user-detail a span:after { position:absolute; content:"\f107"; top:-1px; right: -20px; font-size:14px; font-family: 'Fontawesome'; }
-.user-dropdown { position: absolute; width:100%; top: 100%; left: 0; z-index: 1000; display: none; float: left; padding: 10px 0; text-align: center; list-style: none; background-color: #fff; color:#808080; border: 1px solid #adadad; }
+.user-dropdown, .notification-dropdown { position: absolute; width:100%; top: 100%; left: 0; z-index: 1000; display: none; float: left; padding: 10px 0; text-align: center; list-style: none; background-color: #fff; color:#808080; border: 1px solid #adadad; }
 .user-dropdown a, .user-dropdown a:hover, .user-dropdown a:focus { color: #808080; text-decoration:none; }
 .user-dropdown span { display: inline-block; padding: 0 10px; border-right: 1px solid #808080; }
 .user-dropdown span:last-child { border-right: none; }
+.notification-detail { padding: 0; background: #dadada; border-radius: 22px; margin-right: 18px; margin-top: 4px; }
+.notification-detail a { color:#20a0a7; text-decoration:none; padding: 8px 11px; }
+.notification-detail a:hover, .notification-detail a:focus { text-decoration:none;  }
+.notification-detail abbr { position: absolute; right: -8px; top: -5px; background: #da0000; color: #fff; width: 18px; display: flex; height: 18px; text-align: center; font-family: 'RobotoBold'; font-size: 12px; justify-content: center; align-items: center; }
+.notification-dropdown { width: 261px; padding: 0; }
+.notification-dropdown .notification-menu, .notification-dropdown > ul.notification-menu { margin: 0 auto; padding: 0; list-style: none; text-align: left; }
+.notification-menu > li { padding: 5px 0; }
+.note-title, .btm-view-all, .btm-view-all a { text-align: center; font-family: 'RobotoMedium'; color: #000; background: #e8e8e8; padding:0; }
+.inner-menu { margin: 0 auto; padding: 6px 10px; list-style: none; text-align: left; }
+.inner-menu li a { color: #000; padding: 0; }
 /***** Sidebar CSS Style *****/
 .wrapper { display: flex; width: 100%; position:relative; }
 #sidebar { min-width: 270px; max-width: 270px; background: #2a3241; color: #fff; transition: all 0.3s; display: block; padding: 0; border-radius: 0; margin-bottom: 0; }
 #sidebar.active { margin-left: -270px; }
 .sidebar-menu { list-style: none; margin: 0; padding: 22px; }
 .sidebar-menu > li { position: relative; margin: 0; padding: 0; border-bottom: 1px dashed #9a9a9a; }
-.sidebar-menu > li.treeview.active:first-child > a { color:#fff; }
+/*.sidebar-menu > li.treeview.active:first-child > a { color:#fff; }*/
 .sidebar-menu > li.treeview::after { font-family: 'Glyphicons Halflings'; content: "\e080"; transform: rotate(90deg); display: block; position: absolute; top: 16px; right: 0; border: none; font-size: 15px; color: #9a9a9a; transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; -moz-transition: all .5s ease; }
 .sidebar-menu > li > a { padding: 18px 5px; display: block; color: #fff; font-size: 15px; transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; -moz-transition: all .5s ease; }
 .sidebar-menu li a:hover { color: #c1c81e; }
@@ -415,5 +425,9 @@ h3 { font-size: 22px; }
 @media (max-width: 360px) {
 }
 @media (max-width: 321px) {
+.user-detail { padding: 10px 22px 10px 10px; }
+.user-detail a span:after { right: -16px; }
+.notification-dropdown { width: 245px; }
+.notification-detail { margin-right: 12px; }
 .action-icons span { padding: 0 0; font-size: 20px; margin-top: -5px; }
 }
