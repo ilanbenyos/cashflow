@@ -62,7 +62,7 @@ $res = $query->result_array();
                       <div class="form-group">
                         <label class="col-md-3 col-sm-4 col-xs-12">Email</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" id="email1" placeholder="Email" name="email1" value="<?php echo $result->Email?>" readonly/>
+                          <input type="text" class="form-control" id="email1" placeholder="Email" name="email1" value="<?php echo $result->Email?>" readonly />
                         </div>
                       </div>
                     </div>
