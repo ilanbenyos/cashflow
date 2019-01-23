@@ -33,20 +33,18 @@ function popup2() {
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
 <script type="text/javascript">
 	$(document).ready(function() { 
-		$('#myModal').show();
-		 $('.close').click(function() {
-			 $('#myModal').hide();
-			 
-		 })
+$('#myModal2_popup').modal('show');
+
+	
 			 
 	});
 	</script>
- <div class="modal common-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+ <div class="modal common-modal" id="myModal2_popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content clearfix">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h2 class="modal-title">Success</h2>
+              <h2 class="modal-title">Notice</h2>
             </div>
             <div class="modal-body clearfix">
               <div class="defination-box clearfix">

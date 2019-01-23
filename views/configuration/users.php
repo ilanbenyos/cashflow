@@ -1,7 +1,8 @@
 <?php 
 defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 if (isset ( $_SESSION ['pop_mes'] )) {
-    popup2 ();
+   popup2 ();
+  //echo $_SESSION ['pop_mes'];
 }
     // to get roles
     $this->db->select('RoleId,RoleName');
@@ -107,7 +108,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         </div>
                       </div>
                     </div>
-					-->
+					-->        <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-3 col-sm-4 col-xs-12">Name</label>
@@ -154,7 +155,10 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       </div>
                     </div>
                     <div class="col-xs-12 text-center spacetop2x">
-                      <button type="submit" class="btn-submit transitions" id="user-submit">Submit</button>
+                      <div class="page-loader" style="display:none;">
+                        <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
+                      </div>
+                      <button type="button" class="btn-submit transitions" id="user-submit">Submit</button>
                       <button type="reset" class="btn-reset transitions">Reset</button>
                     </div>
                   </div>
@@ -322,7 +326,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
           $(this).css("border", "1px solid #be1622"); 
       }
         })
-  $("#addusers").click(function(){
+  $("#user-submit").click(function(){
       var returnvar = true;
       
       /*if(($("#date").val() == "") || ($("#name").val() == "") || ($("#password").val() == "") || ($("#email").val() == "") || ($("#role").val() == ""))
@@ -349,14 +353,24 @@ if (isset ( $_SESSION ['pop_mes'] )) {
            returnvar = false;
           }
           if(returnvar == true){  
+             $("#user-submit").hide();
+            $(".page-loader").show();
               $.ajax({
                 url:"<?php echo base_url ('configuration/users/createUser')?>",
                     type: "POST",
                     data : $("#addusers").serialize(),
                     dataType: "html",
                    success: function(data) {
-                        console.log(data);
-                        $("#myModal").modal('hide');
+                        if(data == 1)
+                {
+                  window.location.href = '<?php echo base_url('configuration/users') ?>';
+
+                }
+                else
+                {
+                  window.location.href = '<?php echo base_url('configuration/users') ?>';
+
+                }
                    }
                });
 

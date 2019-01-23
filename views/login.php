@@ -1,4 +1,10 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php 
+defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
+if (isset ( $_SESSION ['pop_mes'] )) {
+    popup2 ();
+}
+?>
+
 <!-- Page Content  -->
   <div class="container cntr-box">
     <div class="login-box clearfix">

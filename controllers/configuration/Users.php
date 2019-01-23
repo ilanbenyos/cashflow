@@ -30,7 +30,6 @@ class Users extends CI_Controller {
 	    {
 	        redirect('login');
 	    }
-		
 		//$this->form_validation->set_rules('date', 'Date', 'required');
 //$this->form_validation->set_rules('time', 'Date', 'required');
 		$this->form_validation->set_rules('name', 'Name', 'required');
@@ -52,7 +51,7 @@ class Users extends CI_Controller {
     	    $session_token=null;
     	    
     	    $session_token = $_SESSION['new_user'];
-    	    unset($_SESSION['new_user']);
+    	    //unset($_SESSION['new_user']);
     	    
     	    if(!empty($token) == $session_token)
     	    {
@@ -62,6 +61,7 @@ class Users extends CI_Controller {
     	        $password = $this->input->post('password');
     	        $email = $this->input->post('email');
     	        $role = $this->input->post('role');
+    	        $uid = $this->input->post('userid');
     	        
     	        $userinfo = array(
     	            
@@ -69,27 +69,17 @@ class Users extends CI_Controller {
     	            'Email' => $email,
     	            'Password' => $password,
     	            'CreatedOn' => $date.$time,
-    	            'RoleId' => $role
+    	            'RoleId' => $role,
+    	            'CreatedBy' => $uid
     	        );
     	        $user = $this->db->insert('usermaster',$userinfo);
-    	        //$user=$this->all_model->create_user($date,$name,$password,$email,$role);
-    	        if($user)
-    	        {
-    	            // set session user datas
-    	            $_SESSION['RoleId']      = (int)$user->RoleId;
-    	            $_SESSION['rolename']     = (string)$user->RoleName;
-    	            $_SESSION['logged_in']    = (bool)true;
-    	            //$_SESSION['is_active']     = (bool)$user->Active;
-    	            $_SESSION['user_role']     = (string)$user->user_role;
-    	            redirect('users');
-    	        }
-    	        else
-    	        {
-    	            $_SESSION ['pop_mes'] = "User Not Saved";
-    	            popup2();
-    	        }
+    	        
+    	           $_SESSION['pop_mes'] = "User Added Successfully."; 
+    	           return 1;
+    	        
     	    }else{
-    	        redirect('configuratopn/users');
+    	        $_SESSION['pop_mes'] = "Token does not matched.";
+    	            return 1;
     	    }
     			
     	}
@@ -144,10 +134,12 @@ class Users extends CI_Controller {
 	        $this->db->where('UserID',$userid);
 	        $this->db->update('usermaster',$userinfo);
 	        //print_r($this->db->last_query());exit();
-	        $_SESSION ['pop_mes'] = "User data Saved";
-	        popup2();
+	        $_SESSION['pop_mes'] = "User data Saved.";
+	        return 1;
+	        //redirect('configuration/users');
 	    }else{
-	        redirect('configuration/users');
+	    	$_SESSION['pop_mes'] = "Token does not matched.";
+	       return 1;
 	    }
 	        
 	   // }

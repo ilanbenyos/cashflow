@@ -9,7 +9,7 @@ class Login extends CI_Controller {
 		$this->load->helper('url_helper');
 		$this->load->helper(array('url'));
 		$this->load->model('all_model');
-
+		$this->load->helper('prodconfig');
 	}
 
 	public function index()
@@ -32,7 +32,8 @@ class Login extends CI_Controller {
 			if($resolvelogin = $this->all_model->user_login($username, $password))
 			{	
 					// set session user data
-					$_SESSION['userid']     = (int)$resolvelogin->Name;
+
+					$_SESSION['userid']     = (int)$resolvelogin->UserID;
 					$_SESSION['user_email']     = (string)$resolvelogin->Email;
 					$_SESSION['user_name']     = (string)$resolvelogin->Name;
 					$_SESSION['logged_in']    = (bool)true;
@@ -42,7 +43,7 @@ class Login extends CI_Controller {
 
 					if($_SESSION['user_role'] == "Admin" )
 					{
-						redirect('configuration/roles');
+						redirect('configuration/users');
 					}elseif ($_SESSION['user_role'] == "CEO" ) {
 						redirect('reports');
 					}
@@ -50,11 +51,12 @@ class Login extends CI_Controller {
 			else
 			{
 				$_SESSION['pop_mes'] = "Invalid Username & Password";
-				popup2();
+				/*popup2();
 				$data['title'] = "Login";
 				$this->load->view('templates/before-login-header.php',$data);
 				$this->load->view('login');
-				$this->load->view('templates/footer');
+				$this->load->view('templates/footer');*/
+				redirect('login');
 			}
 		}
 	}

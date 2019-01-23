@@ -88,6 +88,9 @@ $res = $query->result_array();
                       </div>
                     </div>
                     <div class="col-xs-12 text-center spacetop2x">
+                      <div class="page-loader" style="display:none;">
+                        <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
+                      </div>
                       <button type="button" class="btn-submit transitions" id="edit-submit">Submit</button>
                       <button type="reset" class="btn-reset transitions">Reset</button>
                     </div>
@@ -203,7 +206,9 @@ $res = $query->result_array();
            $("#role1").css("border", "1px solid #be1622");
            returnvar = false;
           }
-          if(returnvar == true){  
+          if(returnvar == true){ 
+           $("#edit-submit").hide();
+            $(".page-loader").show(); 
               $.ajax({
                 url:"<?php echo base_url ('configuration/users/editUserdata/')?><?php echo $result->UserID ?>",
                     type: "POST",
@@ -211,8 +216,17 @@ $res = $query->result_array();
                     dataType: "html",
                    success: function(data) {
              		//$("#edit_users").hide();
-                	   location.href = "<?php //echo base_url('configuration/users')?>"
-                    	   console.log(data);
+                if(data == 1)
+                {
+                  window.location.href = '<?php echo base_url('configuration/users') ?>';
+
+                }
+                else
+                {
+                  window.location.href = '<?php echo base_url('configuration/users') ?>';
+
+                }
+                	   
                    }
                });
 
