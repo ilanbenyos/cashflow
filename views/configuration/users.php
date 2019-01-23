@@ -14,6 +14,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
     $this->db->select('u.UserID,u.Email,u.Name,u.Password,u.RoleId,r.RoleName');
     $this->db->from('usermaster u');
     $this->db->join('rolemaster r', 'r.RoleId = u.RoleId');
+    $this->db->order_by ( "u.CreatedOn", "desc" );
 
     $users = $this->db->get();
     $users = $users->result_array();
