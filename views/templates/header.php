@@ -4,15 +4,15 @@
 <title>Cash Flow</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="<?= base_url('application/assets/favicon.ico')?>" type="image/x-icon">
-<link rel="icon" href="<?= base_url('application/assets/favicon.ico')?>" type="image/x-icon">
+<link rel="shortcut icon" href="<?= base_url('assets/favicon.ico')?>" type="image/x-icon">
+<link rel="icon" href="<?= base_url('assets/favicon.ico')?>" type="image/x-icon">
 <!--------------- Bootstrap CSS --------------->
-<link rel="stylesheet" href="<?= base_url('application/assets/css/bootstrap.min.css') ?>">
-<link rel="stylesheet" href="<?= base_url('application/assets/css/datepicker.css') ?>">
+<link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>">
+<link rel="stylesheet" href="<?= base_url('assets/css/datepicker.css') ?>">
 <!------------- Common Stylesheet ------------->
-<link rel="stylesheet" href="<?= base_url('application/assets/css/style.css') ?>">
-<link rel="stylesheet" href="<?= base_url('application/assets/css/SidebarNav.min.css')?>">
-<link rel="stylesheet" href="<?= base_url('application/assets/css/font-awesome.min.css') ?>">
+<link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+<link rel="stylesheet" href="<?= base_url('assets/css/SidebarNav.min.css')?>">
+<link rel="stylesheet" href="<?= base_url('assets/css/font-awesome.min.css') ?>">
 </head>
 
 <body>
@@ -20,7 +20,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 no-padding relative">
-        <div class="logo"> <a href="/"><img class="aligncenter img-responsive" src="<?= base_url('application/assets/images/logo.png')?>"></a></div>
+        <div class="logo"> <a href="/"><img class="aligncenter img-responsive" src="<?= base_url('assets/images/logo.png')?>"></a></div>
         <div class="navbar-bars">
           <button type="button" id="sidebarCollapse" class="navbar-toggle"><i class="fa fa-bars" aria-hidden="true"></i></button>
         </div>
