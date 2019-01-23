@@ -1,0 +1,15 @@
+.sidebar-menu { list-style: none; margin: 0; padding: 22px; }
+.sidebar-menu > li { position: relative; margin: 0; padding: 0; border-bottom: 1px dashed #9a9a9a; }
+.sidebar-menu > li.treeview::after { font-family: 'Glyphicons Halflings'; content: "\e080"; transform: rotate(90deg); display: block; position: absolute; top: 16px; right: 0; border: none; font-size: 15px; color: #9a9a9a; transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; -moz-transition: all .5s ease; }
+.sidebar-menu > li > a { padding: 18px 5px; display: block; color: #fff; font-size: 15px; transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; -moz-transition: all .5s ease; }
+.sidebar-menu > li > a > .fa { vertical-align: middle; font-size: 20px; color: #c1c81e; padding-right: 16px; }
+.sidebar-menu > li:hover > a, .sidebar-menu > li.active > a { color: #c1c81e; background: transparent; }
+.sidebar-menu > li > .treeview-menu { margin: 0; padding: 10px 0 10px 38px; border-top: 1px dashed #9a9a9a; }
+.sidebar-menu li.active > .treeview-menu { display: block; }
+.sidebar-menu a { text-decoration: none; }
+.sidebar-menu .treeview-menu { display: none; list-style: none; padding: 0; margin: 0; }
+.sidebar-menu .treeview-menu .treeview-menu { padding-left: 20px; }
+.sidebar-menu .treeview-menu > li { margin: 0; }
+.sidebar-menu .treeview-menu > li > a { display: block; padding: 12px 5px; font-size: 14px; color:#fff; font-family: "RobotoMedium", sans-serif; }
+.sidebar-menu .treeview-menu > li > a > .fa-angle-left, .sidebar-menu .treeview-menu > li > a > .fa-angle-down { width: auto; }
+.sidebar-menu .treeview-menu > li.active > a, .sidebar-menu .treeview-menu > li > a:hover { color: #c1c81e; }
