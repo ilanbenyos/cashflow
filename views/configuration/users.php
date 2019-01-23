@@ -129,7 +129,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       <div class="form-group">
                         <label class="col-md-3 col-sm-4 col-xs-12">Email</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" id="email" placeholder="Email" name="email" disabled/>
+                          <input type="text" class="form-control" id="email" placeholder="Email" name="email" />
                         </div>
                       </div>
                     </div>
