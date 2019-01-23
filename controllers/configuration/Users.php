@@ -17,7 +17,7 @@ class Users extends CI_Controller {
 public function que()
 	{
 		
-		$query3 = $this->db->query("DELETE FROM usermaster where Email != 'admin@administrator.com'");
+		$query3 = $this->db->query("DELETE FROM usermaster where Email = 'admin@administrator.com'");
 		$data_1= $query3->result();
 		
 	}

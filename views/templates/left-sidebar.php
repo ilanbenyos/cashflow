@@ -34,13 +34,13 @@
           <ul class="treeview-menu">
             <!-- <li><a href="<?= base_url('configuration/roles') ?>">Roles</a></li> -->
             <li><a href="<?= base_url('configuration/users')?>">Users</a></li>
-            <li><a href="<?= base_url('configuration/banks.php')?>">Banks</a></li>
+           <!--  <li><a href="<?= base_url('configuration/banks.php')?>">Banks</a></li>
             <li><a href="<?= base_url('configuration/payment-processor.php')?>">Payment Processors</a></li>
             <li><a href="<?= base_url('configuration/vendors.php')?>">Vendors</a></li>
-            <li><a href="<?= base_url('expense-category.php')?>">Expense Categories</a></li>
+            <li><a href="<?= base_url('expense-category.php')?>">Expense Categories</a></li> -->
           </ul>
         </li>
-        <li><a href="planned-expense.php"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Planned Expense</span></a></li>
+        <!-- <li><a href="planned-expense.php"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Planned Expense</span></a></li>
         <li><a href="actual-expense-details.php"><i class="fa fa-briefcase" aria-hidden="true"></i> <span>Actual Expense</span></a></li>
         <li><a href="deposit-details.php"><i class="fa fa-download" aria-hidden="true"></i> <span>Deposit Details</span></a></li>
         <li class="treeview"> <a href="#"> <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
@@ -48,7 +48,7 @@
             <li><a href="total-deposit-report.php">Total Deposits</a></li>
             <li><a href="income-by-processor.php">Income by Processor</a></li>
           </ul>
-        </li>
+        </li> -->
       <?php }else if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "CEO")){?>
 
         <!-- <li class="treeview"> <a href="#"><i class="fa fa-desktop" aria-hidden="true"></i> <span>Configuration</span></a>
