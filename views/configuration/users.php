@@ -1,0 +1,382 @@
+<?php 
+defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
+if (isset ( $_SESSION ['pop_mes'] )) {
+    popup2 ();
+}
+    // to get roles
+    $this->db->select('RoleId,RoleName');
+    $this->db->from('rolemaster');
+    $query = $this->db-> get();
+    $res = $query->result_array();
+
+    // to show users
+    $this->db->select('u.UserID,u.Email,u.Name,u.Password,u.RoleId,r.RoleName');
+    $this->db->from('usermaster u');
+    $this->db->join('rolemaster r', 'r.RoleId = u.RoleId');
+
+    $users = $this->db->get();
+    $users = $users->result_array();
+    
+    //get user data
+    $this->db->select('*');
+    $this->db->from('usermaster');
+    $this->db->where('Email',$_SESSION['user_email']);
+    $getusers = $this->db->get();
+    $getusers = $getusers->result_array();
+
+?>
+<!-- Page Content  -->
+  <div id="content">
+    <div class="container-fluid">
+      <h1>Users</h1>
+      <div class="white-bg">
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <div class="add-icon-box"><a data-toggle="modal" data-target="#myModal" href="#"><span class="plus-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>Add New Users</a></div>
+          </div>
+          <div class="col-md-12">
+            <div class="table-responsive common-table">
+              <table class="table table-hover" cellpadding="0" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Priviledges</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                  <?php foreach ($users as $user) { ?>
+                     <tr>
+                        <td><?php echo $user['Name']; ?></td>
+                        <td><?php echo $user['Email']; ?></td>
+                        <td><?php echo $user['Password']; ?></td>
+                        <td><?php echo $user['RoleName']; ?></td>
+                        <!-- <a class="td-link deposit_detailsuu" data-action="' + value_5 + '">' + full.acc + '</a> -->
+                        <td><a class="grey-icon edit_user" id="euser<?php echo $user['UserID']?>" data-toggle="modal" data-target="#myModal1" data-action="<?php echo base_url('configuration/users/editUser/')?><?php echo $user['UserID']?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                     </tr>
+                  <?php }?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Button trigger modal --> 
+      <!-- Modal -->
+      <div class="modal common-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content clearfix">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h2 class="modal-title">Add New Users</h2>
+            </div>
+            <div class="modal-body clearfix">
+              <div class="defination-box clearfix">
+                <form class="form-horizontal clearfix" id="addusers" method="post" autocomplete="off">
+                <?= form_open()?>
+                    <?php 	
+                    $token = md5(uniqid(rand(), TRUE));
+                    if(isset ($_SESSION['new_user']))
+                    {
+                     unset($_SESSION['new_user']);
+                   }
+                   $_SESSION['new_user'] = $token;
+                   ?>
+                   <input type="hidden" name="user_details" value="<?php echo $token;?>">
+                  <div class="row clearfix">
+                    <!--<div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-3 col-sm-4 col-xs-12">Date</label>
+                        <div class="col-md-9 col-sm-8 col-xs-12">
+                          <div class="input-group date" data-provide="datepicker">
+                            <input type="text" class="form-control" placeholder="Date" id="date" name="date"/>
+                            <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+					
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-3 col-sm-4 col-xs-12">Time</label>
+                        <div class="col-md-9 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" id="time" placeholder="Time" name="time"/>
+                        </div>
+                      </div>
+                    </div>
+					-->
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-3 col-sm-4 col-xs-12">Name</label>
+                        <div class="col-md-9 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" id="name" placeholder="Name" name="name"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-3 col-sm-4 col-xs-12">Password</label>
+                        <div class="col-md-9 col-sm-8 col-xs-12">
+                          <input type="password" class="form-control" id="password" placeholder="Password" name="password"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-3 col-sm-4 col-xs-12">Email</label>
+                        <div class="col-md-9 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" id="email" placeholder="Email" name="email"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-3 col-sm-4 col-xs-12">Role</label>
+                        <div class="col-md-9 col-sm-8 col-xs-12">
+                          <select class="form-control" name="role" id="role" onchange="" name="role">
+                            <?php foreach ($res as $role) { ?>
+                            <option value="<?php echo $role['RoleId']; ?>"><?php echo $role['RoleName']; ?></option>      
+                                  <?php   } ?>
+                            <!-- <option selected="">Admin</option>
+                            <option>CEO</option>
+                            <option>Book Keeper</option> -->
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="row">
+                        <div class="col-md-3 col-sm-4 col-xs-12"><strong>Associated Priviledges</strong></div>
+                        <div class="col-md-9 col-sm-8 col-xs-12">Maintain Bank Details, Maintain PSP, Maintain Expense Categories, Maintain Planned Expense, Maintain Actual Expense, Reports.</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 text-center spacetop2x">
+                      <button type="submit" class="btn-submit transitions" id="user-submit">Submit</button>
+                      <button type="reset" class="btn-reset transitions">Reset</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!--edit user modal starts  -->
+      <div class="modal common-modal" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content clearfix">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h2 class="modal-title">Edit Users</h2>
+            </div>
+            <div class="modal-body">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--edit user modal ends  -->
+    </div>
+  </div>
+  <!-- Modal -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  $( function() {
+    var $datepicker = $('#date');
+    $datepicker.datepicker();
+    $datepicker.datepicker('setDate', new Date());
+  } );
+   $(document).ready(function() {
+  	var today = new Date();
+  	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  	$("#time").val(time);
+      });
+ </script>
+ <script>
+  $(document).ready(function(){
+
+    function IsPassword(password)
+      {
+          var regex = /^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,20}$/;
+          return regex.test(password);
+      }
+      function IsEmail(email) 
+      {
+          var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+          return regex.test(email);
+      }
+    /*function IsPassword(password)
+      {
+          var regex = /^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,20}$/;
+          return regex.test(password);
+      }
+      function IsEmail(email) 
+      {
+          var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+          return regex.test(email);
+      }
+      $('#name').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
+      $('#email').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        {
+          if(!IsEmail($(this).val())){
+            $(this).css("border", "1px solid #be1622");
+            }
+          else {
+              $(this).css("border", "1px solid #CCCCCC");
+            }
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
+      $('#password').on('blur', function() {
+            $(this).css("border", "1px solid #CCCCCC");
+              if($(this).val()!="")
+        {
+          if(!IsPassword($(this).val())){
+            $(this).css("border", "1px solid #be1622");
+          }
+        else {
+                $(this).css("border", "1px solid #CCCCCC");
+              }
+        }
+        else if($(this).val()=="") {
+          $(this).css("border", "1px solid #be1622"); 
+      }
+        })*/
+  });
+
+</script>
+<script type="text/javascript">
+  (function($){
+    function IsPassword(password)
+      {
+          var regex = /^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,20}$/;
+          return regex.test(password);
+      }
+      function IsEmail(email) 
+      {
+          var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+          return regex.test(email);
+      }
+      $('#name').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
+      $('#email').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        {
+          if(!IsEmail($(this).val())){
+            $(this).css("border", "1px solid #be1622");
+            }
+          else {
+              $(this).css("border", "1px solid #CCCCCC");
+            }
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
+      $('#password').on('blur', function() {
+            $(this).css("border", "1px solid #CCCCCC");
+              if($(this).val()!="")
+        {
+          if(!IsPassword($(this).val())){
+            $(this).css("border", "1px solid #be1622");
+          }
+        else {
+                $(this).css("border", "1px solid #CCCCCC");
+              }
+        }
+        else if($(this).val()=="") {
+          $(this).css("border", "1px solid #be1622"); 
+      }
+        })
+  $("#addusers").click(function(){
+      var returnvar = true;
+      
+      /*if(($("#date").val() == "") || ($("#name").val() == "") || ($("#password").val() == "") || ($("#email").val() == "") || ($("#role").val() == ""))
+      {
+        returnvar = false;
+       
+      }
+     alert(returnvar);
+      return returnvar;*/
+      if($("#name").val() ==""){
+           $("#name").css("border", "1px solid #be1622");           
+           returnvar = false;
+          }
+          if(!IsEmail($("#email").val())){
+            $("#email").css("border", "1px solid #be1622");
+            returnvar = false;
+          }
+          if(!IsPassword($("#password").val())){
+           $("#password").css("border", "1px solid #be1622");
+           returnvar = false;
+          }
+          if($("#role").val()==""){                  
+           $("#role").css("border", "1px solid #be1622");
+           returnvar = false;
+          }
+          if(returnvar == true){  
+              $.ajax({
+                url:"<?php echo base_url ('configuration/users/createUser')?>",
+                    type: "POST",
+                    data : $("#addusers").serialize(),
+                    dataType: "html",
+                   success: function(data) {
+                        console.log(data);
+                        $("#myModal").modal('hide');
+                   }
+               });
+
+     }  
+     return returnvar;
+      });
+})(jQuery);
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$(document).on('click', '.edit_user', function() {
+	var today = new Date();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	$("#time").val(time);
+	//$('.edit_user').click(function(event) {
+    var load_data2 = $(this).attr('data-action');
+           $("#myModal1 .modal-body").load( load_data2 );
+           //$("#myModal1").modal('show');
+   
+    });
+});
+
+</script>
