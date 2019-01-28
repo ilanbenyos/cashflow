@@ -96,7 +96,7 @@
 					                <select class="form-control" name="Status" id="Status">
 									<option value="<?php echo $Vendor_details->Active; ?> "><?php if($Vendor_details->Active ==1) { echo "Active" ;}else{ echo "Disable"; }?></option>
 									<option value="1">Active</option>      
-									<option value="0">Disable</option>      
+									<option value="0">Disabled</option>      
 								</select>
 								</div>
 							</div>

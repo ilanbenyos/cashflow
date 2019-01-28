@@ -117,7 +117,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Current Rolling Reserve</label>
+                        <label class="col-md-3 col-sm-4 col-xs-12">CRR</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
                           <input type="text" class="form-control" name="crc" id="crc" placeholder="Current Rolling Reserve" />
                         </div>
@@ -127,7 +127,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       <div class="form-group">
                         <label class="col-md-3 col-sm-4 col-xs-12">Commision</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="commision" id="commision" placeholder="Commision" />
+                          <input type="text" class="form-control" name="commision" id="commision" placeholder="Commision in %" />
                         </div>
                       </div>
                     </div>

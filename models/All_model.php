@@ -52,17 +52,17 @@ class All_model extends CI_Model {
 	    return $this->db->get ()->result ();
 	}
 	public function get_vendor_details(){
-	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Amount,v.BankName,c.Category,v.Active ' );
+	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Amount,v.BankName,v.Active ' );
 	    $this->db->from ( 'vendormaster v' );
-		$this->db->join('expcategory c', 'v.CategoryId=c.CatId');
+		//$this->db->join('expcategory c', 'v.CategoryId=c.CatId');
 		$this->db->order_by('v.Active','DESC');
 		$this->db->order_by('v.VendorId','DESC');
 	    return $this->db->get ()->result();
 	}
 	public function get_vendor_details_byid($id){
-	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Amount,c.Category,v.CategoryId,v.Active,v.Comments ,b.BankName,v.BankName as BankID' );
+	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Amount,v.CategoryId,v.Active,v.Comments ,b.BankName,v.BankName as BankID' );
 	    $this->db->from ( 'vendormaster v' );
-		$this->db->join('expcategory c', 'v.CategoryId=c.CatId');
+		//$this->db->join('expcategory c', 'v.CategoryId=c.CatId');
 		$this->db->join('bankmaster b', 'v.BankName=b.BankId');
 		$this->db->where('v.VendorId',$id);
 	    return $this->db->get ()->row();
@@ -88,7 +88,7 @@ class All_model extends CI_Model {
 		return $this->db->get ()->result();
 	}
 	public function get_psp($id){
-		$this->db->select('p.PspId,p.PspName,p.BankId,p.Comments,p.Active,b.BankName,b.BankId');
+		$this->db->select('p.PspId,p.PspName,p.BankId,p.Comments,p.Active,b.BankName,b.BankId,p.PspType,p.PayTerm,p.Commission,p.Crr');
 		$this->db->from('pspmaster p');
 		$this->db->join('bankmaster b','b.BankId = p.BankId');
 		$this->db->where('PspId',$id);

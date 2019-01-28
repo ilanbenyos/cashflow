@@ -45,7 +45,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       <div class="form-group">
                         <label class="col-md-3 col-sm-4 col-xs-12">PSP Type</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="psp_type1" id="psp_type1" placeholder="PSP Type" />
+                          <input type="text" class="form-control" name="psp_type1" id="psp_type1" value="<?php echo $getpsp->PspType; ?>" placeholder="PSP Type" />
                         </div>
                       </div>
                     </div>
@@ -53,15 +53,15 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       <div class="form-group">
                         <label class="col-md-3 col-sm-4 col-xs-12">Payment Terms</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="payment_terms1" id="payment_terms1" placeholder="payment Terms" />
+                          <input type="text" class="form-control" name="payment_terms1" id="payment_terms1" value="<?php echo $getpsp->PayTerm; ?>" placeholder="payment Terms" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Current Rolling Reserve</label>
+                        <label class="col-md-3 col-sm-4 col-xs-12">CRR</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="crc1" id="crc1" placeholder="Current Rolling Reserve" />
+                          <input type="text" class="form-control" name="crc1" id="crc1" value="<?php echo $getpsp->Crr; ?>" placeholder="Current Rolling Reserve" />
                         </div>
                       </div>
                     </div>
@@ -69,7 +69,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       <div class="form-group">
                         <label class="col-md-3 col-sm-4 col-xs-12">Commision</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="commision1" id="commision1" placeholder="Commision" />
+                          <input type="text" class="form-control" name="commision1" id="commision1" value="<?php echo $getpsp->Commission; ?>" placeholder="Commision in %" />
                         </div>
                       </div>
                     </div>
@@ -99,7 +99,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
                       </div>
                       <button type="button" class="btn-submit transitions" id="editPsp_submit">Submit</button>
-                      <button type="reset" class="btn-reset transitions">Reset</button>
+                      <a href="<?= base_url('configuration/payment_processor');?>" class="btn-reset transitions" >Cancel</a>
                     </div>
                   </div>
                 </form>

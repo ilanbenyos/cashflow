@@ -69,7 +69,11 @@ public function que()
     	        $Amount = $this->input->post('Amount');
     	        $sBankName = $this->input->post('BankName');
 				$Status= $this->input->post('Status');
-				$Comments= $this->input->post('Comments');
+				if(	$this->input->post('Comments') 	!= ""){
+						$Comments= $this->input->post('Comments');
+				}else{ 
+				$Comments=" ";
+				}
     	        $aVendorInfo = array(
     	            
     	            'VendorName' => $sVname,
@@ -83,6 +87,7 @@ public function que()
     	        );
 					
     	        $user = $this->db->insert('vendormaster',$aVendorInfo);
+				
                 $_SESSION['pop_mes'] = "VendorInfo Added Successfully."; 
     	       redirect('configuration/vendors');
     	    }else{
