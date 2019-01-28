@@ -81,6 +81,17 @@ $res = $query->result_array();
                         </div>
                       </div>
                     </div>
+				<div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-3 col-sm-4 col-xs-12">Status</label>
+                        <div class="col-md-9 col-sm-8 col-xs-12">
+                          <select class="form-control" id="status" onchange="" name="status">
+				      <option selected="selected" value="<?php echo $result->Active; ?>"><?php if( $result->Active == "1"){ echo "Active";}else{ echo "Deactive";}?> </option>
+				      <option value="<?php if( $result->Active== "1"){ echo "0";}else{ echo "1";}?>"><?php if( $result->Active == "1"){ echo "Deactive";}else{ echo "Active";}?> </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="row">
                         <div class="col-md-3 col-sm-4 col-xs-12"><strong>Associated Priviledges</strong></div>

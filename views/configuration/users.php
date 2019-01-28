@@ -11,7 +11,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
     $res = $query->result_array();
 
     // to show users
-    $this->db->select('u.UserID,u.Email,u.Name,u.Password,u.RoleId,r.RoleName');
+    $this->db->select('u.UserID,u.Email,u.Active,u.Name,u.Password,u.RoleId,r.RoleName');
     $this->db->from('usermaster u');
     $this->db->join('rolemaster r', 'r.RoleId = u.RoleId');
     $this->db->order_by ( "u.CreatedOn", "desc" );
@@ -45,6 +45,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     <th>Email</th>
                     <th>Password</th>
                     <th>Priviledges</th>
+				<th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -56,6 +57,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <td><?php echo $user['Email']; ?></td>
                         <td><?php echo $user['Password']; ?></td>
                         <td><?php echo $user['RoleName']; ?></td>
+				    <td><?php if($user['Active'] == "1" ){ echo '<b class= "btn-submit" >Active</b>' ; }else{ echo  '<b class= "btn-reset" style="margin-left: 0px;">Deactive</b>' ;} ?></td>
                         <!-- <a class="td-link deposit_detailsuu" data-action="' + value_5 + '">' + full.acc + '</a> -->
                         <td><a class="grey-icon edit_user" id="euser<?php echo $user['UserID']?>" data-toggle="modal" data-target="#myModal1" data-action="<?php echo base_url('configuration/users/editUser/')?><?php echo $user['UserID']?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                      </tr>
@@ -147,6 +149,17 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                             <option>Book Keeper</option> -->
                           </select>
                         </div>
+                      </div>
+                    </div>
+				<div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-3 col-sm-4 col-xs-12">Status</label>
+                        <div class="col-md-9 col-sm-8 col-xs-12">
+					<select class="form-control" name="status" id="status">
+                            <option value="1">Active</option>      
+                            <option value="0">Deactive</option>      
+                          </select>
+                       </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">

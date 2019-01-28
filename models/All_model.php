@@ -28,7 +28,7 @@ class All_model extends CI_Model {
 		return $this->db->get()->row();
 	}
 	public function get_user_details($id){
-	    $this->db->select ( 'DATE_FORMAT(CreatedOn,"%d/%m/%Y") as date, DATE_FORMAT(CreatedOn,"%h:%i:%s") as time ,`UserID`, `Name`, `Email`, `Password`, `RoleId`' );
+	    $this->db->select ( 'DATE_FORMAT(CreatedOn,"%d/%m/%Y") as date, DATE_FORMAT(CreatedOn,"%h:%i:%s") as time ,`UserID`, `Name`, `Email`, `Password`, `RoleId`,`Active`' );
 	    
 	    $this->db->from ( 'usermaster' );
 	    $this->db->where ( 'UserID', $id );

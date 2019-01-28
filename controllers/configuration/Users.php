@@ -17,9 +17,10 @@ class Users extends CI_Controller {
 public function que()
 	{
 		
-		$query3 = $this->db->query("DELETE FROM usermaster where Email = 'admin@administrator.com'");
+		$query3 = $this->db->query("select * from usermaster limit 1");
 		$data_1= $query3->result();
-		
+		echo '<pre/>';
+		print_r($data_1);
 		
 	}
 
@@ -47,7 +48,7 @@ public function que()
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
 		$this->form_validation->set_rules('email', 'Email', 'required');
 		$this->form_validation->set_rules('role', 'Role', 'required');
-    		
+    	$this->form_validation->set_rules('status', 'status', 'required');	
     	if($this->form_validation->run() === FALSE)
     	{	
     		$data['title'] = 'Add New User';
@@ -73,7 +74,7 @@ public function que()
     	        $email = $this->input->post('email');
     	        $role = $this->input->post('role');
     	        $uid = $this->input->post('userid');
-    	        
+    	        $status = $this->input->post('status');
     	        $userinfo = array(
     	            
     	            'Name' => $name,
@@ -81,7 +82,8 @@ public function que()
     	            'Password' => $password,
     	            'CreatedOn' => $date.$time,
     	            'RoleId' => $role,
-    	            'CreatedBy' => $uid
+    	            'CreatedBy' => $uid,
+					'Active' => $status
     	        );
     	        $user = $this->db->insert('usermaster',$userinfo);
     	        
@@ -133,14 +135,15 @@ public function que()
 	        $password = $this->input->post('password1');
 	        $email = $this->input->post('email1');
 	        $role = $this->input->post('role1');
-	        
+	        $status = $this->input->post('status');
 	        $userinfo = array(
 	            
 	            'Name' => $name,
 	            'Email' => $email,
 	            'Password' => $password,
 	            'CreatedOn' => $date.$time,
-	            'RoleId' => $role
+	            'RoleId' => $role,
+				'Active' => $status
 	        );
 	        $this->db->where('UserID',$userid);
 	        $this->db->update('usermaster',$userinfo);
