@@ -38,7 +38,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
           </div>
           <div class="col-md-12">
             <div class="table-responsive common-table">
-              <table class="table table-hover" cellpadding="0" cellspacing="0">
+              <table id="tabledata" class="table table-hover" cellpadding="0" cellspacing="0">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -57,7 +57,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <td><?php echo $user['Email']; ?></td>
                         <td><?php echo $user['Password']; ?></td>
                         <td><?php echo $user['RoleName']; ?></td>
-				    <td><?php if($user['Active'] == "1" ){ echo '<b class= "btn-submit" >Active</b>' ; }else{ echo  '<b class= "btn-reset" style="margin-left: 0px;">Deactive</b>' ;} ?></td>
+				    <td><?php if($user['Active'] == "1" ){ echo '<span class="completed bold">Active</span>' ; }else{ echo  '<span class="pending bold">Disable</span>' ;} ?></td>
                         <!-- <a class="td-link deposit_detailsuu" data-action="' + value_5 + '">' + full.acc + '</a> -->
                         <td><a class="grey-icon edit_user" id="euser<?php echo $user['UserID']?>" data-toggle="modal" data-target="#myModal1" data-action="<?php echo base_url('configuration/users/editUser/')?><?php echo $user['UserID']?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                      </tr>
@@ -151,23 +151,23 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         </div>
                       </div>
                     </div>
-				<div class="col-md-6 col-sm-6 col-xs-12">
+				            <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-3 col-sm-4 col-xs-12">Status</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
-					<select class="form-control" name="status" id="status">
+					                <select class="form-control" name="status" id="status">
                             <option value="1">Active</option>      
-                            <option value="0">Deactive</option>      
+                            <option value="0">Disable</option>      
                           </select>
                        </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!--<div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="row">
                         <div class="col-md-3 col-sm-4 col-xs-12"><strong>Associated Priviledges</strong></div>
                         <div class="col-md-9 col-sm-8 col-xs-12">Maintain Bank Details, Maintain PSP, Maintain Expense Categories, Maintain Planned Expense, Maintain Actual Expense, Reports.</div>
                       </div>
-                    </div>
+                    </div>-->
                     <div class="col-xs-12 text-center spacetop2x">
                       <div class="page-loader" style="display:none;">
                         <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
@@ -207,11 +207,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-  $( function() {
-    var $datepicker = $('#date');
-    $datepicker.datepicker();
-    $datepicker.datepicker('setDate', new Date());
-  } );
+ 
    $(document).ready(function() {
   	var today = new Date();
   	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();

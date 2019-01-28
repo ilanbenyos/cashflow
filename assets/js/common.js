@@ -1,5 +1,47 @@
-// Dropdown & Sidebar push
+$('#addbankform').validate({ // initialize the plugin
+	
+        rules: {
+            BankName: {
+                required: true,
+                minlength: 3
+            },
+            BranchName: {
+                required: true,
+                minlength: 5
+            },
+			BankDesc: {
+                required: true,
+                minlength: 20
+            },
+			BankAccountNumber: {
+                required: true,
+                minlength: 10
+            },
+			Currency: {
+                required: true
+            },
+			SwiftCode: {
+                required: true,
+				minlength: 4
+            },
+			Status: {
+                required: true
+            }
+        },
+        submitHandler: function (form) { // for demo
+            $("#addbankbtn").hide();
+            $(".page-loader").show();
+            form.submit();
+        }
+    });
 $(document).ready(function(){
+	
+	
+	var $datepicker = $('#date');
+    $datepicker.datepicker();
+    $datepicker.datepicker('setDate', new Date());
+	
+	
         // Show hide popover
         $(".user-detail").click(function(){
             $(this).find(".user-dropdown").slideToggle("fast");

@@ -86,24 +86,24 @@ $res = $query->result_array();
                         <label class="col-md-3 col-sm-4 col-xs-12">Status</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
                           <select class="form-control" id="status" onchange="" name="status">
-				      <option selected="selected" value="<?php echo $result->Active; ?>"><?php if( $result->Active == "1"){ echo "Active";}else{ echo "Deactive";}?> </option>
-				      <option value="<?php if( $result->Active== "1"){ echo "0";}else{ echo "1";}?>"><?php if( $result->Active == "1"){ echo "Deactive";}else{ echo "Active";}?> </option>
+				      <option selected="selected" value="<?php echo $result->Active; ?>"><?php if( $result->Active == "1"){ echo "Active";}else{ echo "Disable";}?> </option>
+				      <option value="<?php if( $result->Active== "1"){ echo "0";}else{ echo "1";}?>"><?php if( $result->Active == "1"){ echo "Disable";}else{ echo "Active";}?> </option>
                           </select>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!--<div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="row">
                         <div class="col-md-3 col-sm-4 col-xs-12"><strong>Associated Priviledges</strong></div>
                         <div class="col-md-9 col-sm-8 col-xs-12">Maintain Bank Details, Maintain PSP, Maintain Expense Categories, Maintain Planned Expense, Maintain Actual Expense, Reports.</div>
                       </div>
-                    </div>
+                    </div>-->
                     <div class="col-xs-12 text-center spacetop2x">
                       <div class="page-loader" style="display:none;">
                         <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
                       </div>
                       <button type="button" class="btn-submit transitions" id="edit-submit">Submit</button>
-                      <button type="reset" class="btn-reset transitions">Reset</button>
+                      <button data-dismiss="modal" class="btn-reset transitions">Cancel</button>
                     </div>
                   </div>
                 </form>

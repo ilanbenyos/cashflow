@@ -34,4 +34,65 @@ class All_model extends CI_Model {
 	    $this->db->where ( 'UserID', $id );
 	    return $this->db->get ()->row ();
 	}
+	
+	public function getbankData($table,$columns,$wherecol,$id){
+	    $this->db->select ( $columns);
+	    
+	    $this->db->from ( $table );
+		$this->db->where($wherecol,$id);
+	    return $this->db->get ()->row ();
+	}
+	
+	public function listData($table,$columns,$orderBy='DESC',$value,$join){
+	    $this->db->select ( $columns);
+	    
+	    $this->db->from ( $table );
+		$this->db->join ('usermaster UM', 'B.CreatedBy = UM.UserID');
+		$this->db->order_by($value,$orderBy);
+	    return $this->db->get ()->result ();
+	}
+	public function get_vendor_details(){
+	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Amount,v.BankName,c.Category,v.Active ' );
+	    $this->db->from ( 'vendormaster v' );
+		$this->db->join('expcategory c', 'v.CategoryId=c.CatId');
+		$this->db->order_by('v.Active','DESC');
+		$this->db->order_by('v.VendorId','DESC');
+	    return $this->db->get ()->result();
+	}
+	public function get_vendor_details_byid($id){
+	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Amount,c.Category,v.CategoryId,v.Active,v.Comments ,b.BankName,v.BankName as BankID' );
+	    $this->db->from ( 'vendormaster v' );
+		$this->db->join('expcategory c', 'v.CategoryId=c.CatId');
+		$this->db->join('bankmaster b', 'v.BankName=b.BankId');
+		$this->db->where('v.VendorId',$id);
+	    return $this->db->get ()->row();
+	}
+	public function get_active_categories(){
+	    $this->db->select ( 'Category,CatId ' );
+	    $this->db->from ( 'expcategory' );
+		$this->db->where('Active',1);
+	    return $this->db->get ()->result();
+	}
+	public function get_all_psp(){
+		$this->db->select('p.PspId, p.PspName, p.BankId, p.CreatedOn, p.Comments, b.BankId, b.BankName,p.Active');
+		$this->db->from('pspmaster p');
+		$this->db->join('bankmaster b','p.BankId = b.BankId');
+		$this->db->order_by('p.Active','DESC');
+		$this->db->order_by('p.CreatedOn','DESC');
+		return $this->db->get ()->result();
+	}
+	public function get_all_banks(){
+		$this->db->select('BankId,BankName');
+		$this->db->from('bankmaster');
+		$this->db->where('Active',1);
+		return $this->db->get ()->result();
+	}
+	public function get_psp($id){
+		$this->db->select('p.PspId,p.PspName,p.BankId,p.Comments,p.Active,b.BankName,b.BankId');
+		$this->db->from('pspmaster p');
+		$this->db->join('bankmaster b','b.BankId = p.BankId');
+		$this->db->where('PspId',$id);
+		return $this->db->get()->row();
+	}
+	
 }
