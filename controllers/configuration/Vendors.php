@@ -17,7 +17,7 @@ class Vendors extends CI_Controller {
 public function que()
 	{
 
-		 echo $query1 = $this->db->query("ALTER TABLE `pspmaster` CHANGE `PspType` `TypeId` DECIMAL(11) NOT NULL");
+		 echo $query1 = $this->db->query("UPDATE `pspmaster` SET `TypeId`=1");
 
 		
 		
