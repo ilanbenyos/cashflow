@@ -76,7 +76,7 @@ header { position:relative; background: #fff; }
 .sidebar-menu > li.treeview::after { font-family: 'Glyphicons Halflings'; content: "\e080"; transform: rotate(90deg); display: block; position: absolute; top: 16px; right: 0; border: none; font-size: 15px; color: #9a9a9a; transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; -moz-transition: all .5s ease; }
 .sidebar-menu > li > a { padding: 18px 5px; display: block; color: #fff; font-size: 15px; transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; -moz-transition: all .5s ease; }
 .sidebar-menu > li > a > .fa { vertical-align: middle; font-size: 20px; color: #c1c81e; padding-right: 16px; }
-.sidebar-menu > li:hover > a, .sidebar-menu > li.active > a { color: #c1c81e; background: transparent; }
+/*.sidebar-menu > li:hover > a, .sidebar-menu > li.active > a { color: #c1c81e; background: transparent; }*/
 .sidebar-menu > li > .treeview-menu { margin: 0; padding: 10px 0 10px 38px; border-top: 1px dashed #9a9a9a; }
 .sidebar-menu li.active > .treeview-menu { display: block; }
 .sidebar-menu a { text-decoration: none; }
@@ -103,6 +103,7 @@ header { position:relative; background: #fff; }
 .common-table .table thead tr th, .common-table .table tbody tr td { vertical-align:middle; }
 .common-table .table tbody tr td { padding: 10px 12px; }
 .common-table .table tbody tr:hover { background-color: #f4f7f9; }
+.common-table .table tbody tr td i { cursor:pointer; }
 .grey-icon, .grey-icon:hover, .grey-icon:focus { color:#5f5f5f; text-decoration:none; font-size: 16px; }
 .bold { font-family: 'RobotoBold'; }
 .pending { color:#c20000; }
@@ -235,7 +236,7 @@ input[type="radio"]:disabled + .label-text:before { content: "\f111"; color: #cc
 .percentage.blue { fill: #43a4f5; }
 .percentage.green { fill: #159a41; }
 input[type="text"]:readonly {
-  background: #e6e3e3;
+ background: #e6e3e3;
 }
 /***** Total Deposit page CSS Style *****/
 .amount-box { text-align: center; font-size: 24px; color: #000; }
@@ -368,6 +369,7 @@ footer { position:relative; }
 }
 @media (max-width: 480px) {
 .month-expense-box { margin-right: 0; margin-bottom: 10px; }
+div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter { float: none !important; display: block !important; text-align: center !important; }
 }
 @media (max-width: 426px) {
 }
