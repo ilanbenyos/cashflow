@@ -268,7 +268,9 @@
       var plcurr = document.getElementById("plcurr").value;
       $("#accurr").val(plcurr);
     });
-    var date = $.datepicker.formatDate('MM d, yy', new Date());
+     /* $('input[id$=pldatereceive]').datepicker({
+      dateFormat: 'yyyy/mm/dd'
+  });*/
 
         $('#plamtval').attr('disabled',true);
         $('#acamtval').attr('disabled',true);
