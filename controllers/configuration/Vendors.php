@@ -18,7 +18,7 @@ public function que()
 	{
 echo '<pre/>';
 		  $query1 = $this->db->query("SELECT * FROM `pspmaster`");
-		print_r($query1);
+		print_r($query1->result());
 		
 		
 		$fields = $this->db->list_fields('pspmaster');
