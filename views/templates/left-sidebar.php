@@ -55,7 +55,7 @@
           <ul class="treeview-menu">
              <!--<li><a href="<?= base_url('configuration/roles') ?>">Roles</a></li>-->
             <li><a href="<?= base_url('configuration/users')?>">Users</a></li>
-            <li><a href="<?= base_url('configuration/banks')?>">Banks</a></li>
+            <li><a href="<?= base_url('configuration/bank')?>">Banks</a></li>
             <li><a href="<?= base_url('configuration/payment_processor')?>">Payment Processors</a></li>
             <li><a href="<?= base_url('configuration/vendors')?>">Vendors</a></li>
          <!--   <li><a href="<?= base_url('expense-category.php')?>">Expense Categories</a></li>--> 
