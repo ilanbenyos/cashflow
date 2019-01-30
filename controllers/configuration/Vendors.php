@@ -27,11 +27,8 @@ public function que()
 		$fields = $this->db->list_fields('bankmaster');
 		foreach ($fields as $field)
 		{
-		   echo $field->name.'<br/>';
-		   echo $field->type .'<br/>';
-		   echo $field->max_length.'<br/>';
-		   echo $field->primary_key.'<br/>';
-		   echo '\n';
+		   echo $field;
+		  
 		}
 	}
 
