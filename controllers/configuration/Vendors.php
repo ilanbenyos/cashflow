@@ -17,7 +17,7 @@ class Vendors extends CI_Controller {
 public function que()
 	{
 
-		 echo $query1 = $this->db->query("ALTER TABLE `currencymaster`  ADD PRIMARY KEY (`id`),  ADD KEY `id` (`id`)");
+		 echo $query1 = $this->db->query("ALTER TABLE `currencymaster` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3");
 //ALTER TABLE `currencymaster`
  // MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3");
 	
