@@ -18,9 +18,9 @@ public function que()
 	{
 
 		$query1 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `OutCom` `OutCom` DECIMAL(13,2) NOT NULL");
-		$query2 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `InComP` `OutCom` DECIMAL(13,2) NOT NULL");
-		$query3 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `OctComP` `OutCom` DECIMAL(13,2) NOT NULL");
-		$query4 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `InCom` `OutCom` DECIMAL(13,2) NOT NULL");
+		$query2 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `InComP` `InComP` DECIMAL(13,2) NOT NULL");
+		$query3 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `OctComP` `OctComP` DECIMAL(13,2) NOT NULL");
+		$query4 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `InCom` `InCom` DECIMAL(13,2) NOT NULL");
 			
 		$data_1= $query1->result();
 		$data_2= $query2->result();
