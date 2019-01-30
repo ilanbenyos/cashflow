@@ -29,8 +29,8 @@ class Payment_processor extends CI_Controller {
 		        redirect('login');
 		    }
 		    $data['banks'] = $this->all_model->get_all_banks();
-
 		    $data['all_psp'] = $this->all_model->get_all_psp();
+            $data['pspType'] = $this->all_model->allPspType();
 
 			$this->load->view('templates/header');
 			$this->load->view('templates/left-sidebar');
@@ -77,7 +77,8 @@ class Payment_processor extends CI_Controller {
     	            'PspName' => $psp_name,
     	            'BankId' => $BankId,
     	            'Comments' => $message,
-    	            'PspType' => $pspType,
+    	            //'PspType' => $pspType,
+                    'TypeId' => $pspType,
     	            'PayTerm' => $PayTerm,
     	            'crr' => $crr,
     	            'Commission' => $commision,
@@ -97,6 +98,7 @@ class Payment_processor extends CI_Controller {
 		$data['banks'] = $this->all_model->get_all_banks();
 		$data['getpsp'] = $this->all_model->get_psp($id);
 		$data['all_psp'] = $this->all_model->get_all_psp();
+        $data['pspType'] = $this->all_model->allPspType($id);
 		$this->load->view('configuration/edit_psp',$data);
 	}
 	public function editpspData($id){
@@ -138,7 +140,8 @@ class Payment_processor extends CI_Controller {
     	            'PspName' => $psp_name,
     	            'BankId' => $BankId,
     	            'Comments' => $message,
-    	            'PspType' => $pspType,
+    	            //'PspType' => $pspType,
+                    'TypeId' => $pspType,
     	            'PayTerm' => $PayTerm,
     	            'crr' => $crr,
     	            'Commission' => $commision,

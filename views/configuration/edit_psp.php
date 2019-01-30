@@ -41,11 +41,23 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
+                    <!-- <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-3 col-sm-4 col-xs-12">PSP Type</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
                           <input type="text" class="form-control" name="psp_type1" id="psp_type1" value="<?php echo $getpsp->PspType; ?>" placeholder="PSP Type" />
+                        </div>
+                      </div>
+                    </div> -->
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-3 col-sm-4 col-xs-12">PSP Type</label>
+                        <div class="col-md-9 col-sm-8 col-xs-12">
+                          <select class="form-control" name="psp_type1" id="psp_type1" onchange="">
+                            <?php foreach ($pspType as $psptype) { ?>
+                            <option <?php if($psptype->TypeId == $getpsp->TypeId){echo 'selected="selected"'; }  ?> value="<?php echo $psptype->TypeId; ?>"><?php echo $psptype->TypeName; ?></option>            
+                                  <?php   } ?>
+                          </select>
                         </div>
                       </div>
                     </div>

@@ -43,13 +43,13 @@ $_SESSION['form_token_addbank'] = $token;
                     </div>
            <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Bank</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <select class="form-control" name="bank" id="bank" onChange="">
-                             <option selected="" value="">Select Bank</option>
-                            <?php print_r($currency);
-                            foreach ($currency as $curr) { ?>
-                            <option value="<?php echo $curr->id; ?>"><?php echo $curr->CurName; ?></option>      
+                          <select class="form-control" name="cur" id="cur" onChange="">
+                             <!-- <option selected="" value="">Select Currency</option> -->
+                            <?php foreach ($currency as $curr) {
+                             ?>
+                           <option value="<?php echo $curr->CurId; ?>"><?php echo $curr->CurName; ?></option>      
                                   <?php   } ?>
                           </select>
                         </div>
@@ -63,7 +63,12 @@ $_SESSION['form_token_addbank'] = $token;
                         </div>
                       </div>
                     </div>
-					 <div class="col-md-12 col-sm-12 col-xs-12">
+					
+                    
+                  </div>
+                  
+                  <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
+                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Outgo Commission %</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
@@ -71,11 +76,6 @@ $_SESSION['form_token_addbank'] = $token;
                         </div>
                       </div>
                     </div>
-                    
-                  </div>
-                  
-                  <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
-                    
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Inflow Commission Per Transitions</label>

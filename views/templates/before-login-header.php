@@ -11,6 +11,7 @@
 <!------------- Common Stylesheet ------------->
 <link rel="stylesheet" href="<?= base_url('assets/css/style.css')?>">
 <link rel="stylesheet" href="<?= base_url('assets/css/font-awesome.min.css')?>">
+<script src="<?= base_url('assets/js/jquery.min.js')?>"></script>
 </head>
 
 <body class="before-login">

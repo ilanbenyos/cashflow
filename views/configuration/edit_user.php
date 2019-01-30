@@ -86,8 +86,8 @@ $res = $query->result_array();
                         <label class="col-md-3 col-sm-4 col-xs-12">Status</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
                           <select class="form-control" id="status" onchange="" name="status">
-				      <option selected="selected" value="<?php echo $result->Active; ?>"><?php if( $result->Active == "1"){ echo "Active";}else{ echo "Disable";}?> </option>
-				      <option value="<?php if( $result->Active== "1"){ echo "0";}else{ echo "1";}?>"><?php if( $result->Active == "1"){ echo "Disable";}else{ echo "Active";}?> </option>
+				      <option selected="selected" value="<?php echo $result->Active; ?>"><?php if( $result->Active == "1"){ echo "Active";}else{ echo "Disabled";}?> </option>
+				      <option value="<?php if( $result->Active== "1"){ echo "0";}else{ echo "1";}?>"><?php if( $result->Active == "1"){ echo "Disabled";}else{ echo "Active";}?> </option>
                           </select>
                         </div>
                       </div>

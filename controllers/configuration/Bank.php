@@ -44,7 +44,6 @@ class Bank extends CI_Controller {
 		
 		$data['results'] = $this->all_model->listData($table,$columns,$orderBy='DESC','B.Active',$join);
 		
-		
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/left-sidebar');
 		$this->load->view('configuration/bank', $data);
@@ -61,6 +60,7 @@ class Bank extends CI_Controller {
 			$this->form_validation->set_rules ( 'status', 'Status', 'trim|required' );
 		
 		if ($this->form_validation->run () === FALSE) {
+		$data['currency'] = $this->all_model->getAllCurrency();
 		$data ['title'] = 'Add New Bank';
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/left-sidebar', $data);
@@ -83,6 +83,7 @@ $token = $this->input->post('my_token_addbank');
     	            
     	            'BankName' => $this->input->post('BankName'),
     	            'Balance' => $this->input->post('Balance'),
+    	            'CurId' => $this->input->post('cur'),
     	            'InComP' => $this->input->post('InComP'),
     	            'OctComP' => $this->input->post('OutComP'),
     	            'InCom' => $this->input->post('InCom'),
@@ -121,10 +122,11 @@ $token = $this->input->post('my_token_addbank');
 		if ($this->form_validation->run () === FALSE) {
 		$data ['title'] = 'Update New Bank';
 		$table = 'bankmaster';
-		$columns = 'BankName,Balance,InComP,OctComP,InCom,OutCom,Active,CreatedBy';
+		$columns = 'BankName,Balance,InComP,OctComP,InCom,OutCom,Active,CreatedBy,CurId';
 		$wherecol = 'BankId';
 		$data['result'] = $this->all_model->getbankData($table,$columns,$wherecol,$id);
-		
+		$data['currency'] = $this->all_model->getAllCurrency();
+		$data['currencyId'] = $this->all_model->getCurrency($id);
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/left-sidebar', $data);
 		$this->load->view('configuration/edit-new-bank', $data);
@@ -146,6 +148,7 @@ $token = $this->input->post('my_token_addbank');
     	            
     	            'BankName' => $this->input->post('BankName'),
     	            'Balance' => $this->input->post('Balance'),
+    	            'CurId' => $this->input->post('cur'),
     	            'InComP' => $this->input->post('InComP'),
     	            'OctComP' => $this->input->post('OutComP'),
     	            'InCom' => $this->input->post('InCom'),

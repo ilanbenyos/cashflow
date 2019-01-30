@@ -38,7 +38,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
           </div>
           <div class="col-md-12">
             <div class="table-responsive common-table">
-              <table id="tabledata" class="table table-hover" cellpadding="0" cellspacing="0">
+              <table id="tabledata" class="table table-hover" cellpadding="0" cellspacing="0" style="width:100%">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -57,7 +57,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <td><?php echo $user['Email']; ?></td>
                         <td><?php echo $user['Password']; ?></td>
                         <td><?php echo $user['RoleName']; ?></td>
-				    <td><?php if($user['Active'] == "1" ){ echo '<span class="completed bold">Active</span>' ; }else{ echo  '<span class="pending bold">Disable</span>' ;} ?></td>
+				    <td><?php if($user['Active'] == "1" ){ echo '<span class="completed bold">Active</span>' ; }else{ echo  '<span class="pending bold">Disabled</span>' ;} ?></td>
                         <!-- <a class="td-link deposit_detailsuu" data-action="' + value_5 + '">' + full.acc + '</a> -->
                         <td><a class="grey-icon edit_user" id="euser<?php echo $user['UserID']?>" data-toggle="modal" data-target="#myModal1" data-action="<?php echo base_url('configuration/users/editUser/')?><?php echo $user['UserID']?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                      </tr>
@@ -157,7 +157,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <div class="col-md-9 col-sm-8 col-xs-12">
 					                <select class="form-control" name="status" id="status">
                             <option value="1">Active</option>      
-                            <option value="0">Disable</option>      
+                            <option value="0">Disabled</option>      
                           </select>
                        </div>
                       </div>
@@ -201,11 +201,10 @@ if (isset ( $_SESSION ['pop_mes'] )) {
     </div>
   </div>
   <!-- Modal -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
 <script>
  
    $(document).ready(function() {

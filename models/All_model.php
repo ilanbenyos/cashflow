@@ -88,10 +88,56 @@ class All_model extends CI_Model {
 		return $this->db->get ()->result();
 	}
 	public function get_psp($id){
-		$this->db->select('p.PspId,p.PspName,p.BankId,p.Comments,p.Active,b.BankName,b.BankId,p.PspType,p.PayTerm,p.Commission,p.Crr');
+		$this->db->select('p.PspId,p.PspName,p.BankId,p.Comments,p.Active,b.BankName,b.BankId,p.PayTerm,p.Commission,p.Crr,p.TypeId');
 		$this->db->from('pspmaster p');
 		$this->db->join('bankmaster b','b.BankId = p.BankId');
 		$this->db->where('PspId',$id);
+		return $this->db->get()->row();
+	}
+	public function getPspIncome(){
+		$this->db->select('p.*,b.BankName,b.BankId,pm.PspId,pm.PspName');
+		$this->db->from('pspincome p');
+		$this->db->join('bankmaster b','b.BankId = p.BankId','left');
+		$this->db->join('pspmaster pm','pm.PspId = p.PspId','left');
+		$this->db->order_by('p.CreatedOn','DESC');
+		return $this->db->get()->result();
+	}
+	public function pspIncome($id){
+		$this->db->select('p.*,b.BankName,b.BankId,pm.PspId,pm.PspName');
+		$this->db->from('pspincome p');
+		$this->db->join('bankmaster b','b.BankId = p.BankId','left');
+		$this->db->join('pspmaster pm','pm.PspId = p.PspId','left');
+		$this->db->where('p.TransId',$id);
+		$this->db->order_by('p.CreatedOn','DESC');
+		return $this->db->get()->row();
+	}
+	public function getAllCurrency(){
+		$this->db->select('CurId,CurName,CurSymbol,Active,CreatedOn');
+		$this->db->from('currencymaster');
+		$this->db->where('Active',1);
+		return $this->db->get()->result();
+	}
+	public function getCurrency($id){
+		$this->db->select('cm.CurId,cm.CurName,cm.Active,b.CurId,b.BankId,pi.Currency');
+		$this->db->from('currencymaster cm');
+		$this->db->join('bankmaster b','cm.CurId =b.CurId');
+		$this->db->join('pspincome pi','cm.CurName = pi.Currency');
+		$this->db->where('b.BankId',$id);
+		$this->db->where('cm.Active',1);
+		return $this->db->get()->row();
+	}
+	public function allPspType(){
+		$this->db->select('TypeId,TypeName,Active');
+		$this->db->from('psptype');
+		$this->db->where('Active',1);
+		return $this->db->get()->result();
+	}
+	public function getpsptype($id){
+		$this->db->select('pt.TypeId,pt.TypeName,pt.Active,pm.TypeId,pm.PspId');
+		$this->db->from('psptype pt');
+		$this->db->join('pspmaster pm','pm.TypeId = pt.TypeId');
+		$this->db->where('pm.PspId',$id);
+		$this->db->where('Active',1);
 		return $this->db->get()->row();
 	}
 	
