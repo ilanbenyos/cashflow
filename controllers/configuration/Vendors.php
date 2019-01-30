@@ -17,7 +17,11 @@ class Vendors extends CI_Controller {
 public function que()
 	{
 
-		 echo $query1 = $this->db->query("INSERT INTO `currencymaster` (`id`, `CurName`, `CurSymbol`, `Active`, `CreatedOn`) VALUES(1, 'USD', '$', 1, '2019-01-30 11:06:00'),(2, 'EUR', '€', 1, '2019-01-30 11:06:00')");
+		 echo $query1 = $this->db->query("ALTER TABLE `currencymaster`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
+ALTER TABLE `currencymaster`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3");
 	
 
 		
