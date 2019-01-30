@@ -127,6 +127,7 @@ $token = $this->input->post('my_token_addbank');
 		$data['result'] = $this->all_model->getbankData($table,$columns,$wherecol,$id);
 		$data['currency'] = $this->all_model->getAllCurrency();
 		$data['currencyId'] = $this->all_model->getCurrency($id);
+		print_r($data['currencyId']);
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/left-sidebar', $data);
 		$this->load->view('configuration/edit-new-bank', $data);
