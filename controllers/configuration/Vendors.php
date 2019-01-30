@@ -17,7 +17,7 @@ class Vendors extends CI_Controller {
 public function que()
 	{
 //echo '<pre/>';
-		  echo $query1 = $this->db->query("ALTER TABLE `psptype`  ADD PRIMARY KEY (`TypeId`)");
+		  echo $query1 = $this->db->query("ALTER TABLE `psptype`  MODIFY `TypeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4");
 		///print_r($query1->result());
 		
 		
