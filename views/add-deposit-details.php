@@ -244,6 +244,15 @@
   </div>
 </div>
 <script type="text/javascript">
+/*$(function() {
+var date = $('#pldatereceive').datepicker({ dateFormat: '%Y-%d-%m' }).val();
+    alert(date);
+    $('#pldatereceive').datepicker({
+      dateFormat: 'yy-mm-dd'
+});*/
+//});
+</script>
+<script type="text/javascript">
   $(document).ready(function(){
     $('#psp').on('change',function() {
         var pspid=document.getElementById("psp").value;  
@@ -268,9 +277,11 @@
       var plcurr = document.getElementById("plcurr").value;
       $("#accurr").val(plcurr);
     });
-     /* $('input[id$=pldatereceive]').datepicker({
-      dateFormat: 'yyyy/mm/dd'
-  });*/
+      /*$('#pldatereceive').datepicker({
+        minDate: new Date(),
+        dateFormat: 'yyyy-mm-dd'
+    });*/
+
 
         $('#plamtval').attr('disabled',true);
         $('#acamtval').attr('disabled',true);

@@ -31,7 +31,8 @@ class Psp_income extends CI_Controller {
 		if (!isset($_SESSION['logged_in'])) {
 			redirect('login');
 		}
-
+		/*print_r(date_format($this->input->post('pldatereceive'),'%Y-%m-%d'));
+		exit();*/
 		$this->form_validation->set_rules ( 'bank', 'Bank Name', 'trim|required' );
 		$this->form_validation->set_rules ( 'psp', 'PSP', 'trim|required' );
 		$this->form_validation->set_rules ('pldatereceive', 'Planned Amount Receive', 'trim|required');
