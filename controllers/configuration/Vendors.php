@@ -17,8 +17,7 @@ class Vendors extends CI_Controller {
 public function que()
 	{
 
-		 echo $query1 = $this->db->query("CREATE TABLE `currencymaster` (`id` int(11) NOT NULL,`CurName` varchar(20) NOT NULL,`CurSymbol` varchar(5) NOT NULL,`Active` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1- Active, 0- Disabled',`CreatedOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1");
+		 echo $query1 = $this->db->query("INSERT INTO `currencymaster` (`id`, `CurName`, `CurSymbol`, `Active`, `CreatedOn`) VALUES(1, 'USD', '$', 1, '2019-01-30 11:06:00'),(2, 'EUR', '€', 1, '2019-01-30 11:06:00'");
 	
 
 		
