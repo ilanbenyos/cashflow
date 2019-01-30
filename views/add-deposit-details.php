@@ -208,7 +208,7 @@
                     </div>
                   </div>
                   <!--Actual info ends -->
-                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+                  <!-- <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box"> -->
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Date Received</label>
@@ -233,7 +233,7 @@
                   <button type="button" id="addPspIncome" class="btn-submit transitions">Submit</button>
                   <button type="reset" class="btn-reset transitions">Reset</button>
                 </div>
-                  </div>
+                  <!-- </div> -->
                 </div>
               </div>
             </form>
@@ -268,6 +268,7 @@
       var plcurr = document.getElementById("plcurr").value;
       $("#accurr").val(plcurr);
     });
+    var date = $.datepicker.formatDate('MM d, yy', new Date());
 
         $('#plamtval').attr('disabled',true);
         $('#acamtval').attr('disabled',true);

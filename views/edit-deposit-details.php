@@ -206,7 +206,7 @@
                     </div>
                   </div>
                   <!--Actual info ends -->
-                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+                  <!-- <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box"> -->
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Date Received</label>
@@ -231,7 +231,7 @@
                   <button type="submit" id="editPspIncome" class="btn-submit transitions">Submit</button>
                   <a href="<?= base_url('psp_income');?>" class="btn-reset transitions">Cancel</a>
                 </div>
-                  </div>
+                  <!-- </div> -->
                 </div>
               </div>
             </form>

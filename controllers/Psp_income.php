@@ -144,6 +144,12 @@ class Psp_income extends CI_Controller {
         			$acnetAmt = $this->input->post('acnetAmt');
         			$uid = $this->input->post('userid');
 
+        			if($plcommval == ""){
+        				$plcommval = 0;
+        			}
+        			if($accommval == ""){
+        				$accommval = 0;
+        			}
         			$updatePspIncomeInfo = array(
         				'PspId' => $pspid,
         				'BankId' => $BankId,
