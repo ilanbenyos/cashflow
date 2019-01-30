@@ -41,6 +41,20 @@ $_SESSION['form_token_addbank'] = $token;
                         </div>
                       </div>
                     </div>
+           <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Bank</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <select class="form-control" name="bank" id="bank" onChange="">
+                             <option selected="" value="">Select Bank</option>
+                            <?php print_r($currency);
+                            foreach ($currency as $curr) { ?>
+                            <option value="<?php echo $curr->id; ?>"><?php echo $curr->CurName; ?></option>      
+                                  <?php   } ?>
+                          </select>
+                        </div>
+                      </div>
+                    </div>          
 					<div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Inflow Commission %</label>

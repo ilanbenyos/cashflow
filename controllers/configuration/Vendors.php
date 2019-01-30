@@ -27,7 +27,7 @@ public function que()
 		$fields = $this->db->list_fields('bankmaster');
 		foreach ($fields as $field)
 		{
-		   echo $field;
+		   echo $field.'<br/>';
 		  
 		}
 	}
