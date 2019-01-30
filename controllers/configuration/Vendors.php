@@ -17,21 +17,18 @@ class Vendors extends CI_Controller {
 public function que()
 	{
 
-		$query1 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `OutCom` `OutCom` DECIMAL(13,2) NOT NULL");
-		$query2 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `InComP` `InComP` DECIMAL(13,2) NOT NULL");
-		$query3 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `OctComP` `OctComP` DECIMAL(13,2) NOT NULL");
-		$query4 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `InCom` `InCom` DECIMAL(13,2) NOT NULL");
-			
-		$data_1= $query1->result();
-		$data_2= $query2->result();
-		$data_3= $query3->result();
-		$data_4= $query4->result();
-		echo '<pre/>';
-		print_r($data_1);
-		print_r($data_2);
-		print_r($data_3);
-		print_r($data_4);
+		//$query1 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `OutCom` `OutCom` DECIMAL(13,2) NOT NULL");
+		//$query2 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `InComP` `InComP` DECIMAL(13,2) NOT NULL");
+		//$query3 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `OctComP` `OctComP` DECIMAL(13,2) NOT NULL");
+		//$query4 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `InCom` `InCom` DECIMAL(13,2) NOT NULL");
+
 		
+		
+		$fields = $this->db->list_fields('bankmaster');
+		foreach ($fields as $field)
+		{
+		   echo $field;
+		}
 	}
 
 
