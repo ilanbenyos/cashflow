@@ -45,7 +45,7 @@ class Login extends CI_Controller {
 					{
 						redirect('configuration/users');
 					}elseif ($_SESSION['user_role'] == "CEO" ) {
-						redirect('reports');
+						redirect('configuration/users');
 					}
 			}
 			else
