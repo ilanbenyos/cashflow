@@ -17,12 +17,12 @@ class Vendors extends CI_Controller {
 public function que()
 	{
 
-		 echo $query1 = $this->db->query("ALTER TABLE `pspmaster` CHANGE `Commission` `Commission` DECIMAL(13,2) NOT NULL COMMENT 'transactions commission' ");
+		 //echo $query1 = $this->db->query("ALTER TABLE `pspmaster` CHANGE `Commission` `Commission` DECIMAL(13,2) NOT NULL COMMENT 'transactions commission' ");
 
 		
 		
-		//$fields = $this->db->list_fields('bankmaster');
-		
+		$fields = $this->db->list_fields('pspmaster');
+		print_r($fields);
 	}
 
 
