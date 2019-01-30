@@ -17,8 +17,8 @@ class Vendors extends CI_Controller {
 public function que()
 	{
 
-		 echo $query1 = $this->db->query("UPDATE `pspmaster` SET `TypeId`=1");
-
+		  $query1 = $this->db->query("SELECT * FROM `pspmaster`");
+		print_r($query1);
 		
 		
 		$fields = $this->db->list_fields('pspmaster');
