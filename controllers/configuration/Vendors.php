@@ -17,7 +17,7 @@ class Vendors extends CI_Controller {
 public function que()
 	{
 echo '<pre/>';
-		  echo $query1 = $this->db->query("select * from `psptype`  ");
+		   $query1 = $this->db->query("select * from `psptype`  ");
 		print_r($query1->result());
 		
 		
