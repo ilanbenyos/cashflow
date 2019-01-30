@@ -1,47 +1,5 @@
-$('#addbankform').validate({ // initialize the plugin
-	
-        rules: {
-            BankName: {
-                required: true,
-                minlength: 3
-            },
-            BranchName: {
-                required: true,
-                minlength: 5
-            },
-			BankDesc: {
-                required: true,
-                minlength: 20
-            },
-			BankAccountNumber: {
-                required: true,
-                minlength: 10
-            },
-			Currency: {
-                required: true
-            },
-			SwiftCode: {
-                required: true,
-				minlength: 4
-            },
-			Status: {
-                required: true
-            }
-        },
-        submitHandler: function (form) { // for demo
-            $("#addbankbtn").hide();
-            $(".page-loader").show();
-            form.submit();
-        }
-    });
+// Dropdown & Sidebar push
 $(document).ready(function(){
-	
-	
-	var $datepicker = $('#date');
-    $datepicker.datepicker();
-    $datepicker.datepicker('setDate', new Date());
-	
-	
         // Show hide popover
         $(".user-detail").click(function(){
             $(this).find(".user-dropdown").slideToggle("fast");
@@ -59,6 +17,10 @@ $(document).ready(function(){
             });
         });
 // Dropdown & Sidebar push ends
+
+// Sidebar js
+$.sidebarMenu($('.sidebar-menu'))
+
 		
 // Upload Files
 function initializeFileUploads() {
@@ -78,3 +40,15 @@ $(function() {
     initializeFileUploads();
 });
 // Upload Ends
+
+var url = window.location;
+
+// for sidebar menu entirely but not cover treeview
+$('ul.sidebar-menu a').filter(function() {
+  return this.href == url;
+}).parent().addClass('active');
+
+// for treeview
+$('ul.treeview-menu a').filter(function() {
+  return this.href == url;
+}).closest('.treeview').addClass('active');
