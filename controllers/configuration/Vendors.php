@@ -17,19 +17,12 @@ class Vendors extends CI_Controller {
 public function que()
 	{
 
-		 echo $query1 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `OutCom` `OutCom` DECIMAL(13,2) NOT NULL");
-		echo $query2 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `InComP` `InComP` DECIMAL(13,2) NOT NULL");
-		echo $query3 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `OctComP` `OctComP` DECIMAL(13,2) NOT NULL");
-		echo $query4 = $this->db->query("ALTER TABLE `bankmaster` CHANGE `InCom` `InCom` DECIMAL(13,2) NOT NULL");
+		 echo $query1 = $this->db->query("CREATE TABLE `currencymaster` (`id` int(11) NOT NULL,`CurName` varchar(20) NOT NULL,`CurSymbol` varchar(5) NOT NULL,`Active` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1- Active, 0- Disabled',`CreatedOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1");
+	
 
 		
-		
-		$fields = $this->db->list_fields('bankmaster');
-		foreach ($fields as $field)
-		{
-		   echo $field.'<br/>';
-		  
-		}
+	
 	}
 
 
