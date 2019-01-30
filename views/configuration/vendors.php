@@ -14,7 +14,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 		</div>
         <div class="col-md-12">
           <div class="table-responsive common-table">
-            <table id="tabledata" class="table table-hover" cellpadding="0" cellspacing="0">
+            <table id="tablevendor" class="table table-hover" cellpadding="0" cellspacing="0">
               <thead>
                 <tr>
                   <th>Vendor Name</th>

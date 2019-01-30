@@ -50,10 +50,14 @@ $(document).ready(function() {
   
 $('#tablebank').DataTable({
 responsive  : true,
-	ordering    : false,
-	searching: true,
+	
 	aaSorting: [[3, "asc"]],
-	 "paging": true,
+     dom: 'lBfrtip',
+});
+$('#tablevendor').DataTable({
+responsive  : true,
+	
+	aaSorting: [[2, "asc"]],
      dom: 'lBfrtip',
 });
 });
