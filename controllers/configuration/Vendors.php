@@ -17,7 +17,7 @@ class Vendors extends CI_Controller {
 public function que()
 	{
 //echo '<pre/>';
-		  echo $query1 = $this->db->query("INSERT INTO `psptype` (`TypeId`, `TypeName`, `Active`, `CreatedOn`) VALUES(1, 'Wires', 1, '2019-01-30 17:21:54'),(2, 'CC', 1, '2019-01-30 17:21:54'),(3, 'Crypto', 1, '2019-01-30 17:22:12')");
+		  echo $query1 = $this->db->query("ALTER TABLE `psptype`  ADD PRIMARY KEY (`TypeId`)");
 		///print_r($query1->result());
 		
 		
