@@ -17,7 +17,7 @@ class Vendors extends CI_Controller {
 public function que()
 	{
 //echo '<pre/>';
-		  echo $query1 = $this->db->query("CREATE TABLE `psptype` ( `TypeId` int(11) NOT NULL,`TypeName` varchar(20) NOT NULL, `Active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 Active, 0 Disabled',  `CreatedOn` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=latin1");
+		  echo $query1 = $this->db->query("INSERT INTO `psptype` (`TypeId`, `TypeName`, `Active`, `CreatedOn`) VALUES(1, 'Wires', 1, '2019-01-30 17:21:54'),(2, 'CC', 1, '2019-01-30 17:21:54'),(3, 'Crypto', 1, '2019-01-30 17:22:12')");
 		///print_r($query1->result());
 		
 		
