@@ -44,7 +44,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     <th>Name</th>
                     <th>Email</th>
                     <th>Password</th>
-                    <th>Priviledges</th>
+                    <th>Role</th>
 				<th>Status</th>
                     <th>Action</th>
                   </tr>

@@ -35,7 +35,7 @@
             <!--<li><a href="<?= base_url('configuration/roles') ?>">Roles</a></li> -->
             <li><a href="<?= base_url('configuration/users')?>">Users</a></li>
             <li><a href="<?= base_url('configuration/bank')?>">Banks</a></li>
-            <li><a href="<?= base_url('configuration/payment_processor')?>">Payment Processors</a></li>
+            <li><a href="<?= base_url('payment-processor')?>">Payment Processors</a></li>
             <li><a href="<?= base_url('configuration/vendors')?>">Vendors</a></li>
             <!--<li><a href="<?= base_url('configuration/expense_category')?>">Expense Categories</a></li>--> 
           </ul>
@@ -56,7 +56,7 @@
              <!--<li><a href="<?= base_url('configuration/roles') ?>">Roles</a></li>-->
             <li><a href="<?= base_url('configuration/users')?>">Users</a></li>
             <li><a href="<?= base_url('configuration/bank')?>">Banks</a></li>
-            <li><a href="<?= base_url('configuration/payment_processor')?>">Payment Processors</a></li>
+            <li><a href="<?= base_url('payment-processor')?>">Payment Processors</a></li>
             <li><a href="<?= base_url('configuration/vendors')?>">Vendors</a></li>
          <!--   <li><a href="<?= base_url('expense-category.php')?>">Expense Categories</a></li>--> 
           </ul>

@@ -88,9 +88,10 @@ class All_model extends CI_Model {
 		return $this->db->get ()->result();
 	}
 	public function get_psp($id){
-		$this->db->select('p.PspId,p.PspName,p.BankId,p.Comments,p.Active,b.BankName,b.BankId,p.PayTerm,p.Commission,p.Crr,p.TypeId');
+		$this->db->select('p.PspId,p.PspName,p.BankId,p.Comments,p.Active,b.BankName,b.BankId,b.CurId,cm.CurName,p.PayTerm,p.Commission,p.Crr,p.TypeId');
 		$this->db->from('pspmaster p');
 		$this->db->join('bankmaster b','b.BankId = p.BankId');
+		$this->db->join('currencymaster cm','cm.CurId = b.CurId');
 		$this->db->where('PspId',$id);
 		return $this->db->get()->row();
 	}

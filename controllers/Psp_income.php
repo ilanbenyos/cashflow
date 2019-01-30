@@ -39,7 +39,7 @@ class Psp_income extends CI_Controller {
 		if ($this->form_validation->run () === FALSE) {
 			$data['banks'] = $this->all_model->get_all_banks();
 			$data['all_psp'] = $this->all_model->get_all_psp();
-			
+
 			$this->load->view('templates/header');
 			$this->load->view('templates/left-sidebar');
 			$this->load->view('add-deposit-details',$data);
@@ -58,8 +58,10 @@ class Psp_income extends CI_Controller {
         			$plamtReceived = $this->input->post('plamtReceived');
         			//$plcurr = $this->input->post('plcurr');
         			$curr = $this->input->post('plcurr');
+
         			$plcommval = $this->input->post('plcommval');
         			$plamtval = $this->input->post('plamtval');
+
         			$plnetAmt = $this->input->post('plnetAmt');
         			$acdatereceive = $this->input->post('acdatereceive');
         			$acamtReceive = $this->input->post('acamtReceive');
@@ -68,7 +70,14 @@ class Psp_income extends CI_Controller {
         			$acamtval = $this->input->post('acamtval');
         			$acnetAmt = $this->input->post('acnetAmt');
         			$uid = $this->input->post('userid');
-
+        			/*if($plamtval == ""){
+        				$plcommval = $plamtval;
+        			}else*/if($plcommval == ""){
+        				$plcommval = 0;
+        			}
+        			if($accommval == ""){
+        				$accommval = 0;
+        			}
         			$pspIncomeInfo = array(
         				'PspId' => $pspid,
         				'BankId' => $BankId,

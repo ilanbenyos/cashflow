@@ -218,12 +218,19 @@
                         </div>
                       </div>
                     </div> -->
-                    <div class="col-xs-12 text-left spacetop2x">
+                    <!-- <div class="col-xs-12 text-left spacetop2x">
                       <div class="page-loader" style="display:none;">
                         <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
                       </div>
                       <button type="submit" class="cmn-btn transitions" id="editPspIncome">Edit PSP Income</button>
-                    </div>
+                    </div> -->
+                    <div class="col-xs-12 text-center spacetop2x">
+                  <div class="page-loader" style="display:none;">
+                        <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
+                      </div>
+                  <button type="submit" id="editPspIncome" class="btn-submit transitions">Submit</button>
+                  <a href="<?= base_url('psp_income');?>" class="btn-reset transitions">Cancel</a>
+                </div>
                   </div>
                 </div>
               </div>

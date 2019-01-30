@@ -91,11 +91,12 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <select class="form-control" name="plcurr" id="plcurr">
+                          <input type="text" class="form-control" name="plcurr" id="plcurr" readonly>
+                          <!-- <select class="form-control" name="plcurr" id="plcurr" readonly>
                             <option value="USD" selected="">USD</option>
                             <option value="EUR">EUR</option>
                             <option value="GBP">GBP</option>
-                          </select>
+                          </select> -->
                         </div>
                       </div>
                     </div>
@@ -161,11 +162,12 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <select class="form-control" name="accurr" id="accurr" onchange="">
+                          <input type="text" class="form-control" name="accurr" id="accurr" readonly>
+                         <!--  <select class="form-control" name="accurr" id="accurr" onchange="" readonly>
                             <option selected="">USD</option>
                             <option>EUR</option>
                             <option>GBP</option>
-                          </select>
+                          </select> -->
                         </div>
                       </div>
                     </div>
@@ -218,12 +220,19 @@
                         </div>
                       </div>
                     </div> -->
-                    <div class="col-xs-12 text-left spacetop2x">
+                    <!-- <div class="col-xs-12 text-left spacetop2x">
                       <div class="page-loader" style="display:none;">
                         <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
                       </div>
                       <button type="button" class="cmn-btn transitions" id="addPspIncome">Add PSP Income</button>
-                    </div>
+                    </div> -->
+                    <div class="col-xs-12 text-center spacetop2x">
+                  <div class="page-loader" style="display:none;">
+                        <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
+                      </div>
+                  <button type="button" id="addPspIncome" class="btn-submit transitions">Submit</button>
+                  <button type="reset" class="btn-reset transitions">Reset</button>
+                </div>
                   </div>
                 </div>
               </div>
@@ -248,6 +257,8 @@
                     console.log(obj.getpsp);
                     $("#bank").val(obj.getpsp.BankName);
                     $("#bankid").val(obj.getpsp.BankId);
+                    $("#plcurr").val(obj.getpsp.CurName);
+                    $("#accurr").val(obj.getpsp.CurName);
                     
                    }
                });
