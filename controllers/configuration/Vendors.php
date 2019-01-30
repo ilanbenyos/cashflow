@@ -16,13 +16,13 @@ class Vendors extends CI_Controller {
 
 public function que()
 	{
-echo '<pre/>';
-		  $query1 = $this->db->query("SELECT * FROM `pspmaster`");
-		print_r($query1->result());
+//echo '<pre/>';
+		  echo $query1 = $this->db->query("CREATE TABLE `psptype` ( `TypeId` int(11) NOT NULL,`TypeName` varchar(20) NOT NULL, `Active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 Active, 0 Disabled',  `CreatedOn` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=latin1");
+		///print_r($query1->result());
 		
 		
-		$fields = $this->db->list_fields('pspmaster');
-		print_r($fields);
+		//$fields = $this->db->list_fields('pspmaster');
+		//print_r($fields);
 	}
 
 
