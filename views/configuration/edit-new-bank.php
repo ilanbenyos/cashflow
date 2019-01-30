@@ -46,7 +46,7 @@ $_SESSION['form_token_editbank'] = $token;
                         <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <select class="form-control" name="cur" id="cur" onChange="">
-                            <?php //print_r($currencyId->CurId);
+                            <?php //print_r($currency);
                             foreach ($currency as $curr) { ?>
                             <option <?php if($curr->CurId == $currencyId->CurId){ echo 'selected="selected"'; } ?> value="<?php echo $curr->CurId; ?>"><?php echo $curr->CurName; ?></option>      
                                   <?php   } ?>

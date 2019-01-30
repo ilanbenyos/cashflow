@@ -118,10 +118,9 @@ class All_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 	public function getCurrency($id){
-		$this->db->select('cm.CurId,cm.CurName,cm.Active,b.CurId,b.BankId,pi.Currency');
+		$this->db->select('cm.CurId,cm.CurName,cm.Active,b.CurId,b.BankId');
 		$this->db->from('currencymaster cm');
 		$this->db->join('bankmaster b','cm.CurId =b.CurId');
-		$this->db->join('pspincome pi','cm.CurName = pi.Currency');
 		$this->db->where('b.BankId',$id);
 		$this->db->where('cm.Active',1);
 		return $this->db->get()->row();
@@ -139,6 +138,7 @@ class All_model extends CI_Model {
 		$this->db->where('pm.PspId',$id);
 		$this->db->where('Active',1);
 		return $this->db->get()->row();
+
 	}
 	
 }
