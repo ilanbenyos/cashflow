@@ -63,6 +63,13 @@ responsive  : true,
 	aaSorting: [[2, "asc"]],
      dom: 'lBfrtip',
 });
+$('#psptabledata').DataTable({
+  "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
+responsive  : true,
+  
+  aaSorting: [[7, "desc"]],
+     dom: 'lBfrtip',
+});
 });
 </script>
 </body></html>

@@ -14,7 +14,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
           </div>
         <div class="col-md-12">
           <div class="table-responsive common-table">
-            <table id="tabledata" class="table table-hover" cellpadding="0" cellspacing="0">
+            <table id="psptabledata" class="table table-hover" cellpadding="0" cellspacing="0">
               <thead>
                 <tr>
                   <th>No.</th>
@@ -40,7 +40,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   <td><?php echo $psp->ActualNetAmt; ?></td>
                   <td><?php echo $psp->ActualCom; ?></td>
                   <td><?php echo $psp->ActualNetAmt; ?></td>
-                  <td><?php echo $psp->ActualDate; ?></td>
+                  <td><?php echo date('d/m/Y', strtotime(str_replace('-','/', $psp->ActualDate))); ?></td>
                   <td><a class="grey-icon edit_pspdetails" href="<?= base_url('psp_income/update/'.$psp->TransId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                  </tr>
              <?php  $i++; 

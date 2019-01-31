@@ -31,7 +31,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                 	<tr>
                         <td><?php echo $psp->PspName; ?></td>
                         <td><?php echo $psp->BankName; ?></td>
-                        <td><?php echo $psp->CreatedOn; ?></td>
+                        <td><?php echo date('d/m/Y', strtotime(str_replace('-','/', $psp->CreatedOn))); ?></td>
                         <td><?php echo $psp->Comments; ?></td>
 				    <td><?php if($psp->Active == "1" ){ echo '<b class= "completed bold" >Active</b>' ; }else{ echo  '<b class= "pending bold" style="margin-left: 0px;">Disabled</b>' ;} ?></td>
                         <td><a class="grey-icon edit_psp" id="epsp<?php echo $psp->PspId?>" data-toggle="modal" data-target="#myModal1" data-action="<?php echo base_url('configuration/payment_processor/editpsp/')?><?php echo $psp->PspId?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
