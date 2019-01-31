@@ -303,8 +303,8 @@ autoclose: true
     /*$('#pldatereceive').datepicker('setDate', pldatereceive);
     $('#pldatereceive').datepicker('setDate', acdatereceive);*/
 
-        $('#plamtval').attr('readonly',true);
-        $('#acamtval').attr('readonly',true);
+        $('#plamtval').attr('disabled',true);
+        $('#acamtval').attr('disabled',true);
     $('input[type="radio"]').click(function(){  
     if ($(this).is(':checked'))        // Planned PSP Income
     {   //alert($(this).is(':checked'));
