@@ -38,7 +38,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Bank</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="hidden" class="form-control" name="bankid" id="bankid" />
+                          <input type="hidden" class="form-control" name="bankid" id="bankid" value="<?php echo $allPspIncome->BankId ?>" />
                           <input type="text" class="form-control" name="bank" id="bank" value="<?php echo $allPspIncome->BankName ?>" />
                         </div>
                       </div>
@@ -73,7 +73,7 @@
                         <label class="col-md-4 col-sm-4 col-xs-12">Planned Received date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" value="<?php //echo $allPspIncome->ExpDate ?>" />
+                            <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ExpDate))) ?>" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
                         </div>
@@ -143,7 +143,7 @@
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Received date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo $allPspIncome->ActualDate ?>" />
+                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate)))?>" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
                         </div>
@@ -264,6 +264,22 @@
       var plcurr = document.getElementById("plcurr").value;
       $("#accurr").val(plcurr);
     });
+
+var pldatereceive = document.getElementById("pldatereceive").value();
+var acdatereceive = document.getElementById("acdatereceive").value();
+
+$('#pldatereceive').datepicker({
+format: "d/m/Y",
+todayHighlight: true,
+startDate: pldatereceive,
+endDate: end,
+autoclose: true
+  });
+     /*var date = new Date();
+  var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  var end = new Date(date.getFullYear(), date.getMonth(), date.getDate());*/
+    $('#pldatereceive').datepicker('setDate', pldatereceive);
+    $('#pldatereceive').datepicker('setDate', acdatereceive);
 
         $('#plamtval').attr('disabled',true);
         $('#acamtval').attr('disabled',true);

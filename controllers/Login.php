@@ -26,6 +26,7 @@ class Login extends CI_Controller {
 			$this->load->view('login');
 			$this->load->view('templates/footer');
 		}else{
+
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
 
@@ -40,6 +41,7 @@ class Login extends CI_Controller {
 						
 					$_SESSION['user_role']    = (string)$resolvelogin->RoleName;
 					$_SESSION['user_pass']  = (string)$resolvelogin->Password;
+
 
 					if($_SESSION['user_role'] == "Admin" )
 					{

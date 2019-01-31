@@ -40,6 +40,7 @@ $('#addbankform').validate({ // initialize the plugin
 	
 $(document).ready(function() {
   $('#tabledata').DataTable( {
+    "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
     dom: "lBfrtip",
 	aaSorting: [[4, "asc"]],
 	//"processing": false,
@@ -49,12 +50,14 @@ $(document).ready(function() {
   });
   
 $('#tablebank').DataTable({
+  "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
 responsive  : true,
 	
 	aaSorting: [[3, "asc"]],
      dom: 'lBfrtip',
 });
 $('#tablevendor').DataTable({
+  "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
 responsive  : true,
 	
 	aaSorting: [[2, "asc"]],
