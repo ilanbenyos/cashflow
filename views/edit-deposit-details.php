@@ -39,7 +39,7 @@
                         <label class="col-md-4 col-sm-4 col-xs-12">Bank</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="hidden" class="form-control" name="bankid" id="bankid" value="<?php echo $allPspIncome->BankId ?>" />
-                          <input type="text" class="form-control" name="bank" id="bank" value="<?php echo $allPspIncome->BankName ?>" />
+                          <input type="text" class="form-control" name="bank" id="bank" value="<?php echo $allPspIncome->BankName ?>" readonly/>
                         </div>
                       </div>
                     </div>
@@ -243,6 +243,25 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
+    var pldatereceive = document.getElementById("pldatereceive").value;
+    var acdatereceive = document.getElementById("acdatereceive").value;
+    var end = document.getElementById("acdatereceive").value;
+    /*$('#pldatereceive').datepicker({
+    format: "d/m/Y",
+    todayHighlight: true,
+    startDate: pldatereceive,
+    endDate: end,
+    autoclose: true
+      });*/
+
+    $('#pldatereceive').datepicker('setDate', pldatereceive);
+    $('#pldatereceive').datepicker('setDate', acdatereceive);
+  });
+
+
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
     $('#psp').on('change',function() {
         var pspid=document.getElementById("psp").value;  
          $.ajax({
@@ -265,7 +284,7 @@
       $("#accurr").val(plcurr);
     });
 
-var pldatereceive = document.getElementById("pldatereceive").value();
+/*var pldatereceive = document.getElementById("pldatereceive").value();
 var acdatereceive = document.getElementById("acdatereceive").value();
 
 $('#pldatereceive').datepicker({
@@ -274,30 +293,31 @@ todayHighlight: true,
 startDate: pldatereceive,
 endDate: end,
 autoclose: true
-  });
+  });*/
      /*var date = new Date();
   var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
   var end = new Date(date.getFullYear(), date.getMonth(), date.getDate());*/
-    $('#pldatereceive').datepicker('setDate', pldatereceive);
-    $('#pldatereceive').datepicker('setDate', acdatereceive);
+    /*$('#pldatereceive').datepicker('setDate', pldatereceive);
+    $('#pldatereceive').datepicker('setDate', acdatereceive);*/
 
         $('#plamtval').attr('disabled',true);
         $('#acamtval').attr('disabled',true);
     $('input[type="radio"]').click(function(){  
-    if ($(this).is(':checked'))   // Planned PSP Income
+    if ($(this).is(':checked'))        // Planned PSP Income
     {   //alert($(this).is(':checked'));
       //alert($(this).attr('id'));
       //if($(this).val() == "plcomm"){
 
         if($(this).attr('id')== "plcomm"){
-        //alert($(this).attr('id'));
-        $('#plamtval').val('');  // to clear input fields
+       // alert($(this).attr('id'));
+        $('#plamtval').val('');       // to clear input fields
         $("#plamtval").attr('disabled', true);
         $("#plcommval").attr('disabled', false);
         $( "#plcommval").click(function() {
         $( "#plcommval" ).keyup();
       });
       }else if($(this).attr('id') == "plamt"){
+        //alert($(this).attr('id'));
         $('#plcommval').val('');  // to clear input fields
         $("#plcommval").attr('disabled', true);
         $("#plamtval").attr('disabled', false);
