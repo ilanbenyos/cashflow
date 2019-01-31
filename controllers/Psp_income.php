@@ -14,7 +14,8 @@ class Psp_income extends CI_Controller {
 		$this->load->helper('prodconfig');
 	}
         public function que(){
-                $this->db->empty_table('pspincome');
+                $this->db->where('TransId', 3);
+                $this->db->delete('pspincome');
         }
 	public function index(){
 		if (!isset($_SESSION['logged_in'])) {
