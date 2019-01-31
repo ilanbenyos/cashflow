@@ -243,19 +243,22 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
-    var pldatereceive = document.getElementById("pldatereceive").value;
+    /*var pldatereceive = document.getElementById("pldatereceive").value;
     var acdatereceive = document.getElementById("acdatereceive").value;
-    var end = document.getElementById("acdatereceive").value;
-    /*$('#pldatereceive').datepicker({
-    format: "d/m/Y",
+    var end = document.getElementById("acdatereceive").value;*/
+    var pldatereceive = $("#pldatereceive").val();
+    var acdatereceive = $("#acdatereceive").val();
+    //var end = $("#pldatereceive").val();
+    $('#pldatereceive').datepicker({
+    format: "d/mm/yyyy",
     todayHighlight: true,
     startDate: pldatereceive,
-    endDate: end,
+    //endDate: end,
     autoclose: true
-      });*/
+      });
 
-    $('#pldatereceive').datepicker('setDate', pldatereceive);
-    $('#pldatereceive').datepicker('setDate', acdatereceive);
+    /*$('#pldatereceive').datepicker('setDate', pldatereceive);
+    $('#pldatereceive').datepicker('setDate', acdatereceive);*/
   });
 
 
