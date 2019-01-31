@@ -106,21 +106,21 @@
                           <div class="clearfix spacebottom1x">
                             <div class="form-check col-md-5 col-sm-5 col-xs-12">
                               <label>
-                                <input type="radio" name="plcomm" id="plcomm" class="checkcomm" value="" checked="">
+                                <input type="radio" name="plcomm" id="plcomm" class="checkcomm"  checked="">
                                 <span class="label-text">%</span> </label>
                             </div>
                             <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="plcommval" id="plcommval" placeholder="Commission">
+                              <input type="text" class="form-control" name="plcommval" id="plcommval" value="<?php echo $allPspIncome->PlannedCom ?>" placeholder="Commission">
                             </div>
                           </div>
                           <div class="clearfix">
                             <div class="form-check col-md-5 col-sm-5 col-xs-12">
                               <label>
-                                <input type="radio" name="plcomm" id="plamt" class="checkamt" value="">
+                                <input type="radio" name="plcomm" id="plamt" class="checkamt" >
                                 <span class="label-text">Amount</span> </label>
                             </div>
                             <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="plamtval" id="plamtval" placeholder="Amount">
+                              <input type="text" class="form-control" name="plamtval" id="plamtval" value="<?php echo $allPspIncome->PlannedComP ?>" placeholder="Amount">
                             </div>
                           </div>
                         </div>
@@ -176,21 +176,21 @@
                           <div class="clearfix spacebottom1x">
                             <div class="form-check col-md-5 col-sm-5 col-xs-12">
                               <label>
-                                <input type="radio" name="accomm" id="accomm" class="checkcomm" checked>
+                                <input type="radio" name="accomm" id="accomm" class="checkcomm" value="" checked>
                                 <span class="label-text">%</span> </label>
                             </div>
                             <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="accommval" id="accommval" placeholder="Commission">
+                              <input type="text" class="form-control" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualCom ?>" placeholder="Commission">
                             </div>
                           </div>
                           <div class="clearfix">
                             <div class="form-check col-md-5 col-sm-5 col-xs-12">
                               <label>
-                                <input type="radio" name="accomm" id="acamt">
+                                <input type="radio" name="accomm" id="acamt" >
                                 <span class="label-text">Amount</span> </label>
                             </div>
                             <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="acamtval" id="acamtval" placeholder="Amount">
+                              <input type="text" class="form-control" name="acamtval" id="acamtval" value="<?php echo $allPspIncome->ActualComP ?>" placeholder="Amount">
                             </div>
                           </div>
                         </div>
@@ -303,8 +303,8 @@ autoclose: true
     /*$('#pldatereceive').datepicker('setDate', pldatereceive);
     $('#pldatereceive').datepicker('setDate', acdatereceive);*/
 
-        $('#plamtval').attr('disabled',true);
-        $('#acamtval').attr('disabled',true);
+        $('#plamtval').attr('readonly',true);
+        $('#acamtval').attr('readonly',true);
     $('input[type="radio"]').click(function(){  
     if ($(this).is(':checked'))        // Planned PSP Income
     {   //alert($(this).is(':checked'));

@@ -23,7 +23,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   <th>Description</th>
                   <th>Amount</th>
                   <th>Commission</th>
-                  <th>Amount Received</th>
+                  <th>Net Amount Received</th>
                   <th>Date Received</th>
                   <th>Action</th>
                 </tr>
@@ -37,8 +37,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   <td><?php echo $psp->BankName; ?></td>
                   <td><?php echo $psp->PspName; ?></td>
                   <td><?php echo $psp->Description; ?></td>
-                  <td><?php echo $psp->ActualNetAmt; ?></td>
-                  <td><?php echo $psp->ActualCom; ?></td>
+                  <td><?php echo $psp->ActualAmt; ?></td>
+                  <td><?php echo $psp->ActualComP; ?></td>
                   <td><?php echo $psp->ActualNetAmt; ?></td>
                   <td><?php echo date('d/m/Y', strtotime(str_replace('-','/', $psp->ActualDate))); ?></td>
                   <td><a class="grey-icon edit_pspdetails" href="<?= base_url('psp_income/update/'.$psp->TransId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>

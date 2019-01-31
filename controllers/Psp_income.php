@@ -16,6 +16,10 @@ class Psp_income extends CI_Controller {
         public function que(){
                 /*$this->db->where('TransId', 3);
                 $this->db->delete('pspincome');*/
+                //$this->db->query('ALTER TABLE `pspincome` ADD `PlannedComP` DECIMAL(13,2) NOT NULL AFTER `PlannedCom`');
+                $this->db->query('ALTER TABLE `pspincome` ADD `PlannedComP` DECIMAL(13,2) NOT NULL AFTER `PlannedCom`');
+                //$this->db->query('ALTER TABLE `pspincome` ADD `ActualComP` DECIMAL(13,2) NOT NULL AFTER `ActualCom`;');
+
         }
 	public function index(){
 		if (!isset($_SESSION['logged_in'])) {
@@ -83,9 +87,15 @@ class Psp_income extends CI_Controller {
         			if($accommval == ""){
         				$accommval = 0;
         			}
+                                if ($plamtval == "") {
+                                        $plamtval = 0;
+                                }
+                                if($acamtval == ""){
+                                    $acamtval = 0;
+                                }
 					
 					
-					$from = $pldatereceive;
+			       $from = $pldatereceive;
 		
                 		$a = explode ( '/', $from );
                 		$c = trim ( $a [2], " " );
@@ -119,10 +129,12 @@ class Psp_income extends CI_Controller {
         				'ExpDate' => $from,
         				'PlannedAmt' => $plamtReceived,
         				'PlannedCom' => $plcommval,
+                                        'PlannedComP' => $plamtval,
         				'PlannedNetAmt' => $plnetAmt,
         				'ActualDate' => $to,
         				'ActualAmt' => $acamtReceive,
         				'ActualCom' => $accommval,
+                                        'ActualComP' => $acamtval,
         				'ActualNetAmt' => $acnetAmt,
         				'CreatedBy' => $uid
         			);
@@ -188,6 +200,12 @@ class Psp_income extends CI_Controller {
         			if($accommval == ""){
         				$accommval = 0;
         			}
+                                if ($plamtval == "") {
+                                        $plamtval = 0;
+                                }
+                                if($acamtval == ""){
+                                    $acamtval = 0;
+                                }
 
 
                                 $from = $pldatereceive;
@@ -226,10 +244,12 @@ class Psp_income extends CI_Controller {
         				'ExpDate' => $from,
         				'PlannedAmt' => $plamtReceived,
         				'PlannedCom' => $plcommval,
+                                        'PlannedComP' => $plamtval,
         				'PlannedNetAmt' => $plnetAmt,
         				'ActualDate' => $to,
         				'ActualAmt' => $acamtReceive,
         				'ActualCom' => $accommval,
+                                        'ActualComP' => $acamtval,
         				'ActualNetAmt' => $acnetAmt,
         				'CreatedBy' => $uid
         			);
