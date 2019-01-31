@@ -13,6 +13,9 @@ class Psp_income extends CI_Controller {
 		$this->load->model('all_model');
 		$this->load->helper('prodconfig');
 	}
+        public function que(){
+                $this->db->empty_table('pspincome');
+        }
 	public function index(){
 		if (!isset($_SESSION['logged_in'])) {
 			redirect('login');
