@@ -112,7 +112,7 @@ $_SESSION['form_token_editbank'] = $token;
                         <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
                       </div>
                   <button type="submit" id="addbankbtn" class="btn-submit transitions">Submit</button>
-                  <a href="<?= base_url('configuration/bank');?>" class="btn-reset transitions">Cancel</a>
+                  <a href="<?= base_url('configuration/bank');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a>
                 </div>
               </div>
             </form>

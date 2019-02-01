@@ -20,7 +20,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   <tr>
                     <th>Bank Name</th>
                     <th>Balance</th>
-					<th>Created By</th>
+                    <th>Currency</th>
+					          <th>Created By</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -33,6 +34,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                      <tr>
                         <td><?php echo $row->BankName; ?></td>
                         <td><?php echo $row->Balance; ?></td>
+                        <td><?php echo $row->CurName; ?></td>
                         <td><?php echo $row->Name; ?></td>
 				    <td><?php if($row->Active == "1" ){ echo '<span class="completed bold">Active</span>' ; }else{ echo  '<span class="pending bold">Disabled</span>' ;} ?></td>
                       <td><a class="grey-icon edit_user" href="<?= base_url('configuration/bank/update/'.$row->BankId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>

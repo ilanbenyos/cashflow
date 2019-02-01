@@ -5,7 +5,8 @@
     <div class="white-bg">
       <div class="row">
         <div class="col-md-12">
-          <div class="middle-section light-blue-box spacebottom2x clearfix">
+          <!-- <div class="middle-section light-blue-box spacebottom2x clearfix"> -->
+            <div class="defination-box clearfix">
             <form class="form-horizontal clearfix" id="pspIncome" method="post">
                 <?php 
                   $token = md5(uniqid(rand(), TRUE));
@@ -81,9 +82,9 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="plamtReceived" id="plamtReceived" placeholder="Amount Received" value="<?php echo $allPspIncome->PlannedAmt ?>" />
+                          <input type="text" class="form-control" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount" value="<?php echo $allPspIncome->PlannedAmt ?>" />
                         </div>
                       </div>
                     </div>
@@ -101,31 +102,49 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Commission %</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" name="plcommval" id="plcommval" value="<?php echo $allPspIncome->PlannedComP ?>" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Commission Amount</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" name="plamtval" id="plamtval" value="<?php echo $allPspIncome->PlannedCom ?>" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="clearfix spacebottom1x">
                             <div class="form-check col-md-5 col-sm-5 col-xs-12">
                               <label>
-                                <input type="radio" name="plcomm" id="plcomm" class="checkcomm"  checked="">
+                                 <input type="radio" name="plcomm" id="plcomm" class="checkcomm"  checked=""> 
                                 <span class="label-text">%</span> </label>
                             </div>
                             <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="plcommval" id="plcommval" value="<?php echo $allPspIncome->PlannedCom ?>" placeholder="Commission">
+                              <input type="text" class="form-control" name="plcommval" id="plcommval" value="<?php echo $allPspIncome->PlannedComP ?>" 
+                              onkeypress="javascript:return isNumber(event)" placeholder="Commission">
                             </div>
                           </div>
                           <div class="clearfix">
                             <div class="form-check col-md-5 col-sm-5 col-xs-12">
                               <label>
-                                <input type="radio" name="plcomm" id="plamt" class="checkamt" >
+                                 <input type="radio" name="plcomm" id="plamt" class="checkamt" > 
                                 <span class="label-text">Amount</span> </label>
                             </div>
                             <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="plamtval" id="plamtval" value="<?php echo $allPspIncome->PlannedComP ?>" placeholder="Amount">
+                              <input type="text" class="form-control" name="plamtval" id="plamtval" onkeypress="javascript:return isNumber(event)" value="<?php echo $allPspIncome->PlannedCom ?>" placeholder="Amount">
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
+
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
@@ -143,7 +162,7 @@
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Received date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate)))?>" />
+                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo  $allPspIncome->ActualDate?>" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
                         </div>
@@ -151,9 +170,9 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Amount</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Processed Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="acamtReceive" id="acamtReceive" placeholder="Amount Received" value="<?php echo $allPspIncome->ActualAmt ?>" />
+                          <input type="text" class="form-control" name="acamtReceive" id="acamtReceive" onkeypress="javascript:return isNumber(event)" placeholder="Actual Processed Amount" value="<?php echo $allPspIncome->ActualAmt ?>" />
                         </div>
                       </div>
                     </div>
@@ -171,31 +190,48 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Commission %</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualComP ?>" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Commission Amount</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" name="acamtval" id="acamtval" value="<?php echo $allPspIncome->ActualCom ?>"  onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="clearfix spacebottom1x">
                             <div class="form-check col-md-5 col-sm-5 col-xs-12">
                               <label>
-                                <input type="radio" name="accomm" id="accomm" class="checkcomm" value="" checked>
+                                 <input type="radio" name="accomm" id="accomm" class="checkcomm" value="" checked> 
                                 <span class="label-text">%</span> </label>
                             </div>
                             <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualCom ?>" placeholder="Commission">
+                              <input type="text" class="form-control" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualComP ?>" 
+                              onkeypress="javascript:return isNumber(event)" placeholder="Commission">
                             </div>
                           </div>
                           <div class="clearfix">
                             <div class="form-check col-md-5 col-sm-5 col-xs-12">
                               <label>
-                                <input type="radio" name="accomm" id="acamt" >
+                                 <input type="radio" name="accomm" id="acamt" > 
                                 <span class="label-text">Amount</span> </label>
                             </div>
                             <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="acamtval" id="acamtval" value="<?php echo $allPspIncome->ActualComP ?>" placeholder="Amount">
+                              <input type="text" class="form-control" name="acamtval" id="acamtval" value="<?php echo $allPspIncome->ActualCom ?>" onkeypress="javascript:return isNumber(event)" placeholder="Amount">
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
@@ -206,30 +242,12 @@
                     </div>
                   </div>
                   <!--Actual info ends -->
-                  <!-- <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box"> -->
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Date Received</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control" placeholder="Date Received" id="" />
-                            <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
-                    <!-- <div class="col-xs-12 text-left spacetop2x">
-                      <div class="page-loader" style="display:none;">
-                        <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
-                      </div>
-                      <button type="submit" class="cmn-btn transitions" id="editPspIncome">Edit PSP Income</button>
-                    </div> -->
                     <div class="col-xs-12 text-center spacetop2x">
                   <div class="page-loader" style="display:none;">
                         <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
                       </div>
                   <button type="submit" id="editPspIncome" class="btn-submit transitions">Submit</button>
-                  <a href="<?= base_url('psp_income');?>" class="btn-reset transitions">Cancel</a>
+                  <a href="<?= base_url('psp_income');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a>
                 </div>
                   <!-- </div> -->
                 </div>
@@ -241,11 +259,17 @@
     </div>
   </div>
 </div>
+<script>
+    function isNumber(evt) {
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+            return false;
+
+        return true;
+    }    
+</script>
 <script type="text/javascript">
   $(document).ready(function(){
-    /*var pldatereceive = document.getElementById("pldatereceive").value;
-    var acdatereceive = document.getElementById("acdatereceive").value;
-    var end = document.getElementById("acdatereceive").value;*/
     var pldatereceive = $("#pldatereceive").val();
     var acdatereceive = $("#acdatereceive").val();
     //var end = $("#pldatereceive").val();
@@ -253,10 +277,20 @@
     format: "d/mm/yyyy",
     todayHighlight: true,
     startDate: pldatereceive,
+    //maxDate: 0,
     //endDate: end,
     autoclose: true
       });
-
+/*if (acdatereceive == '0000-00-00') {
+    $('#acdatereceive').datepicker({
+    format: "d/mm/yyyy",
+    todayHighlight: true,
+    autoclose: true
+      });
+}else{
+  alert(121)
+}*/
+//$('#pldatereceive').datepicker('setDate', acdatereceive);
     /*$('#pldatereceive').datepicker('setDate', pldatereceive);
     $('#pldatereceive').datepicker('setDate', acdatereceive);*/
   });
@@ -303,7 +337,7 @@ autoclose: true
     /*$('#pldatereceive').datepicker('setDate', pldatereceive);
     $('#pldatereceive').datepicker('setDate', acdatereceive);*/
 
-        $('#plamtval').attr('disabled',true);
+        /*$('#plamtval').attr('disabled',true);
         $('#acamtval').attr('disabled',true);
     $('input[type="radio"]').click(function(){  
     if ($(this).is(':checked'))        // Planned PSP Income
@@ -350,9 +384,9 @@ autoclose: true
         });
       }
     }
-  });
+  });*/
 
-    $( "#plcommval" ).keyup(function( event ) {    // Planned PSP Income
+    /*$( "#plcommval" ).keyup(function( event ) {    // Planned PSP Income
       var plamt =document.getElementById("plamtReceived").value;  
       var comm = document.getElementById("plcommval").value;
       var amt = document.getElementById("plamtval").value;
@@ -362,10 +396,10 @@ autoclose: true
       var plnetamt = (plamt-commamt);
       $("#plnetAmt").val(plnetamt);
       
-    })/*.keydown(function( event ) {
+    })*//*.keydown(function( event ) {
       //alert(11111);
     });*/
-    $( "#plamtval" ).keyup(function( event ) {  // Planned PSP Income
+    /*$( "#plamtval" ).keyup(function( event ) {  // Planned PSP Income
       var plamt =document.getElementById("plamtReceived").value;  
       var comm = document.getElementById("plcommval").value;
       var amt = document.getElementById("plamtval").value;
@@ -373,11 +407,11 @@ autoclose: true
       var plnetamt = (plamt-amt);
       $("#plnetAmt").val(plnetamt);
       
-    })/*.keydown(function( event ) {
+    })*//*.keydown(function( event ) {
       //alert(11111);
     });*/
 
-    $( "#accommval" ).keyup(function( event ) {    // Actual PSP Income
+    /*$( "#accommval" ).keyup(function( event ) {    // Actual PSP Income
       var acamt =document.getElementById("acamtReceive").value;  
       var comm = document.getElementById("accommval").value;
       var amt = document.getElementById("acamtval").value;
@@ -386,9 +420,9 @@ autoclose: true
       $("#acamtval").val(commamt);
       var acnetamt = (acamt-commamt);
       $("#acnetAmt").val(acnetamt);
-    })
+    })*/
 
-    $( "#acamtval" ).keyup(function( event ) {  // Actual PSP Income
+    /*$( "#acamtval" ).keyup(function( event ) {  // Actual PSP Income
       var acamt =document.getElementById("acamtReceive").value;  
       var comm = document.getElementById("accommval").value;
       var amt = document.getElementById("acamtval").value;
@@ -397,7 +431,7 @@ autoclose: true
       $("#acnetAmt").val(acnetamt);
       
     })
-
+*/
   });
 
 </script>

@@ -113,7 +113,8 @@ $_SESSION['form_token_addbank'] = $token;
                         <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
                       </div>
                   <button type="submit" id="addbankbtn" class="btn-submit transitions">Submit</button>
-                  <button type="reset" class="btn-reset transitions">Reset</button>
+                  <!-- <button type="reset" class="btn-reset transitions">Reset</button> -->
+                   <a href="<?= base_url('configuration/bank');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a>
                 </div>
               </div>
             </form>

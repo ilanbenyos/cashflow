@@ -37,13 +37,13 @@ class Bank extends CI_Controller {
 	    {
 	        redirect('login');
 	    }
-		$table = 'bankmaster B';
-		$columns = 'B.BankName,B.Balance,B.Active,UM.Name,B.BankId';
-		$wherecol = 'B.BankId';
+		$table = 'bankmaster B,currencymaster C';
 		$join = '';
+		$columns = 'B.BankName,B.Balance,B.Active,UM.Name,B.BankId,B.CurId,C.CurId,C.CurName';
+		$wherecol = 'B.BankId';
+		
 		
 		$data['results'] = $this->all_model->listData($table,$columns,$orderBy='DESC','B.Active',$join);
-		
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/left-sidebar');
 		$this->load->view('configuration/bank', $data);

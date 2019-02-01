@@ -1,13 +1,14 @@
 <!-- Page Content  -->
-
 <div id="content">
   <div class="container-fluid">
-    <h1>PSP Income</h1>
+    <!-- <h1>PSP Income</h1> -->
     <div class="white-bg">
       <div class="row">
         <div class="col-md-12">
-          <div class="middle-section light-blue-box spacebottom2x clearfix">
-            <form class="form-horizontal clearfix" id="pspIncome" method="post">
+          <!-- <div class="middle-section light-blue-box spacebottom2x clearfix"> -->
+            <h2 class="modal-title">ADD PSP Income</h2>
+            <div class="defination-box clearfix">
+            <form class="form-horizontal clearfix" id="pspIncome" method="post" >
                 <?php 
                   $token = md5(uniqid(rand(), TRUE));
                   if(isset ($_SESSION['token_pspincome']))
@@ -81,9 +82,9 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="plamtReceived" id="plamtReceived" placeholder="Amount Received" />
+                          <input type="text" class="form-control" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount" />
                         </div>
                       </div>
                     </div>
@@ -102,31 +103,55 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Commission %</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" name="plcommval" id="plcommval" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Commission Amount</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" name="plamtval" id="plamtval" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="clearfix spacebottom1x">
                             <div class="form-check col-md-5 col-sm-5 col-xs-12">
                               <label>
-                                <input type="radio" name="plcomm" id="plcomm" class="checkcomm" value="" checked="">
+                                <input type="radio" name="plcomm" id="plcomm" class="checkcomm" value="" checked=""> 
                                 <span class="label-text">%</span> </label>
                             </div>
                             <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="plcommval" id="plcommval" placeholder="Commission">
+                              <input type="text" class="form-control" name="plcommval" id="plcommval" onkeypress="javascript:return isNumber(event)" placeholder="Commission">
                             </div>
                           </div>
                           <div class="clearfix">
                             <div class="form-check col-md-5 col-sm-5 col-xs-12">
                               <label>
-                                <input type="radio" name="plcomm" id="plamt" class="checkamt" value="">
+                                 <input type="radio" name="plcomm" id="plamt" class="checkamt" value="">
                                 <span class="label-text">Amount</span> </label>
                             </div>
                             <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="plamtval" id="plamtval" placeholder="Amount">
+                              <input type="text" class="form-control" name="plamtval" id="plamtval" onkeypress="javascript:return isNumber(event)" placeholder="Amount">
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Plan Total Comission</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" name="pltotcomm" id="pltotcomm" placeholder="Planned Total Comission" />
+                        </div>
+                      </div>
+                    </div> -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
@@ -152,9 +177,9 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Amount</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Processed Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="acamtReceive" id="acamtReceive" placeholder="Amount Received" />
+                          <input type="text" class="form-control" name="acamtReceive" id="acamtReceive" onkeypress="javascript:return isNumber(event)" placeholder="Actual Processed Amount" />
                         </div>
                       </div>
                     </div>
@@ -173,65 +198,72 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Commission</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Commission %</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <div class="clearfix spacebottom1x">
-                            <div class="form-check col-md-5 col-sm-5 col-xs-12">
-                              <label>
-                                <input type="radio" name="accomm" id="accomm" class="checkcomm" checked>
-                                <span class="label-text">%</span> </label>
-                            </div>
-                            <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="accommval" id="accommval" placeholder="Commission">
-                            </div>
-                          </div>
-                          <div class="clearfix">
-                            <div class="form-check col-md-5 col-sm-5 col-xs-12">
-                              <label>
-                                <input type="radio" name="accomm" id="acamt">
-                                <span class="label-text">Amount</span> </label>
-                            </div>
-                            <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="acamtval" id="acamtval" placeholder="Amount">
-                            </div>
-                          </div>
+                          <input type="text" class="form-control" name="accommval" id="accommval" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Commission Amount</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" name="acamtval" id="acamtval" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Commission</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <div class="clearfix spacebottom1x">
+                            <div class="form-check col-md-5 col-sm-5 col-xs-12">
+                              <label>
+                                <input type="radio" name="accomm" id="accomm" class="checkcomm" checked> 
+                                <span class="label-text">%</span> </label>
+                            </div>
+                            <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
+                              <input type="text" class="form-control" name="accommval" id="accommval" onkeypress="javascript:return isNumber(event)" placeholder="Commission">
+                            </div>
+                          </div>
+                          <div class="clearfix">
+                            <div class="form-check col-md-5 col-sm-5 col-xs-12">
+                              <label>
+                                 <input type="radio" name="accomm" id="acamt"> 
+                                <span class="label-text">Amount</span> </label>
+                            </div>
+                            <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
+                              <input type="text" class="form-control" name="acamtval" id="acamtval" onkeypress="javascript:return isNumber(event)" placeholder="Amount">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                   <!--  <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Total Comission</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" name="actotcomm" id="actotcomm" placeholder="Actual Total Comission" />
+                        </div>
+                      </div>
+                    </div> -->
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="acnetAmt" id="acnetAmt" placeholder="Actual Net Amount" />
+                          <input type="text" class="form-control" name="acnetAmt" id="acnetAmt" placeholder="Actual Net Amount"/>
                         </div>
                       </div>
                     </div>
                   </div>
                   <!--Actual info ends -->
-                  <!-- <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box"> -->
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Date Received</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control" placeholder="Date Received" id="" />
-                            <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
-                    <!-- <div class="col-xs-12 text-left spacetop2x">
-                      <div class="page-loader" style="display:none;">
-                        <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
-                      </div>
-                      <button type="button" class="cmn-btn transitions" id="addPspIncome">Add PSP Income</button>
-                    </div> -->
                     <div class="col-xs-12 text-center spacetop2x">
                   <div class="page-loader" style="display:none;">
                         <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
                       </div>
                   <button type="button" id="addPspIncome" class="btn-submit transitions">Submit</button>
-                  <button type="reset" class="btn-reset transitions">Reset</button>
+                  <!-- <button type="reset" class="btn-reset transitions">Reset</button> -->
+                   <a href="<?= base_url('psp_income');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a>
                 </div>
                   <!-- </div> -->
                 </div>
@@ -243,14 +275,14 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-/*$(function() {
-var date = $('#pldatereceive').datepicker({ dateFormat: '%Y-%d-%m' }).val();
-    alert(date);
-    $('#pldatereceive').datepicker({
-      dateFormat: 'yy-mm-dd'
-});*/
-//});
+<script>
+    function isNumber(evt) {
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+            return false;
+
+        return true;
+    }    
 </script>
 <script type="text/javascript">
   $(document).ready(function(){
@@ -283,7 +315,7 @@ var date = $('#pldatereceive').datepicker({ dateFormat: '%Y-%d-%m' }).val();
     });*/
 
 
-        $('#plamtval').attr('disabled',true);
+        /*$('#plamtval').attr('disabled',true);
         $('#acamtval').attr('disabled',true);
     $('input[type="radio"]').click(function(){  
     if ($(this).is(':checked'))   // Planned PSP Income
@@ -329,22 +361,41 @@ var date = $('#pldatereceive').datepicker({ dateFormat: '%Y-%d-%m' }).val();
         });
       }
     }
-  });
+  });*/
 
-    $( "#plcommval" ).keyup(function( event ) {    // Planned PSP Income
+    /*$( "#plcommval" ).keyup(function( event ) {    // Planned PSP Income
       var plamt =document.getElementById("plamtReceived").value;  
       var comm = document.getElementById("plcommval").value;
-      var amt = document.getElementById("plamtval").value;
-      var commission = (comm/100);  // 0.5%
+      var amt = document.getElementById("plamtval").value;*/
+      /*var commission = (comm/100);  // 0.5%
       var commamt = (plamt*commission);
       $("#plamtval").val(commamt);
       var plnetamt = (plamt-commamt);
+      $("#plnetAmt").val(plnetamt);*/
+                /*var plcommV = (comm/100);
+                var plcomm = (plamt*plcommV);
+                //var plcommA = (comm/plcommA);
+                //alert(plcomm);
+
+                var plcommA = (plcommV*plcomm); //1000*0.1 = 100
+                $("#plamtval").val(plcommA);
+
+                var pltotcomm = (plcomm+plcommA); //1000+100
+                $("#pltotcomm").val(pltotcomm); 
+                var plnetamt = (plamt-pltotcomm); //10000-1100
+                $("#plnetAmt").val(plnetamt);*/
+
+      /*var commission = (comm/100);  // 0.5%
+      var commamt = (plamt*commission);
+      var pltotcomm = (comm+amt);
+      $("#pltotcomm").val(pltotcomm); 
+      //$("#plamtval").val(commamt);
+      var plnetamt = (plamt-commamt);
       $("#plnetAmt").val(plnetamt);
-      
     })/*.keydown(function( event ) {
       //alert(11111);
     });*/
-    $( "#plamtval" ).keyup(function( event ) {  // Planned PSP Income
+    /*$( "#plamtval" ).keyup(function( event ) {  // Planned PSP Income
       var plamt =document.getElementById("plamtReceived").value;  
       var comm = document.getElementById("plcommval").value;
       var amt = document.getElementById("plamtval").value;
@@ -352,18 +403,29 @@ var date = $('#pldatereceive').datepicker({ dateFormat: '%Y-%d-%m' }).val();
       var plnetamt = (plamt-amt);
       $("#plnetAmt").val(plnetamt);
       
-    })/*.keydown(function( event ) {
+    })*//*.keydown(function( event ) {
       //alert(11111);
     });*/
 
-    $( "#accommval" ).keyup(function( event ) {    // Actual PSP Income
+    /*$( "#accommval" ).keyup(function( event ) {    // Actual PSP Income
       var acamt =document.getElementById("acamtReceive").value;  
       var comm = document.getElementById("accommval").value;
-      var amt = document.getElementById("acamtval").value;
-      var commission = (comm/100);  // 0.5%
+      var amt = document.getElementById("acamtval").value;*/
+      /*var commission = (comm/100);  // 0.5%
       var commamt = (acamt*commission);
       $("#acamtval").val(commamt);
       var acnetamt = (acamt-commamt);
+      $("#acnetAmt").val(acnetamt);*/
+      /*var accommV = (comm/100);
+      var accomm = (acamt*accommV);
+      //var plcommA = (comm/plcommA);
+      //alert(plcomm);
+      var accommA = (accommV*accomm); //1000*0.1 = 100
+      $("#acamtval").val(accommA);
+
+      var actotcomm = (accomm+accommA); //1000+100
+      $("#actotcomm").val(actotcomm); 
+      var acnetamt = (acamt-actotcomm); //10000-1100
       $("#acnetAmt").val(acnetamt);
     })
 
@@ -375,7 +437,7 @@ var date = $('#pldatereceive').datepicker({ dateFormat: '%Y-%d-%m' }).val();
       var acnetamt = (acamt-amt);
       $("#acnetAmt").val(acnetamt);
       
-    })
+    })*/
 
   });
 
@@ -426,7 +488,7 @@ var date = $('#pldatereceive').datepicker({ dateFormat: '%Y-%d-%m' }).val();
           $(this).css("border", "1px solid #be1622");
         }
       })
-      $('#acdatereceive').on('blur', function() {
+      /*$('#acdatereceive').on('blur', function() {
         $(this).css("border", "1px solid #CCCCCC");
             if($(this).val()!="")
         { 
@@ -447,9 +509,9 @@ var date = $('#pldatereceive').datepicker({ dateFormat: '%Y-%d-%m' }).val();
         {
           $(this).css("border", "1px solid #be1622");
         }
-      })
+      })*/
       $("#addPspIncome").click(function(){
-      var returnvar = true;
+        var returnvar = true;
       if($("#psp").val() ==""){
            $("#psp").css("border", "1px solid #be1622");           
            returnvar = false;
@@ -466,17 +528,16 @@ var date = $('#pldatereceive').datepicker({ dateFormat: '%Y-%d-%m' }).val();
            $("#plamtReceived").css("border", "1px solid #be1622");
            returnvar = false;
           }
-          if($("#acdatereceive").val()==""){                  
+          /*if($("#acdatereceive").val()==""){                  
            $("#acdatereceive").css("border", "1px solid #be1622");
            returnvar = false;
           }
           if($("#acamtReceive").val()==""){                  
            $("#acamtReceive").css("border", "1px solid #be1622");
            returnvar = false;
-          }
+          }*/
           if(returnvar == true){
-            /*var bank = document.getElementById('bank').value;
-            alert(bank);*/
+            alert(returnvar);
              $("#addPspIncome").hide();
             $(".page-loader").show();
               $.ajax({
@@ -489,12 +550,12 @@ var date = $('#pldatereceive').datepicker({ dateFormat: '%Y-%d-%m' }).val();
                     if(data == 1){
                       window.location.href = '<?php echo base_url('psp-income') ?>';
                     }else{
-                       window.location.href = '<?php echo base_url('psp-income') ?>';
+                      window.location.href = '<?php echo base_url('psp-income') ?>';
                     }
                    }
                });
 
-     }  
+     } 
      return returnvar;
       });
     })(jQuery);

@@ -47,6 +47,9 @@ $(document).ready(function() {
 	//"ajax": '<?= base_url('configuration/bank/listbankdata')?>',
     //data: data,
     //columns: columns
+    columnDefs: [
+   { orderable: false, targets: 5 }
+]
   });
   
 $('#tablebank').DataTable({
@@ -55,6 +58,10 @@ responsive  : true,
 	
 	aaSorting: [[3, "asc"]],
      dom: 'lBfrtip',
+
+  columnDefs: [
+   { orderable: false, targets: 5 }
+]
 });
 $('#tablevendor').DataTable({
   "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
@@ -62,6 +69,9 @@ responsive  : true,
 	
 	aaSorting: [[2, "asc"]],
      dom: 'lBfrtip',
+     columnDefs: [
+   { orderable: false, targets: 3 }
+]
 });
 $('#psptabledata').DataTable({
   "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
@@ -69,6 +79,10 @@ responsive  : true,
   
   aaSorting: [[7, "desc"]],
      dom: 'lBfrtip',
+
+  columnDefs: [
+   { orderable: false, targets: 8 }
+]
 });
 });
 </script>
