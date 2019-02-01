@@ -19,7 +19,7 @@ class Psp_income extends CI_Controller {
                 //$this->db->query('ALTER TABLE `pspincome` ADD `PlannedComP` DECIMAL(13,2) NOT NULL AFTER `PlannedCom`');
                 //$this->db->query('ALTER TABLE `pspincome` ADD `PlannedComP` DECIMAL(13,2) NOT NULL AFTER `PlannedCom`');
                 //$this->db->query('ALTER TABLE `pspincome` ADD `ActualComP` DECIMAL(13,2) NOT NULL AFTER `ActualCom`;');
-               $query3 =  $this->db->query("ALTER TABLE `pspincome` CHANGE `ActualAmt` `ActualAmt` DECIMAL(13,2) NOT NULL DEFAULT '0' COMMENT 'actual processed amount';");
+               $query3 =  $this->db->query("ALTER TABLE `pspincome` CHANGE `ActualAmt` `ActualAmt` DECIMAL(13,2) NOT NULL DEFAULT '0' COMMENT 'actual processed amount'");
                 $data_1= $query3->result();
 
         }
