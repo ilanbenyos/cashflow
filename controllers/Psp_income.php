@@ -21,6 +21,7 @@ class Psp_income extends CI_Controller {
                 //$this->db->query('ALTER TABLE `pspincome` ADD `ActualComP` DECIMAL(13,2) NOT NULL AFTER `ActualCom`;');
                $query3 =  $this->db->query("DESC pspincome");
                 $data_1= $query3->result();
+                print_r($data_1);
 
         }
 	public function index(){
