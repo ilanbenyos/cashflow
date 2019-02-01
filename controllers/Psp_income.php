@@ -22,7 +22,7 @@ class Psp_income extends CI_Controller {
                  $query4 =  $this->db->query("DESC pspincome");
                 $data_2= $query4->result();
                 print_r($data_2);
-               $query3 =  $this->db->query("ALTER TABLE `pspincome` CHANGE `ActualCom` `ActualCom` DECIMAL(13,2) NOT NULL DEFAULT '0' COMMENT 'actual processed amount';");
+               $query3 =  $this->db->query("ALTER TABLE `pspincome` CHANGE `ActualNetAmt` `ActualNetAmt` DECIMAL(13,2) NOT NULL DEFAULT '0' COMMENT 'actual net settelment'");
                 //$data_1= $query3->result();
                
 
