@@ -109,6 +109,11 @@ header { position:relative; background: #fff; }
 .pending { color:#c20000; }
 .completed { color:#3a8100; }
 .in-process { color:#c9aa00; }
+.extra-right-space {
+    text-align: right;
+    padding-right: 24px !important;
+    padding-left: 0 !important;
+}
 /***** Box Border Table CSS Style *****/
 .common-table.box-table .table thead tr th { background: #e7e7e7; color: #4c4c4c; padding: 18px 25px; }
 .common-table.box-table .table thead tr th:last-child, .common-table.box-table .table tbody tr td:last-child { background: #fff; }

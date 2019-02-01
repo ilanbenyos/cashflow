@@ -77,7 +77,7 @@ $('#psptabledata').DataTable({
   "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
 responsive  : true,
   
-  aaSorting: [[7, "desc"]],
+  aaSorting: [[0, "desc"]],
      dom: 'lBfrtip',
 
   columnDefs: [
