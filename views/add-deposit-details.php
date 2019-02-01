@@ -537,7 +537,7 @@
            returnvar = false;
           }*/
           if(returnvar == true){
-            alert(returnvar);
+            //alert(returnvar);
              $("#addPspIncome").hide();
             $(".page-loader").show();
               $.ajax({
