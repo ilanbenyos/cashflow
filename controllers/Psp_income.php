@@ -17,8 +17,10 @@ class Psp_income extends CI_Controller {
                 /*$this->db->where('TransId', 3);
                 $this->db->delete('pspincome');*/
                 //$this->db->query('ALTER TABLE `pspincome` ADD `PlannedComP` DECIMAL(13,2) NOT NULL AFTER `PlannedCom`');
-                $this->db->query('ALTER TABLE `pspincome` ADD `PlannedComP` DECIMAL(13,2) NOT NULL AFTER `PlannedCom`');
+                //$this->db->query('ALTER TABLE `pspincome` ADD `PlannedComP` DECIMAL(13,2) NOT NULL AFTER `PlannedCom`');
                 //$this->db->query('ALTER TABLE `pspincome` ADD `ActualComP` DECIMAL(13,2) NOT NULL AFTER `ActualCom`;');
+               $query3 =  $this->db->query('ALTER TABLE `pspincome` CHANGE `ActualDate` `ActualDate` DATE NULL DEFAULT NULL');
+                $data_1= $query3->result();
 
         }
 	public function index(){
@@ -39,12 +41,10 @@ class Psp_income extends CI_Controller {
 		if (!isset($_SESSION['logged_in'])) {
 			redirect('login');
 		}
-		/*print_r(date_format($this->input->post('pldatereceive'),'%Y-%m-%d'));
-		exit();*/
 		$this->form_validation->set_rules ( 'bank', 'Bank Name', 'trim|required' );
 		$this->form_validation->set_rules ( 'psp', 'PSP', 'trim|required' );
 		$this->form_validation->set_rules ('pldatereceive', 'Planned Amount Receive', 'trim|required');
-		$this->form_validation->set_rules ('acdatereceive', 'Actual Amount Receive', 'trim|required');
+		//$this->form_validation->set_rules ('acdatereceive', 'Actual Amount Receive', 'trim|required');
 		if ($this->form_validation->run () === FALSE) {
 			$data['banks'] = $this->all_model->get_all_banks();
 			$data['all_psp'] = $this->all_model->get_all_psp();
@@ -54,6 +54,7 @@ class Psp_income extends CI_Controller {
 			$this->load->view('add-deposit-details',$data);
 			$this->load->view('templates/footer');
 		}else{
+
 				$token = $this->input->post('pspin_token');
         		$session_token=null;
         		$session_token = $_SESSION['token_pspincome'];
@@ -79,48 +80,46 @@ class Psp_income extends CI_Controller {
         			$acamtval = $this->input->post('acamtval');
         			$acnetAmt = $this->input->post('acnetAmt');
         			$uid = $this->input->post('userid');
-        			/*if($plamtval == ""){
-        				$plcommval = $plamtval;
-        			}else*/if($plcommval == ""){
+        			if($plcommval == ""){
         				$plcommval = 0;
         			}
         			if($accommval == ""){
         				$accommval = 0;
         			}
-                                if ($plamtval == "") {
-                                        $plamtval = 0;
-                                }
-                                if($acamtval == ""){
-                                    $acamtval = 0;
-                                }
-					
+                    if ($plamtval == "") {
+                            $plamtval = 0;
+                    }
+                    if($acamtval == ""){
+                        $acamtval = 0;
+                    }
 					
 			       $from = $pldatereceive;
 		
-                		$a = explode ( '/', $from );
-                		$c = trim ( $a [2], " " );
-                		$d = trim ( $a [0], " " );
-                		$from = $c . '-' . $a [1] . '-' . $d;
-                		
-                		$to = $acdatereceive;
-                		
-                		$a2 = explode ( '/', $to );
-                		$c2 = trim ( $a2 [2], " " );
-                		$d2 = trim ( $a2 [0], " " );
-                	        $to = $c2 . '-' . $a2 [1] . '-' . $d2;
-				
-                                $log = "ip:" . $_SERVER ['REMOTE_ADDR'] . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL 
-                . "POST ADD deposit: " .json_encode($_POST) . PHP_EOL . "-------------------------" . PHP_EOL;
-                                        file_put_contents ( 'Logs/adddeposit.txt', $log . "\n", FILE_APPEND );
+            		$a = explode ( '/', $from );
+            		$c = trim ( $a [2], " " );
+            		$d = trim ( $a [0], " " );
+            		$from = $c . '-' . $a [1] . '-' . $d;
+            		
+                    $to = $acdatereceive;
+                        
+                    $a2 = explode ( '/', $to );
+                    $c2 = trim ( $a2 [2], " " );
+                    $d2 = trim ( $a2 [0], " " );
+                    $to = $c2 . '-' . $a2 [1] . '-' . $d2;
 
-                                        $log = "ip:" . $_SERVER ['REMOTE_ADDR'] . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL 
-                . "FROM: " . $from. PHP_EOL . "-------------------------" . PHP_EOL;
-                                        file_put_contents ( 'Logs/adddeposit.txt', $log . "\n", FILE_APPEND );
-
-                                        $log = "ip:" . $_SERVER ['REMOTE_ADDR'] . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL 
-                . "TO: " . $to. PHP_EOL . "-------------------------" . PHP_EOL;
-                                        file_put_contents ( 'Logs/adddeposit.txt', $log . "\n", FILE_APPEND );
-					
+                    /*if ($acdatereceive == "") {
+                        $to = "";
+                    }else{
+                        $to = $acdatereceive;
+                        
+                        $a2 = explode ( '/', $to );
+                        $c2 = trim ( $a2 [2], " " );
+                        $d2 = trim ( $a2 [0], " " );
+                        $to = $c2 . '-' . $a2 [1] . '-' . $d2;
+                    }
+                    if ($acamtReceive == "") {
+                        $acamtReceive = 0;
+                    }*/
         			$pspIncomeInfo = array(
         				'PspId' => $pspid,
         				'BankId' => $BankId,
@@ -128,20 +127,16 @@ class Psp_income extends CI_Controller {
         				'Currency' => $curr,
         				'ExpDate' => $from,
         				'PlannedAmt' => $plamtReceived,
-        				'PlannedCom' => $plcommval,
-                                        'PlannedComP' => $plamtval,
+        				'PlannedCom' => $plamtval,
+                        'PlannedComP' => $plcommval,
         				'PlannedNetAmt' => $plnetAmt,
         				'ActualDate' => $to,
         				'ActualAmt' => $acamtReceive,
-        				'ActualCom' => $accommval,
-                                        'ActualComP' => $acamtval,
+        				'ActualCom' => $acamtval,
+                        'ActualComP' => $accommval,
         				'ActualNetAmt' => $acnetAmt,
         				'CreatedBy' => $uid
         			);
-
-                                $log = "ip:" . $_SERVER ['REMOTE_ADDR'] . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL 
-                . "pspIncomeInfo: " . json_encode($pspIncomeInfo). PHP_EOL . "-------------------------" . PHP_EOL;
-                                        file_put_contents ( 'Logs/adddeposit.txt', $log . "\n", FILE_APPEND );
 
         			$this->db->insert('pspincome',$pspIncomeInfo);
         			$_SESSION['pop_mes'] = "PSP Income Added Successfully."; 
@@ -160,7 +155,7 @@ class Psp_income extends CI_Controller {
 	    $this->form_validation->set_rules ( 'bank', 'Bank Name', 'trim|required' );
 		$this->form_validation->set_rules ( 'psp', 'PSP', 'trim|required' );
 		$this->form_validation->set_rules ('pldatereceive', 'Planned Amount Receive', 'trim|required');
-		$this->form_validation->set_rules ('acdatereceive', 'Actual Amount Receive', 'trim|required');
+		//$this->form_validation->set_rules ('acdatereceive', 'Actual Amount Receive', 'trim|required');
 		if ($this->form_validation->run () === FALSE) {
 			$data['banks'] = $this->all_model->get_all_banks();
 			$data['all_psp'] = $this->all_model->get_all_psp();
@@ -200,27 +195,40 @@ class Psp_income extends CI_Controller {
         			if($accommval == ""){
         				$accommval = 0;
         			}
-                                if ($plamtval == "") {
-                                        $plamtval = 0;
-                                }
-                                if($acamtval == ""){
-                                    $acamtval = 0;
-                                }
+                    if ($plamtval == "") {
+                        $plamtval = 0;
+                    }
+                    if($acamtval == ""){
+                        $acamtval = 0;
+                    }
 
 
-                                $from = $pldatereceive;
-                
-                                $a = explode ( '/', $from );
-                                $c = trim ( $a [2], " " );
-                                $d = trim ( $a [0], " " );
-                                $from = $c . '-' . $a [1] . '-' . $d;
-                                
-                                $to = $acdatereceive;
-                                
-                                $a2 = explode ( '/', $to );
-                                $c2 = trim ( $a2 [2], " " );
-                                $d2 = trim ( $a2 [0], " " );
-                                $to = $c2 . '-' . $a2 [1] . '-' . $d2;
+                    $from = $pldatereceive;
+    
+                    $a = explode ( '/', $from );
+                    $c = trim ( $a [2], " " );
+                    $d = trim ( $a [0], " " );
+                    $from = $c . '-' . $a [1] . '-' . $d;
+                    
+                    $to = $acdatereceive;
+                        
+                    $a2 = explode ( '/', $to );
+                    $c2 = trim ( $a2 [2], " " );
+                    $d2 = trim ( $a2 [0], " " );
+                    $to = $c2 . '-' . $a2 [1] . '-' . $d2;
+                    /*if ($acdatereceive == "") {
+                    $to = "";
+                    }else{
+                        $to = $acdatereceive;
+                        
+                        $a2 = explode ( '/', $to );
+                        $c2 = trim ( $a2 [2], " " );
+                        $d2 = trim ( $a2 [0], " " );
+                        $to = $c2 . '-' . $a2 [1] . '-' . $d2;
+                    }
+                    if ($acamtReceive == "") {
+                        $acamtReceive = 0;
+                    }*/
 
                                 $log = "ip:" . $_SERVER ['REMOTE_ADDR'] . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL 
                 . "POST edit deposit: " .json_encode($_POST) . PHP_EOL . "-------------------------" . PHP_EOL;
@@ -243,13 +251,13 @@ class Psp_income extends CI_Controller {
         				'Currency' => $curr,
         				'ExpDate' => $from,
         				'PlannedAmt' => $plamtReceived,
-        				'PlannedCom' => $plcommval,
-                                        'PlannedComP' => $plamtval,
+        				'PlannedCom' => $plamtval,
+                        'PlannedComP' => $plcommval,
         				'PlannedNetAmt' => $plnetAmt,
         				'ActualDate' => $to,
         				'ActualAmt' => $acamtReceive,
-        				'ActualCom' => $accommval,
-                                        'ActualComP' => $acamtval,
+        				'ActualCom' => $acamtval,
+                        'ActualComP' => $accommval,
         				'ActualNetAmt' => $acnetAmt,
         				'CreatedBy' => $uid
         			);
