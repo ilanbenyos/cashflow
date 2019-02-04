@@ -201,7 +201,7 @@ class Psp_income extends CI_Controller {
         			$acnetAmt = $this->input->post('acnetAmt');
         			$uid = $this->input->post('userid');
 
-                    $acamtReceivebefore = $this->input->post('acamtReceivebefore');
+                    $acamtnetReceivebefore = $this->input->post('acamtnetReceivebefore');
 
         			if($plcommval == ""){
         				$plcommval = 0;
@@ -215,7 +215,6 @@ class Psp_income extends CI_Controller {
                     if($acamtval == ""){
                         $acamtval = 0;
                     }
-
 
                     $from = $pldatereceive;
     
@@ -285,10 +284,11 @@ class Psp_income extends CI_Controller {
                         echo '<br>';*/
                         
                         //if ($data['getBankBal']->Balance > 0 ) {
-                            $updatedBal = (($data['getBankBal']->Balance) - ($acamtReceivebefore));
+                            $updatedBal = (($data['getBankBal']->Balance) - ($acamtnetReceivebefore));
+
                             /*echo 'bank balance:'.$data['getBankBal']->Balance;
                             echo '<br>';
-                            echo 'Amount receive before:'.$acamtReceivebefore;
+                            echo 'Amount receive before:'.$acamtnetReceivebefore;
                             echo '<br>';
                             echo 'updatedBal'.$updatedBal;
                             echo '<br>';
@@ -296,15 +296,16 @@ class Psp_income extends CI_Controller {
                             echo '<br>';*/
                             $updatedBal = (($updatedBal)+($acnetAmt));
                             //echo 'new updated bal'.$updatedBal;
+
                         //}
                         /*exit();
                     }else{
                         echo 'else';
                         echo '<br>';
-                        $updatedBal = (($acamtReceivebefore) - ($datea['getBankBal']->Balance));
+                        $updatedBal = (($acamtnetReceivebefore) - ($datea['getBankBal']->Balance));
                         echo 'bank balance:'.$data['getBankBal']->Balance;
                         echo '<br>';
-                        echo 'Amount receive before:'.$acamtReceivebefore;
+                        echo 'Amount receive before:'.$acamtnetReceivebefore;
                         echo '<br>';
                         echo 'updatedBal'.$updatedBal;
                         echo '<br>';
