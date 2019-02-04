@@ -73,7 +73,8 @@ responsive  : true,
    { orderable: false, targets: 3 }
 ]
 });
-$('#psptabledata').DataTable({
+var table = $('#psptabledata').DataTable({
+
   "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
 responsive  : true,
   
@@ -83,7 +84,27 @@ responsive  : true,
   columnDefs: [
    { orderable: false, targets: 8 }
 ]
+
 });
+});
+</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $('select').change(function() {
+            var val = $(this).val();
+            if(val == -1){
+              $('#psptabledata_previous').css( 'display', 'none' );
+              $('#psptabledata_next').css( 'display', 'none' );
+              $('#tabledata_previous').css( 'display', 'none' );
+              $('#tabledata_next').css( 'display', 'none' );
+              $('#tablebank_previous').css( 'display', 'none' );
+              $('#tablebank_next').css( 'display', 'none' );
+              $('#tabledata_previous').css( 'display', 'none' );
+              $('#tabledata_next').css( 'display', 'none' );
+              $('#tablevendor_previous').css( 'display', 'none' );
+              $('#tablevendor_next').css( 'display', 'none' );
+            }
+      });
 });
 </script>
 </body></html>
