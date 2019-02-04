@@ -37,7 +37,7 @@ class Bank extends CI_Controller {
 	    {
 	        redirect('login');
 	    }
-		$table = 'bankmaster B,currencymaster C';
+		$table = 'bankmaster B';
 		$join = '';
 		$columns = 'B.BankName,B.Balance,B.Active,UM.Name,B.BankId,B.CurId,C.CurId,C.CurName';
 		$wherecol = 'B.BankId';

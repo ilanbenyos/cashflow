@@ -95,7 +95,7 @@
                           <select class="form-control" name="plcurr" id="plcurr">
                             <option value="USD" selected="">USD</option>
                             <option value="EUR">EUR</option>
-                            <option value="GBP">GBP</option>
+                            <!-- <option value="GBP">GBP</option> -->
                           </select>
                         </div>
                       </div>
@@ -173,6 +173,7 @@
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Processed Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="text" class="form-control" name="acamtReceive" id="acamtReceive" onkeypress="javascript:return isNumber(event)" placeholder="Actual Processed Amount" value="<?php echo $allPspIncome->ActualAmt ?>" />
+                          
                         </div>
                       </div>
                     </div>
@@ -183,7 +184,7 @@
                           <select class="form-control" name="accurr" id="accurr" onchange="">
                             <option selected="">USD</option>
                             <option>EUR</option>
-                            <option>GBP</option>
+                            <!-- <option>GBP</option> -->
                           </select>
                         </div>
                       </div>
@@ -237,6 +238,7 @@
                         <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="text" class="form-control" name="acnetAmt" id="acnetAmt" placeholder="Actual Net Amount" value="<?php echo $allPspIncome->ActualNetAmt ?>" />
+                          <input type="hidden" class="form-control" name="acamtnetReceivebefore" id="acamtnetReceivebefore" />
                         </div>
                       </div>
                     </div>
@@ -320,6 +322,9 @@
       var plcurr = document.getElementById("plcurr").value;
       $("#accurr").val(plcurr);
     });
+    var aBeforeBal = $('#acnetAmt').val();
+    $('#acamtnetReceivebefore').val(aBeforeBal);
+
 
 /*var pldatereceive = document.getElementById("pldatereceive").value();
 var acdatereceive = document.getElementById("acdatereceive").value();

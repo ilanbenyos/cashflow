@@ -546,7 +546,7 @@
                     data : $("#pspIncome").serialize(),
                     dataType: "html",
                    success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     if(data == 1){
                       window.location.href = '<?php echo base_url('psp-income') ?>';
                     }else{

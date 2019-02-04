@@ -48,6 +48,7 @@ class All_model extends CI_Model {
 	    
 	    $this->db->from ( $table );
 		$this->db->join ('usermaster UM', 'B.CreatedBy = UM.UserID');
+		$this->db->join ('currencymaster C', 'B.CurId = C.CurId');
 		$this->db->order_by($value,$orderBy);
 	    return $this->db->get ()->result ();
 	}
@@ -77,6 +78,7 @@ class All_model extends CI_Model {
 		$this->db->select('p.PspId, p.PspName, p.BankId, p.CreatedOn, p.Comments, b.BankId, b.BankName,p.Active');
 		$this->db->from('pspmaster p');
 		$this->db->join('bankmaster b','p.BankId = b.BankId');
+		$this->db->where('p.Active',1);
 		$this->db->order_by('p.Active','DESC');
 		$this->db->order_by('p.CreatedOn','DESC');
 		return $this->db->get ()->result();

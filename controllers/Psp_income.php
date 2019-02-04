@@ -141,7 +141,15 @@ class Psp_income extends CI_Controller {
         				'ActualNetAmt' => $acnetAmt,
         				'CreatedBy' => $uid
         			);
+                    $table = 'bankmaster';
+                    $columns = 'BankName,Balance';
+                    $wherecol = 'BankId';
+                    $data['getBankBal'] = $this->all_model->getbankData($table,$columns,$wherecol,$BankId);
+                    $updatedBal = ($data['getBankBal']->Balance + $acnetAmt);
 
+
+                    $this->db->where('BankId',$BankId);
+                    $this->db->update('bankmaster',array('Balance'=>$updatedBal));
         			$this->db->insert('pspincome',$pspIncomeInfo);
         			$_SESSION['pop_mes'] = "PSP Income Added Successfully."; 
 					return 1;
@@ -192,6 +200,8 @@ class Psp_income extends CI_Controller {
         			$acamtval = $this->input->post('acamtval');
         			$acnetAmt = $this->input->post('acnetAmt');
         			$uid = $this->input->post('userid');
+
+                    $acamtReceivebefore = $this->input->post('acamtReceivebefore');
 
         			if($plcommval == ""){
         				$plcommval = 0;
@@ -265,8 +275,50 @@ class Psp_income extends CI_Controller {
         				'ActualNetAmt' => $acnetAmt,
         				'CreatedBy' => $uid
         			);
+
+                    $table = 'bankmaster';
+                    $columns = 'BankName,Balance';
+                    $wherecol = 'BankId';
+                    $data['getBankBal'] = $this->all_model->getbankData($table,$columns,$wherecol,$BankId);
+                    /*if (($data['getBankBal']->Balance) > 0) {
+                        echo 'if';
+                        echo '<br>';*/
+                        
+                        //if ($data['getBankBal']->Balance > 0 ) {
+                            $updatedBal = (($data['getBankBal']->Balance) - ($acamtReceivebefore));
+                            /*echo 'bank balance:'.$data['getBankBal']->Balance;
+                            echo '<br>';
+                            echo 'Amount receive before:'.$acamtReceivebefore;
+                            echo '<br>';
+                            echo 'updatedBal'.$updatedBal;
+                            echo '<br>';
+                            echo 'amount receive after'.$acamtReceive;
+                            echo '<br>';*/
+                            $updatedBal = (($updatedBal)+($acnetAmt));
+                            //echo 'new updated bal'.$updatedBal;
+                        //}
+                        /*exit();
+                    }else{
+                        echo 'else';
+                        echo '<br>';
+                        $updatedBal = (($acamtReceivebefore) - ($datea['getBankBal']->Balance));
+                        echo 'bank balance:'.$data['getBankBal']->Balance;
+                        echo '<br>';
+                        echo 'Amount receive before:'.$acamtReceivebefore;
+                        echo '<br>';
+                        echo 'updatedBal'.$updatedBal;
+                        echo '<br>';
+                        echo 'amount receive after'.$acamtReceive;
+                        echo '<br>';
+                        //$updatedBal = (($updatedBal)+($acamtReceive));
+                        echo 'new updated bal'.$updatedBal;
+                        exit();
+                    }*/
+                    $this->db->where('BankId',$BankId);
+                    $this->db->update('bankmaster',array('Balance'=>$updatedBal));
         			$this->db->where('TransId',$id);
 	        		$user = $this->db->update('pspincome',$updatePspIncomeInfo);
+
 	        		$_SESSION['pop_mes'] = "PSP Income Updated Successfully.";
 	        		redirect('psp-income');
         		}else{
