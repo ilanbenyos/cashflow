@@ -172,11 +172,13 @@ class Psp_income extends CI_Controller {
 			$data['banks'] = $this->all_model->get_all_banks();
 			$data['all_psp'] = $this->all_model->get_all_psp();
 			$data['allPspIncome'] = $this->all_model->pspIncome($id);
+
 			$this->load->view('templates/header');
 			$this->load->view('templates/left-sidebar');
 			$this->load->view('edit-deposit-details',$data);
 			$this->load->view('templates/footer');
 		}else{
+
 				$token = $this->input->post('pspin_edittoken');
         		$session_token=null;
         		$session_token = $_SESSION['token_editpspincome'];
@@ -201,7 +203,9 @@ class Psp_income extends CI_Controller {
         			$acnetAmt = $this->input->post('acnetAmt');
         			$uid = $this->input->post('userid');
 
-                    $acamtnetReceivebefore = $this->input->post('acamtnetReceivebefore');
+                    $data['allPspIncome'] = $this->all_model->pspIncome($id);
+                    $acamtnetReceivebefore = $data['allPspIncome']->ActualNetAmt;
+                    
 
         			if($plcommval == ""){
         				$plcommval = 0;

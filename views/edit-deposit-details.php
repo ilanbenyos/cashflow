@@ -238,7 +238,7 @@
                         <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="text" class="form-control" name="acnetAmt" id="acnetAmt" placeholder="Actual Net Amount" value="<?php echo $allPspIncome->ActualNetAmt ?>" />
-                          <input type="hidden" class="form-control" name="acamtnetReceivebefore" id="acamtnetReceivebefore" />
+                          <!-- <input type="hidden" class="form-control" name="acamtnetReceivebefore" id="acamtnetReceivebefore" /> -->
                         </div>
                       </div>
                     </div>
@@ -322,8 +322,8 @@
       var plcurr = document.getElementById("plcurr").value;
       $("#accurr").val(plcurr);
     });
-    var aBeforeBal = $('#acnetAmt').val();
-    $('#acamtnetReceivebefore').val(aBeforeBal);
+    /*var aBeforeBal = $('#acnetAmt').val();
+    $('#acamtnetReceivebefore').val(aBeforeBal);*/
 
 
 /*var pldatereceive = document.getElementById("pldatereceive").value();
