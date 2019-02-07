@@ -18,6 +18,7 @@
                    $_SESSION['vendor_details'] = $token;
                    ?>
                    <input type="hidden" name="vendor_details" value="<?php echo $token;?>">
+                   <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
 				 <div class="row clearfix spacetop4x">
 					<div class="clearfix">
 					  <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
@@ -57,11 +58,12 @@
 							</div>
 						  </div>
 						</div>
-						<div class="col-md-12 col-sm-12 col-xs-12">
+						
+                    <div class="col-md-12 col-sm-12 col-xs-12">
 						  <div class="form-group">
-							<label class="col-md-4 col-sm-4 col-xs-12">Amount</label>
+							<label class="col-md-4 col-sm-4 col-xs-12">Comments</label>
 							<div class="col-md-8 col-sm-8 col-xs-12">
-							  <input type="text" class="form-control" name="Amount"  value="<?php echo $Vendor_details->Amount; ?>"   id="Amount" placeholder="Amount" />
+							  <input type="text" class="form-control" name="Comments"  id="Comments" value="<?php echo $Vendor_details->Comments; ?>" placeholder="Comments" />
 							</div>
 						  </div>
 						</div>
@@ -72,7 +74,7 @@
 						  <div class="form-group">
 							<label class="col-md-4 col-sm-4 col-xs-12">Bank Name</label>
 							<div class="col-md-8 col-sm-8 col-xs-12">
-							   <select class="form-control" name="BankName" id="BankName" onchange="">
+							   <select class="form-control" name="BankId" id="BankId" onchange="">
 								<option value="<?php echo $Vendor_details->BankID; ?> "><?php echo $Vendor_details->BankName; ?></option>
 								 <?php foreach ($banks as $bank) { ?>
 								<option value="<?php echo $bank->BankId; ?>"><?php echo $bank->BankName; ?></option>      
@@ -82,13 +84,19 @@
 						  </div>
 						</div>
 						<div class="col-md-12 col-sm-12 col-xs-12">
-						  <div class="form-group">
-							<label class="col-md-4 col-sm-4 col-xs-12">Comments</label>
-							<div class="col-md-8 col-sm-8 col-xs-12">
-							  <input type="text" class="form-control" name="Comments"  id="Comments" value="<?php echo $Vendor_details->Comments; ?>" placeholder="Comments" />
-							</div>
-						  </div>
-						</div>
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <select class="form-control" name="Currency" id="Currency" onChange="">
+                             <!-- <option selected="" value="">Select Currency</option> -->
+                            <?php foreach ($currency as $curr) {
+                             ?>
+                           <option <?php if($curr->CurId == $Vendor_details->CurId){ echo 'selected="selected"'; } ?> value="<?php echo $curr->CurId; ?>"><?php echo $curr->CurName; ?></option>      
+                                  <?php   } ?>
+                          </select>
+                        </div>
+                      </div>
+                    </div> 
 						<div class="col-md-12 col-sm-12 col-xs-12">
 						     <div class="form-group">
 								<label class="col-md-4 col-sm-4 col-xs-12">Status</label>

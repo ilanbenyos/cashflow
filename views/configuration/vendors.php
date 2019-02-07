@@ -63,6 +63,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                    $_SESSION['vendor_details'] = $token;
                    ?>
                    <input type="hidden" name="vendor_details" value="<?php echo $token;?>">
+                   <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
 				 <div class="row clearfix spacetop4x">
 					<div class="clearfix">
 					  <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
@@ -101,14 +102,16 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 							</div>
 						  </div>
 						</div>
-						  <div class="col-md-12 col-sm-12 col-xs-12">
-						  <div class="form-group">
-							<label class="col-md-4 col-sm-4 col-xs-12">Amount</label>
-							<div class="col-md-8 col-sm-8 col-xs-12">
-							  <input type="text" class="form-control" name="Amount"  id="Amount" placeholder="Amount" />
-							</div>
-						  </div>
-						</div>
+						  
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="form-group">
+              <label class="col-md-4 col-sm-4 col-xs-12">Comments</label>
+              <div class="col-md-8 col-sm-8 col-xs-12">
+                <input type="text" class="form-control" name="Comments"  id="Comments" placeholder="Comments" />
+              </div>
+              </div>
+            </div>
 					  </div>
 					
 					  <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
@@ -117,7 +120,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 						  <div class="form-group">
 							<label class="col-md-4 col-sm-4 col-xs-12">Bank Name</label>
 							<div class="col-md-8 col-sm-8 col-xs-12">
-							  <select class="form-control" name="BankName" id="BankName" onchange="">
+							  <select class="form-control" name="BankId" id="BankId" onchange="">
 								<option selected="" value="">Select Bank</option>
 								 <?php foreach ($banks as $bank) { ?>
 								<option value="<?php echo $bank->BankId; ?>"><?php echo $bank->BankName; ?></option>      
@@ -127,13 +130,21 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 						  </div>
 						</div>
 							<div class="col-md-12 col-sm-12 col-xs-12">
-						  <div class="form-group">
-							<label class="col-md-4 col-sm-4 col-xs-12">Comments</label>
-							<div class="col-md-8 col-sm-8 col-xs-12">
-							  <input type="text" class="form-control" name="Comments"  id="Comments" placeholder="Comments" />
-							</div>
-						  </div>
-						</div>
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="hidden" class="form-control" name="Curr" id="Curr" />
+                         <!--  <input type="text" class="form-control" name="Currency" id="Currency"> -->
+                          <select class="form-control" name="Currency" id="Currency" >
+                             <!-- <option selected="" value="" id="val"></option> -->
+                           <?php foreach ($currency as $curr) {
+                             ?>
+                           <option value="<?php echo $curr->CurId; ?>"><?php echo $curr->CurName; ?></option>      
+                                  <?php   } ?>
+                          </select> 
+                        </div>
+                      </div>
+                    </div>  
 						<div class="col-md-12 col-sm-12 col-xs-12">
 						     <div class="form-group">
 								<label class="col-md-4 col-sm-4 col-xs-12">Status</label>
@@ -181,9 +192,6 @@ if (isset ( $_SESSION ['pop_mes'] )) {
   </div>
   <!-- Modal -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-
-
 <script type="text/javascript">
   (function($){
 
@@ -238,5 +246,36 @@ if (isset ( $_SESSION ['pop_mes'] )) {
      return returnvar;
       });
 })(jQuery);
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#BankId').on('change',function() {
+        var BankId = document.getElementById("BankId").value;  
+         $.ajax({
+                url:"<?php echo base_url ('configuration/vendors/curr/')?>"+ BankId ,
+                    type: "POST",
+                    data : {BankId:BankId},
+                    dataType: "html",
+                    success: function(data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj.currency.CurName);
+                    var cur = $("#Curr").val(obj.currency.CurName);
+                    //alert(obj.currency.CurName);
+                    //$('select[name="Currency"] option[value=obj.currency.CurName').attr("selected","selected");
+                    //document.getElementById('Currency').value = obj.currency.CurName;
+                    //$("#Currency").val("United State");
+                    //$('select[name^="Currency"] option[value="Bruce Jones"]').attr("selected","selected");
+                    //$('#counCurrencytry').val('aaaa');
+                    //$("#Currency").val(0);
+                    //$('select option[value=cur]').attr("selected",true);
+                    //setSelectedIndex(document.getElementById("Currency"),cur);
+                   // $('select option[value="1"]').attr("selected",true);
+
+                   }
+               });
+
+    });
+    
+  });
 </script>
 

@@ -24,6 +24,24 @@ echo '<pre/>';
 		//$fields = $this->db->list_fields('pspmaster');
 		//print_r($fields);
 	}
+	public function curr($id){
+		/*$this->db->select('b.BankId,b.BankName,b.CurId,v.Currency,v.BankId,c.CurId,c.CurName');
+		$this->db->from('bankmaster b');
+		$this->db->join('vendormaster v','v.Currency = b.CurId');
+		$this->db->join('currencymaster c','c.CurId = b.CurId');
+		$this->db->where('b.BankId',$id);
+		$this->db->where('b.Active',1);
+		$query = $this->db->get();
+		$res = $query->row();*/
+		$this->db->select('b.BankId,b.CurId,cm.CurId,cm.CurName');
+		$this->db->from('bankmaster b');
+		$this->db->join('currencymaster cm','cm.CurId = b.CurId');
+		$this->db->where('b.BankId',$id);
+		$query = $this->db->get();
+		$res = $query->row();
+		$data['currency'] = $res;
+		echo json_encode($data);
+	}
 
 
 	public function index(){
@@ -35,6 +53,7 @@ echo '<pre/>';
 		$Vendors = $this->all_model->get_vendor_details();
 	//	$Categories = $this->all_model->get_active_categories();
 		$Banks = $this->all_model->get_all_banks();
+		$data['currency'] = $this->all_model->getAllCurrency();
 		$data['vendors'] = $Vendors;
 		//$data['categories'] = $Categories;
 		$data['banks'] = $Banks;
@@ -64,9 +83,11 @@ echo '<pre/>';
     	        $sVname = $this->input->post('Vname');
     	       // $ExpCatID = $this->input->post('ExpCatID');
     	        $sInvoiceType = $this->input->post('InvoiceType');
-    	        $Amount = $this->input->post('Amount');
-    	        $sBankName = $this->input->post('BankName');
+    	        $Currency = $this->input->post('Currency');
+    	        $BankId = $this->input->post('BankId');
 				$Status= $this->input->post('Status');
+				$uid = $this->input->post('userid');
+
 				if(	$this->input->post('Comments') 	!= ""){
 						$Comments= $this->input->post('Comments');
 				}else{ 
@@ -78,9 +99,10 @@ echo '<pre/>';
     	            //'CategoryId' => $ExpCatID,
 					'Comments' => $Comments,
     	            'InvoiceType' => $sInvoiceType,
-    	            'Amount' => $Amount,
-    	            'BankName' => $sBankName,
+    	            'Currency' => $Currency,
+    	            'BankId' => $BankId,
 					'Active' => $Status,
+					'CreatedBy' => $uid,
 					'CreatedOn' =>$date
     	        );
 					
@@ -112,6 +134,8 @@ echo '<pre/>';
 		//	$Categories = $this->all_model->get_active_categories();
 			$Banks = $this->all_model->get_all_banks();
 			$data['Vendor_details'] = $Vendor_details;
+			$data['currency'] = $this->all_model->getAllCurrency();
+			$data['currencyId'] = $this->all_model->getCurrency($id);
 		//	$data['categories'] = $Categories;
 			$data['banks'] = $Banks;
 			$this->load->view('templates/header', $data);
@@ -134,19 +158,21 @@ echo '<pre/>';
 				$sVname = $this->input->post('Vname');
     	     //   $ExpCatID = $this->input->post('ExpCatID');
     	        $sInvoiceType = $this->input->post('InvoiceType');
-    	        $Amount = $this->input->post('Amount');
-    	        $sBankName = $this->input->post('BankName');
+    	        $Currency = $this->input->post('Currency');
+    	        $BankId = $this->input->post('BankId');
 				$Status= $this->input->post('Status');
     	       	$Comments= $this->input->post('Comments');
+    	       	$uid = $this->input->post('userid');
 			   $aVendorInfo = array(
     	            
     	            'VendorName' => $sVname,
     	         //   'CategoryId' => $ExpCatID,
     	            'InvoiceType' => $sInvoiceType,
-    	            'Amount' => $Amount,
-    	            'BankName' => $sBankName,
+    	            'Currency' => $Currency,
+    	            'BankId' => $BankId,
 					'Comments' => $Comments,
-					'Active' => $Status
+					'Active' => $Status,
+					'ModifiedBy' => $uid
     	        );
 			 $this->db->where('VendorId',$id);
 	        $user = $this->db->update('vendormaster',$aVendorInfo);

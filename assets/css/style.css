@@ -110,7 +110,7 @@ header { position:relative; background: #fff; }
 .completed { color:#3a8100; }
 .in-process { color:#c9aa00; }
 .extra-right-space {
-    text-align: right;
+    text-align: left;
     padding-right: 24px !important;
     padding-left: 0 !important;
 }
