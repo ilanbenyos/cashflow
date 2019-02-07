@@ -58,7 +58,7 @@ class All_model extends CI_Model {
 		//$this->db->join('expcategory c', 'v.CategoryId=c.CatId');
 		$this->db->order_by('v.Active','DESC');
 		$this->db->order_by('v.VendorId','DESC');
-	    return $this->db->get ()->result();
+	    return $this->db->get ()->result(); 
 	}
 	public function get_vendor_details_byid($id){
 	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Currency,v.Active,v.Comments ,b.BankName,v.BankId as BankID,c.CurId,c.CurName' );
@@ -144,11 +144,11 @@ class All_model extends CI_Model {
 		return $this->db->get()->row();
 
 	}
-	public function getAllCategories(){
+	/*public function getAllCategories(){
 		$this->db->select('Category,Description,CreatedOn,Active');
 		$this->db->from('expcategory');
 		$this->db->where('Active',1);
 		return $this->db->get()->result();
-	}
+	}*/
 	
 }
