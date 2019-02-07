@@ -93,7 +93,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 							<label class="col-md-4 col-sm-4 col-xs-12">Invoice Type</label>
 							<div class="col-md-8 col-sm-8 col-xs-12">
 							  <select class="form-control" name="InvoiceType" id="InvoiceType" onchange="">
-								<option selected="" value="">Select Invoice</option>
+								<option selected="" value="">Select Invoice Type</option>
 								<option value="Weekly">Weekly</option>
 								<option value="Monthly">Monthly</option>
 								<option value ="Quarterly">Quarterly</option>
