@@ -37,7 +37,7 @@
             <li><a href="<?= base_url('configuration/bank')?>">Banks</a></li>
             <li><a href="<?= base_url('payment-processor')?>">Payment Processors</a></li>
             <li><a href="<?= base_url('configuration/vendors')?>">Vendors</a></li>
-            <li><a href="<?= base_url('expense-category')?>">Expense Categories</a></li>
+            <!-- <li><a href="<?= base_url('expense-category')?>">Expense Categories</a></li> -->
           </ul>
         </li>
         <!-- <li><a href="planned-expense.php"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Planned Expense</span></a></li>
