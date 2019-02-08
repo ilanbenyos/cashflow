@@ -50,7 +50,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 //$route['default_controller'] = 'configuration/users';
-
+//$route['edit-expense-category/(:num)'] = 'configuration/expense_category/update/';
+$route['add-category'] = 'configuration/expense_category/addNewCategory';
+$route['expense-category'] = 'configuration/expense_category';
 $route['payment-processor'] = 'configuration/payment_processor';
 $route['psp-income'] = 'Psp_income';
 $route['add-psp-income'] = 'psp_income/addDepositDetails';
