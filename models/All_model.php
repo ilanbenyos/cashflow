@@ -153,7 +153,22 @@ class All_model extends CI_Model {
 		$this->db->select('CatId,Category,CreatedOn,Active');
 		$this->db->from('expcategory');
 		$this->db->where('CatId',$id);
-		return $thid->db->get()->row();
+		return $this->db->get()->row();
+	}
+	public function BankTransferdetails($id){
+		$this->db->select('bt.BankTransferId,bt.BanktransferName,bt.BankId,bc.BankTransferId,bc.BankId,bc.Amount,b.BankId');
+		$this->db->from('banktransfertype bt');
+		$this->db->join('bankmaster b','b.BankId = bt.BankId');
+		$this->db->join('banktransfercharges bc','bc.BankId = bt.BankId');
+		$this->db->where('bt.BankId',$id);
+		return $this->db->get()->row();
+	}
+	public function getBankTransferData(){
+		$this->db->select('bt.BankTransferId,bt.BanktransferName,bt.BankId,bt.CreatedOn,bt.Active,bc.BankTransferId,bc.BankId,bc.Amount,b.BankId,b.BankName');
+		$this->db->from('banktransfertype bt');
+		$this->db->join('bankmaster b','b.BankId = bt.BankId');
+		$this->db->join('banktransfercharges bc','bc.BankId = bt.BankId');
+		return $this->db->get()->result();
 	}
 	
 }
