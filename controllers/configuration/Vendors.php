@@ -56,7 +56,7 @@ echo '<pre/>';
 		$data['currency'] = $this->all_model->getAllCurrency();
 		$data['vendors'] = $Vendors;
 		//$data['categories'] = $Categories;
-		$data['banks'] = $Banks;
+		//$data['banks'] = $Banks;
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar');
 		$this->load->view('configuration/vendors',$data);
@@ -84,7 +84,7 @@ echo '<pre/>';
     	       // $ExpCatID = $this->input->post('ExpCatID');
     	        $sInvoiceType = $this->input->post('InvoiceType');
     	        $Currency = $this->input->post('Currency');
-    	        $BankId = $this->input->post('BankId');
+    	        //$BankId = $this->input->post('BankId');
 				$Status= $this->input->post('Status');
 				$uid = $this->input->post('userid');
 
@@ -100,7 +100,7 @@ echo '<pre/>';
 					'Comments' => $Comments,
     	            'InvoiceType' => $sInvoiceType,
     	            'Currency' => $Currency,
-    	            'BankId' => $BankId,
+    	            //'BankId' => $BankId,
 					'Active' => $Status,
 					'CreatedBy' => $uid,
 					'CreatedOn' =>$date
@@ -137,7 +137,7 @@ echo '<pre/>';
 			$data['currency'] = $this->all_model->getAllCurrency();
 			$data['currencyId'] = $this->all_model->getCurrency($id);
 		//	$data['categories'] = $Categories;
-			$data['banks'] = $Banks;
+			//$data['banks'] = $Banks;
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/left-sidebar', $data);
 			$this->load->view('configuration/edit-vendor', $data);
@@ -159,7 +159,7 @@ echo '<pre/>';
     	     //   $ExpCatID = $this->input->post('ExpCatID');
     	        $sInvoiceType = $this->input->post('InvoiceType');
     	        $Currency = $this->input->post('Currency');
-    	        $BankId = $this->input->post('BankId');
+    	        //$BankId = $this->input->post('BankId');
 				$Status= $this->input->post('Status');
     	       	$Comments= $this->input->post('Comments');
     	       	$uid = $this->input->post('userid');
@@ -169,7 +169,7 @@ echo '<pre/>';
     	         //   'CategoryId' => $ExpCatID,
     	            'InvoiceType' => $sInvoiceType,
     	            'Currency' => $Currency,
-    	            'BankId' => $BankId,
+    	            //'BankId' => $BankId,
 					'Comments' => $Comments,
 					'Active' => $Status,
 					'ModifiedBy' => $uid

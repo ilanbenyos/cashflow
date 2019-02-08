@@ -116,7 +116,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 					
 					  <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
 					
-						<div class="col-md-12 col-sm-12 col-xs-12">
+						<!-- <div class="col-md-12 col-sm-12 col-xs-12">
 						  <div class="form-group">
 							<label class="col-md-4 col-sm-4 col-xs-12">Bank Name</label>
 							<div class="col-md-8 col-sm-8 col-xs-12">
@@ -128,7 +128,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 							  </select>
 							</div>
 						  </div>
-						</div>
+						</div> -->
 							<div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
