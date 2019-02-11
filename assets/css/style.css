@@ -52,6 +52,7 @@ span, a, abbr { display:inline-block; }
 h1, h2, h3, h4, h5, h6 { position:relative; }
 h1 { color: #2b364a; font-size: 24px; margin: 0 0 20px; text-transform: capitalize; font-family: "RobotoBold", sans-serif; }
 h2 { background:#526069; color: #fff; font-size: 20px; padding:15px 0; text-align:center; margin: 0 0 20px; text-transform: capitalize; font-family: "RobotoRegular", sans-serif; }
+.medium-heading { text-align: center; font-size: 24px; color: #000; text-decoration: none; margin-top: 8px; font-family: 'RobotoMedium'; }
 /***** Header CSS Style *****/
 header { position:relative; background: #fff; }
 .logo { padding-top: 18px; padding-bottom: 18px; width: 270px; max-width: 270px; text-align: center; background: #0e1727; }
@@ -109,11 +110,12 @@ header { position:relative; background: #fff; }
 .pending { color:#c20000; }
 .completed { color:#3a8100; }
 .in-process { color:#c9aa00; }
-.extra-right-space {
-    text-align: left;
-    padding-right: 24px !important;
-    padding-left: 0 !important;
-}
+.extra-right-space { text-align: left; padding-right: 24px !important; padding-left: 0 !important; }
+.add-one { cursor: pointer; display: flex; align-items: center; }
+.add-one i { padding: 0 12px 0 0; color: #148800; font-size: 20px; }
+.action-icons span { display:inline-block; padding:0 3px; font-size:23px; cursor: pointer; }
+.action-icons .delete { color: #dd4b4b; }
+.action-icons .edit { color: #e4bf01; }
 /***** Box Border Table CSS Style *****/
 .common-table.box-table .table thead tr th { background: #e7e7e7; color: #4c4c4c; padding: 18px 25px; }
 .common-table.box-table .table thead tr th:last-child, .common-table.box-table .table tbody tr td:last-child { background: #fff; }
@@ -151,7 +153,7 @@ color: #7b7b7b;
 .btn-submit, .btn-reset { display: inline-block; border: none; outline: 0; background: #21a0a7; color: #fff; padding: 10px 20px; font-size: 16px; }
 .btn-submit:hover, .btn-submit:focus { background: #107479; }
 .btn-reset { background: #dd4b4b; margin-left: 15px; }
-.btn-reset:hover, .btn-reset:focus { background: #bb2d2d; }
+.btn-reset:hover, .btn-reset:focus { background: #bb2d2d; color: #fff; }
 /***** Checbox CSS Style *****/
 .form-horizontal .form-group .checkbox label { font-size: 15px; }
 .checkbox label:after { content: ''; display: table; clear: both; }
@@ -268,6 +270,12 @@ h3 { text-align: center; margin: 25px 0; color: #c1c81e; font-family: 'RobotoLig
 /***** Income Processor Page CSS Style *****/
 .data-box { display: flex; justify-content: center; align-items: center; padding-left: 50px; padding-bottom:12px; }
 .data-box span { font-size: 16px; font-family: 'RobotoMedium'; color: #000; }
+/***** Configuration Page CSS Style *****/
+.config-icon-box { text-align: center; padding: 15px 0; transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; -moz-transition: all .5s ease; filter: grayscale(0); }
+.config-icon-box:hover { filter: grayscale(1); }
+.config-icon-box a { text-decoration:none; display: block; }
+.config-icon-box span { display:block; }
+.config-icon-box .icons { font-size: 60px; color: #c1c81e; }
 /***** Footer CSS Style *****/
 footer { position:relative; }
 .main-footer { padding:12px 0; text-align:center; color:#fff; background: #0e1727; }
@@ -379,4 +387,10 @@ div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTab
 @media (max-width: 426px) {
 }
 @media (max-width: 376px) {
+.action-icons span { padding: 0 1px; font-size: 20px; }
+}
+@media (max-width: 360px) {
+}
+@media (max-width: 321px) {
+.action-icons span { padding: 0 0; font-size: 20px; margin-top: -5px; }
 }
