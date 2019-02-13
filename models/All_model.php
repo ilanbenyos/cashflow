@@ -156,12 +156,13 @@ class All_model extends CI_Model {
 		return $this->db->get()->row();
 	}
 	public function BankTransferdetails($id){
-		$this->db->select('bc.BankTransferId,bc.BankId,bc.Amount,b.BankId');
+		$this->db->select('bc.BankTransferId,bt.BanktransferName,bc.BankId,bc.Amount,b.BankId');
 		$this->db->from('banktransfercharges bc');
 		$this->db->join('bankmaster b','b.BankId = bc.BankId');
+		$this->db->join('banktransfertype bt','bt.BankTransferId = bc.BankTransferId');
 		//$this->db->join('banktransfercharges bc','bc.BankId = bt.BankId');
 		$this->db->where('bc.BankId',$id);
-		return $this->db->get()->row();
+		return $this->db->get()->result();
 	}
 	public function getBankTransferData(){
 		$this->db->select('bc.BankTransferId,bc.BankId,bc.Amount,b.BankId,b.BankName');
@@ -174,6 +175,20 @@ class All_model extends CI_Model {
 		$this->db->select('BankTransferId,BanktransferName,Active,CreatedBy');
 		$this->db->from('banktransfertype');
 		$this->db->where('Active',1);
+		return $this->db->get()->result();
+	}
+	public function transferType($id){
+		$this->db->select('BankTransferId,BanktransferName,Active,CreatedBy');
+		$this->db->from('banktransfertype');
+		$this->db->where('BankTransferId',$id);
+		return $this->db->get()->row();
+	}
+	public function getBankTransferdetails($id){
+		$this->db->select('bc.BankTransferId,bc.BankId,bc.Amount,b.BankId,bt.BankTransferId,bt.BanktransferName');
+		$this->db->from('banktransfercharges bc');
+		$this->db->join('bankmaster b','b.BankId = bc.BankId');
+		$this->db->join('banktransfertype bt','bt.BankTransferId = bc.BankTransferId');
+		$this->db->where('bc.BankId',$id);
 		return $this->db->get()->result();
 	}
 	
