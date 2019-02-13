@@ -51,7 +51,6 @@ class Bank extends CI_Controller {
 	}
 	
 	public function add(){
-	    //print_r($_SESSION);exit();
 	    if(!isset($_SESSION['logged_in']))
 	    {
 	        redirect('login');
@@ -62,6 +61,7 @@ class Bank extends CI_Controller {
 		if ($this->form_validation->run () === FALSE) {
 		$data['currency'] = $this->all_model->getAllCurrency();
 		$data ['title'] = 'Add New Bank';
+		$data['transferType'] = $this->all_model->getTransferType();
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/left-sidebar', $data);
 		$this->load->view('configuration/add-new-bank', $data);
@@ -70,10 +70,8 @@ class Bank extends CI_Controller {
 		else
 		{
 		
-$token = $this->input->post('my_token_addbank');
-        		
+				$token = $this->input->post('my_token_addbank');
         		$session_token=null;
-        		
         		$session_token = $_SESSION['form_token_addbank'];
         		unset($_SESSION['form_token_addbank']);
         		
@@ -92,11 +90,33 @@ $token = $this->input->post('my_token_addbank');
 					'CreatedBy'=> $_SESSION['userid'],
     	        );
     	        $user = $this->db->insert('bankmaster',$userinfo);
+
+    	        $BankId = $this->db->insert_id();
+    	        $transfertype = $this->input->post('transfertype');
+    	        $amount = $this->input->post('amount');
+
+    	        /*$bankTransferType = array(
+    	        	'BanktransferName' => $transfertype,
+    	        	'BankId' => $BankId,
+    	        	'Active' => 1,
+    	        	'CreatedBy' => $_SESSION['userid'],
+    	        );
+    	        $this->db->insert('banktransfertype',$bankTransferType);
+
+    	        $BankTransferId = $this->db->insert_id();*/
+
+    	        /*$transfercharges = array(
+    	        	'BankTransferId' => $BankTransferId,
+    	        	'BankId' => $BankId,
+    	        	'Amount' => $amount,
+    	        	'CreatedBy' => $_SESSION['userid'],
+    	        );
+    	        //print_r($transfercharges);
+    	        $this->db->insert('banktransfercharges',$transfercharges);*/
+
 				$_SESSION['pop_mes'] = "Bank Added Successfully."; 
 				
 				redirect('configuration/bank');
-				
-					
 				}
 				else{
 					$_SESSION['pop_mes'] = "Token does not matched."; 
@@ -111,13 +131,13 @@ $token = $this->input->post('my_token_addbank');
 	
 	
 	public function update($id){
-	    //print_r($_SESSION);exit();
+	    //print_r($id);exit();
 	    if(!isset($_SESSION['logged_in']))
 	    {
 	        redirect('login');
 	    }
 		$this->form_validation->set_rules ( 'BankName', 'Bank Name', 'trim|required' );
-			$this->form_validation->set_rules ( 'status', 'Status', 'trim|required' );
+		$this->form_validation->set_rules ( 'status', 'Status', 'trim|required' );
 		
 		if ($this->form_validation->run () === FALSE) {
 		$data ['title'] = 'Update New Bank';
@@ -127,6 +147,8 @@ $token = $this->input->post('my_token_addbank');
 		$data['result'] = $this->all_model->getbankData($table,$columns,$wherecol,$id);
 		$data['currency'] = $this->all_model->getAllCurrency();
 		$data['currencyId'] = $this->all_model->getCurrency($id);
+		$data['transferDetails'] = $this->all_model->BankTransferdetails($id);
+		$data['transferType'] = $this->all_model->getTransferType();
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/left-sidebar', $data);
 		$this->load->view('configuration/edit-new-bank', $data);
@@ -134,13 +156,10 @@ $token = $this->input->post('my_token_addbank');
 		}
 		else
 		{
-		
-$token = $this->input->post('my_token_addbank');
-        		
+				$token = $this->input->post('my_token_editbank');
         		$session_token=null;
-        		
-        		$session_token = $_SESSION['form_token_addbank'];
-        		unset($_SESSION['form_token_addbank']);
+        		$session_token = $_SESSION['form_token_editbank'];
+        		unset($_SESSION['form_token_editbank']);
         		
         		if(!empty($token) == $session_token)
         		{
@@ -157,25 +176,133 @@ $token = $this->input->post('my_token_addbank');
 					'CreatedBy'=> $_SESSION['userid'],
     	        );
 				$this->db->where('BankId',$id);
-	        $user = $this->db->update('bankmaster',$userinfo);
-    	       
-				$_SESSION['pop_mes'] = "Bank Details Updated Successfully."; 
-				
-				redirect('configuration/bank');
-				
-					
+	        	$user = $this->db->update('bankmaster',$userinfo);
+	        	
+	        	$this->db->select('BankId,BankName');
+	        	$this->db->from('bankmaster');
+	        	$this->db->where('BankId',$id);
+	        	$BankId = $this->db->get()->row();
+	        	$BankId = $BankId->BankId;
+	        	$transfertype = $this->input->post('transfertype');
+    	        $amount = $this->input->post('amount');
+
+    	        /*$bankTransferType = array(
+    	        	'BanktransferName' => $transfertype,
+    	        	'BankId' => $BankId,
+    	        	'Active' => 1,
+    	        	'ModifiedBy' => $_SESSION['userid'],
+    	        );
+    	        $this->db->where('BankId',$id);
+    	        $this->db->update('banktransfertype',$bankTransferType);
+
+    	        $this->db->select('BankTransferId,BankId');
+    	        $this->db->from('banktransfertype');
+    	        $this->db->where('BankId',$id);
+
+    	        $BankTransferId = $this->db->get()->row();
+    	        $BankTransferId = $BankTransferId->BankTransferId;
+    	        $transfercharges = array(
+    	        	'BankTransferId' => $BankTransferId,
+    	        	'BankId' => $BankId,
+    	        	'Amount' => $amount,
+    	        	'ModifiedBy' => $_SESSION['userid'],
+    	        );
+    	        //print_r($transfercharges);
+    	        $this->db->where('BankTransferId',$BankTransferId);
+    	        $this->db->update('banktransfercharges',$transfercharges);*/
+
+				$_SESSION['pop_mes'] = "Bank Details Updated Successfully.";
+				redirect('configuration/bank');	
 				}
 				else{
 					$_SESSION['pop_mes'] = "Token does not matched."; 
 				
 				redirect('configuration/bank');
 					
-				}
-		
-			
+				}	
 		}
 	}
-	
-	
-	
+	public function bankTransferType(){
+		$data['transferType'] = $this->all_model->getTransferType();
+		$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');
+		$this->load->view('configuration/transfer_type',$data);
+		$this->load->view('templates/footer');
+	}
+	public function addBankTransferType(){
+		if(!isset($_SESSION['logged_in'])){
+			redirect('login');
+		}
+		$this->form_validation->set_rules ( 'type', 'Transfer Type', 'trim|required' );
+		if ($this->form_validation->run () === FALSE) {
+			$this->load->view('templates/header');
+			$this->load->view('templates/left-sidebar');
+			$this->load->view('configuration/transfer_type');
+			$this->load->view('templates/footer');
+		}else{
+				$token = $this->input->post('type_token');
+        		$session_token=null;
+        		$session_token = $_SESSION['new_type'];
+        		if(!empty($token) == $session_token){	
+        			$date = date('Y-m-d H:i:s');
+        			$type = $this->input->post('type');
+        			$uid = $this->input->post('userid');
+        			//$desc = $this->input->post('desc');
+        			$addType = array(
+        				'BanktransferName' => $type,
+        				'CreatedBy' => $uid,
+        				'Active' => 1,
+        				'CreatedOn' =>$date
+        			);
+        			$this->db->insert('banktransfertype',$addType);
+        			$_SESSION['pop_mes'] = "Bank Transfer Type Added Successfully."; 
+					return 1;
+        		}else{
+        			$_SESSION['pop_mes'] = "Token does not matched."; 
+					return 1;
+        		}
+		}
+	}
+	public function updateBankTransferType($id){
+		if(!isset($_SESSION['logged_in']))
+	    {
+	        redirect('login');
+	    }
+	    $this->form_validation->set_rules ( 'type', 'Transfer Type', 'trim|required' );
+	    if ($this->form_validation->run () === FALSE) {
+	    	$data['transferType'] = $this->all_model->transferType($id);
+			$this->load->view('configuration/edit_transfer_type',$data);
+		}else{
+			$token = $this->input->post('editcategory_token');
+        		$session_token=null;
+        		$session_token = $_SESSION['edit_category'];
+        		if(!empty($token) == $session_token){
+        			$type = $this->input->post('type');
+        			$uid = $this->input->post('userid');
+
+        			$updateCat = array(
+        				'BanktransferName' => $type,
+        				'ModifiedBy' => $uid
+        			);
+        			$this->db->where('BankTransferId',$id);
+        			$this->db->update('banktransfertype',$updateCat);
+        			$_SESSION['pop_mes'] = "Bank Transfer Type Updated Successfully."; 
+					return 1;
+        		}else{
+        			$_SESSION['pop_mes'] = "Token does not matched."; 
+					return 1;
+        		}
+
+		}
+
+	}
+	public function test(){ // not in use
+		//$data['transferType'] = $this->all_model->getBankTransferData();
+		$data['transferType'] = $this->all_model->getTransferType();
+		$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');
+		$this->load->view('configuration/bank_transfer_type',$data);
+		$this->load->view('templates/footer');
+		
+	}
 }
