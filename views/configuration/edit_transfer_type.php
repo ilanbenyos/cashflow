@@ -2,7 +2,7 @@
 if (isset ( $_SESSION ['pop_mes'] )) {
    popup2 ();
 }
-?>
+?> 
 <!-- Page Content  -->
 <div class="defination-box clearfix">
             <form class="form-horizontal clearfix" method="post" id="editExp_category">
