@@ -51,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 //$route['default_controller'] = 'configuration/users';
 //$route['edit-expense-category/(:num)'] = 'configuration/expense_category/update/';
+$route['bank-transfer-type'] = 'configuration/bank/bankTransferType';
 $route['configuration'] = 'configuration/configuration/index';
 $route['add-category'] = 'configuration/expense_category/addNewCategory';
 $route['expense-category'] = 'configuration/expense_category';
