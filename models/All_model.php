@@ -162,7 +162,7 @@ class All_model extends CI_Model {
 		$this->db->join('banktransfertype bt','bt.BankTransferId = bc.BankTransferId');
 		//$this->db->join('banktransfercharges bc','bc.BankId = bt.BankId');
 		$this->db->where('bc.BankId',$id);
-		return $this->db->get()->result();
+		return $this->db->get()->result(); 
 	}
 	public function getBankTransferData(){
 		$this->db->select('bc.BankTransferId,bc.BankId,bc.Amount,b.BankId,b.BankName');
