@@ -81,8 +81,8 @@ jQuery(function ($) {
         });
 });
 
-
 //Clone the hidden element and shows it
+/*
 $('.add-one').click(function(){
   $('.dynamic-element').first().clone().appendTo('.dynamic-stuff').show();
   attach_delete();
@@ -97,4 +97,4 @@ function attach_delete(){
     $(this).closest('.form-group').remove();
   });
 }
-
+*/

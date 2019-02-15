@@ -29,7 +29,7 @@ $_SESSION['form_token_addbank'] = $token;
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Bank Name</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Bank Name" id="BankName" name="BankName" />
+                          <input type="text" class="form-control" required placeholder="Bank Name" id="BankName" name="BankName" />
                         </div>
                       </div>
                     </div>
@@ -63,7 +63,62 @@ $_SESSION['form_token_addbank'] = $token;
                         </div>
                       </div>
                     </div>
-					
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Transfer Type</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <select class="form-control" name="transfertype" id="transfertype">
+                            <?php foreach ($transferType as $type) {
+                             ?>
+                           <option value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>      
+                                  <?php   } ?>
+                          </select> 
+                        </div>
+                      </div>
+                    </div> -->
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-container">
+                        <div class="form-group">
+                          <div class="col-md-12">
+                              <label><span class="add-one"><i class="fa fa-plus-square" aria-hidden="true"></i> Transfer Type</span></label>
+                          </div>
+                        </div>
+                        <div class="dynamic-stuff"> </div>
+                      </div>
+                      <div class="form-group dynamic-element" style="display:none">
+                        <div class="col-md-5">
+                          <select id="rol" name="rol[]" class="form-control">
+                            <?php foreach ($transferType as $type) {
+                             ?>
+                           <option value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>      
+                                  <?php   } ?>
+                          </select>
+                        </div>
+                        <div class="col-md-4 no-padding">
+                          <input type="text" class="form-control" name="amount" id="amount" placeholder="Amount"  onkeypress="javascript:return isNumber(event)"/>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="action-icons">
+                            <span class="delete"><i class="fa fa-minus-square" aria-hidden="true"></i></span>
+                            <span class="edit"><i class="fa fa-pencil-square" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                      </div>
+                    </div> -->
+                    <!--<div class="dynamic-stuff"> </div>
+                    <span id="errmsg"></span>
+					         <button class="btn btn-sm btn-primary add_more_button">Add More Fields</button>-->
+							 
+							 <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-container">
+					 <div class="form-group">
+                          <div class="col-md-12">
+						  <button class="add-one add_more_button"><i class="fa fa-plus-square" aria-hidden="true"></i> Transfer Type</button>
+                          </div>
+                        </div>
+						 <div class="dynamic-stuff"> </div>
+                    <span id="errmsg" class="help-block form-error"></span>
+						</div></div>
                     
                   </div>
                   
@@ -106,6 +161,14 @@ $_SESSION['form_token_addbank'] = $token;
                         </div>
                       </div>
                     </div>
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Amount</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" name="amount" id="amount" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div> -->
                   </div>
                 </div>
                 <div class="col-xs-12 text-center spacetop2x">
@@ -125,4 +188,96 @@ $_SESSION['form_token_addbank'] = $token;
   </div>
 </div>
 <!-- Modal -->
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script>
+    function isNumber(evt) {
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+            return false;
 
+        return true;
+    }    
+</script>
+<script>
+    $(document).ready(function() {
+    
+    var array = <?php echo json_encode($transferType); ?>;
+    console.log(array.length);
+    var max_fields_limit      = array.length; //set limit for maximum input fields
+    var x = 0; //initialize counter for text box
+    $('.add_more_button').click(function(e){ //click event on add more fields button having class add_more_button
+        e.preventDefault();
+        if(x < max_fields_limit){ //check conditions
+            x++; //counter increment
+        var option = '';
+        $.each( array, function( key, value ) {
+          //alert( key + ": " + value.BankTransferId );
+          option += '<option value="'+ value.BankTransferId + '">' + value.BanktransferName + '</option>';
+
+        });
+        /*$('.dynamic-stuff').append('<div><select id="transfer_type'+x+' class="type_input" name="transfertype[]">'+option+
+        '</select><input type="text" id="amount'+x+'" class="amount_input" name="amount[]" onkeypress="javascript:return isNumber(event)"/><a href="#" class="remove_field" style="margin-left:10px;">Remove</a></div><span id="emailspan" value="0"></span>'); //add input field */
+		
+		$('.dynamic-stuff').append('<div class="form-group dynamic-element"><div class="col-md-5"><select id="transfer_type'+x+'" class="form-control type_input" name="transfertype[]">'+option+
+        '</select></div><div class="col-md-4 no-padding"><input type="text" id="amount'+x+'" class="form-control amount_input" name="amount[]" onkeypress="javascript:return isNumber(event)"/><span class="help-block form-error" id="emailspan'+x+'" value="0"></span></div><div class="col-md-3"><div class="action-icons"><span class="remove_field delete"><i class="fa fa-minus-square" aria-hidden="true"></i></span></div></div></div>'); //add input field
+		
+ $('input#amount'+x).focus();
+        $('input#amount'+x).blur(function(){
+         var amt = $('input#amount'+x).val();
+         if(amt == ""){
+          $('.add_more_button').attr('disabled', true);
+            $("#emailspan"+x).html('Please enter Amount');  
+         }
+         else{
+          $('.add_more_button').attr('disabled', false);
+           // $("#emailspan").html('<font color="#cc0000"></font>');  
+           $("#emailspan"+x).hide();
+         }
+        });
+        //document.getElementById("amount"+x).onblur = function() {myFunction()};
+        
+        }else{
+          $("#errmsg").html('Can not add more.');  
+        }
+    });  
+    $('.dynamic-stuff').on("click",".remove_field", function(e){
+ $("#emailspan"+x).hide();		//user click on remove text links
+        e.preventDefault(); $(this).closest('.form-group').remove(); x--;
+       
+        $('.add_more_button').attr('disabled', false);
+    })
+
+});
+</script>
+<script type="text/javascript">
+    
+$('form#addbankform').on('submit', function(event) {
+        //Add validation rule for dynamically generated name fields
+    $('.amount_input').each(function() {
+        $(this).rules("add", 
+            {
+                required: true
+            });
+    });
+    
+	
+
+	
+
+});
+$('#addbankform').validate({ // initialize the plugin
+        rules: {
+            BankName: {
+                required: true,
+            }
+			amount: {
+                required: true,
+            }
+        },
+        submitHandler: function (form) { // for demo
+            $("#addbankbtn").hide();
+            $(".page-loader").show();
+            form.submit();
+        }
+});
+</script>

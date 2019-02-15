@@ -68,8 +68,8 @@ class Bank extends CI_Controller {
 		$this->load->view('templates/footer');
 		}
 		else
-		{
-		
+		{		
+
 				$token = $this->input->post('my_token_addbank');
         		$session_token=null;
         		$session_token = $_SESSION['form_token_addbank'];
@@ -92,8 +92,8 @@ class Bank extends CI_Controller {
     	        $user = $this->db->insert('bankmaster',$userinfo);
 
     	        $BankId = $this->db->insert_id();
-    	        $transfertype = $this->input->post('transfertype');
-    	        $amount = $this->input->post('amount');
+    	        /*$transfertype = $this->input->post('transfertype');
+    	        $amount = $this->input->post('amount');*/
 
     	        /*$bankTransferType = array(
     	        	'BanktransferName' => $transfertype,
@@ -104,15 +104,27 @@ class Bank extends CI_Controller {
     	        $this->db->insert('banktransfertype',$bankTransferType);
 
     	        $BankTransferId = $this->db->insert_id();*/
+    	       /* $this->db->where('BankId',$BankId);
+    	        $this->db->delete('banktransfercharges');*/
 
-    	        /*$transfercharges = array(
-    	        	'BankTransferId' => $BankTransferId,
-    	        	'BankId' => $BankId,
-    	        	'Amount' => $amount,
-    	        	'CreatedBy' => $_SESSION['userid'],
-    	        );
-    	        //print_r($transfercharges);
-    	        $this->db->insert('banktransfercharges',$transfercharges);*/
+    	        $BankTransferId = $this->input->post('transfertype');
+    	        $amount = $this->input->post('amount');
+    	        $data =array_combine($BankTransferId,$amount);
+    	        /*print_r($BankTransferId);
+    	        echo "</br>";
+    	        print_r($amount);
+    	         echo "</br>";
+    	         print_r($data);*/
+    	        foreach ($data as $key => $amt) {
+    	        	$transfercharges = array(
+		    	        	'BankTransferId' => $key,    
+		    	        	'BankId' => $BankId,
+		    	        	'Amount' => $amt,
+		    	        	'CreatedBy' => $_SESSION['userid'],
+		    	        );
+    	        	$this->db->insert('banktransfercharges',$transfercharges);
+    	        }
+    	        
 
 				$_SESSION['pop_mes'] = "Bank Added Successfully."; 
 				
@@ -148,6 +160,7 @@ class Bank extends CI_Controller {
 		$data['currency'] = $this->all_model->getAllCurrency();
 		$data['currencyId'] = $this->all_model->getCurrency($id);
 		$data['transferDetails'] = $this->all_model->BankTransferdetails($id);
+		$data['transferData'] = $this->all_model->getBankTransferdetails($id);  // to get all banktranfer ad and amount related to bank
 		$data['transferType'] = $this->all_model->getTransferType();
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/left-sidebar', $data);
@@ -186,30 +199,24 @@ class Bank extends CI_Controller {
 	        	$transfertype = $this->input->post('transfertype');
     	        $amount = $this->input->post('amount');
 
-    	        /*$bankTransferType = array(
-    	        	'BanktransferName' => $transfertype,
-    	        	'BankId' => $BankId,
-    	        	'Active' => 1,
-    	        	'ModifiedBy' => $_SESSION['userid'],
-    	        );
-    	        $this->db->where('BankId',$id);
-    	        $this->db->update('banktransfertype',$bankTransferType);
 
-    	        $this->db->select('BankTransferId,BankId');
-    	        $this->db->from('banktransfertype');
-    	        $this->db->where('BankId',$id);
-
-    	        $BankTransferId = $this->db->get()->row();
-    	        $BankTransferId = $BankTransferId->BankTransferId;
-    	        $transfercharges = array(
-    	        	'BankTransferId' => $BankTransferId,
-    	        	'BankId' => $BankId,
-    	        	'Amount' => $amount,
-    	        	'ModifiedBy' => $_SESSION['userid'],
-    	        );
-    	        //print_r($transfercharges);
-    	        $this->db->where('BankTransferId',$BankTransferId);
-    	        $this->db->update('banktransfercharges',$transfercharges);*/
+    	        $BankTransferId = $this->input->post('transfertype');
+    	        $amount = $this->input->post('amount');
+    	        $data =array_combine($BankTransferId,$amount);
+    	        
+				 
+				 $this->db->where ( 'BankId', $BankId );
+				 $this->db->delete ( 'banktransfercharges' );
+				 
+    	        foreach ($data as $key => $amt) {
+    	        	$transfercharges = array(
+		    	        	'BankTransferId' => $key,    
+		    	        	'BankId' => $BankId,
+		    	        	'Amount' => $amt,
+		    	        	'ModifiedBy' => $_SESSION['userid'],
+		    	        );
+    	        	$this->db->insert('banktransfercharges',$transfercharges);
+    	        }
 
 				$_SESSION['pop_mes'] = "Bank Details Updated Successfully.";
 				redirect('configuration/bank');	
