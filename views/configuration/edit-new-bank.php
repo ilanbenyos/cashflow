@@ -105,10 +105,14 @@ $_SESSION['form_token_editbank'] = $token;
                           <select class="type_input form-control" name="transfertype[]" id="transfer_type<?php echo $i; ?>" readonly>
                             <option value="<?php echo $type2->BankTransferId; ?>"><?php echo $type2->BanktransferName; ?></option>
                             <?php 
+                            
+                              
+                            foreach ($transferType as $type) { 
+                              if ($type2->BankTransferId != $type->BankTransferId) {
+                              ?>
 
-                            foreach ($transferType as $type) { ?>
                             <option value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>      
-                                  <?php   } ?>
+                                  <?php   }} ?>
                             
                           </select></div>
 						  <div class="col-md-4 no-padding">
