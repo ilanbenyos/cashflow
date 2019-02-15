@@ -232,7 +232,7 @@ $_SESSION['form_token_editbank'] = $token;
 
     var array = <?php echo json_encode($transferType); ?>;
     var temp = <?php echo json_encode($transferData); ?>;
-    console.log(array.length);
+    //console.log(array.length);
 
     var max_fields_limit      = array.length; //set limit for maximum input fields
     var x = temp.length; //initialize counter for text box
