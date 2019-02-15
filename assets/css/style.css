@@ -111,7 +111,8 @@ header { position:relative; background: #fff; }
 .completed { color:#3a8100; }
 .in-process { color:#c9aa00; }
 .extra-right-space { text-align: left; padding-right: 24px !important; padding-left: 0 !important; }
-.add-one { cursor: pointer; display: flex; align-items: center; }
+.add-one { font-size: 15px; font-family: 'RobotoLight'; font-weight: 700; position: relative; display: flex; align-items: center; background: none; border: none; outline: 0; padding: 5px 10px; }
+button.add-one[disabled] { background: #e0e0e0; border-radius: 4px; }
 .add-one i { padding: 0 12px 0 0; color: #148800; font-size: 20px; }
 .action-icons span { display:inline-block; padding:0 3px; font-size:23px; cursor: pointer; }
 .action-icons .delete { color: #dd4b4b; }
@@ -135,7 +136,7 @@ header { position:relative; background: #fff; }
 .form-control, .form-control:focus, textarea.form-control { background: #fff; border-width: 1px; border-color: #e0e0e0; border-style: solid; box-shadow: none; border-radius: 0; color: #7b7b7b; height: 36px; position: relative; font-size: 14px; }
 .form-control.country-code { width: 20%; float: left; margin-right: 2%; background: #fff; }
 .form-control.phn-number { width: 78%; float: left; }
-.help-block.form-error { position: absolute; margin: 0; font-size: 11px; bottom: 2px; color: #A94442; }
+.help-block.form-error { position: absolute; margin: 0; font-size: 11px; /*bottom: 2px;*/ color: #A94442; }
 /***** File Upload CSS Style *****/
 .inline-upload-box .form-control { height: 32px; font-size: 14px; }
 .file-upload { position: absolute; top: 0; left: 0; width:100%; height:100%; opacity: 0; cursor: pointer; }
@@ -377,17 +378,22 @@ footer { position:relative; }
 .login-body .form-horizontal .form-group .checkbox label { padding-left: 0; }
 }
 @media (max-width: 680px) {
+.login-box { width: 70%; }
 }
 @media (max-width: 560px) {
+.login-box { width: 80%; }
 }
 @media (max-width: 480px) {
 .month-expense-box { margin-right: 0; margin-bottom: 10px; }
 div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter { float: none !important; display: block !important; text-align: center !important; }
+.login-box { width: 90%; }
 }
 @media (max-width: 426px) {
+h3 { font-size: 22px; }
 }
 @media (max-width: 376px) {
 .action-icons span { padding: 0 1px; font-size: 20px; }
+.login-box { padding: 35px 15px; }
 }
 @media (max-width: 360px) {
 }
