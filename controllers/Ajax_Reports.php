@@ -13,10 +13,10 @@ class Ajax_Reports extends CI_Controller {
 	}
 	
 	function get_psp_income(){
-		$year ='2019';//$_POST['year'];
-		$month1 ='02';//$_POST['month1'];
-		$month2 ='02';//$_POST['month2'];
-		$currency ='USD'; //$_POST['currency'];
+		$year =$_POST['year'];
+		$month1 =$_POST['month1'];
+		$month2 =$_POST['month2'];
+		$currency =$_POST['currency'];
 		if($month2=="" && $month1!=""){
 			$month2 =$month1;
 		}else if($month1=="" && $month2!=""){

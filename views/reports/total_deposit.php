@@ -112,7 +112,7 @@
         },
         url: "http://cashflow.forexwebsolutions.com/Ajax_Reports/get_psp_income" ,
         success: function (data1) {
-	      // alert(data1);
+	       alert(data1);
 		// Create our data table out of JSON data loaded from server.
         var data = new google.visualization.DataTable();
   
@@ -132,11 +132,10 @@
 			  slantedText:true,  
 			  slantedTextAngle:90
 			},
-			vAxis: {
-			  title: 'Amount',
-			  format: 'short'
-
-			}
+		vAxis: {
+		  title: 'Amount',
+		  format: 'short'
+		}
          
       };
       var chart = new google.visualization.ColumnChart(document.getElementById('bar_chart'));
