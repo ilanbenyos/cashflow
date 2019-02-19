@@ -8,14 +8,31 @@ class Reports extends CI_Controller {
 
 		$this->load->helper('url_helper');
 		$this->load->helper(array('url'));
-		$this->load->model('all_model');
+		$this->load->model('data_model');
 
 	}
-	public function index(){
+	public function psp_income(){
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar');
 		$this->load->view('reports/total_deposit');
 		$this->load->view('templates/footer');
 	}
-	
+	public function bank_income(){
+		$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');
+		$this->load->view('reports/bank_deposit');
+		$this->load->view('templates/footer');
+	}
+	public function total_balance(){
+		$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');
+		$this->load->view('reports/total_balance');
+		$this->load->view('templates/footer');
+	}
+	public function expense_category(){
+		$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');
+		$this->load->view('reports/expense_category');
+		$this->load->view('templates/footer');
+	}
 }
