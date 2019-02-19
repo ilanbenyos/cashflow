@@ -3,7 +3,7 @@
     <h1>PSP Income Reports</h1>
     <div class="white-bg">
       <div class="row">
-	   <div class="col-md-12 inline-divs text-left">
+	   <div class="col-md-6 inline-divs text-left">
 	      <div class="month-expense-box">
             <div class="form-inline">
               <label>Select a Currency :</label>
@@ -16,7 +16,7 @@
             </div>
           </div>
 	   </div>
-        <div class="col-md-12 inline-divs text-right">
+        <div class="col-md-6 inline-divs text-right">
           <div class="month-expense-box">
             <label>Select months :</label>
             <div class="form-inline">
