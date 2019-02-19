@@ -1,3 +1,4 @@
+<?php //print_r($allPspIncome);exit(); ?>
 <!-- Page Content  -->
 <div id="content">
   <div class="container-fluid">
@@ -74,7 +75,12 @@
                         <label class="col-md-4 col-sm-4 col-xs-12">Planned Received date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
+                            <?php if ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId != 0) { ?>
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ExpDate))) ?>" />
+                            <?php }else{ ?>
+                            <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                            <?php } ?>
+                            
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
                         </div>
@@ -84,7 +90,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount" value="<?php echo $allPspIncome->PlannedAmt ?>" />
+                          <input type="text" class="form-control" name="plamtReceived" id="plamtReceived" value="<?php echo $allPspIncome->PlannedAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount"  />
                         </div>
                       </div>
                     </div>
@@ -92,11 +98,12 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <select class="form-control" name="plcurr" id="plcurr">
+                          <input type="text" class="form-control" name="plcurr" id="plcurr" value="<?php echo $allPspIncome->Currency; ?>" readonly>
+                          <!-- <select class="form-control" name="plcurr" id="plcurr" >
                             <option value="USD" selected="">USD</option>
                             <option value="EUR">EUR</option>
-                            <!-- <option value="GBP">GBP</option> -->
-                          </select>
+                            <!-- <option value="GBP">GBP</option> 
+                          </select> -->
                         </div>
                       </div>
                     </div>
@@ -162,7 +169,14 @@
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Received date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo  $allPspIncome->ActualDate?>" />
+                            <!-- <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" /> -->
+                            <?php if ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId != 0 && $allPspIncome->ActualDate != '0000-00-00') { ?>
+                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                            <?php }elseif($allPspIncome->isCRR == 1 && $allPspIncome->CRRId == 0) {?>
+                              <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                            <?php }else{?>
+                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                            <?php } ?>
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
                         </div>
@@ -172,7 +186,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Processed Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="acamtReceive" id="acamtReceive" onkeypress="javascript:return isNumber(event)" placeholder="Actual Processed Amount" value="<?php echo $allPspIncome->ActualAmt ?>" />
+                          <input type="text" class="form-control" name="acamtReceive" id="acamtReceive" value="<?php echo $allPspIncome->ActualAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Processed Amount"  />
                           
                         </div>
                       </div>
@@ -181,11 +195,12 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <select class="form-control" name="accurr" id="accurr" onchange="">
+                          <input type="text" class="form-control" name="accurr" id="accurr" value="<?php echo $allPspIncome->Currency; ?>" readonly>
+                          <!-- <select class="form-control" name="accurr" id="accurr" onchange="">
                             <option selected="">USD</option>
                             <option>EUR</option>
-                            <!-- <option>GBP</option> -->
-                          </select>
+                            <option>GBP</option> 
+                          </select> -->
                         </div>
                       </div>
                     </div>
@@ -205,6 +220,21 @@
                         </div>
                       </div>
                     </div>
+                    <?php if ($allPspIncome->isCRR == 1) { ?>
+                      <div class="col-md-12 col-sm-12 col-xs-12" id="crr">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">CRR Amount</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="hidden" name="crrComm" id="crrComm">
+                           <?php if ($crrData->isCRR == 0 && $crrData->CRRId == $allPspIncome->TransId ) { ?>
+                             <input type="text" class="form-control" name="crrAmt" id="crrAmt" value="<?php echo $crrData->PlannedAmt; ?>" placeholder="CRR Amount" readonly/>
+                          <?php  }else { ?> 
+                          <input type="text" class="form-control" name="crrAmt" id="crrAmt" value="<?php echo $allPspIncome->PlannedAmt; ?>" placeholder="CRR Amount" readonly/>
+                        <?php } ?>
+                        </div>
+                      </div>
+                    </div>
+                   <?php  } ?>
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission</label>
@@ -274,6 +304,7 @@
   $(document).ready(function(){
     var pldatereceive = $("#pldatereceive").val();
     var acdatereceive = $("#acdatereceive").val();
+    //alert(acdatereceive);
     //var end = $("#pldatereceive").val();
     $('#pldatereceive').datepicker({
     format: "d/mm/yyyy",
@@ -283,14 +314,16 @@
     //endDate: end,
     autoclose: true
       });
-/*if (acdatereceive == '0000-00-00') {
+
+/*var date = new Date();
+var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+if (acdatereceive == "01/01/1970") {
     $('#acdatereceive').datepicker({
     format: "d/mm/yyyy",
     todayHighlight: true,
     autoclose: true
       });
-}else{
-  alert(121)
+    $( '#acdatereceive' ).datepicker( 'setDate', today );
 }*/
 //$('#pldatereceive').datepicker('setDate', acdatereceive);
     /*$('#pldatereceive').datepicker('setDate', pldatereceive);
@@ -310,17 +343,40 @@
                     dataType: "html",
                     success: function(data) {
                     var obj = JSON.parse(data);
-                    console.log(obj.getpsp);
+                    //console.log(obj.getpsp);
                     $("#bank").val(obj.getpsp.BankName);
                     $("#bankid").val(obj.getpsp.BankId);
-                    
+                    $("#plcurr").val(obj.getpsp.CurName);
+                    $("#accurr").val(obj.getpsp.CurName);
+                    if (obj.getpsp.Crr > 0) {
+                      $("#crr").show();
+                    $("#crrComm").val(obj.getpsp.Crr);
+                    }
                    }
                });
 
     });
-    $('#plcurr').on('change',function() {
+
+    /*$('#plcurr').on('change',function() {
       var plcurr = document.getElementById("plcurr").value;
       $("#accurr").val(plcurr);
+    });*/
+
+    $( "#acamtReceive" ).keyup(function( event ) { 
+      if ($("#crrAmt").attr('readonly',true)) {
+           var crrAmt = document.getElementById("crrAmt").value;
+           $("#crrAmt").val(crrAmt);
+      }else{
+        var actualAmt = $("#acamtReceive").val();
+      var crrComm = document.getElementById("crrComm").value;
+      //alert(crrComm);
+      var crrAmt = (crrComm/100); 
+      var crrAmt = (actualAmt*crrAmt); 
+      //alert(crrAmt);
+      $("#crrAmt").val(crrAmt);
+      //alert(actualAmt);
+      }
+      
     });
     /*var aBeforeBal = $('#acnetAmt').val();
     $('#acamtnetReceivebefore').val(aBeforeBal);*/
@@ -440,6 +496,138 @@ autoclose: true
   });
 
 </script>
+<script type="text/javascript">
+    (function($){
+      $('#psp').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
+      $('#bank').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
+      $('#plamtReceived').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
+      $('#pldatereceive').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
+       $('#acamtReceive').on('blur', function() {
+        $('#acdatereceive').css("border", "1px solid #CCCCCC");
+            if($('#acdatereceive').val()!="")
+        { 
+          $('#acdatereceive').css("border", "1px solid #CCCCCC");                         
+        }
+        else if($('#acdatereceive').val()=="") 
+        {
+          $('#acdatereceive').css("border", "1px solid #be1622");
+        }
+      })
+       $('#acdatereceive').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
+      /*$('#acdatereceive').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
+      $('#acamtReceive').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })*/
+      $("#editPspIncome").click(function(){
+        var returnvar = true;
+      if($("#psp").val() ==""){
+           $("#psp").css("border", "1px solid #be1622");           
+           returnvar = false;
+          }
+          if($("#bank").val() ==""){
+           $("#bank").css("border", "1px solid #be1622");           
+           returnvar = false;
+          }
+          if($("#pldatereceive").val()==""){                  
+           $("#pldatereceive").css("border", "1px solid #be1622");
+           returnvar = false;
+          }
+          if($("#plamtReceived").val()==""){                  
+           $("#plamtReceived").css("border", "1px solid #be1622");
+           returnvar = false;
+          }
+          var actualAmt = $("#acamtReceive").val();
+          var actualDate = $("#acdatereceive").val();
+          if(actualAmt != "" && actualDate == ""){
+            $("#acdatereceive").css("border", "1px solid #be1622");
+            returnvar = false;
+            alert(returnvar);
+          }
+          /*if($("#acdatereceive").val()==""){                  
+           $("#acdatereceive").css("border", "1px solid #be1622");
+           returnvar = false;
+          }
+          if($("#acamtReceive").val()==""){                  
+           $("#acamtReceive").css("border", "1px solid #be1622");
+           returnvar = false;
+          }*/
+          if(returnvar == true){
+            //alert(returnvar);
+             $("#editPspIncome").hide();
+            $(".page-loader").show();
+     } 
+     return returnvar;
+      });
+    })(jQuery);
+</script> 
 <!-- <script type="text/javascript">
     (function($){
       $('#psp').on('blur', function() {

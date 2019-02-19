@@ -83,7 +83,10 @@ class Psp_income extends CI_Controller {
         			$accommval = $this->input->post('accommval');
         			$acamtval = $this->input->post('acamtval');
         			$acnetAmt = $this->input->post('acnetAmt');
+                    $crrAmt = $this->input->post('crrAmt');
         			$uid = $this->input->post('userid');
+                    
+
         			if($plcommval == ""){
         				$plcommval = 0;
         			}
@@ -111,18 +114,18 @@ class Psp_income extends CI_Controller {
                     $d2 = trim ( $a2 [0], " " );
                     $to = $c2 . '-' . $a2 [1] . '-' . $d2;
 
-                    /*if ($acdatereceive == "") {
-                        $to = "";
+                    if (!empty($crrAmt)) {
+                        $isCrr = 1;
                     }else{
-                        $to = $acdatereceive;
-                        
-                        $a2 = explode ( '/', $to );
-                        $c2 = trim ( $a2 [2], " " );
-                        $d2 = trim ( $a2 [0], " " );
-                        $to = $c2 . '-' . $a2 [1] . '-' . $d2;
+                        $isCrr = 0;
                     }
-                    if ($acamtReceive == "") {
-                        $acamtReceive = 0;
+                    /*if ($crr == "") {
+                        $isCrr = 0;
+                    }else{
+                        $isCrr = 1;
+                        $crrAmount = $crr;
+                        $date = date("Y-m-d");
+                        $crrReceive =  date('Y-m-d', strtotime($date. ' + 180 days'));
                     }*/
         			$pspIncomeInfo = array(
         				'PspId' => $pspid,
@@ -139,6 +142,7 @@ class Psp_income extends CI_Controller {
         				'ActualCom' => $acamtval,
                         'ActualComP' => $accommval,
         				'ActualNetAmt' => $acnetAmt,
+                        'isCRR' => $isCrr,
         				'CreatedBy' => $uid
         			);
                     $table = 'bankmaster';
@@ -151,6 +155,30 @@ class Psp_income extends CI_Controller {
                     $this->db->where('BankId',$BankId);
                     $this->db->update('bankmaster',array('Balance'=>$updatedBal));
         			$this->db->insert('pspincome',$pspIncomeInfo);
+                    $crrId = $this->db->insert_id();
+                    // generate new crr record
+
+                    $date = $to;
+                    $crrReceive =  date('Y-m-d', strtotime($date. ' + 180 days'));
+                    if ($isCrr == 1) {
+                        $crrData = array(
+                        'PspId' => $pspid,
+                        'BankId' => $BankId,
+                        'Description' => $desc,
+                        'Currency' => $curr,
+                        //'ActualDate' => $crrReceive,
+                        'ExpDate' => $crrReceive,
+                        //'ActualAmt' => $crrAmt,
+                        'PlannedAmt' => $crrAmt,
+                        //'isCRR' => $isCrr,
+                        'CRRId' => $crrId,
+                        'CreatedBy' => $uid
+                        );
+
+                        $this->db->insert('pspincome',$crrData);
+                    }
+                    
+
         			$_SESSION['pop_mes'] = "PSP Income Added Successfully."; 
 					return 1;
         		}else{
@@ -172,13 +200,14 @@ class Psp_income extends CI_Controller {
 			$data['banks'] = $this->all_model->get_all_banks();
 			$data['all_psp'] = $this->all_model->get_all_psp();
 			$data['allPspIncome'] = $this->all_model->pspIncome($id);
-
+            //print_r($data['allPspIncome']);
+            $data['crrData'] = $this->all_model->getCrrGeneratedData($id); // get only CRR data
 			$this->load->view('templates/header');
 			$this->load->view('templates/left-sidebar');
 			$this->load->view('edit-deposit-details',$data);
 			$this->load->view('templates/footer');
 		}else{
-
+                
 				$token = $this->input->post('pspin_edittoken');
         		$session_token=null;
         		$session_token = $_SESSION['token_editpspincome'];
@@ -201,10 +230,12 @@ class Psp_income extends CI_Controller {
         			$accommval = $this->input->post('accommval');
         			$acamtval = $this->input->post('acamtval');
         			$acnetAmt = $this->input->post('acnetAmt');
+                    $crrAmt = $this->input->post('crrAmt');
         			$uid = $this->input->post('userid');
 
                     $data['allPspIncome'] = $this->all_model->pspIncome($id);
                     $acamtnetReceivebefore = $data['allPspIncome']->ActualNetAmt;
+                    
                     
 
         			if($plcommval == ""){
@@ -233,6 +264,12 @@ class Psp_income extends CI_Controller {
                     $c2 = trim ( $a2 [2], " " );
                     $d2 = trim ( $a2 [0], " " );
                     $to = $c2 . '-' . $a2 [1] . '-' . $d2;
+
+                    if (!empty($crrAmt)) {
+                        $isCrr = 1;
+                    }else{
+                        $isCrr = 0;
+                    }
                     /*if ($acdatereceive == "") {
                     $to = "";
                     }else{
@@ -276,6 +313,7 @@ class Psp_income extends CI_Controller {
         				'ActualCom' => $acamtval,
                         'ActualComP' => $accommval,
         				'ActualNetAmt' => $acnetAmt,
+                        'isCRR' => $isCrr,
         				'CreatedBy' => $uid
         			);
 
@@ -323,6 +361,31 @@ class Psp_income extends CI_Controller {
                     $this->db->update('bankmaster',array('Balance'=>$updatedBal));
         			$this->db->where('TransId',$id);
 	        		$user = $this->db->update('pspincome',$updatePspIncomeInfo);
+
+                    //$crrId = $this->db->insert_id();
+                    /*$this->db->select('TransId,CRRId');
+                    $this->db->from('pspincome');
+                    $this->db->where('CRRId',$id);
+                    $result = $this->db->get()->row();
+                    //$crrId = $result->TransId;*/
+                    $date = date("Y-m-d");
+                    $crrReceive =  date('Y-m-d', strtotime($date. ' + 180 days'));
+                    if ($isCrr == 1) {
+                        $crrData = array(
+                        'PspId' => $pspid,
+                        'BankId' => $BankId,
+                        'Description' => $desc,
+                        'Currency' => $curr,
+                        'ActualDate' => $crrReceive,
+                        //'ActualAmt' => $crrAmt,
+                        'PlannedAmt' => $crrAmt,
+                        //'isCRR' => $isCrr,
+                        //'CRRId' => $crrId,
+                        'ModifiedBy' => $uid
+                        );
+                        $this->db->where('CRRId',$id);
+                        $this->db->update('pspincome',$crrData);
+                    }
 
 	        		$_SESSION['pop_mes'] = "PSP Income Updated Successfully.";
 	        		redirect('psp-income');

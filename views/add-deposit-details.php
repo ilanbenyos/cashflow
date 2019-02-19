@@ -1,3 +1,9 @@
+<style type="text/css">
+  .required-field::before {
+  content: "*";
+  color: red;
+}
+</style>
 <!-- Page Content  -->
 <div id="content">
   <div class="container-fluid">
@@ -73,6 +79,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Planned Received date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
+                          <span class="required-field"><span>
                           <div class="input-group date" data-provide="datepicker">
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
@@ -84,7 +91,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount" />
+                          <span class="required-field"><span><input type="text" class="form-control" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount" />
                         </div>
                       </div>
                     </div>
@@ -212,6 +219,15 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;" id="crr">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">CRR Amount</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="hidden" name="crrComm" id="crrComm">
+                          <input type="text" class="form-control" name="crrAmt" id="crrAmt" placeholder="CRR Amount" readonly />
+                        </div>
+                      </div>
+                    </div>
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission</label>
@@ -295,12 +311,19 @@
                     dataType: "html",
                     success: function(data) {
                     var obj = JSON.parse(data);
-                    console.log(obj.getpsp);
+                    console.log(obj.getpsp.Crr);
                     $("#bank").val(obj.getpsp.BankName);
                     $("#bankid").val(obj.getpsp.BankId);
                     $("#plcurr").val(obj.getpsp.CurName);
                     $("#accurr").val(obj.getpsp.CurName);
-                    
+                    if (obj.getpsp.Crr > 0) {
+                      $("#crr").show();
+                    $("#crrComm").val(obj.getpsp.Crr);
+                    }
+                    /*var actualAmt = $("#acamtReceive").val();
+                    var CRR = obj.getpsp.Crr;
+                    var CRR = ((actualAmt/CRR)*100);
+                    alert(CRR);*/
                    }
                });
 
@@ -309,6 +332,19 @@
       var plcurr = document.getElementById("plcurr").value;
       $("#accurr").val(plcurr);
     });
+
+    $( "#acamtReceive" ).keyup(function( event ) { 
+      var actualAmt = $("#acamtReceive").val();
+      var crrComm = document.getElementById("crrComm").value;
+      //alert(crrComm);
+      var crrAmt = (crrComm/100); 
+      var crrAmt = (actualAmt*crrAmt); 
+      //alert(crrAmt);
+      $("#crrAmt").val(crrAmt);
+
+      //alert(actualAmt);
+    });
+
       /*$('#pldatereceive').datepicker({
         minDate: new Date(),
         dateFormat: 'yyyy-mm-dd'
@@ -488,6 +524,28 @@
           $(this).css("border", "1px solid #be1622");
         }
       })
+       $('#acamtReceive').on('blur', function() {
+        $('#acdatereceive').css("border", "1px solid #CCCCCC");
+            if($('#acdatereceive').val()!="")
+        { 
+          $('#acdatereceive').css("border", "1px solid #CCCCCC");                         
+        }
+        else if($('#acdatereceive').val()=="") 
+        {
+          $('#acdatereceive').css("border", "1px solid #be1622");
+        }
+      })
+       $('#acdatereceive').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
       /*$('#acdatereceive').on('blur', function() {
         $(this).css("border", "1px solid #CCCCCC");
             if($(this).val()!="")
@@ -527,6 +585,13 @@
           if($("#plamtReceived").val()==""){                  
            $("#plamtReceived").css("border", "1px solid #be1622");
            returnvar = false;
+          }
+          var actualAmt = $("#acamtReceive").val();
+          var actualDate = $("#acdatereceive").val();
+          if(actualAmt != "" && actualDate == ""){
+            $("#acdatereceive").css("border", "1px solid #be1622");
+            returnvar = false;
+            //alert(returnvar);
           }
           /*if($("#acdatereceive").val()==""){                  
            $("#acdatereceive").css("border", "1px solid #be1622");
