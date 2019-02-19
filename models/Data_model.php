@@ -5,7 +5,7 @@ class Data_model extends CI_Model {
 	}
 	
 	public function pspIncome($year,$month1,$month2,$currency){
-		$this->db->select('pm.PspId as ID,pm.PspName as psp,sum(p.ActualNetAmt) as amount');
+		$this->db->select('p.PspId as ID,pm.PspName as psp,sum(p.ActualNetAmt) as amount');
 		$this->db->from('pspincome p');
 		$this->db->join('pspmaster pm','pm.PspId = p.PspId','left');
 		$this->db->where('p.ActualNetAmt !=','0'); 
@@ -14,8 +14,8 @@ class Data_model extends CI_Model {
         $this->db->where('YEAR(p.CreatedOn)', $year);
 		$this->db->where('p.Currency', $currency);
 		$this->db->where('pm.Active', '1');
-		$this->db->group_by('pm.PspId,pm.PspName'); 
-		$this->db->order_by('pm.PspId');
+		$this->db->group_by('p.PspId'); 
+		$this->db->order_by('p.PspId');
 		return $this->db->get()->result_array();
 	}
 	
@@ -58,8 +58,6 @@ class Data_model extends CI_Model {
 		 foreach($currency_array as $currency){
 			$this->db->select('sum(if(ex.Currency ="'.$currency['Currency'].'",ex.ActualAmt,0))as '.$currency['Currency']);
 		}
-	//  $this->db->select('ex.CatId,c.Category,sum(if(ex.Currency ="EUR",ex.ActualAmt,0))as amount_eur,sum(if(ex.Currency ="USD",ex.ActualAmt,0))as amount_usd');
-
 		$this->db->from('expenses ex');
 		$this->db->join('expcategory c','ex.CatId = c.CatId','left');
 		$this->db->where('ex.ActualAmt >','0.00'); 
@@ -69,6 +67,5 @@ class Data_model extends CI_Model {
 		$this->db->group_by('ex.CatId'); 
 	    $this->db->order_by('ex.CatId');
 	    return $this->db->get()->result_array();
-		//return $this->db->last_query();
 	}
 }

@@ -23,6 +23,14 @@ class Ajax_Reports extends CI_Controller {
 			$month1 =$month2;
 		}
 		$data = $this->data_model->pspIncome($year,$month1,$month2,$currency);
+		if(!empty($data)){
+			foreach ($data as $single_array){
+				array_shift($single_array);
+				$new_data[]=$single_array;
+			}
+		}else{
+			$new_data=$data;
+		}
         print_r(json_encode($data, true));
     }
 	
