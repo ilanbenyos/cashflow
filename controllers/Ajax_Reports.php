@@ -31,7 +31,7 @@ class Ajax_Reports extends CI_Controller {
 		}else{
 			$new_data=$data;
 		}
-        print_r(json_encode($data, true));
+        print_r(json_encode($new_data, true));
     }
 	
 	 function get_bank_income(){
