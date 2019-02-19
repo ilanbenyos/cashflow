@@ -5,7 +5,7 @@ class Data_model extends CI_Model {
 	}
 	
 	public function pspIncome($year,$month1,$month2,$currency){
-		$this->db->select('pm.PspId as ID,pm.PspName as psp,sum(p.ActualNetAmt) as amount');
+		$this->db->select('p.PspId as ID,pm.PspName as psp,sum(p.ActualNetAmt) as amount');
 		$this->db->from('pspincome p');
 		$this->db->join('pspmaster pm','pm.PspId = p.PspId','left');
 		$this->db->where('p.ActualNetAmt !=','0'); 
@@ -14,8 +14,8 @@ class Data_model extends CI_Model {
         $this->db->where('YEAR(p.CreatedOn)', $year);
 		$this->db->where('p.Currency', $currency);
 		$this->db->where('pm.Active', '1');
-		$this->db->group_by('pm.PspName'); 
-		$this->db->order_by('ID');
+		$this->db->group_by('p.PspId'); 
+		$this->db->order_by('p.PspId');
 		return $this->db->get()->result_array();
 	}
 	
