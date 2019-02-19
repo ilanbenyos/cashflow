@@ -200,7 +200,7 @@ class Psp_income extends CI_Controller {
 			$data['banks'] = $this->all_model->get_all_banks();
 			$data['all_psp'] = $this->all_model->get_all_psp();
 			$data['allPspIncome'] = $this->all_model->pspIncome($id);
-            //print_r($data['allPspIncome']);
+            print_r($data['allPspIncome']);
             $data['crrData'] = $this->all_model->getCrrGeneratedData($id); // get only CRR data
 			$this->load->view('templates/header');
 			$this->load->view('templates/left-sidebar');
