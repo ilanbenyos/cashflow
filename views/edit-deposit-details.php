@@ -78,7 +78,7 @@
                             <?php if ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId != 0) { ?>
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ExpDate))) ?>" />
                             <?php }else{ ?>
-                            <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                            <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ExpDate))) ?>" />
                             <?php } ?>
                             
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
