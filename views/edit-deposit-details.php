@@ -177,8 +177,9 @@
                             <?php }elseif ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId == 0) { ?>
                               <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
                             <?php }else{?>
-                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
                             <?php } ?>
+                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
                         </div>
@@ -611,7 +612,7 @@ autoclose: true
           if(actualAmt != "" && actualDate == ""){
             $("#acdatereceive").css("border", "1px solid #be1622");
             returnvar = false;
-            alert(returnvar);
+            //alert(returnvar);
           }
           /*if($("#acdatereceive").val()==""){                  
            $("#acdatereceive").css("border", "1px solid #be1622");
