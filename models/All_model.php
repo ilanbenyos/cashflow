@@ -103,6 +103,7 @@ class All_model extends CI_Model {
 		$this->db->from('pspincome p');
 		$this->db->join('bankmaster b','b.BankId = p.BankId','left');
 		$this->db->join('pspmaster pm','pm.PspId = p.PspId','left');
+		//$this->db->where('p.isCRR',1);
 		$this->db->order_by('p.CreatedOn','DESC');
 		return $this->db->get()->result();
 	}
@@ -111,6 +112,7 @@ class All_model extends CI_Model {
 		$this->db->from('pspincome p');
 		$this->db->join('bankmaster b','b.BankId = p.BankId','left');
 		$this->db->join('pspmaster pm','pm.PspId = p.PspId','left');
+		//$this->db->where('p.CRRId',$id);
 		$this->db->where('p.TransId',$id);
 		$this->db->order_by('p.CreatedOn','DESC');
 		return $this->db->get()->row();
@@ -190,6 +192,73 @@ class All_model extends CI_Model {
 		$this->db->join('banktransfertype bt','bt.BankTransferId = bc.BankTransferId');
 		$this->db->where('bc.BankId',$id);
 		return $this->db->get()->result();
+	}
+	public function getCrrGeneratedData($id){    // get only CRR data
+		$this->db->select('*');
+		$this->db->from('pspincome');
+		$this->db->where('CRRId',$id);
+		//$this->db->where('p.TransId',$id);
+		$this->db->order_by('CreatedOn','DESC');
+		return $this->db->get()->row();
+	}
+	public function vendors(){
+		$this->db->select('v.VendorId,v.VendorName,v.Active,v.Currency');
+		$this->db->from('vendormaster v');
+		/*$this->db->join('currencymaster c','c.CurId = v.Currency');
+		$this->db->join('bankmaster b','b.CurId = v.Currency');*/
+		$this->db->where('v.Active',1);
+		return $this->db->get()->result();
+	}
+	public function getBanks($id){
+		$this->db->select('v.VendorId,v.VendorName,v.Active,v.Currency,c.CurId,c.CurName,b.BankId,BankName');
+		$this->db->from('vendormaster v');
+		$this->db->join('currencymaster c','c.CurId = v.Currency');
+		$this->db->join('bankmaster b','b.CurId = v.Currency');
+		$this->db->where('v.Active',1);
+		$this->db->where('v.VendorId',$id);
+		return $this->db->get()->row();
+	}
+	public function getTransferTypeAmount($id){
+		$this->db->select('bt.BankTransferId,bt.BanktransferName,bt.Active,bc.BankTransferId,bc.BankId,bc.Amount');
+		$this->db->from('banktransfertype bt');
+		$this->db->join('banktransfercharges bc','bc.BankTransferId = bt.BankTransferId');
+		$this->db->where('bt.BankTransferId',$id);
+		return $this->db->get()->row();
+	}
+	public function getallExpenses(){
+		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Shares,e.FinalBankComm,e.NetFromBank,e.Active,v.VendorId,v.VendorName,b.BankId,b.BankName,bc.BankTransferId,bc.Amount,bt.BanktransferName,bt.BankTransferId');
+		$this->db->from('expenses e');
+		$this->db->join('vendormaster v','v.VendorId = e.VendorId');
+		$this->db->join('banktransfercharges bc','bc.BankTransferId = e.BankTransferId');
+		$this->db->join('banktransfertype bt','bt.BankTransferId = bc.BankTransferId');
+		$this->db->join('bankmaster b','b.BankId = e.BankId');
+		$this->db->where('e.Active',1);
+		$this->db->order_by('e.CreatedOn','DESC');
+		return $this->db->get()->result();
+	}
+	public function getexpenses($id){
+		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Shares,e.FinalBankComm,e.NetFromBank,e.Active,v.VendorId,v.VendorName,b.BankId,b.BankName,bc.BankTransferId,bc.Amount,bt.BanktransferName,bt.BankTransferId');
+		$this->db->from('expenses e');
+		$this->db->join('vendormaster v','v.VendorId = e.VendorId');
+		/*$this->db->join('banktransfertype bt','bt.BankTransferId = e.ExpCatId');*/
+		$this->db->join('banktransfercharges bc','bc.BankTransferId = e.BankTransferId');
+		$this->db->join('banktransfertype bt','bt.BankTransferId = bc.BankTransferId');
+		$this->db->join('bankmaster b','b.BankId = e.BankId');
+		$this->db->where('e.Active',1);
+		$this->db->where('e.TransId',$id);
+		return $this->db->get()->row();
+	}
+	public function getAllBankTransaction(){
+		$this->db->select('TransId,FromBank,Amount,BankTransferId,MoneyOutFees,ToBank,MoneyInFees,CreatedOn');
+		$this->db->from('banktransaction');
+		return $this->db->get()->result();
+	}
+	public function getBankTransaction($id){
+		$this->db->select('b.TransId,b.FromBank,b.Amount,b.BankTransferId,b.MoneyOutFees,b.ToBank,b.MoneyInFees,b.CreatedOn,bt.BankTransferId,bt.BanktransferName');
+		$this->db->from('banktransaction b');
+		$this->db->join('banktransfertype bt','bt.BankTransferId = b.BankTransferId');
+		$this->db->where('b.TransId',$id);
+		return $this->db->get()->row();
 	}
 	
 }
