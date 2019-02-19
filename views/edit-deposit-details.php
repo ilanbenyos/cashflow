@@ -75,11 +75,18 @@
                         <label class="col-md-4 col-sm-4 col-xs-12">Planned Received date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
-                            <?php if ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId != 0) { ?>
+                            <!-- <?php if ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId != 0) { ?>
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ExpDate))) ?>" />
                             <?php }else{ ?>
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
-                            <?php } ?>
+                            <?php } ?> -->
+                            <?php if($allPspIncome->isCRR == 0 && $allPspIncome->CRRId == 0 && $allPspIncome->ExpDate != '0000-00-00'){ ?>
+                              <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ExpDate))) ?>" />
+                              <?php }elseif($allPspIncome->isCRR == 1 && $allPspIncome->CRRId == 0 && $allPspIncome->ExpDate != '0000-00-00'){ ?>
+                                <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ExpDate))) ?>" />
+                              <?php }else{ ?>
+                                <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ExpDate))) ?>" />
+                              <?php } ?>
                             
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
@@ -170,15 +177,28 @@
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
                             <!-- <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" /> -->
-                            <?php if ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId != 0 && $allPspIncome->ActualDate != '0000-00-00') { ?>
-                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                            <!-- <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" /> -->
+                            <!-- <?php if ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId != 0 ) { ?>
+                              <?php if($allPspIncome->ActualDate != '0000-00-00'){ ?>
+                                <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo '1'; ?>" />
+                              <?php }else { ?>
+                                <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo '2'; ?>" />
+                              <?php }?>
                             <?php }elseif($allPspIncome->isCRR == 1 && $allPspIncome->CRRId == 0) {?>
-                              <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                              <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo '3';?> ?>" />
                             <?php }elseif ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId == 0) { ?>
-                              <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                              <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo '5';?>" />
                             <?php }else{?>
-                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
-                            <?php } ?>
+                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo '4';?>" />
+                            <?php } ?> -->
+                            <?php if ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId == 0 && $allPspIncome->ActualDate == '0000-00-00') { ?>
+                              <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo '1'; ?>" />
+                           <?php }elseif ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId > 0 && $allPspIncome->ActualDate == '0000-00-00') { ?>
+                             <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                           <?php }else { ?>
+                               <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                           <?php }?>
+
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
                         </div>
@@ -612,6 +632,9 @@ autoclose: true
             $("#acdatereceive").css("border", "1px solid #be1622");
             returnvar = false;
             //alert(returnvar);
+          }else if(actualAmt == 0 && actualDate == ""){
+            //$("#acdatereceive").css("border", "1px solid #be1622");
+            returnvar = true;
           }
           /*if($("#acdatereceive").val()==""){                  
            $("#acdatereceive").css("border", "1px solid #be1622");
