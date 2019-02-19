@@ -15,7 +15,7 @@ class Data_model extends CI_Model {
 		$this->db->where('p.Currency', $currency);
 		$this->db->where('pm.Active', '1');
 		$this->db->group_by('pm.PspId,pm.PspName'); 
-		$this->db->order_by('ID');
+		$this->db->order_by('pm.PspId');
 		return $this->db->get()->result_array();
 	}
 	
