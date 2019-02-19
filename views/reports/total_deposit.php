@@ -110,7 +110,7 @@
             'year': y,
 			'currency':c
         },
-        url: "http://cashflow.forexwebsolutions.com/Ajax_Reports/get_psp_income" ,
+        url: "http://cashflow:8080/Ajax_Reports/get_psp_income" ,
         success: function (data1) {
 	      // alert(data1);
 		// Create our data table out of JSON data loaded from server.
@@ -124,7 +124,7 @@
       }
       
 	  
-	   if(jsonData==""){
+	   
 	   var options = {
          height: 500,
 		 bar: {groupWidth: "60%"},
@@ -142,45 +142,8 @@
 			}
          
       };
-	  }else{
-	  if(jsonData[0].Currency =='USD'){
-		 var options = {
-         height: 500,
-		 bar: {groupWidth: "60%"},
-		 legend: { position: 'none' },
-		 colors: ['green'],
-		hAxis: {
-			  title: 'PSP Name',
-			  slantedText:true,  
-			  slantedTextAngle:90
-			},
-			vAxis: {
-			  title: 'Amount in (USD)',
-			  format: 'short'
-
-			}
-         
-      };
-	  }else  if(jsonData[0].Currency =='EUR'){
-      var options = {
-         height: 500,
-		 bar: {groupWidth: "60%"},
-		 legend: { position: 'none' },
-		 colors: ['green'],
-		hAxis: {
-			  title: 'PSP Name',
-			  slantedText:true,  
-			  slantedTextAngle:90
-			},
-			vAxis: {
-			  title: 'Amount in (EUR)',
-			  format: 'short'
-
-			}
-         
-      };
-	  }
-	  }
+	 
+	  
 	  
       var chart = new google.visualization.ColumnChart(document.getElementById('bar_chart'));
       chart.draw(data, options);
