@@ -112,7 +112,7 @@
         },
         url: "http://cashflow.forexwebsolutions.com/Ajax_Reports/get_psp_income" ,
         success: function (data1) {
-	       alert(data1);
+	       alert(currency);
 		// Create our data table out of JSON data loaded from server.
         var data = new google.visualization.DataTable();
   
