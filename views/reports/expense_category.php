@@ -113,8 +113,8 @@
 					  colors: ['#1F9FA6'], 
 					hAxis: {
 						  title: 'Categories',
-						  slantedText:true,  
-						  slantedTextAngle:90
+						  //slantedText:true,  
+						  //slantedTextAngle:90
 						},
 						vAxis: {
 						  title: 'Amount',
@@ -157,8 +157,8 @@
 			 colors: ['#1F9FA6', '#1E7FC9', '#2A3241','#C1CA23','#A692BC','#F8B756'],
 			hAxis: {
 				  title: 'Category Name',
-				  slantedText:true,  
-				  slantedTextAngle:90
+				//  slantedText:true,  
+				//  slantedTextAngle:90
 				},
 				vAxis: {
 				  title: 'Amount',
