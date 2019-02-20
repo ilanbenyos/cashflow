@@ -149,7 +149,7 @@
       chart.draw(data, options);
 	  var options = {
         height: 500,
-		 colors: ['#1F9FA6', '#1E7FC9', '#2A3241','#C1CA23','#A692BC','#F8B756'],
+		 colors: ['#1F9FA6','#C1CA23', '#1E7FC9', '#2A3241','#A692BC','#F8B756'],
         };
 	  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
       chart.draw(data, options);
