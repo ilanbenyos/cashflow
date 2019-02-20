@@ -130,8 +130,8 @@
 					  colors: ['#1F9FA6'], 
 					hAxis: {
 						  title: 'PSP Name',
-						  slantedText:true,  
-						  slantedTextAngle:90
+						 // slantedText:true,  
+						 // slantedTextAngle:90
 						},
 						vAxis: {
 						  title: 'Amount in (USD)',
@@ -148,8 +148,8 @@
 					  colors: ['#1F9FA6'], 
 					hAxis: {
 						  title: 'PSP Name',
-						  slantedText:true,  
-						  slantedTextAngle:90
+						 // slantedText:true,  
+						 // slantedTextAngle:90
 						},
 						vAxis: {
 						  title: 'Amount in (EUR)',
@@ -166,8 +166,8 @@
 				  colors: ['#1F9FA6'], 
 				hAxis: {
 					  title: 'PSP Name',
-					  slantedText:true,  
-					  slantedTextAngle:90
+					//  slantedText:true,  
+					  //slantedTextAngle:90
 					},
 					vAxis: {
 					  title: 'Amount',
