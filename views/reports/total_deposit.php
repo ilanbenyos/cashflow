@@ -101,7 +101,7 @@
 
 
     function drawChart(m1,m2,y,c) {
-  
+		var currency =c;
         $.ajax({
         type: 'POST',
 		data: {
