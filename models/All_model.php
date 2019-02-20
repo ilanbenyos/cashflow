@@ -210,12 +210,13 @@ class All_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 	public function getBanks($id){
-		$this->db->select('v.VendorId,v.VendorName,v.Active,v.Currency,c.CurId,c.CurName,b.BankId,BankName');
+		$this->db->select('v.VendorId,v.VendorName,v.Active,v.Currency,c.CurId,c.CurName,b.BankId,b.BankName,b.OctComP');
 		$this->db->from('vendormaster v');
 		$this->db->join('currencymaster c','c.CurId = v.Currency');
 		$this->db->join('bankmaster b','b.CurId = v.Currency');
 		$this->db->where('v.Active',1);
-		$this->db->where('v.VendorId',$id);
+		//$this->db->where('v.VendorId',$id);
+		$this->db->where('b.BankId',$id);
 		return $this->db->get()->row();
 	}
 	public function getTransferTypeAmount($id){
@@ -226,7 +227,7 @@ class All_model extends CI_Model {
 		return $this->db->get()->row();
 	}
 	public function getallExpenses(){
-		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Shares,e.FinalBankComm,e.NetFromBank,e.Active,v.VendorId,v.VendorName,b.BankId,b.BankName,bc.BankTransferId,bc.Amount,bt.BanktransferName,bt.BankTransferId');
+		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Share,e.FinalBankComm,e.NetFromBank,e.Active,v.VendorId,v.VendorName,b.BankId,b.BankName,bc.BankTransferId,bc.Amount,bt.BanktransferName,bt.BankTransferId');
 		$this->db->from('expenses e');
 		$this->db->join('vendormaster v','v.VendorId = e.VendorId');
 		$this->db->join('banktransfercharges bc','bc.BankTransferId = e.BankTransferId');
@@ -237,7 +238,7 @@ class All_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 	public function getexpenses($id){
-		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Shares,e.FinalBankComm,e.NetFromBank,e.Active,v.VendorId,v.VendorName,b.BankId,b.BankName,bc.BankTransferId,bc.Amount,bt.BanktransferName,bt.BankTransferId');
+		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Share,e.FinalBankComm,e.NetFromBank,e.Active,e.ShareAmount,e.BankOutCommP,e.BankOutCommAmount,e.TransferCommP,e.TransferCommAmount,v.VendorId,v.VendorName,b.BankId,b.BankName,bc.BankTransferId,bc.Amount,bt.BanktransferName,bt.BankTransferId');
 		$this->db->from('expenses e');
 		$this->db->join('vendormaster v','v.VendorId = e.VendorId');
 		/*$this->db->join('banktransfertype bt','bt.BankTransferId = e.ExpCatId');*/
