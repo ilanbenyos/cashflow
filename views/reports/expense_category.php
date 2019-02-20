@@ -1,6 +1,6 @@
 <div id="content">
   <div class="container-fluid">
-    <h1>Expense by Categories Report</h1>
+    <h1>Total Expenses Per Category Report</h1>
     <div class="white-bg">
       <div class="row">
         <div class="col-md-12 inline-divs text-right">
@@ -154,8 +154,7 @@
 			},
 			height: 500,
 			 legend: { position: 'top' },
-			 bar: {groupWidth: "50%"},
-					  colors: ['#1F9FA6', '#1E7FC9', '#2A3241','#C1CA23','#A692BC','#F8B756'],
+			 colors: ['#1F9FA6', '#1E7FC9', '#2A3241','#C1CA23','#A692BC','#F8B756'],
 			hAxis: {
 				  title: 'Category Name',
 				  slantedText:true,  
@@ -172,8 +171,7 @@
 		  chart.draw(data, options);
 		  var options = {
 			height: 500,
-						 colors: ['#1F9FA6', '#1E7FC9', '#2A3241','#C1CA23','#A692BC','#F8B756'],
-
+			 colors: ['#1F9FA6', '#1E7FC9', '#2A3241','#C1CA23','#A692BC','#F8B756'],
 			};
 		  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 		  chart.draw(data, options);
