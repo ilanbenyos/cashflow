@@ -110,7 +110,7 @@
 					},
 					height: 500,
 					 legend: { position: 'none' },
-					 colors: ['green'],
+					  colors: ['#1F9FA6'], 
 					hAxis: {
 						  title: 'Categories',
 						  slantedText:true,  
@@ -155,7 +155,7 @@
 			height: 500,
 			 legend: { position: 'top' },
 			 bar: {groupWidth: "50%"},
-			 colors: ['brown','green','blue'],
+					  colors: ['#1F9FA6'], 
 			hAxis: {
 				  title: 'Category Name',
 				  slantedText:true,  

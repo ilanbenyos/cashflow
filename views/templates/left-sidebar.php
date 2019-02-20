@@ -47,6 +47,8 @@
         <li class="treeview"> <a href="#"> <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
           <ul class="treeview-menu">
             <li><a href="<?= base_url('Reports/psp_income')?>">Total Income Per PSP</a></li>
+						<li><a href="<?= base_url('Reports/expense_category')?>">Total Expenses Per Category</a></li>
+
                     <!-- <li><a href="income-by-processor.php">Income by Processor</a></li>-->
           </ul>
         </li> 
@@ -69,6 +71,8 @@
         <li class="treeview"> <a href="#"> <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
           <ul class="treeview-menu">
            <li><a href="<?= base_url('Reports/psp_income')?>">Total Income Per PSP</a></li>
+		   			<li><a href="<?= base_url('Reports/expense_category')?>">Total Expenses Per Category</a></li>
+
           </ul>
         </li>
       <?php }?>
