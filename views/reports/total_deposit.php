@@ -124,40 +124,58 @@
     
 		    if(currency =='USD'){
 				var options = {
-			 height: 500,
-			 bar: {groupWidth: "60%"},
-			 legend: { position: 'none' },
-			  colors: ['#1F9FA6'], 
-			hAxis: {
-				  title: 'PSP Name',
-				  slantedText:true,  
-				  slantedTextAngle:90
-				},
-				vAxis: {
-				  title: 'Amount in (USD)',
-				  format: 'short'
+					 height: 500,
+					 bar: {groupWidth: "60%"},
+					 legend: { position: 'none' },
+					  colors: ['#1F9FA6'], 
+					hAxis: {
+						  title: 'PSP Name',
+						  slantedText:true,  
+						  slantedTextAngle:90
+						},
+						vAxis: {
+						  title: 'Amount in (USD)',
+						  format: 'short'
 
-				}
-			 
-		  };
+						}
+					 
+				  };
 			}else if(currency =='EUR'){
 				var options = {
-			 height: 500,
-			 bar: {groupWidth: "60%"},
-			 legend: { position: 'none' },
-			  colors: ['#1F9FA6'], 
-			hAxis: {
-				  title: 'PSP Name',
-				  slantedText:true,  
-				  slantedTextAngle:90
-				},
-				vAxis: {
-				  title: 'Amount in (EUR)',
-				  format: 'short'
+					 height: 500,
+					 bar: {groupWidth: "60%"},
+					 legend: { position: 'none' },
+					  colors: ['#1F9FA6'], 
+					hAxis: {
+						  title: 'PSP Name',
+						  slantedText:true,  
+						  slantedTextAngle:90
+						},
+						vAxis: {
+						  title: 'Amount in (EUR)',
+						  format: 'short'
 
-				}
-			 
-		  };
+						}
+					 
+				  };
+			}else{
+				var options = {
+				 height: 500,
+				 bar: {groupWidth: "60%"},
+				 legend: { position: 'none' },
+				  colors: ['#1F9FA6'], 
+				hAxis: {
+					  title: 'PSP Name',
+					  slantedText:true,  
+					  slantedTextAngle:90
+					},
+					vAxis: {
+					  title: 'Amount',
+					  format: 'short'
+
+					}
+				 
+			  };
 			}
 	  
 	  
