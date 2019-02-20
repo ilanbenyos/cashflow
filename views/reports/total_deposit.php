@@ -122,26 +122,8 @@
       for (var i = 0; i < jsonData.length; i++) {
             data.addRow([jsonData[i].psp, parseInt(jsonData[i].amount)]);
       }
-      if(jsonData==""){
-		 var options = {
-			 height: 500,
-			 bar: {groupWidth: "60%"},
-			 legend: { position: 'none' },
-			  colors: ['#1F9FA6'], 
-			hAxis: {
-				  title: 'PSP Name',
-				  slantedText:true,  
-				  slantedTextAngle:90
-				},
-				vAxis: {
-				  title: 'Amount',
-				  format: 'short'
-
-				}
-			 
-		  };
-	  }else {
-		    if(jsonData[0].Currency =='USD'){
+    
+		    if(currency =='USD'){
 				var options = {
 			 height: 500,
 			 bar: {groupWidth: "60%"},
@@ -159,7 +141,7 @@
 				}
 			 
 		  };
-			}else if(jsonData[0].Currency =='EUR'){
+			}else if(currency =='EUR'){
 				var options = {
 			 height: 500,
 			 bar: {groupWidth: "60%"},
@@ -178,7 +160,7 @@
 			 
 		  };
 			}
-	  }
+	  
 	  
 	   
 	 
