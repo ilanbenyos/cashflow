@@ -9,9 +9,9 @@ class Data_model extends CI_Model {
 		$this->db->from('pspincome p');
 		$this->db->join('pspmaster pm','pm.PspId = p.PspId','left');
 		$this->db->where('p.ActualNetAmt !=','0'); 
-		$this->db->where('MONTH(p.CreatedOn)>=', $month1);
-		$this->db->where('MONTH(p.CreatedOn)<=', $month2);
-        $this->db->where('YEAR(p.CreatedOn)', $year);
+		$this->db->where('MONTH(p.ActualDate)>=', $month1);
+		$this->db->where('MONTH(p.ActualDate)<=', $month2);
+        $this->db->where('YEAR(p.ActualDate)', $year);
 		$this->db->where('p.Currency', $currency);
 		$this->db->where('pm.Active', '1');
 		$this->db->group_by('p.PspId'); 
@@ -24,9 +24,9 @@ class Data_model extends CI_Model {
 		$this->db->from('bankmaster bm');
 	   $this->db->join('currencymaster c','c.CurId = bm.CurId','left');
 		$this->db->where('bm.Balance !=','0'); 
-		$this->db->where('MONTH(bm.CreatedOn)>=', $month1);
-		$this->db->where('MONTH(bm.CreatedOn)<=', $month2);
-        $this->db->where('YEAR(bm.CreatedOn)', $year);
+		$this->db->where('MONTH(bm.ActualDate)>=', $month1);
+		$this->db->where('MONTH(bm.ActualDate)<=', $month2);
+        $this->db->where('YEAR(bm.ActualDate)', $year);
 		$this->db->where('c.CurName', $currency);
 		$this->db->where('bm.Active', '1');
 		$this->db->group_by('bm.BankName'); 
@@ -65,9 +65,9 @@ class Data_model extends CI_Model {
 		$this->db->from('expenses ex');
 		$this->db->join('expcategory c','ex.CatId = c.CatId','left');
 		$this->db->where('ex.ActualAmt >','0.00'); 
-		$this->db->where('MONTH(ex.ExpDate)>=', $month1);
-		$this->db->where('MONTH(ex.ExpDate)<=', $month2);
-        $this->db->where('YEAR(ex.ExpDate)', $year);
+		$this->db->where('MONTH(ex.ActualDate)>=', $month1);
+		$this->db->where('MONTH(ex.ActualDate)<=', $month2);
+        $this->db->where('YEAR(ex.ActualDate)', $year);
 		$this->db->group_by('ex.CatId'); 
 	    $this->db->order_by('ex.CatId');
 	    return $this->db->get()->result_array();
