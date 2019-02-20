@@ -129,7 +129,7 @@
          height: 500,
 		 bar: {groupWidth: "60%"},
 		 legend: { position: 'none' },
-		 colors: ['green'],
+		  colors: ['#1F9FA6'], 
 		hAxis: {
 			  title: 'PSP Name',
 			  slantedText:true,  
@@ -149,6 +149,7 @@
       chart.draw(data, options);
 	  var options = {
         height: 500,
+		 colors: ['#1F9FA6', '#1E7FC9', '#2A3241','#C1CA23','#A692BC','#F8B756'],
         };
 	  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
       chart.draw(data, options);
