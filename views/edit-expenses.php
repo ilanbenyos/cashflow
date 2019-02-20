@@ -215,7 +215,7 @@
                       </div>
                   <button type="submit" id="editExpense" class="btn-submit transitions">Submit</button>
                   <!-- <button type="reset" class="btn-reset transitions">Reset</button> -->
-                   <a href="<?= base_url('expense');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a>
+                   <a href="<?= base_url('expenses');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a>
                 </div>
                   <!-- </div> -->
                 </div>
