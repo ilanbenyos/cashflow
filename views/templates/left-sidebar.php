@@ -46,7 +46,7 @@
         <li><a href="<?= base_url('psp-income')?>"><i class="fa fa-download" aria-hidden="true"></i> <span>PSP Income</span></a></li>
         <li class="treeview"> <a href="#"> <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
           <ul class="treeview-menu">
-            <li><a href="<?= base_url('Reports/psp_income')?>">Total PSP Deposits</a></li>
+            <li><a href="<?= base_url('Reports/psp_income')?>">Total Income Per PSP</a></li>
                     <!-- <li><a href="income-by-processor.php">Income by Processor</a></li>-->
           </ul>
         </li> 
@@ -66,12 +66,11 @@
         <li><a href="actual-expense-details.php"><i class="fa fa-briefcase" aria-hidden="true"></i> <span>Actual Expense</span></a></li>
         <li><a href="deposit-details.php"><i class="fa fa-download" aria-hidden="true"></i> <span>Deposit Details</span></a></li> -->
 		   <li><a href="<?= base_url('psp-income')?>"><i class="fa fa-download" aria-hidden="true"></i> <span>PSP Income</span></a></li>
-       <!--  <li class="treeview"> <a href="#"> <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
+        <li class="treeview"> <a href="#"> <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
           <ul class="treeview-menu">
-            <li><a href="total-deposit-report.php">Total Deposits</a></li>
-            <li><a href="income-by-processor.php">Income by Processor</a></li>
+           <li><a href="<?= base_url('Reports/psp_income')?>">Total Income Per PSP</a></li>
           </ul>
-        </li> -->
+        </li>
       <?php }?>
       </ul>
     </div>
