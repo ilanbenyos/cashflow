@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
+
 class Data_model extends CI_Model {
 	public function __construct() {
 		$this->load->database ();
