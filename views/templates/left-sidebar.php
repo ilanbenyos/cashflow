@@ -44,7 +44,7 @@
         <!-- <li><a href="planned-expense.php"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Planned Expense</span></a></li>
         <li><a href="actual-expense-details.php"><i class="fa fa-briefcase" aria-hidden="true"></i> <span>Actual Expense</span></a></li>-->
         <li><a href="<?= base_url('psp-income')?>"><i class="fa fa-download" aria-hidden="true"></i> <span>PSP Income</span></a></li>
-        <li><a href="<?= base_url('expenses')?>"><i class="fa fa-download" aria-hidden="true"></i> <span>Expenses</span></a></li>
+        <li><a href="<?= base_url('expenses')?>"><i class="fa fa-briefcase" aria-hidden="true"></i> <span>Expenses</span></a></li>
         <li class="treeview"> <a href="#"> <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
           <ul class="treeview-menu">
             <li><a href="<?= base_url('Reports/psp_income')?>">Total Income Per PSP</a></li>
