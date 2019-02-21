@@ -122,7 +122,7 @@ class Data_model extends CI_Model {
 		    $final_array[$month_all[$key]]['month'] =$month_all[$key];
 	   }
 		$final_array = array_values($final_array);
- 	   return $final_array;
+ 	   return $array_new_2;
 	}
 
 	public function Expense_by_Category($year,$month1,$month2){
