@@ -223,7 +223,7 @@ class All_model extends CI_Model {
 		$this->db->select('bt.BankTransferId,bt.BanktransferName,bt.Active,bc.BankTransferId,bc.BankId,bc.Amount');
 		$this->db->from('banktransfertype bt');
 		$this->db->join('banktransfercharges bc','bc.BankTransferId = bt.BankTransferId');
-		$this->db->where('bt.BankTransferId',$id);
+		$this->db->where('bc.BankId',$id);
 		return $this->db->get()->row();
 	}
 	public function getallExpenses(){

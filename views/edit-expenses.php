@@ -27,7 +27,6 @@
       <input type="hidden" name="editexpense_token" value="<?php echo $token;?>">
       <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
       <input type="hidden" name="shareAmount" id="shareAmount" value="<?php echo $expenses->ShareAmount ?>">
-      <!-- <input type="hidden" name="BankOutCommP" id="BankOutCommP" value="<?php echo $expenses->BankOutCommP ?>"> -->
       <input type="hidden" name="BankOutCommAmount" id="BankOutCommAmount" value="<?php echo $expenses->BankOutCommAmount ?>">
       <input type="hidden" name="TransferCommAmount" id="TransferCommAmount" value="<?php echo $expenses->TransferCommAmount ?>">
               <div class="row clearfix spacetop3x spacebottom2x">
@@ -91,11 +90,11 @@
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Received date</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <span class="required-field"><span>
                           <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ExpDate))) ?>" placeholder="Planned Received Date" />
+                            <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ExpDate))) ?>" placeholder="Planned Date" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
                         </div>
@@ -103,9 +102,9 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <span class="required-field"><span><input type="text" class="form-control" name="plamtReceived" id="plamtReceived" value="<?php echo $expenses->PlannedAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount" />
+                          <span class="required-field"><span><input type="text" class="form-control" name="plamtReceived" id="plamtReceived" value="<?php echo $expenses->PlannedAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                         </div>
                       </div>
                     </div>
@@ -129,14 +128,7 @@
                             <option <?php if($type->BankTransferId == $expenses->BankTransferId){ echo 'selected="selected"'; } ?> value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>      
                                   <?php   } ?>
                           </select>
-                        </div>
-                      </div>
-                    </div> 
-                    <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;">
-                      <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Transfer Commission</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="hidden" class="form-control" name="transferCommP" id="transferCommP" placeholder="Transfer Commission" onkeypress="javascript:return isNumber(event)">
+                          <input type="hidden" class="form-control" name="transferCommP" id="transferCommP" value="<?php echo $expenses->TransferCommP ?>">
                         </div>
                       </div>
                     </div>
@@ -162,13 +154,13 @@
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Received date</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Actual date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
                             <?php  if ($expenses->ActualDate != '0000-00-00') { ?>
-                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ActualDate))) ?>" placeholder="Actual Received Date" />
+                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ActualDate))) ?>" placeholder="Actual Date" />
                           <?php }else{ ?>
-                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive"  placeholder="Actual Received Date" /> 
+                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive"  placeholder="Actual Date" /> 
                           <?php } ?>
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
@@ -177,9 +169,9 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Processed Amount</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="acamtReceive" id="acamtReceive" value="<?php echo $expenses->ActualAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Processed Amount" />
+                          <input type="text" class="form-control" name="acamtReceive" id="acamtReceive" value="<?php echo $expenses->ActualAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
                         </div>
                       </div>
                     </div>
@@ -195,7 +187,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Final bank commission </label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="fbc" id="fbc" value="<?php echo $expenses->FinalBankComm ?>" placeholder="Planned Net Amount" readonly/>
+                          <input type="text" class="form-control" name="fbc" id="fbc" value="<?php echo $expenses->FinalBankComm ?>" placeholder="Final bank commission" readonly/>
                         </div>
                       </div>
                     </div>
@@ -203,7 +195,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net From Bank </label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="nfb" id="nfb" value="<?php echo $expenses->NetFromBank ?>" placeholder="Planned Net Amount" />
+                          <input type="text" class="form-control" name="nfb" id="nfb" value="<?php echo $expenses->NetFromBank ?>" placeholder="Net From Bank" />
                         </div>
                       </div>
                     </div>
@@ -238,6 +230,9 @@
 </script>
 <script type="text/javascript">
   $(document).ready(function(){
+    $('#bankid').attr('disabled',true);
+    $('#transType').attr('disabled',true);
+    $('#shareP').attr('disabled',true);
     /*$('#vendor').on('change',function() {
         var vendorId=document.getElementById("vendor").value;  
          $.ajax({
@@ -266,14 +261,64 @@
                     dataType: "html",
                     success: function(data) {
                     var obj = JSON.parse(data);
-                    console.log(obj.banks);
+                    console.log(obj.banks.OctComP);
                     //$("#bank").val(obj.banks.BankName);
                     //$("#bankid").val(obj.banks.BankId);
+                    $("#outCommP").val(obj.banks.OctComP);
                     $("#plcurr").val(obj.banks.CurName);
                     $("#accurr").val(obj.banks.CurName);
+
+                    //start
+                    var actualAmout = $("#acamtReceive").val();
+                    var outCommP = obj.banks.OctComP;
+                    var transferCommP = $("#transferCommP").val();
+                    var shareP =  $("#shareP").val();
+                    if(actualAmout == ""){
+                      var actualAmout = 0;
+                    }else{
+                      var actualAmout = actualAmout;
+                    }
+
+                    if (outCommP == "") {
+                      var outCommP = 0;
+                    }else{
+                      var outCommP = outCommP;
+                    }
+
+                    if (transferCommP == "") {
+                      var transferCommP = 0;
+                    }else{
+                      var transferCommP = transferCommP;
+                    }
+
+                    if (shareP == "") {
+                      var shareP = 0;
+                    }else{
+                      var shareP = shareP;
+                    }
+
+                    console.log('actualAmout' + actualAmout);
+                    console.log('outCommP' + outCommP);
+                    console.log('transferCommP' + transferCommP);
+                    console.log('shareP' + shareP);
+
+                    var outComm = (actualAmout*(outCommP/100));
+                    var transferComm = (actualAmout*(transferCommP/100));
+                    var shareComm = (transferComm*(shareP/100));
+
+                    console.log('outComm' + outComm);
+                    console.log('transferComm' + transferComm);
+                    console.log('shareComm' + shareComm);
+                    console.log(parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));
+
+                    var totalComm = (parseInt(outComm)+parseInt(shareComm));
+                    var netAmount = (parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));
+
+                    $("#fbc").val(totalComm);
+                    $("#nfb").val(netAmount);
+                    //end
                    }
                });
-
     });
     $('#transType').on('change',function() {
       var transType = document.getElementById("transType").value; 
@@ -290,9 +335,59 @@
                           var transferAmt = 0;
                       }else{
                           var transferCommP = (obj.transferAmt.Amount);
-                          
                       }
                       $("#transferCommP").val(transferCommP);
+
+                      //start
+                      var actualAmout = $("#acamtReceive").val();
+                      var outCommP = $("#outCommP").val();
+                      var transferCommP = transferCommP;
+                      var shareP =  $("#shareP").val();
+
+                      if(actualAmout == ""){
+                        var actualAmout = 0;
+                      }else{
+                        var actualAmout = actualAmout;
+                      }
+
+                      if (outCommP == "") {
+                        var outCommP = 0;
+                      }else{
+                        var outCommP = outCommP;
+                      }
+
+                      if (transferCommP == "") {
+                        var transferCommP = 0;
+                      }else{
+                        var transferCommP = transferCommP;
+                      }
+
+                      if (shareP == "") {
+                        var shareP = 0;
+                      }else{
+                        var shareP = shareP;
+                      }
+
+                      console.log('actualAmout' + actualAmout);
+                      console.log('outCommP' + outCommP);
+                      console.log('transferCommP' + transferCommP);
+                      console.log('shareP' + shareP);
+
+                      var outComm = (actualAmout*(outCommP/100));
+                      var transferComm = (actualAmout*(transferCommP/100));
+                      var shareComm = (transferComm*(shareP/100));
+
+                      console.log('outComm' + outComm);
+                      console.log('transferComm' + transferComm);
+                      console.log('shareComm' + shareComm);
+                      console.log(parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));
+
+                      var totalComm = (parseInt(outComm)+parseInt(shareComm));
+                      var netAmount = (parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));
+
+                      $("#fbc").val(totalComm);
+                      $("#nfb").val(netAmount);
+                      //end
                     
                    }
                });
@@ -301,110 +396,246 @@
       var plcurr = document.getElementById("plcurr").value;
       $("#accurr").val(plcurr);
     });
-/*
-    //final bank commission calculation
-    $( "#fbc" ).keyup(function( event ) { 
-      var actualAmout = $("#acamtReceive").val();
-      var fbc = $("#fbc").val();
-      var netFromBank = parseInt(actualAmout)+parseInt(fbc);
-      //alert(netFromBank);
-      $("#nfb").val(netFromBank);
-    });
-    $( "#acamtReceive" ).keyup(function( event ) { 
-      var fbc = $("#fbc").val();
-      var actualAmout = $("#acamtReceive").val();
-      var netFromBank = parseInt(actualAmout)+parseInt(fbc);
-      console.log(netFromBank);
-      $("#nfb").val(netFromBank);
-    });*/
-     //Net From Bank Calculation
     
+    //Net From Bank Calculation
     
     $( "#acamtReceive" ).keyup(function( event ) { 
       var actualAmout = $("#acamtReceive").val();
       var outCommP = $("#outCommP").val();
       var transferCommP = $("#transferCommP").val();
-      var TransferCommAmount = $("#TransferCommAmount").val();
       var shareP =  $("#shareP").val();
+      /*console.log('actualAmout' + actualAmout);
+      console.log('outCommP' + outCommP);
+      console.log('transferCommP' + transferCommP);
+      console.log('shareP' + shareP);*/
 
-
-      $("#shareAmount").val(shareP/100);
-      //$("#BankOutCommP").val(outCommP);
-      $("#BankOutCommAmount").val(outCommP/100);
-      $("#TransferCommAmount").val(transferCommP/100);
-
-      var outComm = parseInt(actualAmout*outCommP/100);
-      var transferComm =(actualAmout*TransferCommAmount);
-      var share   = parseInt((transferCommP/100)*(shareP/100));
-
-
-      var netAmount = (parseInt(actualAmout)+parseInt(outComm)+parseInt(share));
-      var totalComm = (parseInt(outComm)+parseInt(share));
-      //$("#transferCommP").val(transferCommP);
-
-      
-
+      var outComm = (actualAmout*(outCommP/100));
+      var transferComm = (actualAmout*(transferCommP/100));
+      var shareComm = (transferComm*(shareP/100));
+      /*console.log('outComm' + outComm);
+      console.log('transferComm' + transferComm);
+      console.log('shareComm' + shareComm);
+      console.log(parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));*/
+      var totalComm = (parseInt(outComm)+parseInt(shareComm));
+      var netAmount = (parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));
+      /*console.log('totalComm' + totalComm);
+      console.log('netAmount' + netAmount);*/
       $("#fbc").val(totalComm);
       $("#nfb").val(netAmount);
 
+
+    var shareAmount = $("#shareAmount").val(shareP/100);
+    var BankOutCommAmount = $("#BankOutCommAmount").val(outCommP/100);
+    var TransferCommAmount = $("#TransferCommAmount").val(transferCommP/100);
     });
+
     $( "#shareP" ).keyup(function( event ) { 
       var actualAmout = $("#acamtReceive").val();
       var outCommP = $("#outCommP").val();
       var transferCommP = $("#transferCommP").val();
-      var TransferCommAmount = $("#TransferCommAmount").val();
       var shareP =  $("#shareP").val();
 
+      if(actualAmout == ""){
+        var actualAmout = 0;
+      }else{
+        var actualAmout = actualAmout;
+      }
 
-      $("#shareAmount").val(shareP/100);
-      //$("#BankOutCommP").val(outCommP);
-      $("#BankOutCommAmount").val(outCommP/100);
-      $("#TransferCommAmount").val(transferCommP/100);
+      if (outCommP == "") {
+        var outCommP = 0;
+      }else{
+        var outCommP = outCommP;
+      }
 
-      var outComm = parseInt(actualAmout*outCommP/100);
-      var transferComm =(actualAmout*TransferCommAmount);
-      var share   = parseInt((transferCommP/100)*(shareP/100));
+      if (transferCommP == "") {
+        var transferCommP = 0;
+      }else{
+        var transferCommP = transferCommP;
+      }
 
+      if (shareP == "") {
+        var shareP = 0;
+      }else{
+        var shareP = shareP;
+      }
 
-      var netAmount = (parseInt(actualAmout)+parseInt(outComm)+parseInt(share));
-      var totalComm = (parseInt(outComm)+parseInt(share));
-      //$("#transferCommP").val(transferCommP);
+      console.log('actualAmout' + actualAmout);
+      console.log('outCommP' + outCommP);
+      console.log('transferCommP' + transferCommP);
+      console.log('shareP' + shareP);
+
+      var outComm = (actualAmout*(outCommP/100));
+      var transferComm = (actualAmout*(transferCommP/100));
+      var shareComm = (transferComm*(shareP/100));
+
+      console.log('outComm' + outComm);
+      console.log('transferComm' + transferComm);
+      console.log('shareComm' + shareComm);
+      console.log(parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));
+
+      var totalComm = (parseInt(outComm)+parseInt(shareComm));
+      var netAmount = (parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));
 
       $("#fbc").val(totalComm);
       $("#nfb").val(netAmount);
 
+
+      var shareAmount = $("#shareAmount").val(shareP/100);
+      var BankOutCommAmount = $("#BankOutCommAmount").val(outCommP/100);
+      var TransferCommAmount = $("#TransferCommAmount").val(transferCommP/100);
     });
-    $( "#transType" ).on('change',function() { 
+
+    /*$('#transType').on('change',function() { 
       var actualAmout = $("#acamtReceive").val();
       var outCommP = $("#outCommP").val();
       var transferCommP = $("#transferCommP").val();
-      var TransferCommAmount = $("#TransferCommAmount").val();
       var shareP =  $("#shareP").val();
 
+      if(actualAmout == ""){
+        var actualAmout = 0;
+      }else{
+        var actualAmout = actualAmout;
+      }
 
-      $("#shareAmount").val(shareP/100);
-      //$("#BankOutCommP").val(outCommP);
-      $("#BankOutCommAmount").val(outCommP/100);
-      $("#TransferCommAmount").val(transferCommP/100);
+      if (outCommP == "") {
+        var outCommP = 0;
+      }else{
+        var outCommP = outCommP;
+      }
 
-      var outComm = parseInt(actualAmout*outCommP/100);
-      var transferComm =(actualAmout*TransferCommAmount);
-      var share   = parseInt((transferCommP/100)*(shareP/100));
+      if (transferCommP == "") {
+        var transferCommP = 0;
+      }else{
+        var transferCommP = transferCommP;
+      }
 
+      if (shareP == "") {
+        var shareP = 0;
+      }else{
+        var shareP = shareP;
+      }
 
-      var netAmount = (parseInt(actualAmout)+parseInt(outComm)+parseInt(share));
-      var totalComm = (parseInt(outComm)+parseInt(share));
-      //$("#transferCommP").val(transferCommP);
+      console.log('actualAmout' + actualAmout);
+      console.log('outCommP' + outCommP);
+      console.log('transferCommP' + transferCommP);
+      console.log('shareP' + shareP);
 
-      
+      var outComm = (actualAmout*(outCommP/100));
+      var transferComm = (actualAmout*(transferCommP/100));
+      var shareComm = (transferComm*(shareP/100));
+
+      console.log('outComm' + outComm);
+      console.log('transferComm' + transferComm);
+      console.log('shareComm' + shareComm);
+      console.log(parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));
+
+      var totalComm = (parseInt(outComm)+parseInt(shareComm));
+      var netAmount = (parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));
+
       $("#fbc").val(totalComm);
       $("#nfb").val(netAmount);
+    });*/
+    
+    /*$('#bankid').on('change',function() {
+      var actualAmout = $("#acamtReceive").val();
+      var outCommP = $("#outCommP").val();
+      var transferCommP = $("#transferCommP").val();
+      var shareP =  $("#shareP").val();
+      alert(111)
+      if(actualAmout == ""){
+        var actualAmout = 0;
+      }else{
+        var actualAmout = actualAmout;
+      }
 
-    });
+      if (outCommP == "") {
+        var outCommP = 0;
+      }else{
+        var outCommP = outCommP;
+      }
+
+      if (transferCommP == "") {
+        var transferCommP = 0;
+      }else{
+        var transferCommP = transferCommP;
+      }
+
+      if (shareP == "") {
+        var shareP = 0;
+      }else{
+        var shareP = shareP;
+      }
+
+      console.log('actualAmout' + actualAmout);
+      console.log('outCommP' + outCommP);
+      console.log('transferCommP' + transferCommP);
+      console.log('shareP' + shareP);
+
+      var outComm = (actualAmout*(outCommP/100));
+      var transferComm = (actualAmout*(transferCommP/100));
+      var shareComm = (transferComm*(shareP/100));
+
+      console.log('outComm' + outComm);
+      console.log('transferComm' + transferComm);
+      console.log('shareComm' + shareComm);
+      console.log(parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));
+
+      var totalComm = (parseInt(outComm)+parseInt(shareComm));
+      var netAmount = (parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));
+
+      $("#fbc").val(totalComm);
+      $("#nfb").val(netAmount);
+    });*/
 
   });
 
-</script><!-- 
+</script>
+<script type="text/javascript">
+   $("#editExpense").click(function(){
+        var returnvar = true;
+      if($("#vendor").val() ==""){
+           $("#vendor").css("border", "1px solid #be1622");           
+           returnvar = false;
+          }
+          if($("#bank").val() ==""){
+           $("#bank").css("border", "1px solid #be1622");           
+           returnvar = false;
+          }
+          if($("#expCat").val() ==""){
+           $("#expCat").css("border", "1px solid #be1622");           
+           returnvar = false;
+          }
+          if($("#pldatereceive").val()==""){                  
+           $("#pldatereceive").css("border", "1px solid #be1622");
+           returnvar = false;
+          }
+          if($("#plamtReceived").val()==""){                  
+           $("#plamtReceived").css("border", "1px solid #be1622");
+           returnvar = false;
+          }
+          if($("#transType").val()==""){                  
+           $("#transType").css("border", "1px solid #be1622");
+           returnvar = false;
+          }
+          var actualAmt = $("#acamtReceive").val();
+          var actualDate = $("#acdatereceive").val();
+          if(actualAmt != "" && actualDate == ""){
+            $("#acdatereceive").css("border", "1px solid #be1622");
+            returnvar = false;
+            //alert(returnvar);
+          }
+
+          if(returnvar == true){
+            $('#bankid').attr('disabled',false);
+            $('#transType').attr('disabled',false);
+            $('#shareP').attr('disabled',false);
+            $("#addExpense").hide();
+            $(".page-loader").show();
+     } 
+     return returnvar;
+      });
+</script>
+<!-- 
 <script type="text/javascript">
     (function($){
       $('#vendor').on('blur', function() {

@@ -28,9 +28,20 @@ class Expenses extends CI_Controller {
 		$data['banks'] = $this->all_model->getBanks($id);
 		echo json_encode($data);
 	}
-    public function transferAmt($id){
+    /*public function transferAmt($id){
         $data['transferAmt'] = $this->all_model->getTransferTypeAmount($id);
         echo json_encode($data);
+    }*/
+    public function transferAmt(){
+
+        $this->db->select('bt.BankTransferId,bt.BanktransferName,bt.Active,bc.BankTransferId,bc.BankId,bc.Amount');
+        $this->db->from('banktransfertype bt');
+        $this->db->join('banktransfercharges bc','bc.BankTransferId = bt.BankTransferId');
+        $this->db->where('bc.BankId',$_POST['bankid']);
+        $this->db->where('bc.BankTransferId',$_POST['transType']);
+        $data['result'] = $this->db->get()->row();
+        echo json_encode($data);
+    exit;
     }
 	public function addExpenseDetails(){
 		if (!isset($_SESSION['logged_in'])) {
