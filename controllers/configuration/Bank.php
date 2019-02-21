@@ -121,6 +121,7 @@ class Bank extends CI_Controller {
 		    	        	'BankId' => $BankId,
 		    	        	'Amount' => $amt,
 		    	        	'CreatedBy' => $_SESSION['userid'],
+		    	        	'ModifiedBy' => $_SESSION['userid']
 		    	        );
     	        	$this->db->insert('banktransfercharges',$transfercharges);
     	        }
@@ -186,7 +187,7 @@ class Bank extends CI_Controller {
     	            'InCom' => $this->input->post('InCom'),
     	            'OutCom' => $this->input->post('OutCom'),
 					'Active' => $this->input->post('status'),
-					'CreatedBy'=> $_SESSION['userid'],
+					'ModifiedBy'=> $_SESSION['userid'],
     	        );
 				$this->db->where('BankId',$id);
 	        	$user = $this->db->update('bankmaster',$userinfo);
@@ -213,7 +214,6 @@ class Bank extends CI_Controller {
 		    	        	'BankTransferId' => $key,    
 		    	        	'BankId' => $BankId,
 		    	        	'Amount' => $amt,
-		    	        	'CreatedBy' => $_SESSION['userid'],
 		    	        	'ModifiedBy' => $_SESSION['userid'],
 		    	        );
     	        	$this->db->insert('banktransfercharges',$transfercharges);
@@ -306,6 +306,9 @@ class Bank extends CI_Controller {
 	}
 	public function test(){ // not in use
 		//$data['transferType'] = $this->all_model->getBankTransferData();
+		$date = date("Y-m-d");
+    	echo date('Y-m-d', strtotime($date. ' + 180 days'));
+    	exit();
 		$data['transferType'] = $this->all_model->getTransferType();
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar');
