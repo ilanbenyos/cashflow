@@ -144,6 +144,6 @@ class Data_model extends CI_Model {
 		$this->db->group_by('ex.CatId'); 
 	    $this->db->order_by('ex.CatId');
 	    return $this->db->get()->result_array();
-		//return $this->db->last_query();
+		return currency_array;
 	}
 }
