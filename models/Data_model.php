@@ -36,7 +36,7 @@ class Data_model extends CI_Model {
 	}
 	
 	public function total_balance($year,$currency){
-		$month_all= array("0","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec");
+		$month_all= array("0","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
 		$this->db->select('MONTH(ActualDate) as month,MONTHNAME(ActualDate) as m,sum(ActualNetAmt) as  Income');
 		$this->db->from('pspincome');
         $this->db->where('YEAR(CreatedOn)', $year);
