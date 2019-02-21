@@ -48,10 +48,10 @@ class Ajax_Reports extends CI_Controller {
     }
 	
     function get_balance(){
-			$year ='2019';//$_POST['year'];
-	
-		echo '<pre/>';
-      print_r($data);
+			$year =$_POST['year'];
+			$currency =$_POST['currency'];
+			$data = $this->data_model->total_balance($year,$currency);
+	 print_r(json_encode($data, true));
     }
 	
 	function get_expense_by_category(){
