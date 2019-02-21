@@ -214,8 +214,8 @@ class Bank extends CI_Controller {
 		    	        	'BankTransferId' => $key,    
 		    	        	'BankId' => $BankId,
 		    	        	'Amount' => $amt,
-		    	        	//'CreatedBy' => $_SESSION['userid'],
-		    	        	'ModifiedBy' => $_SESSION['userid'],
+		    	        	'CreatedBy' => $_SESSION['userid'],
+		    	        	'ModifiedBy' => $_SESSION['userid']
 		    	        );
     	        	$this->db->insert('banktransfercharges',$transfercharges);
     	        }
