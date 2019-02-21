@@ -126,14 +126,15 @@ class Data_model extends CI_Model {
 	}
 
 	public function Expense_by_Category($year,$month1,$month2){
-		$this->db->select('distinct(CurName)');
-		$this->db->from('currencymaster');
-		$currency_array= $this->db->get()->result_array();
+		//$this->db->select('distinct(CurName)');
+		//$this->db->from('expenses');
+		//$currency_array= $this->db->get()->result_array();
 
 		 $this->db->select('ex.CatId,c.Category');
-		 foreach($currency_array as $currency){
-			$this->db->select('sum(if(ex.Currency ="'.$currency['Currency'].'",ex.ActualAmt,0))as '.$currency['Currency']);
-		}
+		 //foreach($currency_array as $currency){
+			$this->db->select('sum(if(ex.Currency ="USD",ex.ActualAmt,0))as USD');
+			$this->db->select('sum(if(ex.Currency ="EUR",ex.ActualAmt,0))as EUR');
+	//	}
 
 		$this->db->from('expenses ex');
 		$this->db->join('expcategory c','ex.CatId = c.CatId','left');
@@ -144,6 +145,6 @@ class Data_model extends CI_Model {
 		$this->db->group_by('ex.CatId'); 
 	    $this->db->order_by('ex.CatId');
 	    return $this->db->get()->result_array();
-		return currency_array;
+		//return $this->db->last_query();
 	}
 }
