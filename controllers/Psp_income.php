@@ -165,7 +165,7 @@ class Psp_income extends CI_Controller {
                         $crrData = array(
                         'PspId' => $pspid,
                         'BankId' => $BankId,
-                        'Description' => $desc,
+                        'Description' => 'Rolling Reserve For PSP Income No.'.$crrId,
                         'Currency' => $curr,
                         //'ActualDate' => $crrReceive,
                         'ExpDate' => $crrReceive,
