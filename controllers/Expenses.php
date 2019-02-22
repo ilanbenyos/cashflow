@@ -19,7 +19,7 @@ class Expenses extends CI_Controller {
 			redirect('login');
 		}
 		$data['getallExpenses'] = $this->all_model->getallExpenses();
-        print_r($this->db->last_query());exit();
+        //print_r($this->db->last_query());exit();
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar');
 		$this->load->view('expenses',$data);
