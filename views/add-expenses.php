@@ -1,5 +1,5 @@
 <style type="text/css">
-  .required-field::before {
+  .required-field::after {
   content: "*";
   color: red;
 }
@@ -90,9 +90,8 @@
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned date</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned date<span class="required-field"><span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <span class="required-field"><span>
                           <div class="input-group date" data-provide="datepicker">
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Date" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
@@ -102,9 +101,9 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount <span class="required-field"><span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <span class="required-field"><span><input type="text" class="form-control" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
+                          <input type="text" class="form-control" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                         </div>
                       </div>
                     </div>
@@ -147,8 +146,8 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Date" />
+                          <div class="input-group date">
+                            <input type="text" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" placeholder="Actual Date" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
                         </div>
@@ -215,6 +214,18 @@
         return true;
     }    
 </script>
+<script>
+  jQuery(document).ready(function ($) {
+      var today = new Date();
+$('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose:true,
+            endDate: "today",
+            maxDate: today
+        });
+  });
+  
+</script>
 <script type="text/javascript">
   $(document).ready(function(){
 
@@ -235,7 +246,7 @@
         $(o).text(arr[i].t);
     });
     //sort by albhabetical order end
-    
+
     /*$('#vendor').on('change',function() {
         var vendorId=document.getElementById("vendor").value;  
          $.ajax({

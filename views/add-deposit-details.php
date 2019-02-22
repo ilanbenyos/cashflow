@@ -1,5 +1,5 @@
 <style type="text/css">
-  .required-field::before {
+  .required-field::after {
   content: "*";
   color: red;
 }
@@ -77,9 +77,8 @@
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Received date</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Received date <span class="required-field"></span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <span class="required-field"><span>
                           <div class="input-group date" data-provide="datepicker">
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
@@ -89,9 +88,9 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount <span class="required-field"></span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <span class="required-field"><span><input type="text" class="form-control" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount" />
+                          <input type="text" class="form-control" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount" />
                         </div>
                       </div>
                     </div>
@@ -175,8 +174,8 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Received date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" />
+                          <div class="input-group date">
+                            <input type="text" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
                         </div>
@@ -300,6 +299,18 @@
         return true;
     }    
 </script>
+<!-- <script>
+  jQuery(document).ready(function ($) {
+      var today = new Date();
+$('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose:true,
+            endDate: "today",
+            maxDate: today
+        });
+  });
+  
+</script> -->
 <script type="text/javascript">
   $(document).ready(function(){
     $('#psp').on('change',function() {
@@ -336,9 +347,8 @@
     $( "#acamtReceive" ).keyup(function( event ) { 
       var actualAmt = $("#acamtReceive").val();
       var crrComm = document.getElementById("crrComm").value;
-      //alert(crrComm);
-      var crrAmt = (crrComm/100); 
-      var crrAmt = (actualAmt*crrAmt); 
+      var crrAmt = (crrComm/100);
+      var crrAmt = (actualAmt*crrAmt);
       //alert(crrAmt);
       $("#crrAmt").val(crrAmt);
 
@@ -349,7 +359,31 @@
         minDate: new Date(),
         dateFormat: 'yyyy-mm-dd'
     });*/
-
+/*$('input.form-control').keyup(function(event){
+      // skip for arrow keys
+      if(event.which >= 37 && event.which <= 40){
+          event.preventDefault();
+      }
+      var $this = $(this);
+      var num = $this.val().replace(/,/gi, "").split("").reverse().join("");
+      
+      var num2 = RemoveRougeChar(num.replace(/(.{3})/g,"$1,").split("").reverse().join(""));
+      
+      console.log(num2);
+      
+      $this.val(num2);
+  });
+    function RemoveRougeChar(convertString){
+    
+    
+    if(convertString.substring(0,1) == ","){
+        
+        return convertString.substring(1, convertString.length)            
+        
+    }
+    return convertString;
+    
+}*/
 
         /*$('#plamtval').attr('disabled',true);
         $('#acamtval').attr('disabled',true);
@@ -535,12 +569,22 @@
           $('#acdatereceive').css("border", "1px solid #be1622");
         }
       })
+       
+  
        $('#acdatereceive').on('blur', function() {
+       /* var GivenDate = $("#acdatereceive").val();
+       var CurrentDate = new Date();
+       console.log(CurrentDate);
+       GivenDate = new Date(GivenDate);
+       console.log(GivenDate);*/
         $(this).css("border", "1px solid #CCCCCC");
             if($(this).val()!="")
         { 
           $(this).css("border", "1px solid #CCCCCC");                         
-        }
+        }/*else if(GivenDate > CurrentDate)
+        {
+          $(this).css("border", "1px solid #008000");    
+        }*/
         else if($(this).val()=="") 
         {
           $(this).css("border", "1px solid #be1622");

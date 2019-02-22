@@ -156,11 +156,11 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <div class="input-group date" data-provide="datepicker">
+                          <div class="input-group date">
                             <?php  if ($expenses->ActualDate != '0000-00-00') { ?>
-                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ActualDate))) ?>" placeholder="Actual Date" />
+                            <input type="text" class="form-control" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ActualDate))) ?>" placeholder="Actual Date" />
                           <?php }else{ ?>
-                            <input type="text" class="form-control" name="acdatereceive" id="acdatereceive"  placeholder="Actual Date" /> 
+                            <input type="text" class="form-control" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive"  placeholder="Actual Date" /> 
                           <?php } ?>
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>

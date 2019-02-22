@@ -107,4 +107,15 @@ responsive  : true,
       });
 });
 </script>
+<script type="text/javascript">
+  Query(document).ready(function ($) {
+      var today = new Date();
+$('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose:true,
+            endDate: "today",
+            maxDate: today
+        });
+  });
+</script>
 </body></html>

@@ -62,7 +62,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Description</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <textarea class="form-control" name="desc" id="desc" placeholder="Description" value=""><?php echo $allPspIncome->Description ?></textarea>
+                          <textarea class="form-control" name="desc" id="desc" placeholder="Description" value="" style="height: 44px;"><?php echo $allPspIncome->Description ?></textarea>
                         </div>
                       </div>
                     </div>
@@ -175,7 +175,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Received date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <div class="input-group date" data-provide="datepicker">
+                          <div class="input-group date">
                             <!-- <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" /> -->
                             <!-- <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" /> -->
                             <!-- <?php if ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId != 0 ) { ?>
@@ -192,11 +192,11 @@
                             <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo '4';?>" />
                             <?php } ?> -->
                             <?php if ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId == 0 && $allPspIncome->ActualDate == '0000-00-00') { ?>
-                              <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo '1'; ?>" />
+                              <input type="text" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo '1'; ?>" />
                            <?php }elseif ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId > 0 && $allPspIncome->ActualDate == '0000-00-00') { ?>
-                             <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                             <input type="text" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
                            <?php }else { ?>
-                               <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                               <input type="text" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
                            <?php }?>
 
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
@@ -634,6 +634,7 @@ autoclose: true
             //alert(returnvar);
           }else if(actualAmt == 0 && actualDate == ""){
             //$("#acdatereceive").css("border", "1px solid #be1622");
+            $("#acdatereceive").css("border", "1px solid #CCCCCC");  
             returnvar = true;
           }
           /*if($("#acdatereceive").val()==""){                  
