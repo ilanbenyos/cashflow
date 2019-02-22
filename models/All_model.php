@@ -230,10 +230,10 @@ class All_model extends CI_Model {
 		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Share,e.FinalBankComm,e.NetFromBank,e.Active,v.VendorId,v.VendorName,b.BankId,b.BankName,bc.BankTransferId,bc.Amount,bt.BanktransferName,bt.BankTransferId');
 		$this->db->from('expenses e');
 		$this->db->join('vendormaster v','v.VendorId = e.VendorId');
-		$this->db->join('banktransfercharges bc','bc.BankTransferId = e.BankTransferId','left');
+		$this->db->join('banktransfercharges bc','bc.BankTransferId = e.BankTransferId AND bc.BankId =  e.BankId','left');
 		$this->db->join('banktransfertype bt','bt.BankTransferId = bc.BankTransferId','left');
 		$this->db->join('bankmaster b','b.BankId = e.BankId');
-		$this->db->where('bc.BankId =  e.BankId');
+		//$this->db->where('bc.BankId =  e.BankId');
 		$this->db->where('e.Active',1);
 		$this->db->order_by('e.CreatedOn','DESC');
 		return $this->db->get()->result();
