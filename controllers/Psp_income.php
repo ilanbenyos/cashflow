@@ -143,7 +143,8 @@ class Psp_income extends CI_Controller {
                         'ActualComP' => $accommval,
         				'ActualNetAmt' => $acnetAmt,
                         'isCRR' => $isCrr,
-        				'CreatedBy' => $uid
+        				'CreatedBy' => $uid,
+						'ModifiedBy	' => $uid,
         			);
                     $table = 'bankmaster';
                     $columns = 'BankName,Balance';
