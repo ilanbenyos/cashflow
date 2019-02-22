@@ -108,7 +108,7 @@ responsive  : true,
 });
 </script>
 <script type="text/javascript">
-  Query(document).ready(function ($) {
+  jQuery(document).ready(function ($) {
       var today = new Date();
 $('.datepicker').datepicker({
             format: 'dd/mm/yyyy',
