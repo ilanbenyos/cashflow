@@ -144,7 +144,7 @@ class Psp_income extends CI_Controller {
         				'ActualNetAmt' => $acnetAmt,
                         'isCRR' => $isCrr,
         				'CreatedBy' => $uid,
-						'ModifiedBy	' => $uid,
+						'ModifiedBy	' => $uid
         			);
                     $table = 'bankmaster';
                     $columns = 'BankName,Balance';
@@ -173,7 +173,8 @@ class Psp_income extends CI_Controller {
                         'PlannedAmt' => $crrAmt,
                         //'isCRR' => $isCrr,
                         'CRRId' => $crrId,
-                        'CreatedBy' => $uid
+                        'CreatedBy' => $uid,
+						'ModifiedBy	' => $uid
                         );
 
                         $this->db->insert('pspincome',$crrData);
