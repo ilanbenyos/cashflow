@@ -19,6 +19,7 @@ class Expenses extends CI_Controller {
 			redirect('login');
 		}
 		$data['getallExpenses'] = $this->all_model->getallExpenses();
+        print_r($this->db->last_query());exit();
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar');
 		$this->load->view('expenses',$data);
@@ -32,6 +33,29 @@ class Expenses extends CI_Controller {
         $data['transferAmt'] = $this->all_model->getTransferTypeAmount($id);
         echo json_encode($data);
     }*/
+    public function transferAmt1(){
+
+        /*$this->db->select('bt.BankTransferId,bt.BanktransferName,bt.Active,bc.BankTransferId,bc.BankId,bc.Amount,b.BankId,b.CurId,b.OctComP,c.CurId,c.CurName');
+        $this->db->from('banktransfertype bt');
+       $this->db->join('banktransfercharges bc','bc.BankTransferId = bt.BankTransferId');
+       $this->db->join('bankmaster b','b.BankId = bc.BankId');
+       $this->db->join('currencymaster c','b.CurId = c.CurId');
+       $this->db->where('bc.BankId',$_POST['bankid']);
+       $this->db->where('bc.BankTransferId',$_POST['transType']);
+       $data['result'] = $this->db->get()->row();
+      echo json_encode($data);
+        exit;*/
+        $this->db->select('bt.BankTransferId,bt.BanktransferName,bt.Active,bc.BankTransferId,bc.BankId,bc.Amount,b.CurId,b.OctComP,c.CurId,c.CurName');
+        $this->db->from('banktransfertype bt');
+        $this->db->join('banktransfercharges bc','bc.BankTransferId = bt.BankTransferId');
+        $this->db->join('bankmaster b','b.BankId = bc.BankId');
+        $this->db->join('currencymaster c','b.CurId = c.CurId');
+        $this->db->where('bc.BankId',$_POST['bankid']);
+        $this->db->where('bc.BankTransferId',$_POST['transType']);
+        $data['result'] = $this->db->get()->row();
+        echo json_encode($data);
+    exit;
+    }
     public function transferAmt(){
 
         $this->db->select('bt.BankTransferId,bt.BanktransferName,bt.Active,bc.BankTransferId,bc.BankId,bc.Amount');
@@ -107,42 +131,50 @@ class Expenses extends CI_Controller {
                     $to = $c2 . '-' . $a2 [1] . '-' . $d2;
                     
 
-        			$expenses = array(
-        				'VendorId' => $vendor,
-        				'BankId' => $BankId,
-        				'Description' => $desc,
-        				'Currency' => $curr,
-        				'CatId' => $expCat,
-        				'ExpDate' => $from,
-        				'PlannedAmt' => $plamtReceived,
-                        'ActualDate' => $to,
-        				'ActualAmt' => $acamtReceive,
-        				'BankTransferId' => $transType,
-        				'Share' => $shares,
-                        'ShareAmount' => $shareAmount,
-        				'FinalBankComm' => $fbc,
-                        'NetFromBank' => $nfb,
-                        'BankOutCommP' => $outCommP,
-                        'BankOutCommAmount' => $BankOutCommAmount,
-                        'TransferCommP' => $transferCommP,
-                        'TransferCommAmount' => $TransferCommAmount,
-                        'Active' => 1,
-        				'CreatedBy' => $uid,
-                        'CreatedOn' => $date,
-                        'ModifiedBy' => $uid
-        			);
-        			$this->db->insert('expenses',$expenses);
+        			
 
                     $this->db->select('BankId,BankName,Balance');
                     $this->db->from('bankmaster');
                     $this->db->where('BankId',$BankId);
                     $bal = $this->db->get()->row();
 
-                    $UpdatedBal = ($bal->Balance-$nfb);
+                    if ($bal->Balance >= $nfb) {
 
+                        $expenses = array(
+                        'VendorId' => $vendor,
+                        'BankId' => $BankId,
+                        'Description' => $desc,
+                        'Currency' => $curr,
+                        'CatId' => $expCat,
+                        'ExpDate' => $from,
+                        'PlannedAmt' => $plamtReceived,
+                        'ActualDate' => $to,
+                        'ActualAmt' => $acamtReceive,
+                        'BankTransferId' => $transType,
+                        'Share' => $shares,
+                        'ShareAmount' => $shareAmount,
+                        'FinalBankComm' => $fbc,
+                        'NetFromBank' => $nfb,
+                        'BankOutCommP' => $outCommP,
+                        'BankOutCommAmount' => $BankOutCommAmount,
+                        'TransferCommP' => $transferCommP,
+                        'TransferCommAmount' => $TransferCommAmount,
+                        'Active' => 1,
+                        'CreatedBy' => $uid,
+                        'CreatedOn' => $date,
+                        'ModifiedBy' => $uid
+                    );
+                    $this->db->insert('expenses',$expenses);
 
-                    $this->db->where('BankId',$BankId);
-                    $this->db->update('bankmaster',array('Balance'=>$UpdatedBal));
+                        $UpdatedBal = ($bal->Balance-$nfb);
+
+                        $this->db->where('BankId',$BankId);
+                        $this->db->update('bankmaster',array('Balance'=>$UpdatedBal));
+                    }else{
+                        $_SESSION['pop_mes'] = "Not Sufficient Balance"; 
+                    return 1;
+                    }
+                    
 
         			$_SESSION['pop_mes'] = "Expenses Added Successfully."; 
 					return 1;
@@ -214,8 +246,16 @@ class Expenses extends CI_Controller {
                     $c2 = trim ( $a2 [2], " " );
                     $d2 = trim ( $a2 [0], " " );
                     $to = $c2 . '-' . $a2 [1] . '-' . $d2;
-        			
-                    $expenses = array(
+
+
+                    $this->db->select('BankId,BankName,Balance');
+                    $this->db->from('bankmaster');
+                    $this->db->where('BankId',$BankId);
+                    $bal = $this->db->get()->row();
+
+                    if($bal->Balance >= $nfb){
+
+                        $expenses = array(
                         'VendorId' => $vendor,
                         'BankId' => $BankId,
                         'Description' => $desc,
@@ -241,17 +281,15 @@ class Expenses extends CI_Controller {
                     $this->db->where('TransId',$id);
                     $this->db->update('expenses',$expenses);
 
+                        $UpdatedBal = ($bal->Balance-$nfb);
 
-                    $this->db->select('BankId,BankName,Balance');
-                    $this->db->from('bankmaster');
-                    $this->db->where('BankId',$BankId);
-                    $bal = $this->db->get()->row();
-
-                    $UpdatedBal = ($bal->Balance-$nfb);
+                        $this->db->where('BankId',$BankId);
+                        $this->db->update('bankmaster',array('Balance'=>$UpdatedBal));
+                    }else{
+                        $_SESSION['pop_mes'] = "Not Sufficient Balance.";
+                    redirect('expenses');
+                    }
                     
-
-                    $this->db->where('BankId',$BankId);
-                    $this->db->update('bankmaster',array('Balance'=>$UpdatedBal));
 
 	        		$_SESSION['pop_mes'] = "Expenses Updated Successfully.";
 	        		redirect('expenses');
