@@ -36,7 +36,7 @@ $_SESSION['form_token_editbank'] = $token;
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Balance</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Balance" value="<?php echo $result->Balance; ?>" id="Balance" name="Balance" />
+                          <input type="text" class="form-control" placeholder="Balance" value="<?php echo number_format($result->Balance); ?>" id="Balance" name="Balance" onkeypress="javascript:return isNumber(event)" />
                         </div>
                       </div>
                     </div>
@@ -57,7 +57,7 @@ $_SESSION['form_token_editbank'] = $token;
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Inward Commission %</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" id="InComP" value="<?php echo $result->InComP; ?>" name="InComP" placeholder="Inflow Commission %" />
+                          <input type="text" class="form-control" id="InComP" value="<?php echo number_format($result->InComP); ?>" name="InComP" placeholder="Inflow Commission %" />
                         </div>
                       </div>
                     </div>
@@ -159,7 +159,7 @@ $_SESSION['form_token_editbank'] = $token;
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Outward Commission %</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="OutComP" value="<?php echo $result->OctComP; ?>" id="OutComP" placeholder="Outgo Commission %" />
+                          <input type="text" class="form-control" name="OutComP" value="<?php echo number_format($result->OctComP); ?>" id="OutComP" placeholder="Outgo Commission %" />
                         </div>
                       </div>
                     </div>
@@ -167,7 +167,7 @@ $_SESSION['form_token_editbank'] = $token;
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Inward Commission Per Transitions</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="InCom" value="<?php echo $result->InCom; ?>" id="InCom" placeholder="Inflow Commission Per Transitions" />
+                          <input type="text" class="form-control" name="InCom" value="<?php echo number_format($result->InCom); ?>" id="InCom" placeholder="Inflow Commission Per Transitions" />
                         </div>
                       </div>
                     </div>
@@ -177,7 +177,7 @@ $_SESSION['form_token_editbank'] = $token;
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Outward Commission Per Transitions</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="OutCom" value="<?php echo $result->OutCom; ?>" id="OutCom" placeholder="Outgo Commission Per Transitions" />
+                          <input type="text" class="form-control" name="OutCom" value="<?php echo number_format($result->OutCom); ?>" id="OutCom" placeholder="Outgo Commission Per Transitions" />
                         </div>
                       </div>
                     </div>

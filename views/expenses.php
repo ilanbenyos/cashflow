@@ -40,10 +40,10 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   <td><?php echo $exp->BankName; ?></td>
                   <td><?php echo $exp->BanktransferName; ?></td>
                   <td><?php echo $exp->Description; ?></td>
-                  <td><?php echo $exp->ActualAmt; ?></td>
-                  <td><?php echo $exp->Share; ?></td>
-                  <td><?php echo $exp->FinalBankComm; ?></td>
-                  <td><?php echo $exp->NetFromBank; ?></td>
+                  <td><?php echo number_format($exp->ActualAmt); ?></td>
+                  <td><?php echo number_format($exp->Share); ?></td>
+                  <td><?php echo number_format($exp->FinalBankComm); ?></td>
+                  <td><?php echo number_format($exp->NetFromBank); ?></td>
                   <?php if ($exp->ActualDate != '0000-00-00') { ?>
                   <td><?php echo $exp->ActualDate; ?></td>
                   <?php }else{ ?>

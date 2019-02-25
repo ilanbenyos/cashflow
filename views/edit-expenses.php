@@ -96,7 +96,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount <span class="red">*</span></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12"><span><input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo $expenses->PlannedAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
+                        <div class="col-md-8 col-sm-8 col-xs-12"><span><input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo number_format($expenses->PlannedAmt) ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                         </div>
                       </div>
                     </div>
@@ -128,7 +128,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Share %</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="shareP" id="shareP" value="<?php echo $expenses->Share ?>" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control" name="shareP" id="shareP" value="<?php echo number_format($expenses->Share) ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
@@ -163,7 +163,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php echo $expenses->ActualAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
+                          <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php echo number_format($expenses->ActualAmt) ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
                         </div>
                       </div>
                     </div>
@@ -179,7 +179,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Final bank commission </label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control xyz" name="fbc" id="fbc" value="<?php echo $expenses->FinalBankComm ?>" placeholder="Final bank commission" readonly/>
+                          <input type="text" class="form-control xyz" name="fbc" id="fbc" value="<?php echo number_format($expenses->FinalBankComm) ?>" placeholder="Final bank commission" readonly/>
                         </div>
                       </div>
                     </div>
@@ -187,7 +187,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net From Bank </label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control xyz" name="nfb" id="nfb" value="<?php echo $expenses->NetFromBank ?>" placeholder="Net From Bank" />
+                          <input type="text" class="form-control xyz" name="nfb" id="nfb" value="<?php echo number_format($expenses->NetFromBank) ?>" placeholder="Net From Bank" />
                         </div>
                       </div>
                     </div>

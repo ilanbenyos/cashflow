@@ -37,9 +37,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   <td><?php echo $psp->BankName; ?></td>
                   <td><?php echo $psp->PspName; ?></td>
                   <td><?php echo $psp->Description; ?></td>
-                  <td><?php echo $psp->ActualAmt; ?></td>
-                  <td><?php echo $psp->ActualCom; ?></td>
-                  <td><?php echo $psp->ActualNetAmt; ?></td>
+                  <td><?php echo number_format($psp->ActualAmt); ?></td>
+                  <td><?php echo number_format($psp->ActualCom); ?></td>
+                  <td><?php echo number_format($psp->ActualNetAmt); ?></td>
                   <?php if ($psp->ActualDate != '0000-00-00') { ?>
                   <td><?php echo $psp->ActualDate; ?></td>
                   <?php }else{ ?>
@@ -57,3 +57,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  function numberWithCommas(n) {
+    var parts=n.toString().split(".");
+    return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
+}
+</script>
