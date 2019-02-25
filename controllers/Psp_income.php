@@ -144,14 +144,13 @@ class Psp_income extends CI_Controller {
         				'ActualNetAmt' => $acnetAmt,
                         'isCRR' => $isCrr,
         				'CreatedBy' => $uid,
-						'ModifiedBy	' => $uid
+                        'ModifiedBy ' => $uid
         			);
                     $table = 'bankmaster';
                     $columns = 'BankName,Balance';
                     $wherecol = 'BankId';
                     $data['getBankBal'] = $this->all_model->getbankData($table,$columns,$wherecol,$BankId);
                     $updatedBal = ($data['getBankBal']->Balance + $acnetAmt);
-
 
                     $this->db->where('BankId',$BankId);
                     $this->db->update('bankmaster',array('Balance'=>$updatedBal));
@@ -174,7 +173,7 @@ class Psp_income extends CI_Controller {
                         //'isCRR' => $isCrr,
                         'CRRId' => $crrId,
                         'CreatedBy' => $uid,
-						'ModifiedBy	' => $uid
+                        'ModifiedBy ' => $uid
                         );
 
                         $this->db->insert('pspincome',$crrData);
@@ -328,7 +327,7 @@ class Psp_income extends CI_Controller {
                         echo '<br>';*/
                         
                         //if ($data['getBankBal']->Balance > 0 ) {
-                            $updatedBal = (($data['getBankBal']->Balance) - ($acamtnetReceivebefore));
+                            $updatedBal = (sprintf("%1\$u",$data['getBankBal']->Balance) - (sprintf("%1\$u",$acamtnetReceivebefore)));
 
                             /*echo 'bank balance:'.$data['getBankBal']->Balance;
                             echo '<br>';
@@ -338,7 +337,7 @@ class Psp_income extends CI_Controller {
                             echo '<br>';
                             echo 'amount receive after'.$acamtReceive;
                             echo '<br>';*/
-                            $updatedBal = (($updatedBal)+($acnetAmt));
+                            $updatedBal = (sprintf("%1\$u",($updatedBal))+(sprintf("%1\$u",$acnetAmt)));
                             //echo 'new updated bal'.$updatedBal;
 
                         //}
