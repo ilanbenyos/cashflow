@@ -72,7 +72,7 @@
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Received date</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Received date <span class="red">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
                             <!-- <?php if ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId != 0) { ?>
@@ -95,9 +95,9 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount <span class="red">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="plamtReceived" id="plamtReceived" value="<?php echo $allPspIncome->PlannedAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount"  />
+                          <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo $allPspIncome->PlannedAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount"  />
                         </div>
                       </div>
                     </div>
@@ -118,7 +118,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission %</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="plcommval" id="plcommval" value="<?php echo $allPspIncome->PlannedComP ?>" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="plcommval" id="plcommval" value="<?php echo $allPspIncome->PlannedComP ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
@@ -126,7 +126,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="plamtval" id="plamtval" value="<?php echo $allPspIncome->PlannedCom ?>" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="plamtval" id="plamtval" value="<?php echo $allPspIncome->PlannedCom ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
@@ -162,7 +162,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <div class="col-md-8 col-sm-8 col-xs-12 xyz">
                           <input type="text" class="form-control" name="plnetAmt" id="plnetAmt" placeholder="Planned Net Amount" value="<?php echo $allPspIncome->PlannedNetAmt ?>" />
                         </div>
                       </div>
@@ -208,7 +208,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Processed Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="acamtReceive" id="acamtReceive" value="<?php echo $allPspIncome->ActualAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Processed Amount"  />
+                          <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php echo $allPspIncome->ActualAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Processed Amount"  />
                           
                         </div>
                       </div>
@@ -230,7 +230,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission %</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualComP ?>" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualComP ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
@@ -238,7 +238,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="acamtval" id="acamtval" value="<?php echo $allPspIncome->ActualCom ?>"  onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="acamtval" id="acamtval" value="<?php echo $allPspIncome->ActualCom ?>"  onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
@@ -249,9 +249,9 @@
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="hidden" name="crrComm" id="crrComm">
                            <?php if ($crrData->isCRR == 0 && $crrData->CRRId == $allPspIncome->TransId ) { ?>
-                             <input type="text" class="form-control" name="crrAmt" id="crrAmt" value="<?php echo $crrData->PlannedAmt; ?>" placeholder="CRR Amount" readonly/>
+                             <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" value="<?php echo $crrData->PlannedAmt; ?>" placeholder="CRR Amount" readonly/>
                           <?php  }else { ?> 
-                          <input type="text" class="form-control" name="crrAmt" id="crrAmt" value="<?php echo $allPspIncome->PlannedAmt; ?>" placeholder="CRR Amount" readonly/>
+                          <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" value="<?php echo $allPspIncome->PlannedAmt; ?>" placeholder="CRR Amount" readonly/>
                         <?php } ?>
                         </div>
                       </div>
@@ -289,7 +289,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="acnetAmt" id="acnetAmt" placeholder="Actual Net Amount" value="<?php echo $allPspIncome->ActualNetAmt ?>" />
+                          <input type="text" class="form-control xyz" name="acnetAmt" id="acnetAmt" placeholder="Actual Net Amount" value="<?php echo $allPspIncome->ActualNetAmt ?>" />
                           <!-- <input type="hidden" class="form-control" name="acamtnetReceivebefore" id="acamtnetReceivebefore" /> -->
                         </div>
                       </div>

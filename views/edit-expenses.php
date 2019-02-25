@@ -1,9 +1,3 @@
-<style type="text/css">
-  .required-field::before {
-  content: "*";
-  color: red;
-}
-</style>
 <?php //print_r($expenses); ?>
 <!-- Page Content  -->
 <div id="content">
@@ -90,9 +84,8 @@
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned date</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned date <span class="red">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <span class="required-field"><span>
                           <div class="input-group date" data-provide="datepicker">
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ExpDate))) ?>" placeholder="Planned Date" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
@@ -102,9 +95,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <span class="required-field"><span><input type="text" class="form-control" name="plamtReceived" id="plamtReceived" value="<?php echo $expenses->PlannedAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount <span class="red">*</span></label>
+                        <div class="col-md-8 col-sm-8 col-xs-12"><span><input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo $expenses->PlannedAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                         </div>
                       </div>
                     </div>
@@ -171,7 +163,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="acamtReceive" id="acamtReceive" value="<?php echo $expenses->ActualAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
+                          <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php echo $expenses->ActualAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
                         </div>
                       </div>
                     </div>
@@ -187,7 +179,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Final bank commission </label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="fbc" id="fbc" value="<?php echo $expenses->FinalBankComm ?>" placeholder="Final bank commission" readonly/>
+                          <input type="text" class="form-control xyz" name="fbc" id="fbc" value="<?php echo $expenses->FinalBankComm ?>" placeholder="Final bank commission" readonly/>
                         </div>
                       </div>
                     </div>
@@ -195,7 +187,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net From Bank </label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="nfb" id="nfb" value="<?php echo $expenses->NetFromBank ?>" placeholder="Net From Bank" />
+                          <input type="text" class="form-control xyz" name="nfb" id="nfb" value="<?php echo $expenses->NetFromBank ?>" placeholder="Net From Bank" />
                         </div>
                       </div>
                     </div>

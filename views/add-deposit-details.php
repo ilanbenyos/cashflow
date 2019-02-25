@@ -1,9 +1,3 @@
-<style type="text/css">
-  .required-field::after {
-  content: "*";
-  color: red;
-}
-</style>
 <!-- Page Content  -->
 <div id="content">
   <div class="container-fluid">
@@ -77,7 +71,7 @@
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Received date <span class="required-field"></span></label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Received date <span class="red">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" />
@@ -88,9 +82,9 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount <span class="required-field"></span></label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount <span class="red">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount" />
+                          <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount" />
                         </div>
                       </div>
                     </div>
@@ -111,7 +105,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission %</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="plcommval" id="plcommval" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="plcommval" id="plcommval" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
@@ -119,7 +113,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="plamtval" id="plamtval" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="plamtval" id="plamtval" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
@@ -162,7 +156,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="plnetAmt" id="plnetAmt" placeholder="Planned Net Amount" />
+                          <input type="text" class="form-control xyz" name="plnetAmt" id="plnetAmt" placeholder="Planned Net Amount" />
                         </div>
                       </div>
                     </div>
@@ -185,7 +179,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Processed Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="acamtReceive" id="acamtReceive" onkeypress="javascript:return isNumber(event)" placeholder="Actual Processed Amount" />
+                          <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" onkeypress="javascript:return isNumber(event)" placeholder="Actual Processed Amount" />
                         </div>
                       </div>
                     </div>
@@ -206,7 +200,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission %</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="accommval" id="accommval" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="accommval" id="accommval" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
@@ -214,7 +208,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="acamtval" id="acamtval" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="acamtval" id="acamtval" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
@@ -223,7 +217,7 @@
                         <label class="col-md-4 col-sm-4 col-xs-12">CRR Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="hidden" name="crrComm" id="crrComm">
-                          <input type="text" class="form-control" name="crrAmt" id="crrAmt" placeholder="CRR Amount" readonly />
+                          <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" placeholder="CRR Amount" readonly />
                         </div>
                       </div>
                     </div>
@@ -345,7 +339,7 @@ $('.datepicker').datepicker({
     });
 
     $( "#acamtReceive" ).keyup(function( event ) { 
-      var actualAmt = $("#acamtReceive").val();
+      var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");
       var crrComm = document.getElementById("crrComm").value;
       var crrAmt = (crrComm/100);
       var crrAmt = (actualAmt*crrAmt);
@@ -359,7 +353,7 @@ $('.datepicker').datepicker({
         minDate: new Date(),
         dateFormat: 'yyyy-mm-dd'
     });*/
-/*$('input.form-control').keyup(function(event){
+$('input.form-control').keyup(function(event){
       // skip for arrow keys
       if(event.which >= 37 && event.which <= 40){
           event.preventDefault();
@@ -383,7 +377,7 @@ $('.datepicker').datepicker({
     }
     return convertString;
     
-}*/
+}
 
         /*$('#plamtval').attr('disabled',true);
         $('#acamtval').attr('disabled',true);

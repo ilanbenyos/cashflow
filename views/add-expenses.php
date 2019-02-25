@@ -1,9 +1,3 @@
-<style type="text/css">
-  .required-field::after {
-  content: "*";
-  color: red;
-}
-</style>
 <!-- Page Content  -->
 <div id="content">
   <div class="container-fluid">
@@ -90,7 +84,7 @@
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned date<span class="required-field"><span></label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned date <span class="red">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Date" />
@@ -101,9 +95,9 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount <span class="required-field"><span></label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount <span class="red">*</span><span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
+                          <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                         </div>
                       </div>
                     </div>
@@ -157,7 +151,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="acamtReceive" id="acamtReceive" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
+                          <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
                         </div>
                       </div>
                     </div>
@@ -173,7 +167,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Final bank commission </label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="fbc" id="fbc" placeholder="Final bank commission" readonly/>
+                          <input type="text" class="form-control xyz" name="fbc" id="fbc" placeholder="Final bank commission" readonly/>
                         </div>
                       </div>
                     </div>
@@ -181,7 +175,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net From Bank </label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="nfb" id="nfb" placeholder="Net From Bank"  />
+                          <input type="text" class="form-control xyz" name="nfb" id="nfb" placeholder="Net From Bank"  />
                         </div>
                       </div>
                     </div>
