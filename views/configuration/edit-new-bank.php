@@ -23,7 +23,14 @@ $_SESSION['form_token_editbank'] = $token;
               <div class="row clearfix spacetop4x">
                 <div class="row-flex clearfix">
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
-                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12"></label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <label class="">General Information</label>
+                        </div>
+                      </div>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Bank Name</label>
@@ -98,6 +105,14 @@ $_SESSION['form_token_editbank'] = $token;
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12"></label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <label class="">Money-In Commisions</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Inflow Commission %</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="text" class="form-control" id="InComP" value="<?php echo $result->InComP; ?>" name="InComP" placeholder="Inflow Commission %" />
@@ -109,6 +124,14 @@ $_SESSION['form_token_editbank'] = $token;
                         <label class="col-md-4 col-sm-4 col-xs-12">Inflow Commission Per Transitions</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="text" class="form-control" name="InCom" value="<?php echo $result->InCom; ?>" id="InCom" placeholder="Inflow Commission Per Transitions" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12"></label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <label class="">Money-Out Commisions</label>
                         </div>
                       </div>
                     </div>
