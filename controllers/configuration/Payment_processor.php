@@ -83,6 +83,7 @@ class Payment_processor extends CI_Controller {
     	            'crr' => $crr,
     	            'Commission' => $commision,
     	            'CreatedBy' => $uid,
+                    'ModifiedBy ' => $uid,
 					'Active' => $status
     	        );
     	        $psp = $this->db->insert('pspmaster',$pspinfo);
