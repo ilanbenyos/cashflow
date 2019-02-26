@@ -52,15 +52,19 @@ $_SESSION['form_token_editbank'] = $token;
                           </select>
                         </div>
                       </div>
-                    </div>             
-					<div class="col-md-12 col-sm-12 col-xs-12">
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Inward Commission %</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Status</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" id="InComP" value="<?php echo number_format($result->InComP); ?>" name="InComP" placeholder="Inflow Commission %" />
+                         <select class="form-control" name="status" id="status">
+                            <option selected="selected" value="<?php echo $result->Active; ?>"><?php if( $result->Active == "1"){ echo "Active";}else{ echo "Disabled";}?> </option>
+              <option value="<?php if( $result->Active== "1"){ echo "0";}else{ echo "1";}?>"><?php if( $result->Active == "1"){ echo "Disabled";}else{ echo "Active";}?> </option>     
+                          </select>
                         </div>
                       </div>
-                    </div>
+                    </div>             
+					
 
                   <!--  <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
@@ -88,11 +92,46 @@ $_SESSION['form_token_editbank'] = $token;
                         </div>
                       </div>
                     </div>  -->
-<div class="col-md-12 col-sm-12 col-xs-12">
+
+                  </div>
+                  
+                  <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Inflow Commission %</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" id="InComP" value="<?php echo $result->InComP; ?>" name="InComP" placeholder="Inflow Commission %" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Inflow Commission Per Transitions</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" name="InCom" value="<?php echo $result->InCom; ?>" id="InCom" placeholder="Inflow Commission Per Transitions" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Outgo Commission %</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" name="OutComP" value="<?php echo $result->OctComP; ?>" id="OutComP" placeholder="Outgo Commission %" />
+                        </div>
+                      </div>
+                    </div>
+                   
+					
+					<div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Outgo Fix Commission</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="hidden" class="form-control" name="OutCom" value="<?php echo $result->OutCom; ?>" id="OutCom" placeholder="Outgo Fix Commission" />
+                          <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-container">
-					 <div class="form-group">
+           <div class="form-group">
                           <div class="col-md-12">
-						  <button class="add-one add_more_button"><i class="fa fa-plus-square" aria-hidden="true"></i> Transfer Type</button>
+              <button class="add-one add_more_button"><i class="fa fa-plus-square" aria-hidden="true"></i> Transfer Type</button>
                           </div>
                         </div>
                     <div class="dynamic-stuff">
@@ -115,19 +154,19 @@ $_SESSION['form_token_editbank'] = $token;
                                   <?php   }} ?>
                             
                           </select></div>
-						  <div class="col-md-4 no-padding">
+              <div class="col-md-4 no-padding">
                           <input type="text" id="amount<?php echo $i; ?>" class="amount_input form-control" name="amount[]" value="<?php echo $type2->Amount ?>" onkeypress="javascript:return isNumber(event)" readonly><span class="help-block form-error" id="emailspan<?php echo $i; ?>" value="0"></span></div><div class="col-md-3"><div class="action-icons"><span class="remove_field delete"><i class="fa fa-minus-square" aria-hidden="true"></i></span><span href="#" id="edit_field<?php echo $i; ?>" class="edit_field edit"><i class="fa fa-pencil-square" aria-hidden="true"></i></span></div></div>
                           </div>
-						  <script>
+              <script>
     $(document).ready(function() {
-		
-		$('.dynamic-stuff').on("click","#edit_field<?php echo $i; ?>", function(e){ //user click on remove text links
+    
+    $('.dynamic-stuff').on("click","#edit_field<?php echo $i; ?>", function(e){ //user click on remove text links
         e.preventDefault(); 
         $("#amount<?php echo $i; ?>").attr('readonly',false);
         $("#transfer_type<?php echo $i; ?>").attr('readonly',false);
     })
-	
-	$('input#amount<?php echo $i; ?>').focus();
+  
+  $('input#amount<?php echo $i; ?>').focus();
         $('input#amount<?php echo $i; ?>').blur(function(){
          var amt = $('input#amount<?php echo $i; ?>').val();
          if(amt == ""){
@@ -140,11 +179,11 @@ $_SESSION['form_token_editbank'] = $token;
            $("#emailspan<?php echo $i; ?>").hide();
          }
         });
-	
-	
-	});
-	</script>
-						  
+  
+  
+  });
+  </script>
+              
                           <?php 
                           $i++;
                         } ?>  
@@ -152,38 +191,12 @@ $_SESSION['form_token_editbank'] = $token;
                       </div>
                     <span id="errmsg" class="help-block form-error"></span>
                    </div></div>
-                  </div>
-                  
-                  <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Outward Commission %</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="OutComP" value="<?php echo number_format($result->OctComP); ?>" id="OutComP" placeholder="Outgo Commission %" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Inward Commission Per Transitions</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="InCom" value="<?php echo number_format($result->InCom); ?>" id="InCom" placeholder="Inflow Commission Per Transitions" />
-                        </div>
-                      </div>
-                    </div>
-                   
-					
-					<div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Outward Commission Per Transitions</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="OutCom" value="<?php echo number_format($result->OutCom); ?>" id="OutCom" placeholder="Outgo Commission Per Transitions" />
                         </div>
                       </div>
                     </div>
 					
 					<div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
+                      <!-- <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Status</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                          <select class="form-control" name="status" id="status">
@@ -191,7 +204,7 @@ $_SESSION['form_token_editbank'] = $token;
 				      <option value="<?php if( $result->Active== "1"){ echo "0";}else{ echo "1";}?>"><?php if( $result->Active == "1"){ echo "Disabled";}else{ echo "Active";}?> </option>     
                           </select>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Amount</label>

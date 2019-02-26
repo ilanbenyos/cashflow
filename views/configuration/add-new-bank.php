@@ -24,6 +24,14 @@ $_SESSION['form_token_addbank'] = $token;
               <div class="row clearfix spacetop4x">
                 <div class="row-flex clearfix">
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12"></label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <label class="">General Information</label>
+                        </div>
+                      </div>
+                    </div>
                     
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
@@ -54,15 +62,18 @@ $_SESSION['form_token_addbank'] = $token;
                           </select>
                         </div>
                       </div>
-                    </div>          
-					<div class="col-md-12 col-sm-12 col-xs-12">
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Inflow Commission %</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Status</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" id="InComP" name="InComP" placeholder="Inflow Commission %" />
+                         <select class="form-control" name="status" id="status">
+                            <option value="1">Active</option>      
+                            <option value="0">Disabled</option>      
+                          </select>
                         </div>
                       </div>
-                    </div>
+                    </div>    
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Transfer Type</label>
@@ -108,26 +119,22 @@ $_SESSION['form_token_addbank'] = $token;
                     <!--<div class="dynamic-stuff"> </div>
                     <span id="errmsg"></span>
 					         <button class="btn btn-sm btn-primary add_more_button">Add More Fields</button>-->
-							 
-							 <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-container">
-					 <div class="form-group">
-                          <div class="col-md-12">
-						  <button class="add-one add_more_button"><i class="fa fa-plus-square" aria-hidden="true"></i> Transfer Type</button>
-                          </div>
-                        </div>
-						 <div class="dynamic-stuff"> </div>
-                    <span id="errmsg" class="help-block form-error"></span>
-						</div></div>
-                    
                   </div>
                   
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
-                     <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Outgo Commission %</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12"></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="OutComP" id="OutComP" placeholder="Outgo Commission %" />
+                          <label class="">Money-In Commisions</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Inflow Commission %</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" id="InComP" name="InComP" placeholder="Inflow Commission %" />
                         </div>
                       </div>
                     </div>
@@ -139,28 +146,53 @@ $_SESSION['form_token_addbank'] = $token;
                         </div>
                       </div>
                     </div>
-                   
-					
-					<div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Outgo Commission Per Transitions</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12"></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="OutCom" id="OutCom" placeholder="Outgo Commission Per Transitions" />
+                          <label class="">Money-Out Commisions</label>
+                        </div>
+                      </div>
+                    </div>
+                     <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Outgo Commission %</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control" name="OutComP" id="OutComP" placeholder="Outgo Commission %" />
                         </div>
                       </div>
                     </div>
 					
 					<div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Status</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Outgo Fix Commission</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                         <select class="form-control" name="status" id="status">
-                            <option value="1">Active</option>      
-                            <option value="0">Disabled</option>      
-                          </select>
+                          <input type="hidden" class="form-control" name="OutCom" id="OutCom" placeholder="Outgo Commission Per Transitions" /> 
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-container">
+           <div class="form-group">
+                          <div class="col-md-12">
+              <button class="add-one add_more_button"><i class="fa fa-plus-square" aria-hidden="true"></i> Transfer Type</button>
+                          </div>
+                        </div>
+             <div class="dynamic-stuff"> </div>
+                    <span id="errmsg" class="help-block form-error"></span>
+            </div></div>
                         </div>
                       </div>
                     </div>
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-container">
+           <div class="form-group">
+                          <div class="col-md-12">
+              <button class="add-one add_more_button"><i class="fa fa-plus-square" aria-hidden="true"></i> Transfer Type</button>
+                          </div>
+                        </div>
+             <div class="dynamic-stuff"> </div>
+                    <span id="errmsg" class="help-block form-error"></span>
+            </div></div> -->
+					
+					
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Amount</label>
