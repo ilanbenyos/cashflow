@@ -276,6 +276,22 @@ $('.datepicker').datepicker({
                     }
 
     });*/
+    //on load display currency and bank outcomm start
+    var bankid = $("#bankid").val();
+    console.log(bankid);
+    $.ajax({
+      url:"<?php echo base_url ('Expenses/getBanks/')?>"+ bankid ,
+                    type: "POST",
+                    data : {bankid:bankid},
+                    dataType: "html",
+                    success: function(data) {
+                    var obj = JSON.parse(data);
+                    $("#outCommP").val(obj.banks.OctComP);
+                    $("#plcurr").val(obj.banks.CurName);
+                    $("#accurr").val(obj.banks.CurName);
+                    }
+    });
+    //on load display currency and bank outcomm end
 
     $('#bankid').on('change',function() {
         var bankid=document.getElementById("bankid").value;  
