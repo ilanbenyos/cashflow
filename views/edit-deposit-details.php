@@ -628,7 +628,7 @@ autoclose: true
           }
           var actualAmt = $("#acamtReceive").val();
           var actualDate = $("#acdatereceive").val();
-          if (actualAmt >= 0.00) {
+          if (actualAmt == 0.00) {
             $("#acdatereceive").css("border", "1px solid #CCCCCC");  
             returnvar = true;
           }
