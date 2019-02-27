@@ -628,7 +628,11 @@ autoclose: true
           }
           var actualAmt = $("#acamtReceive").val();
           var actualDate = $("#acdatereceive").val();
-          if(actualAmt != "" && actualDate == ""){
+          if (actualAmt >= 0.00) {
+            $("#acdatereceive").css("border", "1px solid #CCCCCC");  
+            returnvar = true;
+          }
+          /*if(actualAmt != "" && actualDate == ""){
             $("#acdatereceive").css("border", "1px solid #be1622");
             returnvar = false;
             //alert(returnvar);
@@ -636,7 +640,7 @@ autoclose: true
             //$("#acdatereceive").css("border", "1px solid #be1622");
             $("#acdatereceive").css("border", "1px solid #CCCCCC");  
             returnvar = true;
-          }
+          }*/
           /*if($("#acdatereceive").val()==""){                  
            $("#acdatereceive").css("border", "1px solid #be1622");
            returnvar = false;
