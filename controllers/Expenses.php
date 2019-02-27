@@ -19,7 +19,6 @@ class Expenses extends CI_Controller {
 			redirect('login');
 		}
 		$data['getallExpenses'] = $this->all_model->getallExpenses();
-        //print_r($this->db->last_query());exit();
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar');
 		$this->load->view('expenses',$data);
@@ -99,21 +98,21 @@ class Expenses extends CI_Controller {
                     $expCat = $this->input->post('expCat');
                     $transType = $this->input->post('transType');
         			$pldatereceive = $this->input->post('pldatereceive');
-        			$plamtReceived = $this->input->post('plamtReceived');
+        			$plamtReceived = str_replace(',','',$this->input->post('plamtReceived'));
         			$curr = $this->input->post('plcurr');
 
-        			$shares = $this->input->post('shareP');
+        			$shares = str_replace(',','',$this->input->post('shareP'));
                     $acdatereceive = $this->input->post('acdatereceive');
-                    $acamtReceive = $this->input->post('acamtReceive');
-                    $fbc = $this->input->post('fbc');
-                    $nfb = $this->input->post('nfb');
+                    $acamtReceive = str_replace(',','',$this->input->post('acamtReceive'));
+                    $fbc = str_replace(',','',$this->input->post('fbc'));
+                    $nfb = str_replace(',','',$this->input->post('nfb'));
         			$uid = $this->input->post('userid');
 
-                    $shareAmount = $this->input->post('shareAmount');
-                    $BankOutCommAmount = $this->input->post('BankOutCommAmount');
-                    $transferCommP = $this->input->post('transferCommP');
-                    $TransferCommAmount = $this->input->post('TransferCommAmount');
-                    $outCommP = $this->input->post('outCommP');
+                    $shareAmount = str_replace(',','',$this->input->post('shareAmount'));
+                    $BankOutCommAmount = str_replace(',','',$this->input->post('BankOutCommAmount'));
+                    $transferCommP = str_replace(',','',$this->input->post('transferCommP'));
+                    $TransferCommAmount = str_replace(',','',$this->input->post('TransferCommAmount'));
+                    $outCommP = str_replace(',','',$this->input->post('outCommP'));
 
                   
 			       $from = $pldatereceive;

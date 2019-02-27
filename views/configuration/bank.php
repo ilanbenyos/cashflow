@@ -33,7 +33,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 				 foreach ($results as $row) { ?>
                      <tr>
                         <td><?php echo $row->BankName; ?></td>
-                        <td class="extra-right-space"><?php echo number_format($row->Balance); ?></td>
+                        <td class="extra-right-space"><?php echo number_format($row->Balance, 2, '.', ','); ?></td>
                         <td><?php echo $row->CurName; ?></td>
                         <td><?php echo $row->Name; ?></td>
 				    <td><?php if($row->Active == "1" ){ echo '<span class="completed bold">Active</span>' ; }else{ echo  '<span class="pending bold">Disabled</span>' ;} ?></td>

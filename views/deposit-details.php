@@ -37,9 +37,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   <td><?php echo $psp->BankName; ?></td>
                   <td><?php echo $psp->PspName; ?></td>
                   <td><?php echo $psp->Description; ?></td>
-                  <td><?php echo number_format($psp->ActualAmt); ?></td>
-                  <td><?php echo number_format($psp->ActualCom); ?></td>
-                  <td><?php echo number_format($psp->ActualNetAmt); ?></td>
+                  <td><?php echo number_format($psp->ActualAmt, 2, '.', ','); ?></td>
+                  <td><?php echo number_format($psp->ActualCom, 2, '.', ','); ?></td>
+                  <td><?php echo number_format($psp->ActualNetAmt, 2, '.', ','); ?></td>
                   <?php if ($psp->ActualDate != '0000-00-00') { ?>
                   <td><?php echo $psp->ActualDate; ?></td>
                   <?php }else{ ?>

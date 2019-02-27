@@ -84,7 +84,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount <span class="red">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount" />
+                          <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived"  placeholder="Planned Processed Amount" />
                         </div>
                       </div>
                     </div>
@@ -217,7 +217,7 @@
                         <label class="col-md-4 col-sm-4 col-xs-12">CRR Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="hidden" name="crrComm" id="crrComm">
-                          <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" placeholder="CRR Amount" readonly />
+                          <input type="text" class="form-control" name="crrAmt" id="crrAmt" placeholder="CRR Amount" readonly />
                         </div>
                       </div>
                     </div>
@@ -260,7 +260,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="acnetAmt" id="acnetAmt" placeholder="Actual Net Amount"/>
+                          <input type="text" class="form-control xyz" name="acnetAmt" id="acnetAmt" placeholder="Actual Net Amount"/>
                         </div>
                       </div>
                     </div>
@@ -345,7 +345,9 @@ $('.datepicker').datepicker({
       var crrAmt = (actualAmt*crrAmt);
       //alert(crrAmt);
       $("#crrAmt").val(crrAmt);
-
+      console.log('actualAmt' + actualAmt);
+      console.log('crrComm' + crrComm);
+      console.log('crrAmt' + crrAmt);
       //alert(actualAmt);
     });
 
@@ -353,7 +355,7 @@ $('.datepicker').datepicker({
         minDate: new Date(),
         dateFormat: 'yyyy-mm-dd'
     });*/
-$('input.form-control').keyup(function(event){
+/*$('input.form-control').keyup(function(event){
       // skip for arrow keys
       if(event.which >= 37 && event.which <= 40){
           event.preventDefault();
@@ -377,7 +379,7 @@ $('input.form-control').keyup(function(event){
     }
     return convertString;
     
-}
+}*/
 
         /*$('#plamtval').attr('disabled',true);
         $('#acamtval').attr('disabled',true);

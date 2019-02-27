@@ -128,7 +128,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Share %</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="shareP" id="shareP" placeholder="Share %" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="shareP" id="shareP" placeholder="Share %" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
@@ -259,6 +259,24 @@ $('.datepicker').datepicker({
                });
 
     });*/
+    /*var bankid=document.getElementById("bankid").value;
+    var transType = document.getElementById("transType").value;
+    console.log(transType);
+    $.ajax({ 
+      url:"<?php echo base_url ('Expenses/transferAmt1/')?>",
+                    type: "POST",
+                    data : {transType:transType,bankid:bankid},
+                    dataType: "html",
+                    success: function(data) {
+                      var obj = JSON.parse(data);
+                      console.log('transferAmt1 ' + obj.result);
+                    $("#outCommP").val(obj.banks.OctComP);
+                    $("#plcurr").val(obj.banks.CurName);
+                    $("#accurr").val(obj.banks.CurName);
+                    }
+
+    });*/
+
     $('#bankid').on('change',function() {
         var bankid=document.getElementById("bankid").value;  
          $.ajax({
@@ -277,7 +295,7 @@ $('.datepicker').datepicker({
 
 
                     //start
-                    var actualAmout = $("#acamtReceive").val();
+                    var actualAmout = $("#acamtReceive").val().replace(/,/gi, "");
                     var outCommP = obj.banks.OctComP;
                     var transferCommP = $("#transferCommP").val();
                     var shareP =  $("#shareP").val();
@@ -352,7 +370,7 @@ $('.datepicker').datepicker({
                       $("#transferCommP").val(transferCommP);
 
                       //start
-                      var actualAmout = $("#acamtReceive").val();
+                      var actualAmout = $("#acamtReceive").val().replace(/,/gi, "");
                       var outCommP = $("#outCommP").val();
                       var transferCommP = transferCommP;
                       var shareP =  $("#shareP").val();
@@ -430,7 +448,7 @@ $('.datepicker').datepicker({
     //Net From Bank Calculation
     
     $( "#acamtReceive" ).keyup(function( event ) { 
-      var actualAmout = $("#acamtReceive").val();
+      var actualAmout = $("#acamtReceive").val().replace(/,/gi, "");
       var outCommP = $("#outCommP").val();
       var transferCommP = $("#transferCommP").val();
       var shareP =  $("#shareP").val();
@@ -460,7 +478,7 @@ $('.datepicker').datepicker({
     });
 
     $( "#shareP" ).keyup(function( event ) { 
-      var actualAmout = $("#acamtReceive").val();
+      var actualAmout = $("#acamtReceive").val().replace(/,/gi, "");
       var outCommP = $("#outCommP").val();
       var transferCommP = $("#transferCommP").val();
       var shareP =  $("#shareP").val();

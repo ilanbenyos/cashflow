@@ -69,23 +69,22 @@ class Psp_income extends CI_Controller {
         			$BankId = $this->input->post('bankid');
         			$desc = $this->input->post('desc');
         			$pldatereceive = $this->input->post('pldatereceive');
-        			$plamtReceived = $this->input->post('plamtReceived');
+        			$plamtReceived = str_replace(',','',$this->input->post('plamtReceived'));
         			//$plcurr = $this->input->post('plcurr');
         			$curr = $this->input->post('plcurr');
 
-        			$plcommval = $this->input->post('plcommval');
-        			$plamtval = $this->input->post('plamtval');
+        			$plcommval = str_replace(',','',$this->input->post('plcommval'));
+        			$plamtval = str_replace(',','',$this->input->post('plamtval'));
 
-        			$plnetAmt = $this->input->post('plnetAmt');
+        			$plnetAmt = str_replace(',','',$this->input->post('plnetAmt'));
         			$acdatereceive = $this->input->post('acdatereceive');
-        			$acamtReceive = $this->input->post('acamtReceive');
+        			$acamtReceive = str_replace(',','',$this->input->post('acamtReceive'));
         			//$accurr = $this->input->post('accurr');
-        			$accommval = $this->input->post('accommval');
-        			$acamtval = $this->input->post('acamtval');
-        			$acnetAmt = $this->input->post('acnetAmt');
-                    $crrAmt = $this->input->post('crrAmt');
+        			$accommval = str_replace(',','',$this->input->post('accommval'));
+        			$acamtval = str_replace(',','',$this->input->post('acamtval'));
+        			$acnetAmt = str_replace(',','',$this->input->post('acnetAmt'));
+                    $crrAmt = str_replace(',','',$this->input->post('crrAmt'));
         			$uid = $this->input->post('userid');
-                    
 
         			if($plcommval == ""){
         				$plcommval = 0;
@@ -219,19 +218,19 @@ class Psp_income extends CI_Controller {
         			$BankId = $this->input->post('bankid');
         			$desc = $this->input->post('desc');
         			$pldatereceive = $this->input->post('pldatereceive');
-        			$plamtReceived = $this->input->post('plamtReceived');
+        			$plamtReceived = str_replace(',','',$this->input->post('plamtReceived'));
         			//$plcurr = $this->input->post('plcurr');
         			$curr = $this->input->post('plcurr');
-        			$plcommval = $this->input->post('plcommval');
-        			$plamtval = $this->input->post('plamtval');
-        			$plnetAmt = $this->input->post('plnetAmt');
+        			$plcommval = str_replace(',','',$this->input->post('plcommval'));
+        			$plamtval = str_replace(',','',$this->input->post('plamtval'));
+        			$plnetAmt = str_replace(',','',$this->input->post('plnetAmt'));
         			$acdatereceive = $this->input->post('acdatereceive');
-        			$acamtReceive = $this->input->post('acamtReceive');
+        			$acamtReceive = str_replace(',','',$this->input->post('acamtReceive'));
         			//$accurr = $this->input->post('accurr');
-        			$accommval = $this->input->post('accommval');
-        			$acamtval = $this->input->post('acamtval');
-        			$acnetAmt = $this->input->post('acnetAmt');
-                    $crrAmt = $this->input->post('crrAmt');
+        			$accommval = str_replace(',','',$this->input->post('accommval'));
+        			$acamtval = str_replace(',','',$this->input->post('acamtval'));
+        			$acnetAmt = str_replace(',','',$this->input->post('acnetAmt'));
+                    $crrAmt = str_replace(',','',$this->input->post('crrAmt'));
         			$uid = $this->input->post('userid');
 
                     $data['allPspIncome'] = $this->all_model->pspIncome($id);
@@ -327,7 +326,7 @@ class Psp_income extends CI_Controller {
                         echo '<br>';*/
                         
                         //if ($data['getBankBal']->Balance > 0 ) {
-                            $updatedBal = (sprintf("%1\$u",$data['getBankBal']->Balance) - (sprintf("%1\$u",$acamtnetReceivebefore)));
+                            $updatedBal = ($data['getBankBal']->Balance) - ($acamtnetReceivebefore);
 
                             /*echo 'bank balance:'.$data['getBankBal']->Balance;
                             echo '<br>';
@@ -337,7 +336,7 @@ class Psp_income extends CI_Controller {
                             echo '<br>';
                             echo 'amount receive after'.$acamtReceive;
                             echo '<br>';*/
-                            $updatedBal = (sprintf("%1\$u",($updatedBal))+(sprintf("%1\$u",$acnetAmt)));
+                            $updatedBal = ($updatedBal)+($acnetAmt);
                             //echo 'new updated bal'.$updatedBal;
 
                         //}

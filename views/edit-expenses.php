@@ -20,9 +20,9 @@
                 ?>
       <input type="hidden" name="editexpense_token" value="<?php echo $token;?>">
       <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
-      <input type="hidden" name="shareAmount" id="shareAmount" value="<?php echo $expenses->ShareAmount ?>">
-      <input type="hidden" name="BankOutCommAmount" id="BankOutCommAmount" value="<?php echo $expenses->BankOutCommAmount ?>">
-      <input type="hidden" name="TransferCommAmount" id="TransferCommAmount" value="<?php echo $expenses->TransferCommAmount ?>">
+      <input type="hidden" name="shareAmount" id="shareAmount" value="<?php echo number_format($expenses->ShareAmount, 2, '.', ',') ?>">
+      <input type="hidden" name="BankOutCommAmount" id="BankOutCommAmount" value="<?php echo number_format($expenses->BankOutCommAmount, 2, '.', ',') ?>">
+      <input type="hidden" name="TransferCommAmount" id="TransferCommAmount" value="<?php echo number_format($expenses->TransferCommAmount, 2, '.', ',') ?>">
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex">
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
@@ -96,7 +96,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount <span class="red">*</span></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12"><span><input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo number_format($expenses->PlannedAmt) ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
+                        <div class="col-md-8 col-sm-8 col-xs-12"><span><input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo $expenses->PlannedAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                         </div>
                       </div>
                     </div>
@@ -120,7 +120,7 @@
                             <option <?php if($type->BankTransferId == $expenses->BankTransferId){ echo 'selected="selected"'; } ?> value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>      
                                   <?php   } ?>
                           </select>
-                          <input type="hidden" class="form-control" name="transferCommP" id="transferCommP" value="<?php echo $expenses->TransferCommP ?>">
+                          <input type="hidden" class="form-control xyz" name="transferCommP" id="transferCommP" value="<?php echo $expenses->TransferCommP ?>">
                         </div>
                       </div>
                     </div>
@@ -128,7 +128,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Share %</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="shareP" id="shareP" value="<?php echo number_format($expenses->Share) ?>" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="shareP" id="shareP" value="<?php echo number_format($expenses->Share, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
@@ -163,7 +163,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php echo number_format($expenses->ActualAmt) ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
+                          <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php echo $expenses->ActualAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
                         </div>
                       </div>
                     </div>
@@ -179,7 +179,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Final bank commission </label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control xyz" name="fbc" id="fbc" value="<?php echo number_format($expenses->FinalBankComm) ?>" placeholder="Final bank commission" readonly/>
+                          <input type="text" class="form-control xyz" name="fbc" id="fbc" value="<?php echo number_format($expenses->FinalBankComm, 2, '.', ',') ?>" placeholder="Final bank commission" readonly/>
                         </div>
                       </div>
                     </div>
@@ -187,7 +187,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net From Bank </label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control xyz" name="nfb" id="nfb" value="<?php echo number_format($expenses->NetFromBank) ?>" placeholder="Net From Bank" />
+                          <input type="text" class="form-control xyz" name="nfb" id="nfb" value="<?php echo number_format($expenses->NetFromBank, 2, '.', ',') ?>" placeholder="Net From Bank" />
                         </div>
                       </div>
                     </div>
@@ -261,7 +261,7 @@
                     $("#accurr").val(obj.banks.CurName);
 
                     //start
-                    var actualAmout = $("#acamtReceive").val();
+                    var actualAmout = $("#acamtReceive").val().replace(/,/gi, "");
                     var outCommP = obj.banks.OctComP;
                     var transferCommP = $("#transferCommP").val();
                     var shareP =  $("#shareP").val();
@@ -331,7 +331,7 @@
                       $("#transferCommP").val(transferCommP);
 
                       //start
-                      var actualAmout = $("#acamtReceive").val();
+                      var actualAmout = $("#acamtReceive").val().replace(/,/gi, "");
                       var outCommP = $("#outCommP").val();
                       var transferCommP = transferCommP;
                       var shareP =  $("#shareP").val();
@@ -392,7 +392,7 @@
     //Net From Bank Calculation
     
     $( "#acamtReceive" ).keyup(function( event ) { 
-      var actualAmout = $("#acamtReceive").val();
+      var actualAmout = $("#acamtReceive").val().replace(/,/gi, "");
       var outCommP = $("#outCommP").val();
       var transferCommP = $("#transferCommP").val();
       var shareP =  $("#shareP").val();

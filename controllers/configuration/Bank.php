@@ -69,7 +69,6 @@ class Bank extends CI_Controller {
 		}
 		else
 		{		
-
 				$token = $this->input->post('my_token_addbank');
         		$session_token=null;
         		$session_token = $_SESSION['form_token_addbank'];
@@ -80,15 +79,16 @@ class Bank extends CI_Controller {
 					$userinfo = array(
     	            
     	            'BankName' => $this->input->post('BankName'),
-    	            'Balance' => $this->input->post('Balance'),
+    	            'Balance' => str_replace(',','',$this->input->post('Balance')),
     	            'CurId' => $this->input->post('cur'),
-    	            'InComP' => $this->input->post('InComP'),
-    	            'OctComP' => $this->input->post('OutComP'),
-    	            'InCom' => $this->input->post('InCom'),
-    	            'OutCom' => $this->input->post('OutCom'),
+    	            'InComP' => str_replace(',','',$this->input->post('InComP')),
+    	            'OctComP' => str_replace(',','',$this->input->post('OutComP')),
+    	            'InCom' => str_replace(',','',$this->input->post('InCom')),
+    	            'OutCom' => str_replace(',','',$this->input->post('OutCom')),
 					'Active' => $this->input->post('status'),
 					'CreatedBy'=> $_SESSION['userid'],
     	        );
+					
     	        $user = $this->db->insert('bankmaster',$userinfo);
 
     	        $BankId = $this->db->insert_id();
@@ -180,15 +180,18 @@ class Bank extends CI_Controller {
 					$userinfo = array(
     	            
     	            'BankName' => $this->input->post('BankName'),
-    	            'Balance' => $this->input->post('Balance'),
+    	            'Balance' => str_replace(',','',$this->input->post('Balance')),
     	            'CurId' => $this->input->post('cur'),
-    	            'InComP' => $this->input->post('InComP'),
-    	            'OctComP' => $this->input->post('OutComP'),
-    	            'InCom' => $this->input->post('InCom'),
-    	            'OutCom' => $this->input->post('OutCom'),
+    	            'InComP' => str_replace(',','',$this->input->post('InComP')),
+    	            'OctComP' => str_replace(',','',$this->input->post('OutComP')),
+    	            'InCom' => str_replace(',','',$this->input->post('InCom')),
+    	            'OutCom' => str_replace(',','',$this->input->post('OutCom')),
 					'Active' => $this->input->post('status'),
 					'ModifiedBy'=> $_SESSION['userid'],
     	        );
+
+					//str_replace(',','',$_POST['Balance']);
+					//str_replace(',','',$_POST['Balance']));
 				$this->db->where('BankId',$id);
 	        	$user = $this->db->update('bankmaster',$userinfo);
 	        	
@@ -307,14 +310,14 @@ class Bank extends CI_Controller {
 	}
 	public function test(){ // not in use
 		//$data['transferType'] = $this->all_model->getBankTransferData();
-		$date = date("Y-m-d");
+		/*$date = date("Y-m-d");
     	echo date('Y-m-d', strtotime($date. ' + 180 days'));
-    	exit();
-		$data['transferType'] = $this->all_model->getTransferType();
-		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
-		$this->load->view('configuration/bank_transfer_type',$data);
-		$this->load->view('templates/footer');
+    	exit();*/
+		//$data['transferType'] = $this->all_model->getTransferType();
+		//$this->load->view('templates/header');
+		//$this->load->view('templates/left-sidebar');
+		$this->load->view('configuration/bank_transfer_type');
+		//$this->load->view('templates/footer');
 		
 	}
 }
