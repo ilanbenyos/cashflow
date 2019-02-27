@@ -137,7 +137,7 @@ class Expenses extends CI_Controller {
                     $this->db->where('BankId',$BankId);
                     $bal = $this->db->get()->row();
 
-                    if ($bal->Balance >= $nfb) {
+                    //if ($bal->Balance >= $nfb) {
 
                         $expenses = array(
                         'VendorId' => $vendor,
@@ -177,10 +177,10 @@ class Expenses extends CI_Controller {
 
         			$_SESSION['pop_mes'] = "Expenses Added Successfully."; 
 					return 1;
-        		}else{
+        		/*}else{
         			$_SESSION['pop_mes'] = "Token does not matched."; 
 					return 1;
-        		}
+        		}*/
 		}
 	}
 	public function update($id){
@@ -252,7 +252,7 @@ class Expenses extends CI_Controller {
                     $this->db->where('BankId',$BankId);
                     $bal = $this->db->get()->row();
 
-                    if($bal->Balance >= $nfb){
+                    //if($bal->Balance >= $nfb){
 
                         $expenses = array(
                         'VendorId' => $vendor,
@@ -284,10 +284,10 @@ class Expenses extends CI_Controller {
 
                         $this->db->where('BankId',$BankId);
                         $this->db->update('bankmaster',array('Balance'=>$UpdatedBal));
-                    }else{
+                    /*}else{
                         $_SESSION['pop_mes'] = "Not Sufficient Balance.";
                     redirect('expenses');
-                    }
+                    }*/
                     
 
 	        		$_SESSION['pop_mes'] = "Expenses Updated Successfully.";
