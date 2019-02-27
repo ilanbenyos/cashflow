@@ -107,7 +107,7 @@ responsive  : true,
       });
 });
 </script>
-<script type="text/javascript">
+<script type="text/javascript">  // to disable future dates(Actual Date) for PSP Income and Expenses 
   jQuery(document).ready(function ($) {
       var today = new Date();
 $('.datepicker').datepicker({
@@ -119,7 +119,7 @@ $('.datepicker').datepicker({
   });
 </script>
 <script type="text/javascript"> // to format numbers i.e 1000 to 1,000
-  $('input.xyz').keyup(function(event){
+  /*$('input.xyz').keyup(function(event){
       // skip for arrow keys
       if(event.which >= 37 && event.which <= 40){
           event.preventDefault();
@@ -129,7 +129,7 @@ $('.datepicker').datepicker({
       
       var num2 = RemoveRougeChar(num.replace(/(.{3})/g,"$1,").split("").reverse().join(""));
       
-      console.log(num2);
+      //console.log(num2);
       
       $this.val(num2);
   });
@@ -143,6 +143,40 @@ $('.datepicker').datepicker({
     }
     return convertString;
     
-}
+}*/
+$(document).ready(function(){
+  $(".xyz").each(function(event) {
+
+    // skip for arrow keys
+  if(event.which >= 37 && event.which <= 40){
+    event.preventDefault();
+  }
+
+    $(this).val(function(index, value) {
+    return value
+
+      .replace(/\D/g, "")
+      .replace(/([0-9])([0-9]{2})$/, '$1.$2')  
+      .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
+    ;
+    console.log(value);
+  });
+});
+});
+$('input.xyz').keyup(function(event) {
+  //alert(12212)
+  // skip for arrow keys
+  if(event.which >= 37 && event.which <= 40){
+    event.preventDefault();
+  }
+
+  $(this).val(function(index, value) {
+    return value
+      .replace(/\D/g, "")
+      .replace(/([0-9])([0-9]{2})$/, '$1.$2')  
+      .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
+    ;
+  });
+});
 </script>
 </body></html>
