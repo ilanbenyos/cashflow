@@ -631,6 +631,9 @@ autoclose: true
           if (actualAmt == 0.00) {
             $("#acdatereceive").css("border", "1px solid #CCCCCC");  
             returnvar = true;
+          }else if(actualAmt != 0.00 && actualDate == ""){
+            $("#acdatereceive").css("border", "1px solid #be1622");
+            returnvar = false;
           }
           /*if(actualAmt != "" && actualDate == ""){
             $("#acdatereceive").css("border", "1px solid #be1622");
