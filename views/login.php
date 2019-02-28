@@ -31,16 +31,16 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
+                <!-- <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="form-group">
                     <div class="checkbox">
                       <label>
                         <input type="checkbox" value="">
-                        <span class="cr"><i class="cr-icon fa fa-check"></i></span> Keep me Login</label>
+                        <span class="cr"><i class="cr-icon fa fa-check"></i></span> Keep me Login</label> 
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-12 forgot-pass-text"><a href="">Forgot Password</a></div>
+                </div> -->
+                <!-- <div class="col-md-6 col-sm-6 col-xs-12 forgot-pass-text"><a href="">Forgot Password</a></div> -->
                 <div class="col-xs-12 text-center spacetop1x">
                   <button type="submit" class="btn-login transitions">LOGIN</button>
                 </div>
