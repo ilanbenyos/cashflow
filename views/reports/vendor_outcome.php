@@ -1,6 +1,6 @@
 <div id="content">
   <div class="container-fluid">
-    <h1>Total Income Per PSP Report</h1>
+    <h1>Outcome for Vendors</h1>
     <div class="white-bg">
       <div class="row">
 	   <!-- <div class="col-md-4 inline-divs text-left">
@@ -78,7 +78,7 @@
             <div id="bar_chart" ></div>
           </div>
           <div class="col-md-5 col-sm-12 col-xs-12">
-            <div id="piechart"></div>
+            <div id="bar_chart1"></div>
           </div>
         </div>
       </div>
@@ -97,12 +97,15 @@
 		}
       google.charts.load('current', {'packages':['bar','corechart']});
 	  
-      //google.charts.setOnLoadCallback(function(){drawChart(month1,month2,year,currency)});
+      /*google.charts.setOnLoadCallback(function(){drawChart(month1,month2,year,currency)});
+      google.charts.setOnLoadCallback(function(){drawChart1(month1,month2,year,currency)});*/
       google.charts.setOnLoadCallback(function(){drawChart(month1,month2,year)});
+      google.charts.setOnLoadCallback(function(){drawChart1(month1,month2,year)});
 
 
-    function drawChart(m1,m2,y,c) {
-  		var currency =c;
+    //function drawChart(m1,m2,y,c) {
+      function drawChart(m1,m2,y) {
+  		//var currency =c;
 
         $.ajax({
         type: 'POST',
@@ -110,19 +113,19 @@
             'month1': m1,
 			      'month2': m2,
             'year': y
-			//'currency':c
+			      //'currency':c
         },
-        url: "http://cashflow:8080/Ajax_Reports/get_psp_income" ,
+        url: "http://cashflow:8080/Ajax_Reports/vendor_expense_outcome" ,
         success: function (data1) {
 			//alert(data1);
 		// Create our data table out of JSON data loaded from server.
         var data = new google.visualization.DataTable();
   
-      data.addColumn('string', '');
+      data.addColumn('string', 'VendorName');
       data.addColumn('number', 'amount');
       var jsonData = $.parseJSON(data1);
       for (var i = 0; i < jsonData.length; i++) {
-            data.addRow([jsonData[i].psp, parseInt(jsonData[i].amount)]);
+            data.addRow([jsonData[i].VendorName, parseInt(jsonData[i].amount)]);
       }
       
 	  
@@ -133,9 +136,9 @@
 					 legend: { position: 'none' },
 					  colors: ['#1F9FA6'], 
 					hAxis: {
-						  title: 'PSP Name',
-						 // slantedText:true,  
-						 // slantedTextAngle:90
+						  title: 'Vendor Name',
+						  /*slantedText:true,  
+						  slantedTextAngle:90
 						},
 						vAxis: {
 						  title: 'Amount in (USD)',
@@ -152,9 +155,9 @@
 					 
 					  colors: ['#1F9FA6'], 
 					hAxis: {
-						  title: 'PSP Name',
-						//  slantedText:true,  
-						//  slantedTextAngle:90
+						  title: 'Vendor Name',
+						  /*slantedText:true,  
+						  slantedTextAngle:90
 						},
 						vAxis: {
 						  title: 'Amount in (EUR)',
@@ -170,9 +173,9 @@
 				 legend: { position: 'none' },
 				  colors: ['#1F9FA6'], 
 				hAxis: {
-					  title: 'PSP Name',
-					 // slantedText:true,  
-					//  slantedTextAngle:90
+					  title: 'Vendor Name',
+					  /*slantedText:true,  
+					  slantedTextAngle:90*/
 					},
 					vAxis: {
 					  title: 'Amount',
@@ -182,21 +185,105 @@
 				 
 			  };
 			//}
-	 
-	  
-	  
       var chart = new google.visualization.ColumnChart(document.getElementById('bar_chart'));
       chart.draw(data, options);
-	  var options = {
-        height: 500,
-		 colors: ['#1F9FA6', '#1E7FC9', '#2A3241','#C1CA23','#A692BC','#F8B756'],
+	  
+      }
+     });
+    }
+
+
+    //
+    //function drawChart1(m1,m2,y,c) {
+      function drawChart1(m1,m2,y) {
+      //var currency =c;
+
+        $.ajax({
+        type: 'POST',
+        data: {
+            'month1': m1,
+            'month2': m2,
+            'year': y
+            //'currency':c
+        },
+        url: "http://cashflow:8080/Ajax_Reports/vendor_pspIncome_outcome" ,
+        success: function (data1) {
+      //alert(data1);
+    // Create our data table out of JSON data loaded from server.
+        var data = new google.visualization.DataTable();
+  
+      data.addColumn('string', 'PspName');
+      data.addColumn('number', 'amount');
+      var jsonData = $.parseJSON(data1);
+      for (var i = 0; i < jsonData.length; i++) {
+            data.addRow([jsonData[i].PspName, parseInt(jsonData[i].amount)]);
+      }
+      
+    
+   /*if(currency =='USD'){
+        var options = {
+           height: 500,
+           bar: {groupWidth: "60%"},
+           legend: { position: 'none' },
+            colors: ['#1F9FA6'], 
+          hAxis: {
+              title: 'PSP Name',
+              /*slantedText:true,  
+              slantedTextAngle:90
+            },
+            vAxis: {
+              title: 'Amount in (USD)',
+              format: 'short'
+
+            }
+           
+          };
+      }else if(currency =='EUR'){
+        var options = {
+           height: 500,
+           bar: {groupWidth: "60%"},
+           legend: { position: 'none' },
+           
+            colors: ['#1F9FA6'], 
+          hAxis: {
+              title: 'PSP Name',
+              /*slantedText:true,  
+              slantedTextAngle:90
+            },
+            vAxis: {
+              title: 'Amount in (EUR)',
+              format: 'short'
+
+            }
+           
+          };
+      }else{*/
+        var options = {
+         height: 500,
+         bar: {groupWidth: "60%"},
+         legend: { position: 'none' },
+          colors: ['#1F9FA6'], 
+        hAxis: {
+            title: 'PSP Name',
+            /*slantedText:true,  
+            slantedTextAngle:90*/
+          },
+          vAxis: {
+            title: 'Amount',
+            format: 'short'
+
+          }
+         
         };
-	  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      //}
+      var chart = new google.visualization.ColumnChart(document.getElementById('bar_chart1'));
       chart.draw(data, options);
-       }
+    
+      }
      });
     }
   </script>
+  
 <script>
 function myFunction_month() {
 	
@@ -204,7 +291,7 @@ function myFunction_month() {
   var x2 = document.getElementById("mySelect_month_to").value;
   var y = document.getElementById("mySelect_year").value;
   //var c1 = document.getElementById("mySelect_currency").value;
-  //drawChart(x1,x2,y,c1) ;
   drawChart(x1,x2,y) ;
+  drawChart1(x1,x2,y) ;
 }
 </script>

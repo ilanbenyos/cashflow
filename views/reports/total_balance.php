@@ -3,7 +3,7 @@
     <h1>Total Balance Report</h1>
     <div class="white-bg">
       <div class="row">
-	   <div class="col-md-4 inline-divs text-left">
+	   <!-- <div class="col-md-4 inline-divs text-left">
 	      <div class="month-expense-box">
             <div class="form-inline">
               <label>Select a Currency :</label>
@@ -15,7 +15,7 @@
               </div>
             </div>
           </div>
-	   </div>
+	   </div> -->
         <div class="col-md-8 inline-divs text-right">
         <div class="month-expense-box">
             <div class="form-inline">
@@ -48,10 +48,11 @@
 		var d = new Date();
 		
 		var year = d.getFullYear();
-		var currency='USD';
+		//var currency='USD';
       google.charts.load('current', {'packages':['bar','corechart']});
 	  
-      google.charts.setOnLoadCallback(function(){drawChart(year,currency)});
+      //google.charts.setOnLoadCallback(function(){drawChart(year,currency)});
+      google.charts.setOnLoadCallback(function(){drawChart(year)});
 
 
     function drawChart(y,c) {
@@ -61,10 +62,10 @@
 		 logScale:true,
 		
 		data: {
-            'year': y,
-			'currency':c
+            'year': y
+			//'currency':c
         },
-        url: "http://cashflow.forexwebsolutions.com/Ajax_Reports/get_balance" ,
+        url: "http://cashflow:8080/Ajax_Reports/get_balance" ,
         success: function (data1) {
 			//alert(data1);
         // Create our data table out of JSON data loaded from server.
@@ -74,6 +75,7 @@
       data.addColumn('number', 'income');
 	  data.addColumn('number', 'outcome');
       var jsonData = $.parseJSON(data1);
+      console.log(jsonData);
       for (var i = 0; i < jsonData.length; i++) {
             data.addRow([jsonData[i].month, parseInt(jsonData[i].income),parseInt(jsonData[i].outcome)]);
       }
@@ -85,12 +87,12 @@
 
 		 legend: { position: 'top' },
 		 colors: ['#1F9FA6','#1E7FC9'], 
-		hAxis: {
+		  hAxis: {
 			  title: 'months',
 			  //slantedText:true,  
 			 // slantedTextAngle:90
 			},
-			vAxis: {
+			 vAxis: {
 			  title: 'Amount',
 			  format: 'short'
 
@@ -129,8 +131,9 @@
   </script>
 <script>
 function myFunction_month() {
-  var c = document.getElementById("mySelect_currency").value;
+  //var c = document.getElementById("mySelect_currency").value;
   var y = document.getElementById("mySelect_year").value;
-  drawChart(y,c) ;
+  //drawChart(y,c) ;
+  drawChart(y) ;
 }
 </script>

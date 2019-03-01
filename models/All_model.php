@@ -226,6 +226,14 @@ class All_model extends CI_Model {
 		$this->db->where('bc.BankId',$id);
 		return $this->db->get()->row();
 	}
+	public function getTransferTypeAmount1($id){
+		$this->db->select('bt.BankTransferId,bt.BanktransferName,bt.Active,bc.BankTransferId,bc.BankId,bc.Amount');
+		$this->db->from('banktransfertype bt');
+		$this->db->join('banktransfercharges bc','bc.BankTransferId = bt.BankTransferId');
+		$this->db->where('bc.BankTransferId',$id);
+		return $this->db->get()->row();
+	}
+
 	public function getallExpenses(){
 		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Share,e.FinalBankComm,e.NetFromBank,e.Active,v.VendorId,v.VendorName,b.BankId,b.BankName,bc.BankTransferId,bc.Amount,bt.BanktransferName,bt.BankTransferId');
 		$this->db->from('expenses e');
@@ -251,8 +259,13 @@ class All_model extends CI_Model {
 		return $this->db->get()->row();
 	}
 	public function getAllBankTransaction(){
-		$this->db->select('TransId,FromBank,Amount,BankTransferId,MoneyOutFees,ToBank,MoneyInFees,CreatedOn');
-		$this->db->from('banktransaction');
+		$this->db->select('B.TransId,B.FromBank,B.Amount,B.BankTransferId,B.MoneyOutFees,B.ToBank,B.MoneyInFees,B.CreatedOn,bt.BanktransferName,bt.BankTransferId,bm.BankId,bm.BankName as fromBank,bmt.BankId,bmt.BankName as toBank');
+		$this->db->from('banktransaction B');
+		$this->db->join('banktransfertype bt','bt.BankTransferId = B.BankTransferId','left');
+		//$this->db->join('banktransfercharges bc','bc.BankTransferId = bt.BankTransferId','left');
+		$this->db->join('bankmaster bm','bm.BankId = B.FromBank','left');
+		$this->db->join('bankmaster bmt','bmt.BankId = B.ToBank','left');
+		$this->db->order_by('B.CreatedOn','DESC');
 		return $this->db->get()->result();
 	}
 	public function getBankTransaction($id){

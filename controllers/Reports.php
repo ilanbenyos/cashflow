@@ -17,13 +17,13 @@ class Reports extends CI_Controller {
 		$this->load->view('reports/total_deposit');
 		$this->load->view('templates/footer');
 	}
-	public function bank_income(){
+	public function bank_balance(){
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar');
-		$this->load->view('reports/bank_deposit');
+		$this->load->view('reports/bank_balance');
 		$this->load->view('templates/footer');
 	}
-	public function total_balance(){
+		public function total_balance(){
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar');
 		$this->load->view('reports/total_balance');
@@ -33,6 +33,18 @@ class Reports extends CI_Controller {
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar');
 		$this->load->view('reports/expense_category');
+		$this->load->view('templates/footer');
+	}
+	public function psp_commision(){
+		$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');
+		$this->load->view('reports/psp_income_commision');
+		$this->load->view('templates/footer');
+	}
+	public function vendor_outcome(){
+		$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');
+		$this->load->view('reports/vendor_outcome');
 		$this->load->view('templates/footer');
 	}
 }
