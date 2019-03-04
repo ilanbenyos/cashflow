@@ -206,7 +206,7 @@
             'year': y
             //'currency':c
         },
-        url: "http://cashflow:8080/Ajax_Reports/vendor_pspIncome_outcome" ,
+        url: "<?php echo base_url('Ajax_Reports/vendor_pspIncome_outcome'); ?>" ,
         success: function (data1) {
       //alert(data1);
     // Create our data table out of JSON data loaded from server.
