@@ -152,7 +152,7 @@ class Data_model extends CI_Model {
 	
 	public function psp_income_vs_commision($year,$month1,$month2){
 		//$this->db->select('p.PspId as ID,pm.PspName as psp, (sum(p.ActualCom) /sum(p.ActualAmt))*100 as per ,p.Currency');
-		$this->db->select('p.PspId as ID,pm.PspName as psp, (sum(p.ActualCom) /sum(p.ActualAmt))*100 as per ,p.Currency');
+		$this->db->select('p.PspId as ID,pm.PspName as psp, ifNull((sum(p.ActualCom) /sum(p.ActualAmt))*100,0) as per ,p.Currency');
 		$this->db->from('pspincome p');
 		$this->db->join('pspmaster pm','pm.PspId = p.PspId','left');
 		$this->db->where('p.ActualAmt !=','0'); 
