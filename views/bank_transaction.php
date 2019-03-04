@@ -119,7 +119,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Transfer Type</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="hidden" class="form-control xyz" name="transferAmt" id="transferAmt">
+                          <!-- <input type="hidden" class="form-control xyz" name="transferAmt" id="transferAmt"> -->
                           <select class="form-control" name="transType" id="transType" onchange="">
                             <option selected="" value="">Select Transfer Type</option>
                             <?php foreach ($transType as $type) { ?>
@@ -129,7 +129,16 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                           </select>
                         </div>
                       </div>
-                    </div> 
+                    </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12" id="charges" style="display: none">
+                     <div class="form-group">
+                      <label class="col-md-4 col-sm-4 col-xs-12">Transfer Charges</label>
+                      <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control xyz" name="transferCharges" id="transferCharges" placeholder="Transfer Charges" />
+                      </div>
+                    </div>
+                  </div>
+
             </div>
           </div>
           <div class="col-xs-12 text-center spacetop4x">
@@ -264,29 +273,74 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                });
 
     });*/
-    /*$('#transType').on('change',function() {
-        var transType = document.getElementById("transType").value;  
-        var fromBankId = fromBankId
+    /*var fromBankId = $("#fromBank").val();
+    alert(fromBankId);*/
+    var transType = document.getElementById("transType").value;  
+        var fromBankId = document.getElementById("fromBank").value;  
          $.ajax({
-                url:"<?php echo base_url ('bank_transaction/getTransactionCharges1/')?>"+ transType ,
+                url:"<?php echo base_url ('bank_transaction/getTransactionCharges/')?>" ,
                     type: "POST",
                     data : {fromBankId:fromBankId,transType:transType},
                     dataType: "html",
                     success: function(data) {
+                      $("#charges").show();
                     var obj = JSON.parse(data);
+                    console.log(obj);
                     if(obj.charges != null){
-                      console.log(obj.charges);
                       var charges = obj.charges.Amount
-                      $("#transferAmt").val(charges);
+                      $("#transferCharges").val(charges);
                     }else{
-                      console.log('obj' + obj.charges);
                       var charges = 0;
-                      $("#transferAmt").val(charges);
+                      $("#transferCharges").val(charges);
+                    }
+                   }
+               });
+    $('#transType').on('change',function() {
+        var transType = document.getElementById("transType").value;  
+        var fromBankId = document.getElementById("fromBank").value;  
+         $.ajax({
+                url:"<?php echo base_url ('bank_transaction/getTransactionCharges/')?>" ,
+                    type: "POST",
+                    data : {fromBankId:fromBankId,transType:transType},
+                    dataType: "html",
+                    success: function(data) {
+                      $("#charges").show();
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    if(obj.charges != null){
+                      var charges = obj.charges.Amount
+                      $("#transferCharges").val(charges);
+                    }else{
+                      var charges = 0;
+                      $("#transferCharges").val(charges);
                     }
                    }
                });
 
-    });*/
+    });
+    $('#fromBank').on('change',function() {
+        var transType = document.getElementById("transType").value;  
+        var fromBankId = document.getElementById("fromBank").value;  
+         $.ajax({
+                url:"<?php echo base_url ('bank_transaction/getTransactionCharges/')?>" ,
+                    type: "POST",
+                    data : {fromBankId:fromBankId,transType:transType},
+                    dataType: "html",
+                    success: function(data) {
+                      $("#charges").show();
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    if(obj.charges != null){
+                      var charges = obj.charges.Amount
+                      $("#transferCharges").val(charges);
+                    }else{
+                      var charges = 0;
+                      $("#transferCharges").val(charges);
+                    }
+                   }
+               });
+
+    });
   });
 </script>
 <script type="text/javascript">
@@ -311,7 +365,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
           $(this).css("border", "1px solid #CCCCCC");                         
         }
         else if(fromBank === toBank){
-          
+          $("#errmsg").text('Both banks can not be same.');
         }
         else ($(this).val()=="") 
         {

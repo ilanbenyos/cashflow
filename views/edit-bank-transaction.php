@@ -75,7 +75,15 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                           </select>
                         </div>
                       </div>
-                    </div> 
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" id="charges1" style="display: none">
+                     <div class="form-group">
+                      <label class="col-md-4 col-sm-4 col-xs-12">Transfer Charges</label>
+                      <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control xyz" name="transferCharges1" id="transferCharges1" placeholder="Transfer Charges" />
+                      </div>
+                    </div>
+                  </div>
             </div>
           </div>
           <div class="col-xs-12 text-center spacetop4x">
@@ -136,6 +144,73 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                });
 
     });*/
+        var transType = document.getElementById("transType1").value;  
+        var fromBankId = document.getElementById("fromBank1").value;  
+         $.ajax({
+                url:"<?php echo base_url ('bank_transaction/getTransactionCharges/')?>" ,
+                    type: "POST",
+                    data : {fromBankId:fromBankId,transType:transType},
+                    dataType: "html",
+                    success: function(data) {
+                      $("#charges1").show();
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    if(obj.charges != null){
+                      var charges = obj.charges.Amount
+                      $("#transferCharges1").val(charges);
+                    }else{
+                      var charges = 0;
+                      $("#transferCharges1").val(charges);
+                    }
+                   }
+               });
+
+    $('#transType1').on('change',function() {
+        var transType = document.getElementById("transType1").value;  
+        var fromBankId = document.getElementById("fromBank1").value;  
+         $.ajax({
+                url:"<?php echo base_url ('bank_transaction/getTransactionCharges/')?>" ,
+                    type: "POST",
+                    data : {fromBankId:fromBankId,transType:transType},
+                    dataType: "html",
+                    success: function(data) {
+                      $("#charges1").show();
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    if(obj.charges != null){
+                      var charges = obj.charges.Amount
+                      $("#transferCharges1").val(charges);
+                    }else{
+                      var charges = 0;
+                      $("#transferCharges1").val(charges);
+                    }
+                   }
+               });
+
+    });
+    $('#fromBank1').on('change',function() {
+        var transType = document.getElementById("transType1").value;  
+        var fromBankId = document.getElementById("fromBank1").value;  
+         $.ajax({
+                url:"<?php echo base_url ('bank_transaction/getTransactionCharges/')?>" ,
+                    type: "POST",
+                    data : {fromBankId:fromBankId,transType:transType},
+                    dataType: "html",
+                    success: function(data) {
+                      $("#charges1").show();
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    if(obj.charges != null){
+                      var charges = obj.charges.Amount
+                      $("#transferCharges1").val(charges);
+                    }else{
+                      var charges = 0;
+                      $("#transferCharges1").val(charges);
+                    }
+                   }
+               });
+
+    });
   
 </script>
 <script type="text/javascript">

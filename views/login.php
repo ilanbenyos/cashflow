@@ -1,8 +1,6 @@
 <?php 
 defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
-if (isset ( $_SESSION ['pop_mes'] )) {
-    popup2 ();
-}
+
 ?>
 
 <!-- Page Content  -->
@@ -41,6 +39,17 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   </div>
                 </div> -->
                 <!-- <div class="col-md-6 col-sm-6 col-xs-12 forgot-pass-text"><a href="">Forgot Password</a></div> -->
+                <div class="col-xs-12">
+                  <div class="form-group">
+                    <div class="col-xs-12">
+                      <span class="help-block form-error">
+                        <?php 
+                        echo $this->session->flashdata('error_view');
+                        ?>
+                      </span>
+                    </div>
+                  </div>
+                </div>
                 <div class="col-xs-12 text-center spacetop1x">
                   <button type="submit" class="btn-login transitions">LOGIN</button>
                 </div>

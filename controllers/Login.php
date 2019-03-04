@@ -14,7 +14,6 @@ class Login extends CI_Controller {
 
 	public function index()
 	{	
-	   
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 	
@@ -61,19 +60,23 @@ class Login extends CI_Controller {
 						redirect('configuration');
 					}elseif ($_SESSION['user_role'] == "CEO" ) {
 						redirect('configuration');
+					}elseif ($_SESSION['user_role'] == "Book Keeper"){
+						redirect('configuration');
 					}
 			}
 			else
 			{
-				$_SESSION['pop_mes'] = "Invalid Username & Password";
-    	        $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
+				//$_SESSION['pop_mes'] = "Invalid Username & Password";
+    	        /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
 		        . "Error: " . "Transaction ID:" . $transactionId  . json_encode($_SESSION).PHP_EOL . "-------------------------" . PHP_EOL;
-		        file_put_contents ( logger_url, $log . "\n", FILE_APPEND );
+		        file_put_contents ( logger_url, $log . "\n", FILE_APPEND );*/
 				/*popup2();
 				$data['title'] = "Login";
 				$this->load->view('templates/before-login-header.php',$data);
 				$this->load->view('login');
 				$this->load->view('templates/footer');*/
+				$ret = "Invalid Username & Password";
+				$this->session->set_flashdata('error_view',$ret);
 				redirect('login');
 			}
 		}
