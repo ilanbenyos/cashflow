@@ -40,12 +40,12 @@ class Data_model extends CI_Model {
 	
 	public function total_balance($year){
 		$month_all= array("0","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec");
-		$this->db->select('PspId,MONTH(ActualDate) as month,MONTHNAME(ActualDate) as m,sum(EuroValue) as  Income');
+		$this->db->select('PspId,MONTH(ActualDate) as month,MONTHNAME(ActualDate) as m,sum(EuroValue) as Income');
 		$this->db->from('pspincome');
         $this->db->where('YEAR(CreatedOn)', $year);
 		$this->db->where('MONTH(ActualDate)!=',"");
 		//$this->db->where('Currency', $currency);
-		$this->db->group_by('month,PspId'); 
+		$this->db->group_by('month,PspId,EuroValue'); 
 		$this->db->order_by('month');
 		$array1 =$this->db->get()->result_array();
 		if(!empty($array1)){
@@ -56,12 +56,12 @@ class Data_model extends CI_Model {
 		}else{
 			$array_new_1 =$array1;
 		}
-		$this->db->select('TransId,MONTH(ActualDate) as month ,MONTHNAME(ActualDate) as m,sum(EuroValue) as  outcome');
+		$this->db->select('TransId,MONTH(ActualDate) as month ,MONTHNAME(ActualDate) as m,sum(EuroValue) as outcome');
 		$this->db->from('expenses');
         $this->db->where('YEAR(ActualDate)', $year);
 		$this->db->where('MONTH(ActualDate)!=',"");
 		//$this->db->where('Currency', $currency);
-		$this->db->group_by('month,TransId'); 
+		$this->db->group_by('month,TransId,EuroValue'); 
 		$this->db->order_by('month');
 		$array2=$this->db->get()->result_array();
 		if(!empty($array2)){
