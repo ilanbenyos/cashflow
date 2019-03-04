@@ -26,7 +26,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
               <div class="form-group" id="fromBankgroup1">
               <label class="col-md-4 col-sm-4 col-xs-12">From Bank</label>
               <div class="col-md-8 col-sm-8 col-xs-12">
-                <select class="form-control" name="fromBank1" id="fromBank1" onchange="">
+                <select class="form-control" name="fromBank1" id="fromBank1" onchange="" readonly>
                 <option selected="" value="">Select From Bank</option>
                             <?php foreach ($banks as $bank1) { ?>
 
@@ -41,7 +41,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
               <div class="form-group" id="toBankgroup1">
               <label class="col-md-4 col-sm-4 col-xs-12">To Bank</label>
               <div class="col-md-8 col-sm-8 col-xs-12">
-                <select class="form-control" name="toBank1" id="toBank1" onchange="">
+                <select class="form-control" name="toBank1" id="toBank1" onchange="" readonly>
                 <option selected="" value="">Select To Bank</option>
                             <?php foreach ($banks as $bank2) { ?>
 
