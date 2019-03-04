@@ -27,8 +27,8 @@ class Data_model extends CI_Model {
 		$this->db->select('bm.BankName,sum(bm.EuroValue) as amount,c.CurName');
 		$this->db->from('bankmaster bm');
 	   	$this->db->join('currencymaster c','c.CurId = bm.CurId','left');
-		//$this->db->where('bm.Balance !=','0'); 
-		$this->db->where('bm.EuroValue !=','0');
+		$this->db->where('bm.Balance !=','0'); 
+		//$this->db->where('bm.EuroValue !=','0');
 		$this->db->where('MONTH(bm.CreatedOn)>=', $month1);
 		$this->db->where('MONTH(bm.CreatedOn)<=', $month2);
         $this->db->where('YEAR(bm.CreatedOn)', $year);
