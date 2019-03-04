@@ -132,7 +132,7 @@ class Data_model extends CI_Model {
 		$this->db->select('distinct(Currency)');
 		$this->db->from('expenses');
 		$currency_array= $this->db->get()->result_array();
-
+		print_r($currency_array);exit();
 		 $this->db->select('ex.CatId,c.Category');
 		 foreach($currency_array as $currency){
 			$this->db->select('sum(if(ex.Currency ="'.$currency['Currency'].'",ex.ActualAmt,0))as '.$currency['Currency']);
