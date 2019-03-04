@@ -15,14 +15,14 @@ if (isset ( $_SESSION ['pop_mes'] )) {
           </div>
         <div class="col-md-12">
           <div class="table-responsive common-table">
-            <table id="psptabledata" class="table table-hover" cellpadding="0" cellspacing="0">
+            <table id="tablebank" class="table table-hover" cellpadding="0" cellspacing="0">
               <thead>
                 <tr>
                   <th>From Bank </th>
                   <th>To Bank</th>
                   <th>Amount</th>
-                  <th>Transfer Type </th>
-                  <!-- <th>Date Received</th> -->
+                  <th>Date Received</th> 
+                  <th>Transfer Type</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -34,8 +34,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   <td><?php echo $trans->fromBank; ?></td>
                   <td><?php echo $trans->toBank; ?></td> 
                   <td><?php echo number_format($trans->Amount, 2, '.', ','); ?></td>
+                  <td><?php echo date('d/m/Y', strtotime(str_replace('-','/', $trans->CreatedOn))); ?></td> 
                   <td><?php echo $trans->BanktransferName; ?></td>
-                  <!-- <td><?php echo $trans->CreatedOn; ?></td> -->
+                   
                   
                   <td><a class="grey-icon edit_banktrans" id="trans<?php echo $trans->TransId?>" data-toggle="modal" data-target="#myModal1" data-action="<?= base_url('bank_transaction/update/'.$trans->TransId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                  </tr>
@@ -76,7 +77,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
             
             
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="form-group">
+              <div class="form-group" id="fromBankgroup">
               <label class="col-md-4 col-sm-4 col-xs-12">From Bank</label>
               <div class="col-md-8 col-sm-8 col-xs-12">
                 <select class="form-control" name="fromBank" id="fromBank" onchange="">
@@ -86,13 +87,14 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                             <option value="<?php echo $bank1->BankId; ?>"><?php echo $bank1->BankName; ?></option>      
                                   <?php   } ?>
                 </select>
+                <span id="errmsg1" class="help-block form-error msg"></span>
               </div>
               </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="form-group">
+              <div class="form-group" id="toBankgroup">
               <label class="col-md-4 col-sm-4 col-xs-12">To Bank</label>
-              <div class="col-md-8 col-sm-8 col-xs-12">
+              <div class="col-md-8 col-sm-8 col-xs-12" id='msg'>
                 <select class="form-control" name="toBank" id="toBank" onchange="">
                 <!-- <option selected="" value="">Select To Bank</option> -->
                     <?php foreach ($banks as $bank2) { ?>
@@ -100,7 +102,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     <option value="<?php echo $bank2->BankId; ?>"><?php echo $bank2->BankName; ?></option>      
                           <?php   } ?>
                 </select>
-                <span id="errmsg" class="help-block form-error"></span>
+               <!--  <span id="errmsg1" class="help-block form-error msg"></span> -->
+                <span id="errmsg" class="help-block form-error"></span> 
               </div>
               </div>
             </div>
@@ -188,7 +191,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
         return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
     });
     options.each(function(i, o) {
-        console.log(i);
+        //console.log(i);
         o.value = arr[i].v;
         $(o).text(arr[i].t);
     });
@@ -204,7 +207,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
         return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
     });
     options.each(function(i, o) {
-        console.log(i);
+        //console.log(i);
         o.value = arr[i].v;
         $(o).text(arr[i].t);
     });
@@ -426,30 +429,54 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 <script type="text/javascript">
   (function($){
     $('#fromBank').on('blur', function() {
-        $(this).css("border", "1px solid #CCCCCC");
+        var fromBank = $("#fromBank").val();
+        var toBank = $("#toBank").val();
             if($(this).val()!="")
         { 
-          $(this).css("border", "1px solid #CCCCCC");                         
+          if(fromBank == toBank)
+            {
+              $('#fromBankgroup').addClass('has-error');
+               $('#toBankgroup').addClass('has-error');
+               $("#errmsg").html('Both banks can not be same.');
+             
+            }else{
+              $("#errmsg").html('');
+               $('#toBankgroup').removeClass('has-error');
+              $('#fromBankgroup').removeClass('has-error');
+            }                         
         }
         else if($(this).val()=="") 
         {
-          $(this).css("border", "1px solid #be1622");
+           $("#errmsg1").html('From Bank is required');
+          $('#fromBankgroup').addClass('has-error');
         }
       })
-      var fromBank = $("#fromBank").val();
-      var toBank = $("#toBank").val();
+      
       $('#toBank').on('blur', function() {
-        $(this).css("border", "1px solid #CCCCCC");
+        var fromBank = $("#fromBank").val();
+        var toBank = $("#toBank").val();
+       
             if($(this).val()!="")
         { 
-          $(this).css("border", "1px solid #CCCCCC");                         
+           if(fromBank == toBank)
+            {
+             $('#toBankgroup').addClass('has-error');
+             $('#fromBankgroup').addClass('has-error');
+               $("#errmsg").html('Both banks can not be same.');
+              
+            }else{
+             $("#errmsg").html('');
+              $('#toBankgroup').removeClass('has-error');
+              $('#fromBankgroup').removeClass('has-error');
+            }
+          /*console.log(3344444444);
+          $(this).css("border", "1px solid #CCCCCC");   */                      
         }
-        else if(fromBank === toBank){
-          
-        }
-        else ($(this).val()=="") 
+        
+        else if($(this).val()=="") 
         {
-          $(this).css("border", "1px solid #be1622");
+           $("#errmsg").html('To Bank is required');
+          $('#fromBankgroup').addClass('has-error');
         }
       })
       $('#amount').on('blur', function() {

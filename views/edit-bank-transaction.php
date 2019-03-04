@@ -23,7 +23,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
             
             
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="form-group">
+              <div class="form-group" id="fromBankgroup1">
               <label class="col-md-4 col-sm-4 col-xs-12">From Bank</label>
               <div class="col-md-8 col-sm-8 col-xs-12">
                 <select class="form-control" name="fromBank1" id="fromBank1" onchange="">
@@ -33,11 +33,12 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                             <option <?php if ($bank1->BankId == $getTransaction->FromBank) { echo 'selected="selected"'; }  ?> value="<?php echo $bank1->BankId; ?>"><?php echo $bank1->BankName; ?></option>      
                                   <?php   } ?>
                 </select>
+                <span id="errmsg3" class="help-block form-error msg"></span>
               </div>
               </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="form-group">
+              <div class="form-group" id="toBankgroup1">
               <label class="col-md-4 col-sm-4 col-xs-12">To Bank</label>
               <div class="col-md-8 col-sm-8 col-xs-12">
                 <select class="form-control" name="toBank1" id="toBank1" onchange="">
@@ -47,6 +48,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                             <option <?php if ($bank2->BankId == $getTransaction->ToBank) { echo 'selected="selected"'; }  ?> value="<?php echo $bank2->BankId; ?>"><?php echo $bank2->BankName; ?></option>      
                                   <?php   } ?>
                 </select>
+                <span id="errmsg4" class="help-block form-error"></span>
               </div>
               </div>
             </div>
@@ -91,7 +93,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
                       </div>
             <button type="button" id="bankTransaction-edit" class="btn-submit transitions">Submit</button>
-            <button type="reset" class="btn-reset transitions">Reset</button>
+            <!-- <button type="reset" class="btn-reset transitions">Reset</button> -->
+            <a href="<?= base_url('bank-transaction');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a>
           </div>
           </div>
             </form>
@@ -319,25 +322,52 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 <script type="text/javascript">
   (function($){
      $('#fromBank1').on('blur', function() {
-        $(this).css("border", "1px solid #CCCCCC");
-            if($(this).val()!="")
+      var fromBank = $("#fromBank1").val();
+        var toBank = $("#toBank1").val();
+        if($(this).val()!="")
         { 
-          $(this).css("border", "1px solid #CCCCCC");                         
+          if(fromBank == toBank)
+            {
+              $('#fromBankgroup1').addClass('has-error');
+               $('#toBankgroup1').addClass('has-error');
+               $("#errmsg4").html('Both banks can not be same.');
+             
+            }else{
+              $("#errmsg4").html('');
+               $('#toBankgroup1').removeClass('has-error');
+              $('#fromBankgroup1').removeClass('has-error');
+            }                         
         }
         else if($(this).val()=="") 
         {
-          $(this).css("border", "1px solid #be1622");
+           $("#errmsg3").html('From Bank is required');
+          $('#fromBankgroup1').addClass('has-error');
         }
       })
       $('#toBank1').on('blur', function() {
-        $(this).css("border", "1px solid #CCCCCC");
-            if($(this).val()!="")
+        var fromBank = $("#fromBank1").val();
+        var toBank = $("#toBank1").val();
+        if($(this).val()!="")
         { 
-          $(this).css("border", "1px solid #CCCCCC");                         
+           if(fromBank == toBank)
+            {
+             $('#toBankgroup1').addClass('has-error');
+             $('#fromBankgroup1').addClass('has-error');
+               $("#errmsg4").html('Both banks can not be same.');
+              
+            }else{
+             $("#errmsg4").html('');
+              $('#toBankgroup1').removeClass('has-error');
+              $('#fromBankgroup1').removeClass('has-error');
+            }
+          /*console.log(3344444444);
+          $(this).css("border", "1px solid #CCCCCC");   */                      
         }
+        
         else if($(this).val()=="") 
         {
-          $(this).css("border", "1px solid #be1622");
+           $("#errmsg4").html('To Bank is required');
+          $('#fromBankgroup').addClass('has-error');
         }
       })
       $('#amount1').on('blur', function() {
@@ -385,6 +415,15 @@ if (isset ( $_SESSION ['pop_mes'] )) {
            $("#transType1").css("border", "1px solid #be1622");
            returnvar = false;
           }
+          var fromBank = $("#fromBank1").val();
+            var toBank = $("#toBank1").val();
+            if (fromBank === toBank) {
+                $("#fromBank1").css("border", "1px solid #be1622");
+                $("#toBank1").css("border", "1px solid #be1622");
+                  returnvar = false;
+
+                $("#errmsg1").text('Both banks can not be same.');
+            }
           if(returnvar == true){ 
               //alert(returnvar);
              $("#bankTransaction-edit").hide();

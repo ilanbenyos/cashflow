@@ -159,7 +159,7 @@ $(document).ready(function(){
       .replace(/([0-9])([0-9]{2})$/, '$1.$2')  
       .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
     ;
-    console.log(value);
+    //console.log(value);
   });
 });
 });
