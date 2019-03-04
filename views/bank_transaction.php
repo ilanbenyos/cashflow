@@ -134,7 +134,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                      <div class="form-group">
                       <label class="col-md-4 col-sm-4 col-xs-12">Transfer Charges</label>
                       <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control xyz" name="transferCharges" id="transferCharges" placeholder="Transfer Charges" />
+                          <input type="text" class="form-control xyz" name="transferCharges" id="transferCharges" placeholder="Transfer Charges" readonly />
                       </div>
                     </div>
                   </div>
@@ -285,12 +285,25 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     success: function(data) {
                       $("#charges").show();
                     var obj = JSON.parse(data);
-                    console.log(obj);
                     if(obj.charges != null){
-                      var charges = obj.charges.Amount
+                      var amount = $("#amount").val();
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP = obj.charges.Amount
+                      var charges = (amt*(chargesP/100));
                       $("#transferCharges").val(charges);
                     }else{
-                      var charges = 0;
+                      var amount = $("#amount").val();
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP = 0;
+                      var charges = (amt*(chargesP/100));
                       $("#transferCharges").val(charges);
                     }
                    }
@@ -306,12 +319,26 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     success: function(data) {
                       $("#charges").show();
                     var obj = JSON.parse(data);
-                    console.log(obj);
                     if(obj.charges != null){
-                      var charges = obj.charges.Amount
+                      //var charges = obj.charges.Amount
+                      var amount = $("#amount").val();
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP =  obj.charges.Amount
+                      var charges = (amt*(chargesP/100));
                       $("#transferCharges").val(charges);
                     }else{
-                      var charges = 0;
+                      var amount = $("#amount").val();
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP = 0;
+                      var charges = (amt*(chargesP/100));
                       $("#transferCharges").val(charges);
                     }
                    }
@@ -329,12 +356,65 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     success: function(data) {
                       $("#charges").show();
                     var obj = JSON.parse(data);
-                    console.log(obj);
                     if(obj.charges != null){
-                      var charges = obj.charges.Amount
+                      var amount = $("#amount").val();
+                      if (amount == "" && amount == null) {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP = obj.charges.Amount;
+                      if (chargesP == "") {
+                        chargesP = 0;
+                      }
+                      var charges = (amt*(chargesP/100));
                       $("#transferCharges").val(charges);
                     }else{
-                      var charges = 0;
+                      var amount = $("#amount").val();
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP = 0;
+                      var charges = (amt*(chargesP/100));
+                      $("#transferCharges").val(charges);
+                    }
+                   }
+               });
+
+    });
+    $('#amount').on('keyup',function() {
+        var transType = document.getElementById("transType").value;  
+        var fromBankId = document.getElementById("fromBank").value;  
+         $.ajax({
+                url:"<?php echo base_url ('bank_transaction/getTransactionCharges/')?>" ,
+                    type: "POST",
+                    data : {fromBankId:fromBankId,transType:transType},
+                    dataType: "html",
+                    success: function(data) {
+                      $("#charges").show();
+                    var obj = JSON.parse(data);
+                    if(obj.charges != null){
+                      //var charges = obj.charges.Amount
+                      var amount = $("#amount").val();
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP =  obj.charges.Amount
+                      var charges = (amt*(chargesP/100));
+                      $("#transferCharges").val(charges);
+                    }else{
+                      var amount = $("#amount").val();
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP = 0;
+                      var charges = (amt*(chargesP/100));
                       $("#transferCharges").val(charges);
                     }
                    }
@@ -365,7 +445,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
           $(this).css("border", "1px solid #CCCCCC");                         
         }
         else if(fromBank === toBank){
-          $("#errmsg").text('Both banks can not be same.');
+          
         }
         else ($(this).val()=="") 
         {

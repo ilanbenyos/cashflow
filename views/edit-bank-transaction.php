@@ -80,7 +80,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                      <div class="form-group">
                       <label class="col-md-4 col-sm-4 col-xs-12">Transfer Charges</label>
                       <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control xyz" name="transferCharges1" id="transferCharges1" placeholder="Transfer Charges" />
+                          <input type="text" class="form-control xyz" name="transferCharges1" id="transferCharges1" placeholder="Transfer Charges" readonly />
                       </div>
                     </div>
                   </div>
@@ -155,17 +155,82 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       $("#charges1").show();
                     var obj = JSON.parse(data);
                     console.log(obj);
-                    if(obj.charges != null){
+                    /*if(obj.charges != null){
                       var charges = obj.charges.Amount
                       $("#transferCharges1").val(charges);
                     }else{
                       var charges = 0;
                       $("#transferCharges1").val(charges);
+                    }*/
+                    if(obj.charges != null){
+                      /*var amount = $("#amount1").val().replace(/,/gi, "");
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }*/
+                      var chargesP = obj.charges.Amount
+                      //var charges = (amt*(chargesP/100));
+                      $("#transferCharges1").val(chargesP);
+                    }else{
+                      /*var amount = $("#amount1").val().replace(/,/gi, "");
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }*/
+                      var chargesP = 0;
+                      //var charges = (amt*(chargesP/100));
+                      $("#transferCharges1").val(chargesP);
                     }
                    }
                });
 
-    $('#transType1').on('change',function() {
+    /*$('#transType1').on('change',function() {
+        var transType = document.getElementById("transType1").value;  
+        var fromBankId = document.getElementById("fromBank1").value;  
+         $.ajax({
+                url:"<?php echo base_url ('bank_transaction/getTransactionCharges/')?>" ,
+                    type: "POST",
+                    data : {fromBankId:fromBankId,transType:transType},
+                    dataType: "html",
+                    success: function(data) {
+                      $("#charges1").show();
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    /*if(obj.charges != null){
+                      var charges = obj.charges.Amount
+                      $("#transferCharges1").val(charges);
+                    }else{
+                      var charges = 0;
+                      $("#transferCharges1").val(charges);
+                    }*/
+                    /*if(obj.charges != null){
+                      var amount = $("#amount1").val().replace(/,/gi, "");
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP = obj.charges.Amount
+                      var charges = (amt*(chargesP/100));
+                      $("#transferCharges1").val(charges);
+                    }else{
+                      var amount = $("#amount1").val().replace(/,/gi, "");
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP = 0;
+                      var charges = (amt*(chargesP/100));
+                      $("#transferCharges1").val(charges);
+                    }
+                   }
+               });
+
+    });*/
+    /*$('#fromBank1').on('change',function() {
         var transType = document.getElementById("transType1").value;  
         var fromBankId = document.getElementById("fromBank1").value;  
          $.ajax({
@@ -184,11 +249,35 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       var charges = 0;
                       $("#transferCharges1").val(charges);
                     }
+                    if(obj.charges != null){
+                      var amount = $("#amount1").val().replace(/,/gi, "");
+                      if (amount == "" && amount == null) {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP = obj.charges.Amount;
+                      if (chargesP == "") {
+                        chargesP = 0;
+                      }
+                      var charges = (amt*(chargesP/100));
+                      $("#transferCharges1").val(charges);
+                    }else{
+                      var amount = $("#amount1").val().replace(/,/gi, "");
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP = 0;
+                      var charges = (amt*(chargesP/100));
+                      $("#transferCharges1").val(charges);
+                    }
                    }
                });
 
-    });
-    $('#fromBank1').on('change',function() {
+    });*/
+    /*$('#amount1').on('keyup',function() {
         var transType = document.getElementById("transType1").value;  
         var fromBankId = document.getElementById("fromBank1").value;  
          $.ajax({
@@ -199,18 +288,32 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     success: function(data) {
                       $("#charges1").show();
                     var obj = JSON.parse(data);
-                    console.log(obj);
                     if(obj.charges != null){
-                      var charges = obj.charges.Amount
+                      //var charges = obj.charges.Amount
+                      var amount = $("#amount1").val().replace(/,/gi, "");
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP =  obj.charges.Amount
+                      var charges = (amt*(chargesP/100));
                       $("#transferCharges1").val(charges);
                     }else{
-                      var charges = 0;
+                      var amount = $("#amount1").val().replace(/,/gi, "");
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP = 0;
+                      var charges = (amt*(chargesP/100));
                       $("#transferCharges1").val(charges);
                     }
                    }
                });
 
-    });
+    });*/
   
 </script>
 <script type="text/javascript">

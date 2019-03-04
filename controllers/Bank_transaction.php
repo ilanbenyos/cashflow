@@ -126,9 +126,9 @@ class Bank_transaction extends CI_Controller {
                     
                     $outgoFees = ($fromBankBal->OctComP*$amount);
                     $outgoFees = ($outgoFees/100);
-                    $moneyOutFees = ($transferAmt*$amount);
-                    $moneyOutFees = ($moneyOutFees/100);
-
+                    /*$moneyOutFees = ($transferAmt*$amount);
+                    $moneyOutFees = ($moneyOutFees/100);*/
+                    $moneyOutFees = $transferAmt;
                     $fromNewBal = ($fromBankBal->Balance-($moneyOutFees+$amount+$outgoFees));
                     /*echo 'outgoFees:'.$outgoFees;
                     echo '<br>';
@@ -239,7 +239,7 @@ class Bank_transaction extends CI_Controller {
                     }else{
                         $transferAmt = 0;
                     }*/
-                    $transferAmt = $fromBankTransferAmt->Amount;
+                    //$transferAmt = $fromBankTransferAmt->Amount;
                     /*echo 'transferAmt:'.$transferAmt;
                     echo '<br>';*/
 
