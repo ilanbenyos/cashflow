@@ -164,7 +164,7 @@ class Data_model extends CI_Model {
 		$this->db->group_by('p.PspId'); 
 		$this->db->order_by('p.PspId');
 		 return $this->db->get()->result_array();
-		  // $this->db->last_query();
+		  print_r( $this->db->last_query());
 	} 
 	public function vendor_expenses($year,$month1,$month2){
 		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Currency,sum(e.ActualAmt) as amount,v.VendorId,v.VendorName');
