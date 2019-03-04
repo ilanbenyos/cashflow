@@ -116,7 +116,7 @@
         },
         url: "<?php echo base_url('Ajax_Reports/get_psp_income_vs_commision'); ?>" ,
         success: function (data1) {
-          alert(data1);
+         //alert(data1);
         // Create our data table out of JSON data loaded from server.
         var data = new google.visualization.DataTable();
   
