@@ -112,7 +112,7 @@
             'year': y
 			//'currency':c
         },
-        url: "http://cashflow:8080/Ajax_Reports/get_psp_income" ,
+        url:  base_url() + "Ajax_Reports/get_psp_income" ,
         success: function (data1) {
 			//alert(data1);
 		// Create our data table out of JSON data loaded from server.
