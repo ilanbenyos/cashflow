@@ -158,6 +158,27 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       $("#charges1").show();
                     var obj = JSON.parse(data);
                     console.log(obj);
+                    if(obj.charges != null){
+                      var amount = $("#amount1").val().replace(/,/gi, "");
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP = obj.charges.Amount
+                      var charges = (amt*(chargesP/100));
+                      $("#transferCharges1").val(charges);
+                    }else{
+                      var amount = $("#amount1").val().replace(/,/gi, "");
+                      if (amount == "") {
+                        amt = 0;
+                      }else{
+                        amt = amount;
+                      }
+                      var chargesP = 0;
+                      var charges = (amt*(chargesP/100));
+                      $("#transferCharges1").val(charges);
+                    }
                     /*if(obj.charges != null){
                       var charges = obj.charges.Amount
                       $("#transferCharges1").val(charges);
@@ -165,27 +186,27 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       var charges = 0;
                       $("#transferCharges1").val(charges);
                     }*/
-                    if(obj.charges != null){
+                    //if(obj.charges != null){
                       /*var amount = $("#amount1").val().replace(/,/gi, "");
                       if (amount == "") {
                         amt = 0;
                       }else{
                         amt = amount;
                       }*/
-                      var chargesP = obj.charges.Amount
+                      //var chargesP = obj.charges.Amount
                       //var charges = (amt*(chargesP/100));
-                      $("#transferCharges1").val(chargesP);
-                    }else{
+                      //$("#transferCharges1").val(chargesP);
+                    //}else{
                       /*var amount = $("#amount1").val().replace(/,/gi, "");
                       if (amount == "") {
                         amt = 0;
                       }else{
                         amt = amount;
                       }*/
-                      var chargesP = 0;
+                      //var chargesP = 0;
                       //var charges = (amt*(chargesP/100));
-                      $("#transferCharges1").val(chargesP);
-                    }
+                      //$("#transferCharges1").val(chargesP);
+                    //}
                    }
                });
 
@@ -422,7 +443,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                 $("#toBank1").css("border", "1px solid #be1622");
                   returnvar = false;
 
-                $("#errmsg1").text('Both banks can not be same.');
+                $("#errmsg4").text('Both banks can not be same.');
+            }else{
+              $("#errmsg4").hide();
             }
           if(returnvar == true){ 
               //alert(returnvar);
