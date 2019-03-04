@@ -48,6 +48,7 @@ class Data_model extends CI_Model {
 		$this->db->group_by('M1'); 
 		$this->db->order_by('M1');
 		$array1 =$this->db->get()->result_array();
+		print_r($this->db->last_query());exit();
 		if(!empty($array1)){
 			foreach($array1 as $array2){
 					$array_new_1[$array2['m']]['M1'] =$array2['M1'];
