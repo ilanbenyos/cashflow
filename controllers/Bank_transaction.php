@@ -179,7 +179,7 @@ class Bank_transaction extends CI_Controller {
                     $_SESSION['pop_mes'] = "Token does not matched.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Bank-Trans". PHP_EOL
                         . "Add-Bank-Trans-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
-                        file_put_contents ( logger_url_banktrans.date("Y-m-d").'.-cl.log', $log . "\n", FILE_APPEND );
+                        file_put_contents ( logger_url_banktrans, $log . "\n", FILE_APPEND );
                     redirect('bank-transaction');
                 }
         }
@@ -318,7 +318,7 @@ class Bank_transaction extends CI_Controller {
                     $_SESSION['pop_mes'] = "Token does not matched.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Bank-Trans". PHP_EOL
                         . "Edit-Bank-Trans-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
-                        file_put_contents ( logger_url_banktrans.date("Y-m-d").'.-cl.log', $log . "\n", FILE_APPEND );
+                        file_put_contents ( 'Logs/banktrans.txt', $log . "\n", FILE_APPEND );
                     return 1;
                 }
         }

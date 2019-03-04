@@ -211,7 +211,7 @@ class Expenses extends CI_Controller {
         			$_SESSION['pop_mes'] = "Token does not matched.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Exp". PHP_EOL
                         . "Add-Exp-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
-                        file_put_contents ( logger_url_exp.date("Y-m-d").'.-cl.log', $log . "\n", FILE_APPEND );
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
 					return 1;
         		}
 		}
