@@ -43,7 +43,7 @@ class Data_model extends CI_Model {
 		$this->db->select('MONTH(ActualDate) as month,MONTHNAME(ActualDate) as m,sum(EuroValue) as  Income');
 		$this->db->from('pspincome');
         $this->db->where('YEAR(CreatedOn)', $year);
-		$this->db->where('MONTH(ActualDate)!=',"");
+		//$this->db->where('MONTH(ActualDate)!=',"");
 		//$this->db->where('Currency', $currency);
 		$this->db->group_by('month'); 
 		$this->db->order_by('month');
