@@ -45,7 +45,7 @@ class Data_model extends CI_Model {
         $this->db->where('YEAR(CreatedOn)', $year);
 		$this->db->where('MONTH(ActualDate)!=',"");
 		//$this->db->where('Currency', $currency);
-		$this->db->group_by('month,PspId,EuroValue'); 
+		$this->db->group_by('MONTH(ActualDate),PspId,EuroValue'); 
 		$this->db->order_by('month');
 		$array1 =$this->db->get()->result_array();
 		if(!empty($array1)){
@@ -61,7 +61,7 @@ class Data_model extends CI_Model {
         $this->db->where('YEAR(ActualDate)', $year);
 		$this->db->where('MONTH(ActualDate)!=',"");
 		//$this->db->where('Currency', $currency);
-		$this->db->group_by('month,TransId,EuroValue'); 
+		$this->db->group_by('MONTH(ActualDate),TransId,EuroValue'); 
 		$this->db->order_by('month');
 		$array2=$this->db->get()->result_array();
 		if(!empty($array2)){
