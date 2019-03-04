@@ -40,34 +40,34 @@ class Data_model extends CI_Model {
 	
 	public function total_balance($year){
 		$month_all= array("0","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec");
-		$this->db->select('MONTH(ActualDate) as M1,MONTHNAME(ActualDate) as m,sum(EuroValue) as  Income');
+		$this->db->select('MONTH(ActualDate) as month,MONTHNAME(ActualDate) as m,sum(EuroValue) as  Income');
 		$this->db->from('pspincome');
         $this->db->where('YEAR(CreatedOn)', $year);
 		$this->db->where('MONTH(ActualDate)!=',"");
 		//$this->db->where('Currency', $currency);
-		$this->db->group_by('M1'); 
-		$this->db->order_by('M1');
+		$this->db->group_by('month'); 
+		$this->db->order_by('month');
 		$array1 =$this->db->get()->result_array();
 		print_r($this->db->last_query());exit();
 		if(!empty($array1)){
 			foreach($array1 as $array2){
-					$array_new_1[$array2['m']]['M1'] =$array2['M1'];
+					$array_new_1[$array2['m']]['month'] =$array2['month'];
 					$array_new_1[$array2['m']]['income'] =$array2['Income'];
 			}
 		}else{
 			$array_new_1 =$array1;
 		}
-		$this->db->select('MONTH(ActualDate) as M1 ,MONTHNAME(ActualDate) as m,sum(EuroValue) as  outcome');
+		$this->db->select('MONTH(ActualDate) as month ,MONTHNAME(ActualDate) as m,sum(EuroValue) as  outcome');
 		$this->db->from('expenses');
         $this->db->where('YEAR(ActualDate)', $year);
 		$this->db->where('MONTH(ActualDate)!=',"");
 		//$this->db->where('Currency', $currency);
-		$this->db->group_by('M1'); 
-		$this->db->order_by('M1');
+		$this->db->group_by('month'); 
+		$this->db->order_by('month');
 		$array2=$this->db->get()->result_array();
 		if(!empty($array2)){
 			foreach($array2 as $array3){
-					$array_new_2[$array3['m']]['M1'] =$array3['M1'];
+					$array_new_2[$array3['m']]['month'] =$array3['month'];
 					$array_new_2[$array3['m']]['outcome'] =$array3['outcome'];
 			}	
 		}else{
@@ -76,11 +76,11 @@ class Data_model extends CI_Model {
 		if(!empty($array1) && !empty($array2)){
 		   $result_1 = array_merge_recursive($array_new_1,$array_new_2); 
 		   foreach($result_1 as $result_2){
-			   if(!empty($result_2['M1'])){
-			   		   if (sizeof($result_2['M1']) > 1){
-						   $month =$result_2['M1'][1];
-						   $result_2['M1'] =null;
-						    $result_2['M1']  = $month;
+			   if(!empty($result_2['month'])){
+			   		   if (sizeof($result_2['month']) > 1){
+						   $month =$result_2['month'][1];
+						   $result_2['month'] =null;
+						    $result_2['month']  = $month;
 					   }
 			   }
 			  if(!isset($result_2['outcome'])){
@@ -118,12 +118,12 @@ class Data_model extends CI_Model {
 			   }			 
 		}
 		foreach ($result_array as $values){
-		$Result[$values['M1']] =$values;
+		$Result[$values['month']] =$values;
 		}
 		ksort($Result);
 		foreach ($Result as $key=>$val){
 			$final_array[$month_all[$key]] = $val;
-		    $final_array[$month_all[$key]]['M1'] =$month_all[$key];
+		    $final_array[$month_all[$key]]['month'] =$month_all[$key];
 	   }
 		$final_array = array_values($final_array);
  	   return $final_array;
