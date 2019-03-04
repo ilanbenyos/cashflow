@@ -3,7 +3,7 @@
     <h1>Total Expenses Per Category Report</h1>
     <div class="white-bg">
       <div class="row">
-        <!-- <div class="col-md-12 inline-divs text-right"> -->
+        <div class="col-md-12 inline-divs text-right">
           <div class="month-expense-box">
             <label>Select months :</label>
             <div class="form-inline">
@@ -58,7 +58,7 @@
               </div>
             </div>
           </div>
-       <!--  </div> -->
+        </div>
         <div class="clearfix"></div>
         <div class="padding4x clearfix">
           <div class="col-md-7 col-sm-12 col-xs-12">
