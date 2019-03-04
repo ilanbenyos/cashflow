@@ -128,17 +128,18 @@
       for (var i = 0; i < jsonData.length; i++) {
             data.addRow([jsonData[i].psp, parseInt(jsonData[i].per)]);
       }
+
 	   var options_bar = {
 		// width:1000,
          height: 500,
 		 colors: ['#1F9FA6'],
-		 logScale:true,
+		 //logScale:true,
 		 bar: {groupWidth: "20%"},
 		 legend: { position: 'none' },
 			hAxis: {
 			  title: 'PSP name',
-			  slantedText:true,  
-			  slantedTextAngle:90
+			  /*slantedText:true,  
+			  slantedTextAngle:90*/
 			},
 			vAxis: {
 			  title: 'Commision in (%)',
