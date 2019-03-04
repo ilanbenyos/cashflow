@@ -23,8 +23,8 @@ class Data_model extends CI_Model {
 	}
 	
 	public function BankIncome($year,$month1,$month2){
-		//$this->db->select('bm.BankName,sum(bm.Balance) as amount,c.CurName');
-		$this->db->select('bm.BankName,sum(bm.EuroValue) as amount,c.CurName');
+		$this->db->select('bm.BankName,sum(bm.Balance) as amount,c.CurName');
+		//$this->db->select('bm.BankName,sum(bm.EuroValue) as amount,c.CurName');
 		$this->db->from('bankmaster bm');
 	   	$this->db->join('currencymaster c','c.CurId = bm.CurId','left');
 		$this->db->where('bm.Balance !=','0'); 
