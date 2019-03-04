@@ -46,7 +46,7 @@ class Data_model extends CI_Model {
 		$this->db->where('MONTH(ActualDate)!=',"");
 		//$this->db->where('Currency', $currency);
 		$this->db->group_by('month,PspId'); 
-		$this->db->order_by('month,PspId');
+		$this->db->order_by('month');
 		$array1 =$this->db->get()->result_array();
 		if(!empty($array1)){
 			foreach($array1 as $array2){
@@ -62,7 +62,7 @@ class Data_model extends CI_Model {
 		$this->db->where('MONTH(ActualDate)!=',"");
 		//$this->db->where('Currency', $currency);
 		$this->db->group_by('month,TransId'); 
-		$this->db->order_by('month,TransId');
+		$this->db->order_by('month');
 		$array2=$this->db->get()->result_array();
 		if(!empty($array2)){
 			foreach($array2 as $array3){
