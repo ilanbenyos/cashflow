@@ -56,7 +56,7 @@ $('#tablebank').DataTable({
   "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
 responsive  : true,
 	
-	aaSorting: [[3, "asc"]],
+	aaSorting: [[3, "desc"]],
      dom: 'lBfrtip',
 
   columnDefs: [
