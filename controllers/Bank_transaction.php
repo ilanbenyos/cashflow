@@ -68,7 +68,7 @@ class Bank_transaction extends CI_Controller {
                 $log = "Transaction ID:" . $transactionId  .' : ' . "Add-Bank-Trans" .' - ' . "Created By: ". $userName . PHP_EOL . ''. PHP_EOL.
                 "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Bank-Trans". PHP_EOL
                 . "Add-Bank-Trans-POST-REQUEST: " ."Transaction ID:" . $transactionId  . json_encode($_POST).PHP_EOL . "-------------------------" . PHP_EOL;
-                file_put_contents ( 'Logs/banktrans.txt', $log . "\n", FILE_APPEND );
+                file_put_contents ( logger_url_banktrans, $log . "\n", FILE_APPEND );
 
                 $token = $this->input->post('bank_transaction');
                 $session_token=null;
@@ -156,7 +156,7 @@ class Bank_transaction extends CI_Controller {
                     );
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Bank-Trans". PHP_EOL
                     . "Add-Bank-Trans-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($bankTrans) .PHP_EOL . "-------------------------" . PHP_EOL;
-                    file_put_contents ( 'Logs/banktrans.txt', $log . "\n", FILE_APPEND );
+                    file_put_contents ( logger_url_banktrans, $log . "\n", FILE_APPEND );
 
                     $this->db->insert('banktransaction',$bankTrans);
                     
@@ -172,14 +172,14 @@ class Bank_transaction extends CI_Controller {
                         "From-Bank-Out Go Fees: ".$outgoFees .','.
                         "From-Bank-Money-Out-Fees: ".$moneyOutFees .','."From-Bank-New-Balance: ".$fromNewBal .','."To-Bank-In-Commission-Percentage: ".$toBankBal->InComP .','."To-Bank-Money-In Fees: ".$moneyInFees .','."To-Bank-New-Balance: ".$toNewBal .','.
                         "Success-Message: ".$_SESSION['pop_mes']. PHP_EOL . "-------------------------" . PHP_EOL;
-                        file_put_contents ( 'Logs/banktrans.txt', $log . "\n", FILE_APPEND );
+                        file_put_contents ( logger_url_banktrans, $log . "\n", FILE_APPEND );
 
                     redirect('bank-transaction');
                 }else{
                     $_SESSION['pop_mes'] = "Token does not matched.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Bank-Trans". PHP_EOL
                         . "Add-Bank-Trans-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
-                        file_put_contents ( 'Logs/banktrans.txt'.date("Y-m-d").'.-cl.log', $log . "\n", FILE_APPEND );
+                        file_put_contents ( logger_url_banktrans.date("Y-m-d").'.-cl.log', $log . "\n", FILE_APPEND );
                     redirect('bank-transaction');
                 }
         }
@@ -210,7 +210,7 @@ class Bank_transaction extends CI_Controller {
                 $log = "Transaction ID:" . $transactionId  .' : ' . "Edit-Bank-Trans" .' - ' . "Created By: ". $userName . PHP_EOL . ''. PHP_EOL.
                 "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Bank-Trans". PHP_EOL
                 . "Edit-Bank-Trans-POST-REQUEST: " ."Transaction ID:" . $transactionId  . json_encode($_POST).PHP_EOL . "-------------------------" . PHP_EOL;
-                file_put_contents ( 'Logs/banktrans.txt', $log . "\n", FILE_APPEND );
+                file_put_contents ( logger_url_banktrans, $log . "\n", FILE_APPEND );
 
                 $token = $this->input->post('editbanktrans_token');
                 $session_token=null;
@@ -295,7 +295,7 @@ class Bank_transaction extends CI_Controller {
                     );
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Bank-Trans". PHP_EOL
                     . "Edit-Bank-Trans-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($bankTrans) .PHP_EOL . "-------------------------" . PHP_EOL;
-                    file_put_contents ( 'Logs/banktrans.txt', $log . "\n", FILE_APPEND );
+                    file_put_contents ( logger_url_banktrans, $log . "\n", FILE_APPEND );
 
                     $this->db->where('TransId',$id);
                     $this->db->update('banktransaction',$bankTrans);
@@ -312,13 +312,13 @@ class Bank_transaction extends CI_Controller {
                         "From-Bank-Out Go Fees: ".$outgoFees .','.
                         "From-Bank-Money-Out-Fees: ".$moneyOutFees .','."From-Bank-New-Balance: ".$fromNewBal .','."To-Bank-In-Commission-Percentage: ".$toBankBal->InComP .','."To-Bank-Money-In Fees: ".$moneyInFees .','."To-Bank-New-Balance: ".$toNewBal .','.
                         "Success-Message: ".$_SESSION['pop_mes']. PHP_EOL . "-------------------------" . PHP_EOL;
-                        file_put_contents ( 'Logs/banktrans.txt', $log . "\n", FILE_APPEND );
+                        file_put_contents ( logger_url_banktrans, $log . "\n", FILE_APPEND );
                     return 1;
                 }else{
                     $_SESSION['pop_mes'] = "Token does not matched.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Bank-Trans". PHP_EOL
                         . "Edit-Bank-Trans-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
-                        file_put_contents ( 'Logs/banktrans.txt'.date("Y-m-d").'.-cl.log', $log . "\n", FILE_APPEND );
+                        file_put_contents ( logger_url_banktrans.date("Y-m-d").'.-cl.log', $log . "\n", FILE_APPEND );
                     return 1;
                 }
         }

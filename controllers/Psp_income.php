@@ -47,7 +47,7 @@ class Psp_income extends CI_Controller {
 		}
 		$this->form_validation->set_rules ( 'bank', 'Bank Name', 'trim|required' );
 		$this->form_validation->set_rules ( 'psp', 'PSP', 'trim|required' );
-		$this->form_validation->set_rules ('pldatereceive', 'Planned Amount Receive', 'trim|required');
+		$this->form_validation->set_rules ('pldatereceive', 'Planned Date Receive', 'trim|required');
 		//$this->form_validation->set_rules ('acdatereceive', 'Actual Amount Receive', 'trim|required');
 		if ($this->form_validation->run () === FALSE) {
 			$data['banks'] = $this->all_model->get_all_banks();
@@ -58,6 +58,17 @@ class Psp_income extends CI_Controller {
 			$this->load->view('add-deposit-details',$data);
 			$this->load->view('templates/footer');
 		}else{
+                //Log
+                $this->db->select('UserID,Name');
+                $this->db->from('usermaster');
+                $this->db->where('UserID',$this->input->post('userid'));
+                $userName = $this->db->get()->row();
+                $userName = $userName->Name;
+                $transactionId = guidv4 ( openssl_random_pseudo_bytes ( 16 ) );
+                $log = "Transaction ID:" . $transactionId  . ' : ' . "Add-PSP" . ' - ' . "Created By: ". $userName. PHP_EOL . ''. PHP_EOL.
+                "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-PSP" . PHP_EOL
+                . "Add-PSP-POST-REQUEST: " ."Transaction ID:" . $transactionId  . json_encode($_POST).PHP_EOL . "-------------------------" . PHP_EOL;
+                file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );
 
 				$token = $this->input->post('pspin_token');
         		$session_token=null;
@@ -141,15 +152,30 @@ class Psp_income extends CI_Controller {
         				'ActualCom' => $acamtval,
                         'ActualComP' => $accommval,
         				'ActualNetAmt' => $acnetAmt,
+                        'EuroValue' => $acnetAmt,
                         'isCRR' => $isCrr,
         				'CreatedBy' => $uid,
                         'ModifiedBy ' => $uid
         			);
+                    $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-PSP". PHP_EOL
+                    . "Add-PSP-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($pspIncomeInfo) .PHP_EOL . "-------------------------" . PHP_EOL;
+                    file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );
+
                     $table = 'bankmaster';
                     $columns = 'BankName,Balance';
                     $wherecol = 'BankId';
                     $data['getBankBal'] = $this->all_model->getbankData($table,$columns,$wherecol,$BankId);
                     $updatedBal = ($data['getBankBal']->Balance + $acnetAmt);
+
+                    /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
+                    . "Bank-Balance-Before: ". "Transaction ID:" . $transactionId  . ' - ' . $data['getBankBal']->Balance .PHP_EOL . "-------------------------" . PHP_EOL;
+                    file_put_contents ( 'Logs/pspIncome.txt', $log . "\n", FILE_APPEND );
+
+                    $updatedBal = ($data['getBankBal']->Balance + $acnetAmt);
+
+                    $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
+                    . "Bank-Balance-After: ". "Transaction ID:" . $transactionId  . ' - ' . $updatedBal .PHP_EOL . "-------------------------" . PHP_EOL;
+                    file_put_contents ( 'Logs/pspIncome.txt', $log . "\n", FILE_APPEND );*/
 
                     $this->db->where('BankId',$BankId);
                     $this->db->update('bankmaster',array('Balance'=>$updatedBal));
@@ -175,14 +201,29 @@ class Psp_income extends CI_Controller {
                         'ModifiedBy ' => $uid
                         );
 
+                        $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-PSP". PHP_EOL
+                        . "Add-PSP-Crr-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($crrData) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents (logger_url_psp , $log . "\n", FILE_APPEND );
+
                         $this->db->insert('pspincome',$crrData);
+
                     }
                     
 
         			$_SESSION['pop_mes'] = "PSP Income Added Successfully."; 
+                    /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
+                        . "Success-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( 'Logs/pspIncome.txt', $log . "\n", FILE_APPEND );*/
+                        $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Add-PSP" . PHP_EOL
+                            . "Add-PSP-Info: ". "Transaction ID:" . $transactionId  . ' - ' . "Bank-Balance-Before: " . $data['getBankBal']->Balance .','
+                            ."Bank-Balance-After: ".$updatedBal .','."Success-Message: ".$_SESSION['pop_mes']. PHP_EOL . "-------------------------" . PHP_EOL;
+                            file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );
 					return 1;
         		}else{
         			$_SESSION['pop_mes'] = "Token does not matched."; 
+                    $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-PSP" . PHP_EOL
+                        . "Add-PSP-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );
 					return 1;
         		}
 		}
@@ -194,7 +235,7 @@ class Psp_income extends CI_Controller {
 	    }
 	    $this->form_validation->set_rules ( 'bank', 'Bank Name', 'trim|required' );
 		$this->form_validation->set_rules ( 'psp', 'PSP', 'trim|required' );
-		$this->form_validation->set_rules ('pldatereceive', 'Planned Amount Receive', 'trim|required');
+		$this->form_validation->set_rules ('pldatereceive', 'Planned Date Receive', 'trim|required');
 		//$this->form_validation->set_rules ('acdatereceive', 'Actual Amount Receive', 'trim|required');
 		if ($this->form_validation->run () === FALSE) {
 			$data['banks'] = $this->all_model->get_all_banks();
@@ -206,8 +247,18 @@ class Psp_income extends CI_Controller {
 			$this->load->view('templates/left-sidebar');
 			$this->load->view('edit-deposit-details',$data);
 			$this->load->view('templates/footer');
-		}else{
-                
+		}else{  
+                $this->db->select('UserID,Name');
+                $this->db->from('usermaster');
+                $this->db->where('UserID',$this->input->post('userid'));
+                $userName = $this->db->get()->row();
+                $userName = $userName->Name;
+                $transactionId = guidv4 ( openssl_random_pseudo_bytes ( 16 ) );
+                $log = "Transaction ID:" . $transactionId  . ' : ' . "Edit-PSP" . ' - ' . "Created By: ". $userName. PHP_EOL . ''. PHP_EOL.
+                "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-PSP" . PHP_EOL
+                . "Edit-PSP-POST-REQUEST: " ."Transaction ID:" . $transactionId  . json_encode($_POST).PHP_EOL . "-------------------------" . PHP_EOL;
+                file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );
+
 				$token = $this->input->post('pspin_edittoken');
         		$session_token=null;
         		$session_token = $_SESSION['token_editpspincome'];
@@ -283,21 +334,6 @@ class Psp_income extends CI_Controller {
                     if ($acamtReceive == "") {
                         $acamtReceive = 0;
                     }*/
-
-                                $log = "ip:" . $_SERVER ['REMOTE_ADDR'] . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL 
-                . "POST edit deposit: " .json_encode($_POST) . PHP_EOL . "-------------------------" . PHP_EOL;
-                                        file_put_contents ( 'Logs/adddeposit.txt', $log . "\n", FILE_APPEND );
-
-                                        $log = "ip:" . $_SERVER ['REMOTE_ADDR'] . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL 
-                . "FROM: " . $from. PHP_EOL . "-------------------------" . PHP_EOL;
-                                        file_put_contents ( 'Logs/adddeposit.txt', $log . "\n", FILE_APPEND );
-
-                                        $log = "ip:" . $_SERVER ['REMOTE_ADDR'] . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL 
-                . "TO: " . $to. PHP_EOL . "-------------------------" . PHP_EOL;
-                                        file_put_contents ( 'Logs/adddeposit.txt', $log . "\n", FILE_APPEND );
-
-                                
-
         			$updatePspIncomeInfo = array(
         				'PspId' => $pspid,
         				'BankId' => $BankId,
@@ -313,14 +349,27 @@ class Psp_income extends CI_Controller {
         				'ActualCom' => $acamtval,
                         'ActualComP' => $accommval,
         				'ActualNetAmt' => $acnetAmt,
+                        'EuroValue' => $acnetAmt,
                         'isCRR' => $isCrr,
         				'CreatedBy' => $uid
         			);
+
+                    $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Edit-PSP" . PHP_EOL
+                    . "Edit-PSP-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($updatePspIncomeInfo) .PHP_EOL . "-------------------------" . PHP_EOL;
+                    file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );
 
                     $table = 'bankmaster';
                     $columns = 'BankName,Balance';
                     $wherecol = 'BankId';
                     $data['getBankBal'] = $this->all_model->getbankData($table,$columns,$wherecol,$BankId);
+
+                    /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Edit-PSP-POST"  . PHP_EOL
+                    . "Bank-Balance-Before: ". "Transaction ID:" . $transactionId  . ' - ' . $data['getBankBal']->Balance .PHP_EOL . "-------------------------" . PHP_EOL;
+                    file_put_contents ( 'Logs/pspIncome.txt', $log . "\n", FILE_APPEND );
+
+                    $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . "Edit-PSP-POST" . PHP_EOL
+                    . "ActualNetAmt-Before-Edit: ". "Transaction ID:" . $transactionId  . ' - ' . $acamtnetReceivebefore .PHP_EOL . "-------------------------" . PHP_EOL;
+                    file_put_contents ( 'Logs/pspIncome.txt', $log . "\n", FILE_APPEND );*/
                     /*if (($data['getBankBal']->Balance) > 0) {
                         echo 'if';
                         echo '<br>';*/
@@ -337,7 +386,13 @@ class Psp_income extends CI_Controller {
                             echo 'amount receive after'.$acamtReceive;
                             echo '<br>';*/
                             $updatedBal = ($updatedBal)+($acnetAmt);
+
+                            /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . "Edit-PSP-POST" . PHP_EOL
+                            . "Bank-Balance-After: ". "Transaction ID:" . $transactionId  . ' - ' . $updatedBal .PHP_EOL . "-------------------------" . PHP_EOL;
+                            file_put_contents ( 'Logs/pspIncome.txt', $log . "\n", FILE_APPEND );*/
                             //echo 'new updated bal'.$updatedBal;
+
+
 
                         //}
                         /*exit();
@@ -383,14 +438,28 @@ class Psp_income extends CI_Controller {
                         //'CRRId' => $crrId,
                         'ModifiedBy' => $uid
                         );
+
+                        $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . "Edit-PSP" . PHP_EOL
+                        . "Edit-PSP-Crr-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($crrData) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );
                         $this->db->where('CRRId',$id);
                         $this->db->update('pspincome',$crrData);
                     }
 
 	        		$_SESSION['pop_mes'] = "PSP Income Updated Successfully.";
+                    /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . "Edit-PSP-POST" . PHP_EOL
+                        . "Success-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( 'Logs/pspIncome.txt', $log . "\n", FILE_APPEND );*/
+                        $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Edit-PSP" . PHP_EOL
+                            . "Edit-PSP-Info: ". "Transaction ID:" . $transactionId  . ' - ' . "Bank-Balance-Before: " . $data['getBankBal']->Balance .','. 
+                            "ActualNetAmt-Before-Edit: ". $acamtnetReceivebefore .','."Bank-Balance-After: ".$updatedBal .','."Success-Message: ".$_SESSION['pop_mes']. PHP_EOL . "-------------------------" . PHP_EOL;
+                            file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );
 	        		redirect('psp-income');
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not matched."; 
+        			$_SESSION['pop_mes'] = "Token does not matched.";
+                    $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . "Edit-PSP-POST" . PHP_EOL
+                        . "Edit-PSP-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );
 					redirect('psp-income');
         		}
 		}
