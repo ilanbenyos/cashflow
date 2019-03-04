@@ -97,7 +97,7 @@
 			'month2': m2,
             'year': y,
         },
-        url: "http://cashflow.forexwebsolutions.com/Ajax_Reports/get_bank_income" ,
+        url: "<?php echo base_url('Ajax_Reports/get_bank_income'); ?>" ,
         success: function (data1) {
         // Create our data table out of JSON data loaded from server.
         var data = new google.visualization.DataTable();

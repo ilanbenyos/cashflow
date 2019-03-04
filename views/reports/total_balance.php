@@ -65,7 +65,7 @@
             'year': y
 			//'currency':c
         },
-        url: "http://cashflow:8080/Ajax_Reports/get_balance" ,
+        url: "<?php echo base_url('Ajax_Reports/get_balance'); ?>" ,
         success: function (data1) {
 			//alert(data1);
         // Create our data table out of JSON data loaded from server.

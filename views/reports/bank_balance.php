@@ -114,7 +114,8 @@
 			      //'currency':c
 
         },
-        url: "http://cashflow:8080/Ajax_Reports/get_bank_income" ,
+        
+        url: "<?php echo base_url('Ajax_Reports/get_bank_income'); ?>" ,
         success: function (data1) {
 		//alert(data1);
         // Create our data table out of JSON data loaded from server.

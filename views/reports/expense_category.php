@@ -95,7 +95,7 @@
 			      'month2': m2,
             'year': y,
         },
-        url: "http://cashflow:8080/Ajax_Reports/get_expense_by_category" ,
+        url: "<?php echo base_url('Ajax_Reports/get_expense_by_category'); ?>" ,
         success: function (data1) {
 			   if (data1== '[]' ) {
 				   var data = new google.visualization.DataTable();
