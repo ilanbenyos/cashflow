@@ -155,7 +155,7 @@ class Data_model extends CI_Model {
 		$this->db->select('p.PspId as ID,pm.PspName as psp, (sum(p.ActualCom) /sum(p.ActualAmt))*100 as per ,p.Currency');
 		$this->db->from('pspincome p');
 		$this->db->join('pspmaster pm','pm.PspId = p.PspId','left');
-		$this->db->where('p.EuroValue !=','0'); 
+		$this->db->where('p.ActualAmt !=','0'); 
 		$this->db->where('MONTH(p.ActualDate)>=', $month1);
 		$this->db->where('MONTH(p.ActualDate)<=', $month2);
         $this->db->where('YEAR(p.ActualDate)', $year);
