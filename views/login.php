@@ -16,16 +16,18 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
             <form class="form-horizontal clearfix" method="post">
               <div class="row clearfix">
                 <div class="col-xs-12">
-                  <div class="form-group">
+                  <div class="form-group" id="uname1">
                     <div class="col-xs-12">
-                      <input type="text" class="form-control" id="" placeholder="Username" name="username">
+                      <input type="text" class="form-control" id="username" placeholder="Username" name="username">
+                      <span id="errmsg1" class="help-block form-error msg"></span>
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-12">
-                  <div class="form-group">
+                  <div class="form-group" id="pass1">
                     <div class="col-xs-12">
-                      <input type="password" class="form-control" id="" placeholder="Password" name="password">
+                      <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                      <span id="errmsg" class="help-block form-error"></span>
                     </div>
                   </div>
                 </div>
@@ -51,7 +53,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
                   </div>
                 </div>
                 <div class="col-xs-12 text-center spacetop1x">
-                  <button type="submit" class="btn-login transitions">LOGIN</button>
+                  <button type="submit" id="login" class="btn-login transitions">LOGIN</button>
                 </div>
               </div>
             </form>
@@ -60,3 +62,64 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
       </div>
     </div>
   </div>
+  <script type="text/javascript">
+    (function($){
+      $('#username').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          //$(this).css("border", "1px solid #CCCCCC");                         
+          $("#errmsg1").html('');
+          $('#uname1').removeClass('has-error');
+        }
+        else if($(this).val()=="") 
+        {
+          //$(this).css("border", "1px solid #be1622");
+           $("#errmsg1").html('Please Enter Valid Username.');
+           $('#uname1').addClass('has-error');
+        }
+      })
+      $('#password').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          //$(this).css("border", "1px solid #CCCCCC");                         
+          $("#errmsg").html('');
+          $('#pass1').removeClass('has-error');
+        }
+        else if($(this).val()=="") 
+        {
+          //$(this).css("border", "1px solid #be1622");
+          $("#errmsg").html('Please Enter Valid Username.');
+           $('#pass1').addClass('has-error');
+        }
+      })
+
+      $("#login").click(function(){
+
+      var returnvar = true;
+ 
+      if($("#username").val() ==""){
+           $("#username").css("border", "1px solid #be1622"); 
+           //$("#uname").text("Please Enter Valid Username.", "1px solid #be1622");
+          $("#errmsg1").html('Please Enter Valid Username.');
+           $('#uname1').addClass('has-error');
+           returnvar = false;
+          }
+          if($("#password").val() ==""){
+            $("#password").css("border", "1px solid #be1622");
+            //$("#pass").text("Please Enter Valid Password.", "1px solid #be1622");
+            $("#errmsg").html('Please Enter Valid Password.');
+            $('#pass1').addClass('has-error');
+            returnvar = false;
+          }
+          if(returnvar == true){  
+             $("#login").hide();
+            $(".page-loader").show();
+            
+
+     }  
+     return returnvar;
+      });
+    })(jQuery);
+  </script>

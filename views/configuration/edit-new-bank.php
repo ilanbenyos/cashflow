@@ -43,7 +43,7 @@ $_SESSION['form_token_editbank'] = $token;
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Balance</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control xyz" placeholder="Balance" value="<?php echo $result->Balance; ?>" id="Balance" name="Balance" onkeypress="javascript:return isNumber(event)" />
+                          <input type="text" class="form-control xyz" placeholder="Balance" value="<?php echo number_format($result->Balance, 2, '.', ','); ?>" id="Balance" name="Balance" onkeypress="javascript:return isNumber(event)" />
                         </div>
                       </div>
                     </div>

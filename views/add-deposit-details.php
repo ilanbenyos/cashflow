@@ -82,7 +82,7 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount <span class="red">*</span></label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount <!-- <span class="red">*</span> --></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived"  placeholder="Planned Processed Amount" />
                         </div>
@@ -200,6 +200,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission %</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="hidden" class="form-control xyz" name="accommP" id="accommP" onkeypress="javascript:return isNumber(event)">
                           <input type="text" class="form-control xyz" name="accommval" id="accommval" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
@@ -212,12 +213,30 @@
                         </div>
                       </div>
                     </div>
+                    
                     <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;" id="crr">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">CRR Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="hidden" name="crrComm" id="crrComm">
-                          <input type="text" class="form-control" name="crrAmt" id="crrAmt" placeholder="CRR Amount" readonly />
+                          <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" placeholder="CRR Amount" readonly />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Bank Commission</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="hidden" class="form-control xyz" name="bankcommP" id="bankcommP" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="bankcomm" id="bankcomm" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Net To Bank Amount</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input type="text" class="form-control xyz" name="nettoBankAmt" id="nettoBankAmt" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
@@ -256,14 +275,14 @@
                         </div>
                       </div>
                     </div> -->
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="text" class="form-control xyz" name="acnetAmt" id="acnetAmt" placeholder="Actual Net Amount"/>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                   <!--Actual info ends -->
                     <div class="col-xs-12 text-center spacetop2x">
@@ -316,15 +335,43 @@ $('.datepicker').datepicker({
                     dataType: "html",
                     success: function(data) {
                     var obj = JSON.parse(data);
-                    console.log(obj.getpsp.Crr);
+                    console.log(obj.getpsp);
                     $("#bank").val(obj.getpsp.BankName);
                     $("#bankid").val(obj.getpsp.BankId);
                     $("#plcurr").val(obj.getpsp.CurName);
                     $("#accurr").val(obj.getpsp.CurName);
-                    if (obj.getpsp.Crr > 0) {
+                    $("#accommP").val(obj.getpsp.Commission);
+                    var commAmount = $("#accommP").val();
+                    var commAmount = commAmount;
+                    $("#bankcommP").val(obj.getpsp.InComP);
+                    $("#accommval").val(commAmount);
+                    if (obj.getpsp.Crr > 0.00) {
                       $("#crr").show();
                     $("#crrComm").val(obj.getpsp.Crr);
+                    }else{
+                      $("#crr").hide();
                     }
+
+                    //net to bank amount calculation start
+                    var acamtReceive = $("#acamtReceive").val();
+                    if (acamtReceive == "") {
+                        var actualAmt = 0;
+                    }else{
+                        var actualAmt = acamtReceive;
+                    }
+                    var accommP = $("#accommval").val();
+                    var bankcommP = $("#bankcommP").val();
+                    //var commAmount = ("#acamtval").val();
+
+                    var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
+
+                    var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
+
+                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)).toFixed(2);
+                    $("#bankcomm").val(bankcomm);
+                    $("#acamtval").val(commAmount);
+                    $("#nettoBankAmt").val(netToBank);
+                    //net to bank amount calculation end
                     /*var actualAmt = $("#acamtReceive").val();
                     var CRR = obj.getpsp.Crr;
                     var CRR = ((actualAmt/CRR)*100);
@@ -339,16 +386,43 @@ $('.datepicker').datepicker({
     });
 
     $( "#acamtReceive" ).keyup(function( event ) { 
-      var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");
-      var crrComm = document.getElementById("crrComm").value;
-      var crrAmt = (crrComm/100);
-      var crrAmt = (actualAmt*crrAmt);
+      var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");   //actual process amount
+      var crrComm = document.getElementById("crrComm").value;        // CRR Commission %
+      var crrAmt = (crrComm/100);                                    
+      var crrAmt = Number(actualAmt*crrAmt).toFixed(2);
       //alert(crrAmt);
-      $("#crrAmt").val(crrAmt);
+      $("#crrAmt").val(crrAmt);                                      //CRR Amount
       console.log('actualAmt' + actualAmt);
       console.log('crrComm' + crrComm);
       console.log('crrAmt' + crrAmt);
       //alert(actualAmt);
+
+
+
+      //net to bank amount calculation start
+      var accommP = $("#accommval").val();                          //PSP Commission 
+      var bankcommP = $("#bankcommP").val();                        //BAnk Inflow Commission
+      //var commAmount = ("#acamtval").val();
+
+      var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
+
+      var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
+
+      
+
+      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)).toFixed(2);  
+      $("#bankcomm").val(bankcomm);
+      $("#acamtval").val(commAmount);
+      $("#nettoBankAmt").val(netToBank);
+
+      /*console.log('commission %' +  accommP);
+      console.log('bankcommP %' +  bankcommP);
+
+      console.log('Bank commission' +  bankcomm);
+      console.log('commission Amount' +  commAmount);
+
+      console.log('Net To Bank' +  netToBank);*/
+      //net to bank amount calculation end
     });
 
       /*$('#pldatereceive').datepicker({
@@ -532,7 +606,7 @@ $('.datepicker').datepicker({
           $(this).css("border", "1px solid #be1622");
         }
       })
-      $('#plamtReceived').on('blur', function() {
+      /*$('#plamtReceived').on('blur', function() {
         $(this).css("border", "1px solid #CCCCCC");
             if($(this).val()!="")
         { 
@@ -542,7 +616,7 @@ $('.datepicker').datepicker({
         {
           $(this).css("border", "1px solid #be1622");
         }
-      })
+      })*/
       $('#pldatereceive').on('blur', function() {
         $(this).css("border", "1px solid #CCCCCC");
             if($(this).val()!="")
@@ -563,6 +637,17 @@ $('.datepicker').datepicker({
         else if($('#acdatereceive').val()=="") 
         {
           $('#acdatereceive').css("border", "1px solid #be1622");
+        }
+      })
+      $('#acamtval').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
         }
       })
        
@@ -622,8 +707,12 @@ $('.datepicker').datepicker({
            $("#pldatereceive").css("border", "1px solid #be1622");
            returnvar = false;
           }
-          if($("#plamtReceived").val()==""){                  
+          /*if($("#plamtReceived").val()==""){                  
            $("#plamtReceived").css("border", "1px solid #be1622");
+           returnvar = false;
+          }*/
+          if($("#acamtval").val()==""){                  
+           $("#acamtval").css("border", "1px solid #be1622");
            returnvar = false;
           }
           var actualAmt = $("#acamtReceive").val();

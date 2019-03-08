@@ -22,7 +22,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 no-padding relative">
-        <div class="logo"> <a href="/"><img class="aligncenter img-responsive" src="<?= base_url('assets/images/logo.png')?>"></a></div>
+        <div class="logo"> <a href="<?php echo base_url('configuration'); ?>"><img class="aligncenter img-responsive" src="<?= base_url('assets/images/logo.png')?>"></a></div>
         <div class="navbar-bars">
           <button type="button" id="sidebarCollapse" class="navbar-toggle"><i class="fa fa-bars" aria-hidden="true"></i></button>
         </div>

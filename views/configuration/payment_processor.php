@@ -19,6 +19,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                 <thead>
                   <tr>
                     <th>PSP Name</th>
+                    <!-- <th>Rolling Reserved Balance</th> -->
                     <th>Bank Associated</th>
                     <th>Date</th>
                     <th>Description</th>
@@ -30,6 +31,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                 	 <?php foreach ($all_psp as $psp) { ?> 
                 	<tr>
                         <td><?php echo $psp->PspName; ?></td>
+                        <!-- <td><?php echo number_format($psp->Balance, 2, '.', ','); ?></td> -->
                         <td><?php echo $psp->BankName; ?></td>
                         <td><?php echo date('d/m/Y', strtotime(str_replace('-','/', $psp->CreatedOn))); ?></td>
                         <td><?php echo $psp->Comments; ?></td>

@@ -20,10 +20,11 @@ class All_model extends CI_Model {
 		$this->db->from('usermaster');
 		$this->db->where('Email', $username);
 		$this->db->where('Password', $password);*/
-		$this->db->select('u.UserID,u.Email,u.Name,u.Password,u.RoleId,r.RoleName');
+		$this->db->select('u.UserID,u.Email,u.Name,u.Password,u.RoleId,r.RoleName,u.Active');
     	$this->db->from('usermaster u');
     	$this->db->join('rolemaster r', 'r.RoleId = u.RoleId');
     	$this->db->where('u.Email', $username);
+    	$this->db->where('u.Active', 1);
 		$this->db->where('u.Password', $password);
 		return $this->db->get()->row();
 	}
@@ -76,7 +77,16 @@ class All_model extends CI_Model {
 	    return $this->db->get ()->result();
 	}
 	public function get_all_psp(){
-		$this->db->select('p.PspId, p.PspName, p.BankId, p.CreatedOn, p.Comments, b.BankId, b.BankName,p.Active');
+		$this->db->select('p.PspId, p.PspName, p.BankId, p.CreatedOn, p.Comments, b.BankId, b.BankName,p.Active,p.Balance');
+		$this->db->from('pspmaster p');
+		$this->db->join('bankmaster b','p.BankId = b.BankId');
+		$this->db->where('p.Active',1);
+		$this->db->order_by('p.Active','DESC');
+		$this->db->order_by('p.CreatedOn','DESC');
+		return $this->db->get ()->result();
+	}
+	public function get_all_psps(){
+		$this->db->select('p.PspId, p.PspName, p.BankId, p.CreatedOn, p.Comments, b.BankId, b.BankName,p.Active,p.Balance');
 		$this->db->from('pspmaster p');
 		$this->db->join('bankmaster b','p.BankId = b.BankId');
 		//$this->db->where('p.Active',1);
@@ -91,7 +101,7 @@ class All_model extends CI_Model {
 		return $this->db->get ()->result();
 	}
 	public function get_psp($id){
-		$this->db->select('p.PspId,p.PspName,p.BankId,p.Comments,p.Active,b.BankName,b.BankId,b.CurId,cm.CurName,p.PayTerm,p.Commission,p.Crr,p.TypeId');
+		$this->db->select('p.PspId,p.PspName,p.BankId,p.Comments,p.Active,b.BankName,b.BankId,b.CurId,cm.CurName,p.PayTerm,p.Commission,p.Crr,p.TypeId,b.InComP');
 		$this->db->from('pspmaster p');
 		$this->db->join('bankmaster b','b.BankId = p.BankId');
 		$this->db->join('currencymaster cm','cm.CurId = b.CurId');

@@ -29,7 +29,7 @@ class Payment_processor extends CI_Controller {
 		        redirect('login');
 		    }
 		    $data['banks'] = $this->all_model->get_all_banks();
-		    $data['all_psp'] = $this->all_model->get_all_psp();
+		    $data['all_psp'] = $this->all_model->get_all_psps();
             $data['pspType'] = $this->all_model->allPspType();
 
 			$this->load->view('templates/header');

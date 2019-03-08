@@ -142,7 +142,8 @@ class Bank_transaction extends CI_Controller {
                     $moneyInFees = ($toBankBal->InComP*$amount);
                     $moneyInFees = ($moneyInFees/100);
 
-                    $toNewBal = ($toBankBal->Balance+($amount-$moneyInFees));
+                    $tobal = ($amount-$moneyInFees);
+                    $toNewBal = ($toBankBal->Balance)+($tobal);
 
                     $bankTrans = array(
                         'FromBank' => $fromBank,
@@ -262,8 +263,8 @@ class Bank_transaction extends CI_Controller {
                     $moneyOutFees = ($moneyOutFees/100);*/
 
                     
-                    $fromNewBal1 = ($fromBankBal->Balance+$beforeBalance);
-                    $fromNewBal = ($fromNewBal1-$amount);
+                    $fromNewBal = ($fromBankBal->Balance+($beforeBalance-$amount));
+                    //$fromNewBal = ($fromNewBal1-$amount);
                     //$fromNewBal = ($fromNewBal1+$amount);
                    // $fromNewBal = ($moneyOutFees+$fromNewBal1+$outgoFees);
                     //$fromNewBal = ($fromBankBal->Balance-($moneyOutFees+$amount+$outgoFees));

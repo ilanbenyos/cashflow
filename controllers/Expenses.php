@@ -242,10 +242,10 @@ class Expenses extends CI_Controller {
                 $userName = $this->db->get()->row();
                 $userName = $userName->Name;
                 $transactionId = guidv4 ( openssl_random_pseudo_bytes ( 16 ) );
-                $log = "Transaction ID:" . $transactionId  . ' : ' . "Edit-Exp" . ' - ' . "Created By: ". $userName .PHP_EOL . ''. PHP_EOL.
+               /* $log = "Transaction ID:" . $transactionId  . ' : ' . "Edit-Exp" . ' - ' . "Created By: ". $userName .PHP_EOL . ''. PHP_EOL.
                 "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Exp" . PHP_EOL
                 . "Edit-Exp-POST-REQUEST: " ."Transaction ID:" . $transactionId  . json_encode($_POST).PHP_EOL . "-------------------------" . PHP_EOL;
-                file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+                file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );*/
 
 				$token = $this->input->post('editexpense_token');
         		$session_token=null;
@@ -259,21 +259,21 @@ class Expenses extends CI_Controller {
                     $expCat = $this->input->post('expCat');
                     $transType = $this->input->post('transType');
                     $pldatereceive = $this->input->post('pldatereceive');
-                    $plamtReceived = $this->input->post('plamtReceived');
+                    $plamtReceived = str_replace(',','',$this->input->post('plamtReceived'));
                     $curr = $this->input->post('plcurr');
 
-                    $shares = $this->input->post('shareP');
+                    $shares = str_replace(',','',$this->input->post('shareP'));
                     $acdatereceive = $this->input->post('acdatereceive');
-                    $acamtReceive = $this->input->post('acamtReceive');
-                    $fbc = $this->input->post('fbc');
-                    $nfb = $this->input->post('nfb');
+                    $acamtReceive = str_replace(',','',$this->input->post('acamtReceive'));
+                    $fbc = str_replace(',','',$this->input->post('fbc'));
+                    $nfb = str_replace(',','',$this->input->post('nfb'));
                     $uid = $this->input->post('userid');
 
-                    $shareAmount = $this->input->post('shareAmount');
-                    $BankOutCommAmount = $this->input->post('BankOutCommAmount');
-                    $transferCommP = $this->input->post('transferCommP');
-                    $TransferCommAmount = $this->input->post('TransferCommAmount');
-                    $outCommP = $this->input->post('outCommP');
+                    $shareAmount = str_replace(',','',$this->input->post('shareAmount'));
+                    $BankOutCommAmount = str_replace(',','',$this->input->post('BankOutCommAmount'));
+                    $transferCommP = str_replace(',','',$this->input->post('transferCommP'));
+                    $TransferCommAmount = str_replace(',','',$this->input->post('TransferCommAmount'));
+                    $outCommP = str_replace(',','',$this->input->post('outCommP'));
                     
 
                     $from = $pldatereceive;
@@ -295,7 +295,6 @@ class Expenses extends CI_Controller {
                     $this->db->from('bankmaster');
                     $this->db->where('BankId',$BankId);
                     $bal = $this->db->get()->row();
-
                     //if($bal->Balance >= $nfb){
 
                         $expenses = array(
@@ -323,24 +322,38 @@ class Expenses extends CI_Controller {
                         'CreatedBy' => $uid,
                     );
 
-                        $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Exp" . PHP_EOL
+                        /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Exp" . PHP_EOL
                         . "Edit-Exp-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($expenses) .PHP_EOL . "-------------------------" . PHP_EOL;
-                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );*/
+                        
+
+                        $this->db->select('TransId,NetFromBank');
+                        $this->db->from('expenses');
                         $this->db->where('TransId',$id);
-                        $this->db->update('expenses',$expenses);  
+                        $beforeBal = $this->db->get()->row();
+                        $beforeBal = $beforeBal->NetFromBank;
 
-                        /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
-                        . "Bank-Balance-Before: ". "Transaction ID:" . $transactionId  . ' - ' . $bal->Balance .PHP_EOL . "-------------------------" . PHP_EOL;
-                        file_put_contents ( 'Logs/expenses.txt', $log . "\n", FILE_APPEND );  */
+                        $Bal = ($bal->Balance)+($beforeBal); 
+                        $updatedBal = ($Bal)-($nfb); 
+                        /*print_r($bal->Balance);
+                        echo '<br>';
+                        print_r($beforeBal);
+                        echo '<br>';
+                        print_r($Bal);
+                        echo '<br>';
+                        print_r($nfb);
+                        echo '<br>';
+                        print_r($updatedBal);
+                        exit();*/
 
-                        $UpdatedBal = ($bal->Balance-$nfb);
 
-                        /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
-                        . "Bank-Balance-After: ". "Transaction ID:" . $transactionId  . ' - ' . $UpdatedBal .PHP_EOL . "-------------------------" . PHP_EOL;
-                        file_put_contents ( 'Logs/expenses.txt', $log . "\n", FILE_APPEND );*/
+                        //$UpdatedBal = ($bal->Balance-$nfb);
 
                         $this->db->where('BankId',$BankId);
-                        $this->db->update('bankmaster',array('Balance'=>$UpdatedBal));
+                        $this->db->update('bankmaster',array('Balance'=>$updatedBal));
+
+                        $this->db->where('TransId',$id);
+                        $this->db->update('expenses',$expenses);  
                     /*}else{
                         $_SESSION['pop_mes'] = "Not Sufficient Balance.";
                     redirect('expenses');
@@ -348,10 +361,10 @@ class Expenses extends CI_Controller {
                     
 
 	        		$_SESSION['pop_mes'] = "Expenses Updated Successfully.";
-                        $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Edit-Exp" . PHP_EOL
+                        /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Edit-Exp" . PHP_EOL
                             . "Edit-Exp-Info: ". "Transaction ID:" . $transactionId  . ' - ' . "Bank-Balance-Before: " . $bal->Balance .','
                             ."Bank-Balance-After: ".$updatedBal .','."Success-Message: ".$_SESSION['pop_mes']. PHP_EOL . "-------------------------" . PHP_EOL;
-                            file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+                            file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );*/
 	        		redirect('expenses');
         		}else{
         			$_SESSION['pop_mes'] = "Token does not matched."; 

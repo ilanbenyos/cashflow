@@ -46,7 +46,7 @@
                           <!-- <input type="hidden" class="form-control" name="bankid" id="bankid" />
                           <input type="text" class="form-control" name="bank" id="bank" readonly/> -->
                           <select class="form-control" name="bankid" id="bankid" onchange="">
-                            <option selected="" value="">Select Bank</option>
+                            <!-- <option selected="" value="">Select Bank</option> -->
                             <?php foreach ($banks as $bank) { ?>
                             <option value="<?php echo $bank->BankId; ?>"><?php echo $bank->BankName; ?></option>      
                                   <?php   } ?>
@@ -69,7 +69,7 @@
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <!-- <input type="hidden" name="transferAmt" id="transferAmt"> -->
                           <select class="form-control" name="expCat" id="expCat" onchange="">
-                            <option selected="" value="">Select Expense Category</option>
+                            <!-- <option selected="" value="">Select Expense Category</option> -->
                             <?php foreach ($expCat as $cat) { ?>
 
                             <option value="<?php echo $cat->CatId; ?>"><?php echo $cat->Category; ?></option>      
@@ -235,7 +235,7 @@ $('.datepicker').datepicker({
         return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
     });
     options.each(function(i, o) {
-        console.log(i);
+        //console.log(i);
         o.value = arr[i].v;
         $(o).text(arr[i].t);
     });
@@ -278,7 +278,7 @@ $('.datepicker').datepicker({
     });*/
     //on load display currency and bank outcomm start
     var bankid = $("#bankid").val();
-    console.log(bankid);
+    //console.log(bankid);
     $.ajax({
       url:"<?php echo base_url ('Expenses/getBanks/')?>"+ bankid ,
                     type: "POST",
@@ -302,7 +302,7 @@ $('.datepicker').datepicker({
                     dataType: "html",
                     success: function(data) {
                     var obj = JSON.parse(data);
-                    //console.log(obj.banks);
+                    console.log(obj.banks);
                     //$("#bank").val(obj.banks.BankName);
                     //$("#bankid").val(obj.banks.BankId);
                     $("#outCommP").val(obj.banks.OctComP);
@@ -368,6 +368,7 @@ $('.datepicker').datepicker({
     $('#transType').on('change',function() {
       var transType = document.getElementById("transType").value;
       var bankid = document.getElementById("bankid") .value;
+      //alert(transType);
       $.ajax({
                 url:"<?php echo base_url ('Expenses/transferAmt')?>",
                     type: "POST",

@@ -96,7 +96,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount <span class="red">*</span></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12"><span><input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo $expenses->PlannedAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
+                        <div class="col-md-8 col-sm-8 col-xs-12"><span><input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo number_format($expenses->PlannedAmt, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                         </div>
                       </div>
                     </div>
@@ -163,7 +163,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Amount</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php echo $expenses->ActualAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
+                          <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php echo number_format($expenses->ActualAmt, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
                         </div>
                       </div>
                     </div>
@@ -225,6 +225,7 @@
     $('#bankid').attr('disabled',true);
     $('#transType').attr('disabled',true);
     $('#shareP').attr('disabled',true);
+    $('#vendor').attr('disabled',true);
     /*$('#vendor').on('change',function() {
         var vendorId=document.getElementById("vendor").value;  
          $.ajax({
@@ -313,25 +314,27 @@
                });
     });
     $('#transType').on('change',function() {
-      var transType = document.getElementById("transType").value; 
+      var transType = document.getElementById("transType").value;
+      var bankid = document.getElementById("bankid") .value;
       $.ajax({
                 url:"<?php echo base_url ('Expenses/transferAmt/')?>"+ transType ,
                     type: "POST",
-                    data : {transType:transType},
+                    data : {transType:transType,bankid:bankid},
                     dataType: "html",
                     success: function(data) {
                     var obj = JSON.parse(data);
                     //console.log(obj.transferAmt.Amount);
                     //$("#transferAmt").val(obj.transferAmt.Amount);
-                    if (obj.transferAmt == null) {
-                          var transferAmt = 0;
+                     if (obj.result == null) {
+                          var transferCommP = 0;
                       }else{
-                          var transferCommP = (obj.transferAmt.Amount);
+                          var transferCommP = (obj.result.Amount);
                       }
                       $("#transferCommP").val(transferCommP);
 
                       //start
                       var actualAmout = $("#acamtReceive").val().replace(/,/gi, "");
+                      
                       var outCommP = $("#outCommP").val();
                       var transferCommP = transferCommP;
                       var shareP =  $("#shareP").val();
@@ -621,6 +624,7 @@
             $('#bankid').attr('disabled',false);
             $('#transType').attr('disabled',false);
             $('#shareP').attr('disabled',false);
+            $('#vendor').attr('disabled',false);
             $("#addExpense").hide();
             $(".page-loader").show();
      } 
