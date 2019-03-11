@@ -260,12 +260,12 @@
                       </div>
                     </div>
                    <?php  } ?>
-                   <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;">
+                   <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Bank Commission</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="hidden" class="form-control xyz" name="bankcommP" id="bankcommP" onkeypress="javascript:return isNumber(event)">
-                          <input type="text" class="form-control xyz" name="bankcomm" id="bankcomm" value="<?php echo $allPspIncome->BankCom ?>" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="bankcomm" id="bankcomm" value="<?php echo $allPspIncome->BankCom ?>" onkeypress="javascript:return isNumber(event)" readonly>
                         </div>
                       </div>
                     </div>
