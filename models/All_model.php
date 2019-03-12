@@ -101,7 +101,7 @@ class All_model extends CI_Model {
 		return $this->db->get ()->result();
 	}
 	public function get_psp($id){
-		$this->db->select('p.PspId,p.PspName,p.BankId,p.Comments,p.Active,b.BankName,b.BankId,b.CurId,cm.CurName,p.PayTerm,p.Commission,p.Crr,p.TypeId,b.InComP');
+		$this->db->select('p.PspId,p.PspName,p.BankId,p.Balance,p.Comments,p.Active,b.BankName,b.BankId,b.CurId,cm.CurName,p.PayTerm,p.Commission,p.Crr,p.TypeId,b.InComP');
 		$this->db->from('pspmaster p');
 		$this->db->join('bankmaster b','b.BankId = p.BankId');
 		$this->db->join('currencymaster cm','cm.CurId = b.CurId');
@@ -220,11 +220,18 @@ class All_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 	public function getBanks($id){
-		$this->db->select('v.VendorId,v.VendorName,v.Active,v.Currency,c.CurId,c.CurName,b.BankId,b.BankName,b.OctComP');
+		/*$this->db->select('v.VendorId,v.VendorName,v.Active,v.Currency,c.CurId,c.CurName,b.BankId,b.BankName,b.OctComP');
 		$this->db->from('vendormaster v');
 		$this->db->join('currencymaster c','c.CurId = v.Currency');
 		$this->db->join('bankmaster b','b.CurId = v.Currency');
 		$this->db->where('v.Active',1);
+		//$this->db->where('v.VendorId',$id);
+		$this->db->where('b.BankId',$id);
+		return $this->db->get()->row();*/
+		$this->db->select('c.CurId,c.CurName,b.BankId,b.BankName,b.OctComP');
+		$this->db->from('bankmaster b');
+		$this->db->join('currencymaster c','c.CurId = b.CurId');
+		$this->db->where('b.Active',1);
 		//$this->db->where('v.VendorId',$id);
 		$this->db->where('b.BankId',$id);
 		return $this->db->get()->row();

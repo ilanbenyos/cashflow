@@ -142,6 +142,28 @@ class Psp_income extends CI_Controller {
                         $date = date("Y-m-d");
                         $crrReceive =  date('Y-m-d', strtotime($date. ' + 180 days'));
                     }*/
+					if ($curr == 'USD') {
+                        $cur = 'EUR';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $rate = $val->rates->USD;
+                        //echo "rate USD " . $rate;
+                        $exchange_rate = $val->rates->USD;
+                        $euro_amount = $nettoBankAmt * $exchange_rate;
+                    }else{
+                        $cur = 'EUR';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $rate = $val->rates->EUR;
+                        //echo "rate EUR " . $rate;
+                        $exchange_rate = $val->rates->EUR;
+                        $euro_amount = $nettoBankAmt * $exchange_rate;
+                    }
+					/*echo 'exchange_rate ' . $exchange_rate;
+                    echo 'euro_amount ' . $euro_amount;
+                    exit();*/
         			$pspIncomeInfo = array(
         				'PspId' => $pspid,
         				'BankId' => $BankId,
@@ -161,7 +183,8 @@ class Psp_income extends CI_Controller {
                         'ActualNetAmt' => $nettoBankAmt,
                         'EuroValue' => $nettoBankAmt,
                         'ActualNetAmt' => $nettoBankAmt,
-                        'EuroValue' => $nettoBankAmt,
+                        'ExchangeRate' => $exchange_rate,
+                        'EuroValue' => $euro_amount,
         				//'ActualNetAmt' => $acnetAmt,
                         //'EuroValue' => $acnetAmt,
 
@@ -178,7 +201,7 @@ class Psp_income extends CI_Controller {
                     $wherecol = 'BankId';
                     $data['getBankBal'] = $this->all_model->getbankData($table,$columns,$wherecol,$BankId);
                     //$updatedBal = ($data['getBankBal']->Balance + $acnetAmt);
-                    $updatedBal = ($data['getBankBal']->Balance + $nettoBankAmt);
+                    $updatedBal = ($data['getBankBal']->Balance + $euro_amount);
 
                     /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
                     . "Bank-Balance-Before: ". "Transaction ID:" . $transactionId  . ' - ' . $data['getBankBal']->Balance .PHP_EOL . "-------------------------" . PHP_EOL;
@@ -317,7 +340,7 @@ class Psp_income extends CI_Controller {
 
                     $data['allPspIncome'] = $this->all_model->pspIncome($id);
                     //$acamtnetReceivebefore = $data['allPspIncome']->ActualNetAmt;
-                    $acamtnetReceivebefore = $data['allPspIncome']->NetBankAmt;
+                    $acamtnetReceivebefore = $data['allPspIncome']->EuroValue;
                     
 
         			if($plcommval == ""){
@@ -353,6 +376,26 @@ class Psp_income extends CI_Controller {
                         $isCrr = 0;
                     }
                     
+                    if ($curr == 'USD') {
+                        $cur = 'EUR';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $rate = $val->rates->USD;
+                        //echo "rate USD " . $rate;
+                        $exchange_rate = $val->rates->USD;
+                        $euro_amount = $nettoBankAmt * $exchange_rate;
+                    }else{
+                        $cur = 'EUR';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $rate = $val->rates->EUR;
+                        //echo "rate EUR " . $rate;
+                        $exchange_rate = $val->rates->EUR;
+                        $euro_amount = $nettoBankAmt * $exchange_rate;
+                    }
+
         			$updatePspIncomeInfo = array(
         				'PspId' => $pspid,
         				'BankId' => $BankId,
@@ -370,8 +413,10 @@ class Psp_income extends CI_Controller {
         				//'ActualNetAmt' => $acnetAmt,
                         //'EuroValue' => $acnetAmt,
                         'ActualNetAmt' => $nettoBankAmt,
-                        'EuroValue' => $nettoBankAmt,
+                        //'EuroValue' => $nettoBankAmt,
                         'NetBankAmt' => $nettoBankAmt,
+                        'ExchangeRate' => $exchange_rate,
+                        'EuroValue' => $euro_amount,
                         'isCRR' => $isCrr,
         				//'CreatedBy' => $uid,
                         'ModifiedBy'=> $uid
@@ -389,7 +434,7 @@ class Psp_income extends CI_Controller {
                         
                 //if ($data['getBankBal']->Balance > 0 ) {
                     $updatedBal = ($data['getBankBal']->Balance) - ($acamtnetReceivebefore);
-                    $updatedBal = ($updatedBal)+($nettoBankAmt);
+                    $updatedBal = ($updatedBal)+($euro_amount);
                             
                     $this->db->where('BankId',$BankId);
                     $this->db->update('bankmaster',array('Balance'=>$updatedBal));
@@ -443,8 +488,8 @@ class Psp_income extends CI_Controller {
 
                             $data['allPspIncome'] = $this->all_model->pspIncome($id);
                             //$bankBal = ($data['getBankBal']->Balance) + ($nettoBankAmt);
-                            $updatedBal = ($data['getBankBal']->Balance) - ($data['allPspIncome']->NetBankAmt);
-                            $bankBal = ($updatedBal)+($nettoBankAmt);
+                            $updatedBal = ($data['getBankBal']->Balance) - ($data['allPspIncome']->EuroValue);
+                            $bankBal = ($updatedBal)+($euro_amount);
 
                             $this->db->where('BankId',$BankId);
                             $this->db->update('bankmaster',array('Balance'=>$bankBal));
@@ -462,7 +507,7 @@ class Psp_income extends CI_Controller {
                                 $this->db->where('TransId',$id);
                                 $beforeActualAmount = $this->db->get()->row();
 
-                                $pspBalance = ($pspBal['balance']->Balance)-($nettoBankAmt);
+                                $pspBalance = ($pspBal['balance']->Balance)-($beforeActualAmount->ActualAmt);
                                 
                                 
                                 //$neBalance = ($balance)+($acamtReceive);
