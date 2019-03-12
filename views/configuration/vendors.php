@@ -69,8 +69,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 					  <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
 						<div class="col-md-12 col-sm-12 col-xs-12">
 						  <div class="form-group">
-							<label class="col-md-4 col-sm-4 col-xs-12">Vendor Name</label>
-							<div class="col-md-8 col-sm-8 col-xs-12">
+							<label class="col-md-6 col-sm-6 col-xs-12">Vendor Name</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
 							  <input type="text" class="form-control" name="Vname" id="Vname" placeholder="Vendor Name" />
 							</div>
 						  </div>
@@ -90,10 +90,10 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 						</div> --> 
 						<div class="col-md-12 col-sm-12 col-xs-12">
 						  <div class="form-group">
-							<label class="col-md-4 col-sm-4 col-xs-12">Invoice Frequency</label>
-							<div class="col-md-8 col-sm-8 col-xs-12">
+							<label class="col-md-6 col-sm-6 col-xs-12">Invoice Frequency</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
 							  <select class="form-control" name="InvoiceType" id="InvoiceType" onchange="">
-								<option selected="" value="">Select Invoice Frequency</option>
+								<option selected="" value="">Select Frequency</option>
 								<option value="Weekly">Weekly</option>
 								<option value="Monthly">Monthly</option>
 								<option value ="Quarterly">Quarterly</option>
@@ -103,12 +103,48 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 							</div>
 						  </div>
 						</div>
+            <div class="col-md-12 col-sm-12 col-xs-12" id="weekly" style="display: none;">
+              <div class="form-group">
+              <label class="col-md-6 col-sm-6 col-xs-12">Reminder On</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                 <select class="form-control" name="weekly_reminder" id="weekly_reminder" onchange="">
+                  <option selected="" value="">Select Days</option>
+                  <option value="Sunday">Sunday</option>
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                </select> 
+              </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" id="monthly" style="display: none;">
+              <div class="form-group">
+              <label class="col-md-6 col-sm-6 col-xs-12">Reminder On</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                 <div class="input-group date" data-provide="datepicker">
+                    <input type="text" class="form-control" name="monthly_reminder" id="monthly_reminder" />
+                    <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" id="quartely" style="display: none;">
+              <div class="form-group">
+              <label class="col-md-6 col-sm-6 col-xs-12">Reminder On</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="month" class="form-control" name="quartely_reminder" id="quartely_reminder" />
+              </div>
+              </div>
+            </div>
 						  
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
-              <label class="col-md-4 col-sm-4 col-xs-12">Comments</label>
-              <div class="col-md-8 col-sm-8 col-xs-12">
+              <label class="col-md-6 col-sm-6 col-xs-12">Comments</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="text" class="form-control" name="Comments"  id="Comments" placeholder="Comments" />
               </div>
               </div>
@@ -132,8 +168,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 						</div> -->
 							<div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Currency</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="hidden" class="form-control" name="Curr" id="Curr" />
                          <!--  <input type="text" class="form-control" name="Currency" id="Currency"> -->
                           <select class="form-control" name="Currency" id="Currency" >
@@ -148,8 +184,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     </div>  
 						<div class="col-md-12 col-sm-12 col-xs-12">
 						     <div class="form-group">
-								<label class="col-md-4 col-sm-4 col-xs-12">Status</label>
-								<div class="col-md-8 col-sm-8 col-xs-12">
+								<label class="col-md-6 col-sm-6 col-xs-12">Status</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
 					                <select class="form-control" name="Status" id="Status">
 									<option value="1">Active</option>      
 									<option value="0">Disabled</option>      
@@ -193,6 +229,32 @@ if (isset ( $_SESSION ['pop_mes'] )) {
   </div>
   <!-- Modal -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#weekly").hide();
+    $("#InvoiceType").on('change',function(){
+      var reminderValue = $("#InvoiceType").val();
+      if(reminderValue == 'Weekly'){
+        $("#weekly").show();
+        $("#monthly").attr('disabled',true);
+        $("#quartely").attr('disabled',true);
+      }else if(reminderValue == 'Monthly'){
+        $("#monthly").show();
+        $("#weekly").hide();
+        $("#quartely").hide();
+      }else if(reminderValue == 'Quarterly'){
+        $("#monthly").hide();
+        $("#weekly").hide();
+        $("#quartely").show();
+      }
+      else{
+        $("#monthly").hide();
+        $("#weekly").hide();
+        $("#quartely").hide();
+      }
+    });
+  });
+</script>
 <script type="text/javascript">
   (function($){
 

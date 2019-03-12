@@ -24,8 +24,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
             
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group" id="fromBankgroup1">
-              <label class="col-md-4 col-sm-4 col-xs-12">From Bank</label>
-              <div class="col-md-8 col-sm-8 col-xs-12">
+              <label class="col-md-5 col-sm-5 col-xs-12">From Bank</label>
+              <div class="col-md-7 col-sm-7 col-xs-12">
                 <select class="form-control" name="fromBank1" id="fromBank1" onchange="" readonly>
                 <option selected="" value="">Select From Bank</option>
                             <?php foreach ($banks as $bank1) { ?>
@@ -39,8 +39,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group" id="toBankgroup1">
-              <label class="col-md-4 col-sm-4 col-xs-12">To Bank</label>
-              <div class="col-md-8 col-sm-8 col-xs-12">
+              <label class="col-md-5 col-sm-5 col-xs-12">To Bank</label>
+              <div class="col-md-7 col-sm-7 col-xs-12">
                 <select class="form-control" name="toBank1" id="toBank1" onchange="" readonly>
                 <option selected="" value="">Select To Bank</option>
                             <?php foreach ($banks as $bank2) { ?>
@@ -57,16 +57,16 @@ if (isset ( $_SESSION ['pop_mes'] )) {
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
             <div class="col-md-12 col-sm-12 col-xs-12">
                  <div class="form-group">
-                <label class="col-md-4 col-sm-4 col-xs-12">Amount</label>
-                <div class="col-md-8 col-sm-8 col-xs-12">
+                <label class="col-md-5 col-sm-5 col-xs-12">Amount</label>
+                <div class="col-md-7 col-sm-7 col-xs-12">
                     <input type="text" class="form-control xyz" name="amount1" id="amount1" value="<?php echo number_format($getTransaction->Amount, 2, '.', ',') ?>" placeholder="Amount" />
                 </div>
               </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Transfer Type</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Transfer Type</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" class="form-control xyz" name="transferAmt1" id="transferAmt1" value="<?php //echo $charges->Amount ?>">
                           <select class="form-control" name="transType1" id="transType1" onchange="">
                             <option selected="" value="">Select Transfer Type</option>
@@ -80,8 +80,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12" id="charges1" style="display: none">
                      <div class="form-group">
-                      <label class="col-md-4 col-sm-4 col-xs-12">Transfer Charges</label>
-                      <div class="col-md-8 col-sm-8 col-xs-12">
+                      <label class="col-md-5 col-sm-5 col-xs-12">Transfer Charges</label>
+                      <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="transferCharges1" id="transferCharges1" placeholder="Transfer Charges" readonly />
                       </div>
                     </div>

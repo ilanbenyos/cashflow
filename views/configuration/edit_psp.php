@@ -22,16 +22,16 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   <div class="row clearfix">
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">PSP Name</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">PSP Name</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" class="form-control" name="psp_name1" id="psp_name1" value="<?php echo $getpsp->PspName; ?>" placeholder="PSP Name" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Associated Bank</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Associated Bank</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" name="bank1" id="bank1" >
                             <?php foreach ($banks as $bank) { ?>
                             <!-- <option value="<?php echo $bank->BankId; ?>"> <?php echo $bank->BankName; ?></option> --> 
@@ -51,8 +51,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     </div> -->
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">PSP Type</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">PSP Type</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" name="psp_type1" id="psp_type1" onchange="">
                             <?php foreach ($pspType as $psptype) { ?>
                             <option <?php if($psptype->TypeId == $getpsp->TypeId){echo 'selected="selected"'; }  ?> value="<?php echo $psptype->TypeId; ?>"><?php echo $psptype->TypeName; ?></option>            
@@ -63,40 +63,41 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Payment Terms</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Payment Terms</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" class="form-control" name="payment_terms1" id="payment_terms1" value="<?php echo $getpsp->PayTerm; ?>" placeholder="payment Terms" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Rolling Reserved %</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Rolling Reserved %</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" class="form-control" name="crc1" id="crc1" value="<?php echo $getpsp->Crr; ?>" placeholder="Rolling Reserved %" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Commision</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Commision</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" class="form-control" name="commision1" id="commision1" value="<?php echo $getpsp->Commission; ?>" placeholder="Commision in %" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Description</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Description</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <textarea class="form-control" name="message1" id="message1" placeholder="Message" value=""><?php echo $getpsp->Comments; ?></textarea>
                         </div>
                       </div>
                     </div>
+                    
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Status</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Status</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
 					      <select class="form-control" name="status1" id="status1" onchange="">
                            <!--  <option value="1">Active</option>      
                             <option value="0">Deactive</option>  -->     
@@ -104,6 +105,14 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 				      		<option value="<?php if( $getpsp->Active== "1"){ echo "0";}else{ echo "1";}?>"><?php if( $getpsp->Active == "1"){ echo "Disabled";}else{ echo "Active";}?> </option>    
                           </select>
                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Rolling Reserved Balance</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" class="form-control" name="" id="" placeholder="Commision in %" value="<?php echo number_format($getpsp->Balance, 2, '.', ','); ?>" readonly="" />
+                        </div>
                       </div>
                     </div>
                     <div class="col-xs-12 text-center spacetop2x">

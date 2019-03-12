@@ -22,10 +22,13 @@
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex">
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+					<div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Gerneral Information</h4>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">PSP</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">PSP</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="form-control" name="psp" id="psp" onchange="">
                             <option selected="" value="">Select PSP</option>
                             <?php foreach ($all_psp as $psp) { ?>
@@ -37,8 +40,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Bank</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Bank</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" class="form-control" name="bankid" id="bankid" />
                           <input type="text" class="form-control" name="bank" id="bank" readonly/>
                         </div>
@@ -59,8 +62,8 @@
                     </div> -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Description</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <textarea class="form-control" name="desc" id="desc" placeholder="Description"></textarea>
                         </div>
                       </div>
@@ -69,10 +72,14 @@
                   </div>
                   <!--planned info starts -->
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+				  <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Planned Information</h4>
+                    </div>
+				   
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Received date <span class="red">*</span></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Received date <span class="red">*</span></label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
@@ -82,16 +89,16 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount <!-- <span class="red">*</span> --></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Processed Amount <!-- <span class="red">*</span> --></label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived"  placeholder="Planned Processed Amount" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="plcurr" id="plcurr" readonly>
                           <!-- <select class="form-control" name="plcurr" id="plcurr" readonly>
                             <option value="USD" selected="">USD</option>
@@ -103,16 +110,16 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Commission %</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="plcommval" id="plcommval" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Commission Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Commission Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="plamtval" id="plamtval" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
@@ -154,8 +161,8 @@
                     </div> -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Net Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="plnetAmt" id="plnetAmt" placeholder="Planned Net Amount" />
                         </div>
                       </div>
@@ -164,10 +171,13 @@
                   <!--planned info ends -->
                   <!-- Actual info starts -->
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+				   <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Actual Information</h4>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Received date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Received date</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <div class="input-group date">
                             <input type="text" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
@@ -177,16 +187,16 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Processed Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Processed Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" onkeypress="javascript:return isNumber(event)" placeholder="Actual Processed Amount" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="accurr" id="accurr" readonly>
                          <!--  <select class="form-control" name="accurr" id="accurr" onchange="" readonly>
                             <option selected="">USD</option>
@@ -198,8 +208,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Commission %</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" class="form-control xyz" name="accommP" id="accommP" onkeypress="javascript:return isNumber(event)">
                           <input type="text" class="form-control xyz" name="accommval" id="accommval" onkeypress="javascript:return isNumber(event)">
                         </div>
@@ -207,8 +217,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Commission Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Commission Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="acamtval" id="acamtval" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
@@ -216,8 +226,8 @@
                     
                     <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;" id="crr">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">CRR Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">CRR Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" name="crrComm" id="crrComm">
                           <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" placeholder="CRR Amount" readonly />
                         </div>
@@ -225,8 +235,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Bank Commission</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Bank Commission</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" class="form-control xyz" name="bankcommP" id="bankcommP" onkeypress="javascript:return isNumber(event)">
                           <input type="text" class="form-control xyz" name="bankcomm" id="bankcomm" onkeypress="javascript:return isNumber(event)" readonly>
                         </div>
@@ -234,8 +244,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Net To Bank Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Net To Bank Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="nettoBankAmt" id="nettoBankAmt" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>

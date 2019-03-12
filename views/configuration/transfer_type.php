@@ -63,7 +63,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
               <div class="row clearfix spacetop4x">
                 <div class="clearfix">
                   <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
-                  <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-6 col-sm-6 col-xs-12">Bank Transfer Type</label>

@@ -26,10 +26,14 @@
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex">
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+				  	<div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Gerneral Information</h4>
+                    </div>
+				   
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Vendor</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Vendor</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="form-control" name="vendor" id="vendor" onchange="">
                             <option selected="" value="">Select Vendor</option>
                             <?php foreach ($vendors as $vendor) { ?>
@@ -41,8 +45,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Bank</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Bank</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <!-- <input type="hidden" class="form-control" name="bankid" id="bankid" value="<?php echo $expenses->BankId ?>"/>
                           <input type="text" class="form-control" name="bank" id="bank" value="<?php echo $expenses->BankName ?>" readonly/> -->
                           <select class="form-control" name="bankid" id="bankid" onchange="">
@@ -57,16 +61,16 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Description</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <textarea class="form-control" name="desc" id="desc" placeholder="Description" value="<?php echo $expenses->Description ?>"></textarea>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Expense Category</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Expense Category</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <!-- <input type="hidden" name="transferAmt" id="transferAmt"> -->
                           <select class="form-control" name="expCat" id="expCat" onchange="">
                             <option selected="" value="">Select Expense Category</option>
@@ -82,10 +86,14 @@
                   </div>
                   <!--planned info starts -->
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+					<div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Planned Information</h4>
+                    </div>
+					
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned date <span class="red">*</span></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Planned date <span class="red">*</span></label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ExpDate))) ?>" placeholder="Planned Date" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
@@ -95,23 +103,23 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount <span class="red">*</span></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12"><span><input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo number_format($expenses->PlannedAmt, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
+                        <label class="col-md-5 col-sm-5 col-xs-12">Planned Amount <span class="red">*</span></label>
+                        <div class="col-md-7 col-sm-7 col-xs-12"><span><input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo number_format($expenses->PlannedAmt, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="plcurr" id="plcurr" value="<?php echo $expenses->Currency ?>" readonly>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Transfer Type</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Transfer Type</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" name="transferAmt" id="transferAmt">
                           <select class="form-control" name="transType" id="transType" onchange="">
                             <option selected="" value="">Select Transfer Type</option>
@@ -126,8 +134,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Share %</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Share %</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="shareP" id="shareP" value="<?php echo number_format($expenses->Share, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
@@ -144,10 +152,14 @@
                   <!--planned info ends -->
                   <!-- Actual info starts -->
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+				    <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Actual Information</h4>
+                    </div>
+					
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Actual date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Actual date</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <div class="input-group date">
                             <?php  if ($expenses->ActualDate != '0000-00-00') { ?>
                             <input type="text" class="form-control" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ActualDate))) ?>" placeholder="Actual Date" />
@@ -161,32 +173,32 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Actual Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php echo number_format($expenses->ActualAmt, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="accurr" id="accurr"  value="<?php echo $expenses->Currency ?>" readonly>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Final bank commission </label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Final bank commission </label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="fbc" id="fbc" value="<?php echo number_format($expenses->FinalBankComm, 2, '.', ',') ?>" placeholder="Final bank commission" readonly/>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Net From Bank </label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Net From Bank </label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="nfb" id="nfb" value="<?php echo number_format($expenses->NetFromBank, 2, '.', ',') ?>" placeholder="Net From Bank" />
                         </div>
                       </div>

@@ -26,10 +26,13 @@
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex">
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+					<div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Gerneral Information</h4>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Vendor</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Vendor</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="form-control" name="vendor" id="vendor" onchange="">
                             <option selected="" value="">Select Vendor</option>
                             <?php foreach ($vendors as $vendor) { ?>
@@ -41,8 +44,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Bank</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Bank</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <!-- <input type="hidden" class="form-control" name="bankid" id="bankid" />
                           <input type="text" class="form-control" name="bank" id="bank" readonly/> -->
                           <select class="form-control" name="bankid" id="bankid" onchange="">
@@ -57,16 +60,16 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Description</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <textarea class="form-control" name="desc" id="desc" placeholder="Description"></textarea>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Expense Category</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Expense Category</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <!-- <input type="hidden" name="transferAmt" id="transferAmt"> -->
                           <select class="form-control" name="expCat" id="expCat" onchange="">
                             <!-- <option selected="" value="">Select Expense Category</option> -->
@@ -82,10 +85,13 @@
                   </div>
                   <!--planned info starts -->
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+					<div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Planned Information</h4>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned date <span class="red">*</span></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Planned date <span class="red">*</span></label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Date" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
@@ -95,24 +101,24 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Amount <span class="red">*</span><span></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Planned Amount <span class="red">*</span><span></label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="plcurr" id="plcurr" readonly>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Transfer Type</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12"> 
+                        <label class="col-md-5 col-sm-5 col-xs-12">Transfer Type</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12"> 
                           <select class="form-control" name="transType" id="transType" onchange="">
                             <option selected="" value="">Select Transfer Type</option>
                             <?php foreach ($transType as $type) { ?>
@@ -126,8 +132,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Share %</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Share %</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="shareP" id="shareP" placeholder="Share %" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
@@ -136,10 +142,13 @@
                   <!--planned info ends -->
                   <!-- Actual info starts -->
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+					<div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Actual Information</h4>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Actual date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Actual date</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <div class="input-group date">
                             <input type="text" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" placeholder="Actual Date" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
@@ -149,32 +158,32 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Actual Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="accurr" id="accurr" readonly>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Final bank commission </label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Final bank commission </label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="fbc" id="fbc" placeholder="Final bank commission" readonly/>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Net From Bank </label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Net From Bank </label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="nfb" id="nfb" placeholder="Net From Bank"  />
                         </div>
                       </div>
@@ -529,17 +538,17 @@ $('.datepicker').datepicker({
       console.log('transferCommP' + transferCommP);
       console.log('shareP' + shareP);
 
-      var outComm = (actualAmout*(outCommP/100));
-      var transferComm = (actualAmout*(transferCommP/100));
-      var shareComm = (transferComm*(shareP/100));
+      var outComm = (actualAmout*(outCommP/100));               //(1000*(10/100)) = 100
+      var transferComm = (actualAmout*(transferCommP/100));     //(1000*(5/100)) = 50
+      var shareComm = (transferComm*(shareP/100));              //(50*(60/100)) = 30
 
       console.log('outComm' + outComm);
       console.log('transferComm' + transferComm);
       console.log('shareComm' + shareComm);
-      console.log(parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));
+      console.log(parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));    
 
-      var totalComm = (parseInt(outComm)+parseInt(shareComm));
-      var netAmount = (parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));
+      var totalComm = (parseInt(outComm)+parseInt(shareComm));                         //100+30= 130
+      var netAmount = (parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));   //1000+100+30 = 1130
 
       $("#fbc").val(totalComm);
       $("#nfb").val(netAmount);

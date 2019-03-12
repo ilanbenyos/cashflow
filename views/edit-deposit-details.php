@@ -7,6 +7,7 @@
       <div class="row">
         <div class="col-md-12">
           <!-- <div class="middle-section light-blue-box spacebottom2x clearfix"> -->
+		   <h2 class="modal-title">EDIT PSP Income</h2>
             <div class="defination-box clearfix">
             <form class="form-horizontal clearfix" id="pspIncome" method="post">
                 <?php 
@@ -24,10 +25,13 @@
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex">
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+				   <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Gerneral Information</h4>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">PSP</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">PSP</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="form-control" name="psp" id="psp" onchange="" readonly>
                             <option selected="" value="">Select PSP</option>
                             <?php foreach ($all_psp as $psp) { ?>
@@ -40,8 +44,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Bank</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Bank</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" class="form-control" name="bankid" id="bankid" value="<?php echo $allPspIncome->BankId ?>" />
                           <input type="text" class="form-control" name="bank" id="bank" value="<?php echo $allPspIncome->BankName ?>" readonly/>
                         </div>
@@ -62,8 +66,8 @@
                     </div> --> 
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Description</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <textarea class="form-control" name="desc" id="desc" placeholder="Description" value="" style="height: 44px;"><?php echo $allPspIncome->Description ?></textarea>
                         </div>
                       </div>
@@ -72,10 +76,13 @@
                   </div>
                   <!--planned info starts -->
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+				  <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Planned Information</h4>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Received date <span class="red">*</span></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12"> Received date <span class="red">*</span></label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
                             <!-- <?php if ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId != 0) { ?>
                             <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ExpDate))) ?>" />
@@ -97,16 +104,16 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Planned Processed Amount <!-- <span class="red">*</span> --></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12"> Processed Amount <!-- <span class="red">*</span> --></label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo $allPspIncome->PlannedAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount"  />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="plcurr" id="plcurr" value="<?php echo $allPspIncome->Currency; ?>" readonly>
                           <!-- <select class="form-control" name="plcurr" id="plcurr" >
                             <option value="USD" selected="">USD</option>
@@ -118,16 +125,16 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Commission %</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="plcommval" id="plcommval" value="<?php echo $allPspIncome->PlannedComP ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Commission Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Commission Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="plamtval" id="plamtval" value="<?php echo $allPspIncome->PlannedCom ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
@@ -163,8 +170,8 @@
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12 xyz">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Net Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12 xyz">
                           <input type="text" class="form-control" name="plnetAmt" id="plnetAmt" placeholder="Planned Net Amount" value="<?php echo $allPspIncome->PlannedNetAmt ?>" />
                         </div>
                       </div>
@@ -173,10 +180,13 @@
                   <!--planned info ends -->
                   <!-- Actual info starts -->
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+					<div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Actual Information</h4>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Received date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Received date</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <div class="input-group date">
                             <!-- <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" /> -->
                             <!-- <input type="text" class="form-control" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" /> -->
@@ -208,8 +218,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Actual Processed Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Processed Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php echo $allPspIncome->ActualAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Processed Amount"  />
                           
                         </div>
@@ -217,8 +227,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="accurr" id="accurr" value="<?php echo $allPspIncome->Currency; ?>" readonly>
                           <!-- <select class="form-control" name="accurr" id="accurr" onchange="">
                             <option selected="">USD</option>
@@ -230,8 +240,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Commission %</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" class="form-control xyz" name="accommP" id="accommP" onkeypress="javascript:return isNumber(event)">
                           <input type="text" class="form-control xyz" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualComP ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
@@ -239,8 +249,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Commission Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Commission Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="acamtval" id="acamtval" value="<?php echo $allPspIncome->ActualCom ?>"  onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
@@ -248,8 +258,8 @@
                     <?php if ($allPspIncome->isCRR == 1) { ?>
                       <div class="col-md-12 col-sm-12 col-xs-12" id="crr">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">CRR Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">CRR Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" name="crrComm" id="crrComm">
                            <?php if ($crrData->isCRR == 0 && $crrData->CRRId == $allPspIncome->TransId ) { ?>
                              <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" value="<?php echo $crrData->PlannedAmt; ?>" placeholder="CRR Amount" readonly/>
@@ -262,8 +272,8 @@
                    <?php  } ?>
                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Bank Commission</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Bank Commission</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" class="form-control xyz" name="bankcommP" id="bankcommP" onkeypress="javascript:return isNumber(event)">
                           <input type="text" class="form-control xyz" name="bankcomm" id="bankcomm" value="<?php echo $allPspIncome->BankCom ?>" onkeypress="javascript:return isNumber(event)" readonly>
                         </div>
@@ -271,8 +281,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Net To Bank Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Net To Bank Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="nettoBankAmt" id="nettoBankAmt" value="<?php echo $allPspIncome->NetBankAmt ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
@@ -433,6 +443,7 @@ if ($("#acamtReceive").val() == 0.00) {
         $("#accommval").attr('disabled',true);
         $("#acamtval").attr('disabled',true);
         var pspid=document.getElementById("psp").value;  
+        //alert(pspid);
          $.ajax({
                 url:"<?php echo base_url ('Psp_income/getBanks/')?>"+ pspid ,
                     type: "POST",

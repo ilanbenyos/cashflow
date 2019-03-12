@@ -19,7 +19,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                 <thead>
                   <tr>
                     <th>PSP Name</th>
-                    <!-- <th>Rolling Reserved Balance</th> -->
+                    <th>Rolling Reserved Balance</th> 
                     <th>Bank Associated</th>
                     <th>Date</th>
                     <th>Description</th>
@@ -31,7 +31,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                 	 <?php foreach ($all_psp as $psp) { ?> 
                 	<tr>
                         <td><?php echo $psp->PspName; ?></td>
-                        <!-- <td><?php echo number_format($psp->Balance, 2, '.', ','); ?></td> -->
+                        <td><?php echo number_format($psp->Balance, 2, '.', ','); ?></td> 
                         <td><?php echo $psp->BankName; ?></td>
                         <td><?php echo date('d/m/Y', strtotime(str_replace('-','/', $psp->CreatedOn))); ?></td>
                         <td><?php echo $psp->Comments; ?></td>
@@ -71,8 +71,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   <div class="row clearfix">
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">PSP Name</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">PSP Name</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" class="form-control" name="psp_name" id="psp_name" placeholder="PSP Name" />
                         </div>
                       </div>
@@ -90,8 +90,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     </div> -->
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Associated Bank</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Associated Bank</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" name="bank" id="bank" onchange="">
                             <option selected="" value="">Select Bank</option>
                             <?php foreach ($banks as $bank) { ?>
@@ -111,8 +111,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     </div> -->
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">PSP Type</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">PSP Type</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" name="psp_type" id="psp_type" onchange="">
                             <?php foreach ($pspType as $psptype) { ?>
                             <option value="<?php echo $psptype->TypeId; ?>"><?php echo $psptype->TypeName; ?></option>            
@@ -123,41 +123,42 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Payment Terms</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Payment Terms</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" class="form-control" name="payment_terms" id="payment_terms" placeholder="payment Terms" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Rolling Reserved %</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Rolling Reserved %</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" class="form-control" name="crc" id="crc" placeholder="Rolling Reserved %" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Commision</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Commision</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" class="form-control" name="commision" id="commision" placeholder="Commision in %" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Description</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Description</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <textarea class="form-control" name="message" id="message" placeholder="Message"></textarea>
                         </div>
                       </div>
                     </div>
                     
+                    
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">Status</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Status</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
 					      <select class="form-control" name="status" id="status">
                             <option value="1">Active</option>      
                             <option value="0">Disabled</option>      

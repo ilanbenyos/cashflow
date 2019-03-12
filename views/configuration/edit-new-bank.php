@@ -23,34 +23,29 @@ $_SESSION['form_token_editbank'] = $token;
               <div class="row clearfix spacetop4x">
                 <div class="row-flex clearfix">
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12"></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <label class="">General Information</label>
-                        </div>
-                      </div>
+                     <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>General Information</h4>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Bank Name</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Bank Name</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" class="form-control" placeholder="Bank Name" value="<?php echo $result->BankName; ?>" id="BankName" name="BankName" />
                         </div>
                       </div>
                     </div>
 					<div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Balance</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Balance</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" class="form-control xyz" placeholder="Balance" value="<?php echo number_format($result->Balance, 2, '.', ','); ?>" id="Balance" name="Balance" onkeypress="javascript:return isNumber(event)" />
                         </div>
                       </div>
                     </div>
           <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Currency</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" name="cur" id="cur" onChange="">
                             <?php //print_r($currency);
                             foreach ($currency as $curr) { ?>
@@ -62,8 +57,8 @@ $_SESSION['form_token_editbank'] = $token;
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Status</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Status</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                          <select class="form-control" name="status" id="status">
                             <option selected="selected" value="<?php echo $result->Active; ?>"><?php if( $result->Active == "1"){ echo "Active";}else{ echo "Disabled";}?> </option>
               <option value="<?php if( $result->Active== "1"){ echo "0";}else{ echo "1";}?>"><?php if( $result->Active == "1"){ echo "Disabled";}else{ echo "Active";}?> </option>     
@@ -103,42 +98,32 @@ $_SESSION['form_token_editbank'] = $token;
                   </div>
                   
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12"></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <label class="">Money-In Commisions</label>
-                        </div>
-                      </div>
+                    <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Money-In Commisions</h4>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Inflow Commission %</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Inflow Commission %</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" class="form-control xyz" id="InComP" value="<?php echo $result->InComP; ?>" name="InComP" placeholder="Inflow Commission %" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Inflow Commission Per Transitions</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Inflow Commission Per Transitions</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" class="form-control xyz" name="InCom" value="<?php echo $result->InCom; ?>" id="InCom" placeholder="Inflow Commission Per Transitions" />
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12"></label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <label class="">Money-Out Commisions</label>
-                        </div>
-                      </div>
+                    <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                      <h4>Money-Out Commisions</h4>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Outgo Commission %</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Outgo Commission %</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" class="form-control xyz" name="OutComP" value="<?php echo $result->OctComP; ?>" id="OutComP" placeholder="Outgo Commission %" />
                         </div>
                       </div>
@@ -147,8 +132,8 @@ $_SESSION['form_token_editbank'] = $token;
 					
 					<div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Outgo Fix Commission</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="col-md-6 col-sm-6 col-xs-12">Outgo Fix Commission</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="hidden" class="form-control xyz" name="OutCom" value="<?php echo $result->OutCom; ?>" id="OutCom" placeholder="Outgo Fix Commission" />
                           <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-container">
