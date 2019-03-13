@@ -55,7 +55,7 @@
                             <option <?php if($bank->BankId == $expenses->BankId){ echo 'selected="selected"'; } ?> value="<?php echo $bank->BankId; ?>"><?php echo $bank->BankName; ?></option>
                             <?php   } ?>
                           </select>
-                          <input type="hidden" class="form-control" name="outCommP" id="outCommP" value="<?php echo $expenses->BankOutCommP ?>"/>
+                          <input type="hidden" class="form-control" name="outCommP" id="outCommP" value="<?php //echo $expenses->BankOutCommP ?>"/>
                         </div>
                       </div>
                     </div>
@@ -125,7 +125,7 @@
                             <option <?php if($type->BankTransferId == $expenses->BankTransferId){ echo 'selected="selected"'; } ?> value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>
                             <?php   } ?>
                           </select>
-                          <input type="hidden" class="form-control xyz" name="transferCommP" id="transferCommP" value="<?php echo $expenses->TransferCommP ?>">
+                          <input type="hidden" class="form-control xyz" name="transferCommP" id="transferCommP" value="<?php //echo $expenses->TransferCommP ?>">
                         </div>
                       </div>
                     </div>
@@ -158,7 +158,7 @@
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <div class="input-group date">
                             <?php  if ($expenses->ActualDate != '0000-00-00') { ?>
-                            <input type="text" class="form-control" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ActualDate))) ?>" placeholder="Actual Date" />
+                            <input type="text" class="form-control" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" value="<?php //echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ActualDate))) ?>" placeholder="Actual Date" />
                             <?php }else{ ?>
                             <input type="text" class="form-control" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive"  placeholder="Actual Date" />
                             <?php } ?>
