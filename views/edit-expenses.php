@@ -1,4 +1,4 @@
-<?php //print_r($expenses); ?>
+<?php print_r($expenses); ?>
 <!-- Page Content  -->
 
 <div id="content">
