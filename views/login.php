@@ -11,7 +11,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
       </div>
       <div class="col-md-12">
         <div class="login-body">
-          <h3>LOGIN TO YOUR ACCOUNT</h3>
+          <!--<h3>LOGIN TO YOUR ACCOUNT</h3>-->
           <div class="clearfix">
             <form class="form-horizontal clearfix" method="post">
               <div class="row clearfix">
@@ -41,7 +41,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
                   </div>
                 </div> -->
                 <!-- <div class="col-md-6 col-sm-6 col-xs-12 forgot-pass-text"><a href="">Forgot Password</a></div> -->
-                <div class="col-xs-12">
+                <div class="col-xs-12 minusspace1x">
                   <div class="form-group">
                     <div class="col-xs-12">
                       <span class="help-block form-error">

@@ -75,7 +75,7 @@ class Login extends CI_Controller {
 				$this->load->view('templates/before-login-header.php',$data);
 				$this->load->view('login');
 				$this->load->view('templates/footer');*/
-				$ret = "Invalid Username & Password";
+				$ret = "Invalid Username or Password";
 				$this->session->set_flashdata('error_view',$ret);
 				redirect('login');
 			}

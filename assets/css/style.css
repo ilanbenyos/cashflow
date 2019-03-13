@@ -48,6 +48,7 @@ span, a, abbr { display:inline-block; }
 .spacebottom4x { margin-bottom: 40px; }
 .spacebottom5x { margin-bottom: 50px; }
 .spacebottom6x { margin-bottom: 60px; }
+.minusspace1x { margin-top:-10px; }
 /***** Common Heading CSS Style *****/
 h1, h2, h3, h4, h5, h6 { position:relative; }
 h1 { color: #2b364a; font-size: 24px; margin: 0 0 20px; text-transform: capitalize; font-family: "RobotoBold", sans-serif; }
@@ -263,8 +264,9 @@ input[type="text"]:readonly {
 .login-section { width: 100%; padding: 0; display: table; height: 100%; position: absolute; top: 0; left: 0; margin: 0; }
 .cntr-box { padding: 0; vertical-align: middle; display: table-cell; margin: 0; }
 .login-box { padding: 35px 40px; margin: 0 auto; width: 44%; max-width: 600px; border: 1px solid #afafaf; }
-.site-logo { padding: 0 0 20px; text-align: center; border-bottom: 2px dotted #afafaf; }
+.site-logo { padding: 0 0 20px; text-align: center; border-bottom: 1px solid #afafaf; }
 h3 { text-align: center; margin: 25px 0; color: #c1c81e; font-family: 'RobotoLight'; font-size: 26px; }
+.login-body { margin-top: 30px; }
 .login-body .form-horizontal .form-group .checkbox label { color: #afafaf; }
 .login-body .checkbox .cr { background: #fff; color: #0e1727; }
 .forgot-pass-text { text-align: right; margin-top: 9px; }
