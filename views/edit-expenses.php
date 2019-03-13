@@ -21,9 +21,9 @@
                 ?>
               <input type="hidden" name="editexpense_token" value="<?php echo $token;?>">
               <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
-              <!-- <input type="hidden" name="shareAmount" id="shareAmount" value="<?php echo number_format($expenses->ShareAmount, 2, '.', ',') ?>">
+              <input type="hidden" name="shareAmount" id="shareAmount" value="<?php echo number_format($expenses->ShareAmount, 2, '.', ',') ?>">
               <input type="hidden" name="BankOutCommAmount" id="BankOutCommAmount" value="<?php echo number_format($expenses->BankOutCommAmount, 2, '.', ',') ?>">
-              <input type="hidden" name="TransferCommAmount" id="TransferCommAmount" value="<?php echo number_format($expenses->TransferCommAmount, 2, '.', ',') ?>"> -->
+              <input type="hidden" name="TransferCommAmount" id="TransferCommAmount" value="<?php echo number_format($expenses->TransferCommAmount, 2, '.', ',') ?>">
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex">
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
@@ -92,7 +92,7 @@
                         <label class="col-md-5 col-sm-5 col-xs-12">Planned date <span class="red">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ExpDate))) ?>" placeholder="Planned Date" />
+                            <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" value="<?php //echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ExpDate))) ?>" placeholder="Planned Date" />
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
                         </div>
@@ -102,7 +102,7 @@
                       <div class="form-group align-4x-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Planned Amount <span class="red">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12"><span>
-                          <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo number_format($expenses->PlannedAmt, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
+                          <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php //echo number_format($expenses->PlannedAmt, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                         </div>
                       </div>
                     </div>
@@ -110,7 +110,7 @@
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="plcurr" id="plcurr" value="<?php echo $expenses->Currency ?>" readonly>
+                          <input type="text" class="form-control" name="plcurr" id="plcurr" value="<?php //echo $expenses->Currency ?>" readonly>
                         </div>
                       </div>
                     </div>
@@ -133,7 +133,7 @@
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Share %</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="shareP" id="shareP" value="<?php echo number_format($expenses->Share, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="shareP" id="shareP" value="<?php //echo number_format($expenses->Share, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
@@ -171,7 +171,7 @@
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Actual Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php echo number_format($expenses->ActualAmt, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
+                          <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php //echo number_format($expenses->ActualAmt, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
                         </div>
                       </div>
                     </div>
@@ -179,7 +179,7 @@
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="accurr" id="accurr"  value="<?php echo $expenses->Currency ?>" readonly>
+                          <input type="text" class="form-control" name="accurr" id="accurr"  value="<?php //echo $expenses->Currency ?>" readonly>
                         </div>
                       </div>
                     </div>
@@ -187,7 +187,7 @@
                       <div class="form-group align-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Final bank commission</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="fbc" id="fbc" value="<?php echo number_format($expenses->FinalBankComm, 2, '.', ',') ?>" placeholder="Final Bank Commission" readonly/>
+                          <input type="text" class="form-control xyz" name="fbc" id="fbc" value="<?php //echo number_format($expenses->FinalBankComm, 2, '.', ',') ?>" placeholder="Final Bank Commission" readonly/>
                         </div>
                       </div>
                     </div>
@@ -195,7 +195,7 @@
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Net From Bank</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="nfb" id="nfb" value="<?php echo number_format($expenses->NetFromBank, 2, '.', ',') ?>" placeholder="Net From Bank" />
+                          <input type="text" class="form-control xyz" name="nfb" id="nfb" value="<?php //echo number_format($expenses->NetFromBank, 2, '.', ',') ?>" placeholder="Net From Bank" />
                         </div>
                       </div>
                     </div>
@@ -426,9 +426,9 @@
       $("#nfb").val(netAmount);
 
 
-    /*var shareAmount = $("#shareAmount").val(shareP/100);
+    var shareAmount = $("#shareAmount").val(shareP/100);
     var BankOutCommAmount = $("#BankOutCommAmount").val(outCommP/100);
-    var TransferCommAmount = $("#TransferCommAmount").val(transferCommP/100);*/
+    var TransferCommAmount = $("#TransferCommAmount").val(transferCommP/100);
     });
 
     $( "#shareP" ).keyup(function( event ) { 
@@ -482,9 +482,9 @@
       $("#nfb").val(netAmount);
 
 
-      /*var shareAmount = $("#shareAmount").val(shareP/100);
+      var shareAmount = $("#shareAmount").val(shareP/100);
       var BankOutCommAmount = $("#BankOutCommAmount").val(outCommP/100);
-      var TransferCommAmount = $("#TransferCommAmount").val(transferCommP/100);*/
+      var TransferCommAmount = $("#TransferCommAmount").val(transferCommP/100);
     });
 
     /*$('#transType').on('change',function() { 
