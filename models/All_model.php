@@ -264,12 +264,19 @@ class All_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 	public function getexpenses($id){
-		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Share,e.FinalBankComm,e.NetFromBank,e.Active,e.ShareAmount,e.BankOutCommP,e.BankOutCommAmount,e.TransferCommP,e.TransferCommAmount,v.VendorId,v.VendorName,b.BankId,b.BankName,bc.BankTransferId,bc.Amount,bt.BanktransferName,bt.BankTransferId');
+		/*$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Share,e.FinalBankComm,e.NetFromBank,e.Active,e.ShareAmount,e.BankOutCommP,e.BankOutCommAmount,e.TransferCommP,e.TransferCommAmount,v.VendorId,v.VendorName,b.BankId,b.BankName,bc.BankTransferId,bc.Amount,bt.BanktransferName,bt.BankTransferId');
 		$this->db->from('expenses e');
 		$this->db->join('vendormaster v','v.VendorId = e.VendorId');
-		/*$this->db->join('banktransfertype bt','bt.BankTransferId = e.ExpCatId');*/
 		$this->db->join('banktransfercharges bc','bc.BankTransferId = e.BankTransferId');
 		$this->db->join('banktransfertype bt','bt.BankTransferId = bc.BankTransferId');
+		$this->db->join('bankmaster b','b.BankId = e.BankId');
+		$this->db->where('e.Active',1);
+		$this->db->where('e.TransId',$id);*/
+		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Share,e.FinalBankComm,e.NetFromBank,e.Active,e.ShareAmount,e.BankOutCommP,e.BankOutCommAmount,e.TransferCommP,e.TransferCommAmount,v.VendorId,v.VendorName,b.BankId,b.BankName,bt.BanktransferName,bt.BankTransferId');
+		$this->db->from('expenses e');
+		$this->db->join('vendormaster v','v.VendorId = e.VendorId');
+		//$this->db->join('banktransfercharges bc','bc.BankTransferId = e.BankTransferId');
+		$this->db->join('banktransfertype bt','bt.BankTransferId = e.BankTransferId');
 		$this->db->join('bankmaster b','b.BankId = e.BankId');
 		$this->db->where('e.Active',1);
 		$this->db->where('e.TransId',$id);
