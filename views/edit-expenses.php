@@ -1,4 +1,4 @@
-<?php print_r($transType);  ?>
+<?php print_r($expenses);  ?>
 <!-- Page Content  -->
 
 <div id="content">
