@@ -1,4 +1,4 @@
-<?php print_r($expenses->ShareAmount);  ?>
+<?php print_r($transType);  ?>
 <!-- Page Content  -->
 
 <div id="content">
