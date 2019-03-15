@@ -141,14 +141,40 @@ class Expenses extends CI_Controller {
                     $d2 = trim ( $a2 [0], " " );
                     $to = $c2 . '-' . $a2 [1] . '-' . $d2;
                     
+                    //if ($curr == 'USD') {
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
+                                
+                        $val=json_decode($val);
+                        $exchange_rate = $val->rates->EUR;
+                        $euro_amount = $nfb * $exchange_rate;
+                        /*echo 'nfb ' . $nfb;
+                        echo '<br>';
+                        echo 'exchange_rate ' . $exchange_rate;
+                        echo '<br>';
+                        echo 'euro_amount ' . $euro_amount;
+                        echo '<br>';*/
 
-        			
+                       
+                    //}
+                    /*else{
+                        $cur = 'EUR';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $rate = $val->rates->EUR;
+                        //echo "rate EUR " . $rate;
+                        $exchange_rate = $val->rates->EUR;
+                        $euro_amount = $nfb * $exchange_rate;
+                    }*/
+                    /*echo 'exchange_rate ' . $exchange_rate;
+                    echo 'euro_amount ' . $euro_amount;
+                    exit();*/
 
                     $this->db->select('BankId,BankName,Balance');
                     $this->db->from('bankmaster');
                     $this->db->where('BankId',$BankId);
                     $bal = $this->db->get()->row();
-
+                   
                     //if ($bal->Balance >= $nfb) {
 
                         $expenses = array(
@@ -170,7 +196,8 @@ class Expenses extends CI_Controller {
                         'BankOutCommAmount' => $BankOutCommAmount,
                         'TransferCommP' => $transferCommP,
                         'TransferCommAmount' => $TransferCommAmount,
-                        'EuroValue' => $nfb,
+                        'ExchangeRate' => $exchange_rate,
+                        'EuroValue' => $euro_amount,
                         'Active' => 1,
                         'CreatedBy' => $uid,
                         'CreatedOn' => $date,
@@ -181,7 +208,7 @@ class Expenses extends CI_Controller {
                         . "Add-Exp-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($expenses) .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
                         $this->db->insert('expenses',$expenses);
-                        $UpdatedBal = ($bal->Balance-$nfb);
+                        $UpdatedBal = ($bal->Balance-$euro_amount);
                         /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
                         . "Bank-Balance-Before: ". "Transaction ID:" . $transactionId  . ' - ' . $bal->Balance .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( 'Logs/expenses.txt', $log . "\n", FILE_APPEND );
@@ -208,7 +235,7 @@ class Expenses extends CI_Controller {
                             file_put_contents (logger_url_exp, $log . "\n", FILE_APPEND );
 					return 1;
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not matched.";
+        			$_SESSION['pop_mes'] = "Token does not match.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Exp". PHP_EOL
                         . "Add-Exp-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
@@ -291,6 +318,24 @@ class Expenses extends CI_Controller {
                     $to = $c2 . '-' . $a2 [1] . '-' . $d2;
 
 
+                    /*if ($curr == 'USD') {
+                        $cur = 'EUR';*/
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
+                                
+                        $val=json_decode($val);
+                        $exchange_rate = $val->rates->EUR;
+                        $euro_amount = $nfb * $exchange_rate;
+                    /*}else{
+                        $cur = 'EUR';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $rate = $val->rates->EUR;
+                        //echo "rate EUR " . $rate;
+                        $exchange_rate = $val->rates->EUR;
+                        $euro_amount = $nfb * $exchange_rate;
+                    }*/
+
                     $this->db->select('BankId,BankName,Balance');
                     $this->db->from('bankmaster');
                     $this->db->where('BankId',$BankId);
@@ -316,25 +361,34 @@ class Expenses extends CI_Controller {
                         'BankOutCommAmount' => $BankOutCommAmount,
                         'TransferCommP' => $transferCommP,
                         'TransferCommAmount' => $TransferCommAmount,
-                        'EuroValue' => $nfb,
+                        'ExchangeRate' => $exchange_rate,
+                        'EuroValue' => $euro_amount,
                         'Active' => 1,
                         'ModifiedBy' => $uid,
                         'CreatedBy' => $uid,
                     );
-
                         /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Exp" . PHP_EOL
                         . "Edit-Exp-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($expenses) .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );*/
                         
 
-                        $this->db->select('TransId,NetFromBank');
+                        $this->db->select('TransId,NetFromBank,EuroValue');
                         $this->db->from('expenses');
                         $this->db->where('TransId',$id);
                         $beforeBal = $this->db->get()->row();
-                        $beforeBal = $beforeBal->NetFromBank;
+                       // $beforeBal = $beforeBal->NetFromBank;
 
-                        $Bal = ($bal->Balance)+($beforeBal); 
-                        $updatedBal = ($Bal)-($nfb); 
+                        if ($curr == 'EUR') {
+                            $Bal = ($bal->Balance)+($beforeBal->NetFromBank);  
+                            $updatedBal = ($Bal)-($euro_amount);  
+                        }
+
+                        if ($curr == 'USD') {
+                             $Bal = ($bal->Balance)+($beforeBal->EuroValue);  
+                            $updatedBal = ($Bal)-($euro_amount);  
+                        }
+                        /*$Bal = ($bal->Balance)+($beforeBal);  //(7,599.51 + 1270.49) = 8870
+                        $updatedBal = ($Bal)-($euro_amount);  // (8870-1124.325) = 7745.675*/
                         /*print_r($bal->Balance);
                         echo '<br>';
                         print_r($beforeBal);
@@ -367,7 +421,7 @@ class Expenses extends CI_Controller {
                             file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );*/
 	        		redirect('expenses');
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not matched."; 
+        			$_SESSION['pop_mes'] = "Token does not match."; 
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Exp". PHP_EOL
                         . "Edit-Exp-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );

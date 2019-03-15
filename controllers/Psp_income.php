@@ -143,16 +143,16 @@ class Psp_income extends CI_Controller {
                         $date = date("Y-m-d");
                         $crrReceive =  date('Y-m-d', strtotime($date. ' + 180 days'));
                     }*/
-					if ($curr == 'USD') {
-                        $cur = 'EUR';
-                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+					/*if ($curr == 'USD') {
+                        $cur = 'EUR';*/
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
                                 
                         $val=json_decode($val);
-                        $rate = $val->rates->USD;
+                        $rate = $val->rates->EUR;
                         //echo "rate USD " . $rate;
-                        $exchange_rate = $val->rates->USD;
+                        $exchange_rate = $val->rates->EUR;
                         $euro_amount = $nettoBankAmt * $exchange_rate;
-                    }else{
+                    /*}else{
                         $cur = 'EUR';
                         $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
                                 
@@ -161,7 +161,7 @@ class Psp_income extends CI_Controller {
                         //echo "rate EUR " . $rate;
                         $exchange_rate = $val->rates->EUR;
                         $euro_amount = $nettoBankAmt * $exchange_rate;
-                    }
+                    }*/
 					/*echo 'exchange_rate ' . $exchange_rate;
                     echo 'euro_amount ' . $euro_amount;
                     exit();*/
@@ -202,7 +202,7 @@ class Psp_income extends CI_Controller {
                     $wherecol = 'BankId';
                     $data['getBankBal'] = $this->all_model->getbankData($table,$columns,$wherecol,$BankId);
                     //$updatedBal = ($data['getBankBal']->Balance + $acnetAmt);
-                    $updatedBal = ($data['getBankBal']->Balance + $euro_amount);
+                    $updatedBal = ($data['getBankBal']->Balance + $nettoBankAmt);
 
                     /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
                     . "Bank-Balance-Before: ". "Transaction ID:" . $transactionId  . ' - ' . $data['getBankBal']->Balance .PHP_EOL . "-------------------------" . PHP_EOL;
@@ -271,7 +271,7 @@ class Psp_income extends CI_Controller {
                             file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );
 					return 1;
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not matched."; 
+        			$_SESSION['pop_mes'] = "Token does not match."; 
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-PSP" . PHP_EOL
                         . "Add-PSP-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );
@@ -341,8 +341,9 @@ class Psp_income extends CI_Controller {
 
                     $data['allPspIncome'] = $this->all_model->pspIncome($id);
                     //$acamtnetReceivebefore = $data['allPspIncome']->ActualNetAmt;
-                    $acamtnetReceivebefore = $data['allPspIncome']->EuroValue;
-                    
+                    $acamtnetReceivebefore = $data['allPspIncome']->NetBankAmt;
+                    /*echo 'acamtnetReceivebefore ' . $acamtnetReceivebefore;
+                    echo '</br>';*/
 
         			if($plcommval == ""){
         				$plcommval = 0;
@@ -377,16 +378,18 @@ class Psp_income extends CI_Controller {
                         $isCrr = 0;
                     }
                     
-                    if ($curr == 'USD') {
-                        $cur = 'EUR';
-                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                    /*if ($curr == 'USD') {
+                        $cur = 'EUR';*/
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
                                 
                         $val=json_decode($val);
-                        $rate = $val->rates->USD;
-                        //echo "rate USD " . $rate;
-                        $exchange_rate = $val->rates->USD;
+                        $exchange_rate = $val->rates->EUR;
                         $euro_amount = $nettoBankAmt * $exchange_rate;
-                    }else{
+                        /*echo 'nettoBankAmt ' . $nettoBankAmt;
+                        echo '</br>';
+                        echo 'euro_amount' . $euro_amount;
+                        echo '</br>';*/
+                    /*}else{
                         $cur = 'EUR';
                         $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
                                 
@@ -395,7 +398,7 @@ class Psp_income extends CI_Controller {
                         //echo "rate EUR " . $rate;
                         $exchange_rate = $val->rates->EUR;
                         $euro_amount = $nettoBankAmt * $exchange_rate;
-                    }
+                    }*/
 
         			$updatePspIncomeInfo = array(
         				'PspId' => $pspid,
@@ -423,7 +426,6 @@ class Psp_income extends CI_Controller {
                         'ModifiedBy'=> $uid
         			);
 
-
                     $log = "ip:" . $_SERVER['REMOTE_ADDR'] . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Edit-PSP" . PHP_EOL
                     . "Edit-PSP-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($updatePspIncomeInfo) .PHP_EOL . "-------------------------" . PHP_EOL;
                     file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );
@@ -434,9 +436,19 @@ class Psp_income extends CI_Controller {
                     $data['getBankBal'] = $this->all_model->getbankData($table,$columns,$wherecol,$BankId);
                         
                 //if ($data['getBankBal']->Balance > 0 ) {
-                    $updatedBal = ($data['getBankBal']->Balance) - ($acamtnetReceivebefore);
-                    $updatedBal = ($updatedBal)+($euro_amount);
-                            
+                    $updatedBal1 = ($data['getBankBal']->Balance) - ($acamtnetReceivebefore);  //(10000-7071.17) = 2041.73
+                    $updatedBal = ($updatedBal1)+($nettoBankAmt);                                // (2928.83+6187.272)
+                   /* echo 'BAnk BAl' . $data['getBankBal']->Balance;
+                    echo '</br>';
+                    echo 'acamtnetReceivebefore ' . $acamtnetReceivebefore;
+                    echo '</br>';
+                    echo 'updatedBal1 ' . $updatedBal1;
+                    echo '</br>';
+                    echo 'NetBankAmt ' . $nettoBankAmt;
+                    echo '</br>';
+                    echo 'updatedBal ' . $updatedBal;
+                    exit();*/
+
                     $this->db->where('BankId',$BankId);
                     $this->db->update('bankmaster',array('Balance'=>$updatedBal));
 
@@ -449,7 +461,7 @@ class Psp_income extends CI_Controller {
                     $crrReceive =  date('Y-m-d', strtotime($date. ' + 180 days'));
                         
                         $crrDate = date("Y-m-d");
-                        if ($data['allPspIncome']->isCRR == 0) {
+                        if ($data['allPspIncome']->isCRR == 0 && $data['allPspIncome']->CRRId != 0) {
                             /*$table = 'bankmaster';
                             $columns = 'BankName,Balance';
                             $wherecol = 'BankId';
@@ -559,7 +571,7 @@ class Psp_income extends CI_Controller {
                             file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );
 	        		redirect('psp-income');
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not matched.";
+        			$_SESSION['pop_mes'] = "Token does not match.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . "Edit-PSP-POST" . PHP_EOL
                         . "Edit-PSP-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );

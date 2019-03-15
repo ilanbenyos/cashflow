@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-md-12">
           <!-- <div class="middle-section light-blue-box spacebottom2x clearfix"> -->
-            <h2 class="modal-title">ADD Expenses</h2>
+            <h2 class="modal-title">ADD Expense</h2>
             <div class="defination-box clearfix">
             <form class="form-horizontal clearfix" id="expenses" method="post" >
                 <?php 
@@ -26,7 +26,7 @@
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex">
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
-					<div class="col-md-10 col-sm-12 col-xs-12 text-center">
+					<div class="col-md-12 col-sm-12 col-xs-12 text-center">
                       <h4>Gerneral Information</h4>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -67,7 +67,7 @@
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
+                      <div class="form-group align-4x-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Expense Category</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <!-- <input type="hidden" name="transferAmt" id="transferAmt"> -->
@@ -85,7 +85,7 @@
                   </div>
                   <!--planned info starts -->
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
-					<div class="col-md-10 col-sm-12 col-xs-12 text-center">
+					<div class="col-md-12 col-sm-12 col-xs-12 text-center">
                       <h4>Planned Information</h4>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -100,8 +100,8 @@
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Planned Amount <span class="red">*</span><span></label>
+                      <div class="form-group align-4x-top">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Planned Amount <span class="red">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                         </div>
@@ -142,7 +142,7 @@
                   <!--planned info ends -->
                   <!-- Actual info starts -->
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
-					<div class="col-md-10 col-sm-12 col-xs-12 text-center">
+					<div class="col-md-12 col-sm-12 col-xs-12 text-center">
                       <h4>Actual Information</h4>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -173,10 +173,10 @@
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
+                      <div class="form-group align-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Final bank commission </label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="fbc" id="fbc" placeholder="Final bank commission" readonly/>
+                          <input type="text" class="form-control xyz" name="fbc" id="fbc" placeholder="Final Bank Commission" readonly/>
                         </div>
                       </div>
                     </div>
@@ -355,7 +355,8 @@ $('.datepicker').datepicker({
                     console.log('shareP' + shareP);
 
                     var outComm = (actualAmout*(outCommP/100));
-                    var transferComm = (actualAmout*(transferCommP/100));
+                    //var transferComm = (actualAmout*(transferCommP/100));
+                    var transferComm = transferCommP;
                     var shareComm = (transferComm*(shareP/100));
 
                     console.log('outComm' + outComm);
@@ -431,7 +432,8 @@ $('.datepicker').datepicker({
                       console.log('shareP' + shareP);
 
                       var outComm = (actualAmout*(outCommP/100));
-                      var transferComm = (actualAmout*(transferCommP/100));
+                      //var transferComm = (actualAmout*(transferCommP/100));
+                      var transferComm = transferCommP;
                       var shareComm = (transferComm*(shareP/100));
 
                       console.log('outComm' + outComm);
@@ -484,7 +486,8 @@ $('.datepicker').datepicker({
       console.log('shareP' + shareP);*/
 
       var outComm = (actualAmout*(outCommP/100));
-      var transferComm = (actualAmout*(transferCommP/100));
+      //var transferComm = (actualAmout*(transferCommP/100));
+      var transferComm = transferCommP;
       var shareComm = (transferComm*(shareP/100));
       /*console.log('outComm' + outComm);
       console.log('transferComm' + transferComm);
@@ -500,7 +503,8 @@ $('.datepicker').datepicker({
 
     var shareAmount = $("#shareAmount").val(shareP/100);
     var BankOutCommAmount = $("#BankOutCommAmount").val(outCommP/100);
-    var TransferCommAmount = $("#TransferCommAmount").val(transferCommP/100);
+    //var TransferCommAmount = $("#TransferCommAmount").val(transferCommP/100);
+    var TransferCommAmount = $("#TransferCommAmount").val(transferCommP);
     });
 
     $( "#shareP" ).keyup(function( event ) { 
@@ -539,16 +543,17 @@ $('.datepicker').datepicker({
       console.log('shareP' + shareP);
 
       var outComm = (actualAmout*(outCommP/100));               //(1000*(10/100)) = 100
-      var transferComm = (actualAmout*(transferCommP/100));     //(1000*(5/100)) = 50
-      var shareComm = (transferComm*(shareP/100));              //(50*(60/100)) = 30
+      //var transferComm = (actualAmout*(transferCommP/100));     //(1000*(5/100)) = 50
+      var transferComm = transferCommP;                         // 5 
+      var shareComm = (transferComm*(shareP/100));              //(5*(60/100)) = 3
 
       console.log('outComm' + outComm);
       console.log('transferComm' + transferComm);
       console.log('shareComm' + shareComm);
       console.log(parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));    
 
-      var totalComm = (parseInt(outComm)+parseInt(shareComm));                         //100+30= 130
-      var netAmount = (parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));   //1000+100+30 = 1130
+      var totalComm = (parseInt(outComm)+parseInt(shareComm));                         //100+3= 103
+      var netAmount = (parseInt(actualAmout)+parseInt(outComm)+parseInt(shareComm));   //1000+100+3 = 1130
 
       $("#fbc").val(totalComm);
       $("#nfb").val(netAmount);

@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-md-12"> 
           <!-- <div class="middle-section light-blue-box spacebottom2x clearfix"> -->
-          <h2 class="modal-title">Edit Expenses</h2>
+          <h2 class="modal-title">Edit Expense</h2>
           <div class="defination-box clearfix">
             <form class="form-horizontal clearfix" id="edit-expenses" method="post" >
               <?php 
@@ -303,7 +303,8 @@
                     console.log('shareP' + shareP);
 
                     var outComm = (actualAmout*(outCommP/100));
-                    var transferComm = (actualAmout*(transferCommP/100));
+                    //var transferComm = (actualAmout*(transferCommP/100));
+                    var transferComm = transferCommP;
                     var shareComm = (transferComm*(shareP/100));
 
                     console.log('outComm' + outComm);
@@ -376,7 +377,8 @@
                       console.log('shareP' + shareP);
 
                       var outComm = (actualAmout*(outCommP/100));
-                      var transferComm = (actualAmout*(transferCommP/100));
+                      //var transferComm = (actualAmout*(transferCommP/100));
+                      var transferComm = transferCommP;
                       var shareComm = (transferComm*(shareP/100));
 
                       console.log('outComm' + outComm);
@@ -412,7 +414,8 @@
       console.log('shareP' + shareP);*/
 
       var outComm = (actualAmout*(outCommP/100));
-      var transferComm = (actualAmout*(transferCommP/100));
+      //var transferComm = (actualAmout*(transferCommP/100));
+      var transferComm = transferCommP;
       var shareComm = (transferComm*(shareP/100));
       /*console.log('outComm' + outComm);
       console.log('transferComm' + transferComm);
@@ -428,7 +431,8 @@
 
     var shareAmount = $("#shareAmount").val(shareP/100);
     var BankOutCommAmount = $("#BankOutCommAmount").val(outCommP/100);
-    var TransferCommAmount = $("#TransferCommAmount").val(transferCommP/100);
+    //var TransferCommAmount = $("#TransferCommAmount").val(transferCommP/100);
+    var TransferCommAmount = $("#TransferCommAmount").val(transferCommP);
     });
 
     $( "#shareP" ).keyup(function( event ) { 
@@ -467,7 +471,8 @@
       console.log('shareP' + shareP);
 
       var outComm = (actualAmout*(outCommP/100));
-      var transferComm = (actualAmout*(transferCommP/100));
+      //var transferComm = (actualAmout*(transferCommP/100));
+      var transferComm = transferCommP;
       var shareComm = (transferComm*(shareP/100));
 
       console.log('outComm' + outComm);
@@ -484,7 +489,8 @@
 
       var shareAmount = $("#shareAmount").val(shareP/100);
       var BankOutCommAmount = $("#BankOutCommAmount").val(outCommP/100);
-      var TransferCommAmount = $("#TransferCommAmount").val(transferCommP/100);
+      //var TransferCommAmount = $("#TransferCommAmount").val(transferCommP/100);
+      var TransferCommAmount = $("#TransferCommAmount").val(transferCommP);
     });
 
     /*$('#transType').on('change',function() { 

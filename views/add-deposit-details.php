@@ -1,15 +1,16 @@
 <!-- Page Content  -->
+
 <div id="content">
-  <div class="container-fluid">
+  <div class="container-fluid"> 
     <!-- <h1>PSP Income</h1> -->
     <div class="white-bg">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12"> 
           <!-- <div class="middle-section light-blue-box spacebottom2x clearfix"> -->
-            <h2 class="modal-title">ADD PSP Income</h2>
-            <div class="defination-box clearfix">
+          <h2 class="modal-title">ADD PSP Income</h2>
+          <div class="defination-box clearfix">
             <form class="form-horizontal clearfix" id="pspIncome" method="post" >
-                <?php 
+              <?php 
                   $token = md5(uniqid(rand(), TRUE));
                   if(isset ($_SESSION['token_pspincome']))
                   {
@@ -17,12 +18,12 @@
                   }
                   $_SESSION['token_pspincome'] = $token;
                 ?>
-      <input type="hidden" name="pspin_token" value="<?php echo $token;?>">
-      <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
+              <input type="hidden" name="pspin_token" value="<?php echo $token;?>">
+              <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex">
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
-					<div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                       <h4>Gerneral Information</h4>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -32,8 +33,8 @@
                           <select class="form-control" name="psp" id="psp" onchange="">
                             <option selected="" value="">Select PSP</option>
                             <?php foreach ($all_psp as $psp) { ?>
-                            <option value="<?php echo $psp->PspId; ?>"><?php echo $psp->PspName; ?></option>      
-                                  <?php   } ?>
+                            <option value="<?php echo $psp->PspId; ?>"><?php echo $psp->PspName; ?></option>
+                            <?php   } ?>
                           </select>
                         </div>
                       </div>
@@ -68,14 +69,12 @@
                         </div>
                       </div>
                     </div>
-                    
                   </div>
                   <!--planned info starts -->
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
-				  <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                       <h4>Planned Information</h4>
                     </div>
-				   
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Received date <span class="red">*</span></label>
@@ -88,7 +87,7 @@
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
+                      <div class="form-group align-5x-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Processed Amount <!-- <span class="red">*</span> --></label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived"  placeholder="Planned Processed Amount" />
@@ -104,7 +103,7 @@
                             <option value="USD" selected="">USD</option>
                             <option value="EUR">EUR</option>
                             <option value="GBP">GBP</option>
-                          </select> -->
+                          </select> --> 
                         </div>
                       </div>
                     </div>
@@ -117,7 +116,7 @@
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
+                      <div class="form-group align-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Commission Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="plamtval" id="plamtval" onkeypress="javascript:return isNumber(event)">
@@ -150,7 +149,7 @@
                           </div>
                         </div>
                       </div>
-                    </div> -->
+                    </div> --> 
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Plan Total Comission</label>
@@ -168,10 +167,10 @@
                       </div>
                     </div>
                   </div>
-                  <!--planned info ends -->
+                  <!--planned info ends --> 
                   <!-- Actual info starts -->
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
-				   <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                       <h4>Actual Information</h4>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -186,7 +185,7 @@
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
+                      <div class="form-group align-5x-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Processed Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" onkeypress="javascript:return isNumber(event)" placeholder="Actual Processed Amount" />
@@ -198,11 +197,11 @@
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="accurr" id="accurr" readonly>
-                         <!--  <select class="form-control" name="accurr" id="accurr" onchange="" readonly>
+                          <!--  <select class="form-control" name="accurr" id="accurr" onchange="" readonly>
                             <option selected="">USD</option>
                             <option>EUR</option>
                             <option>GBP</option>
-                          </select> -->
+                          </select> --> 
                         </div>
                       </div>
                     </div>
@@ -216,14 +215,13 @@
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
+                      <div class="form-group align-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Commission Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="acamtval" id="acamtval" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
-                    
                     <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;" id="crr">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">CRR Amount</label>
@@ -234,7 +232,7 @@
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
+                      <div class="form-group align-5x-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Bank Commission</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" class="form-control xyz" name="bankcommP" id="bankcommP" onkeypress="javascript:return isNumber(event)">
@@ -243,7 +241,7 @@
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
+                      <div class="form-group align-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Net To Bank Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="nettoBankAmt" id="nettoBankAmt" onkeypress="javascript:return isNumber(event)">
@@ -276,15 +274,15 @@
                           </div>
                         </div>
                       </div>
-                    </div> -->
-                   <!--  <div class="col-md-12 col-sm-12 col-xs-12">
+                    </div> --> 
+                    <!--  <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Actual Total Comission</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input type="text" class="form-control" name="actotcomm" id="actotcomm" placeholder="Actual Total Comission" />
                         </div>
                       </div>
-                    </div> -->
+                    </div> --> 
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
@@ -292,18 +290,17 @@
                           <input type="text" class="form-control xyz" name="acnetAmt" id="acnetAmt" placeholder="Actual Net Amount"/>
                         </div>
                       </div>
-                    </div> -->
+                    </div> --> 
                   </div>
                   <!--Actual info ends -->
-                    <div class="col-xs-12 text-center spacetop2x">
-                  <div class="page-loader" style="display:none;">
-                        <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
-                      </div>
-                  <button type="button" id="addPspIncome" class="btn-submit transitions">Submit</button>
-                  <!-- <button type="reset" class="btn-reset transitions">Reset</button> -->
-                   <a href="<?= base_url('psp_income');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a>
-                </div>
-                  <!-- </div> -->
+                  <div class="col-xs-12 text-center spacetop2x">
+                    <div class="page-loader" style="display:none;">
+                      <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
+                    </div>
+                    <button type="button" id="addPspIncome" class="btn-submit transitions">Submit</button>
+                    <!-- <button type="reset" class="btn-reset transitions">Reset</button> --> 
+                    <a href="<?= base_url('psp_income');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a> </div>
+                  <!-- </div> --> 
                 </div>
               </div>
             </form>
@@ -321,7 +318,7 @@
 
         return true;
     }    
-</script>
+</script> 
 <!-- <script>
   jQuery(document).ready(function ($) {
       var today = new Date();
@@ -333,7 +330,7 @@ $('.datepicker').datepicker({
         });
   });
   
-</script> -->
+</script> --> 
 <script type="text/javascript">
   $(document).ready(function(){
     $('#psp').on('change',function() {
@@ -591,7 +588,7 @@ $('.datepicker').datepicker({
 
   });
 
-</script>
+</script> 
 <script type="text/javascript">
     (function($){
       $('#psp').on('blur', function() {

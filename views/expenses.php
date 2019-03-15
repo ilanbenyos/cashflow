@@ -6,11 +6,11 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 <!-- Page Content  -->
 <div id="content">
   <div class="container-fluid">
-    <h1>Expenses</h1>
+    <h1>Expense</h1>
     <div class="white-bg">
       <div class="row">
         <div class="col-md-12 text-right">
-            <div class="add-icon-box"><a href="<?= base_url('add-expenses')?>"><span class="plus-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>Add Expenses</a></div>
+            <div class="add-icon-box"><a href="<?= base_url('add-expenses')?>"><span class="plus-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>Add Expense</a></div>
           </div>
         <div class="col-md-12">
           <div class="table-responsive common-table">
