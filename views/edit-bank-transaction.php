@@ -166,8 +166,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         amt = amount;
                       }
                       var chargesP = obj.charges.Amount
-                      var charges = (amt*(chargesP/100));
-                      $("#transferCharges1").val(charges);
+                      /*var charges = (amt*(chargesP/100));
+                      $("#transferCharges1").val(charges);*/
+                      $("#transferCharges1").val(chargesP);
                     }else{
                       var amount = $("#amount1").val().replace(/,/gi, "");
                       if (amount == "") {
@@ -176,8 +177,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         amt = amount;
                       }
                       var chargesP = 0;
-                      var charges = (amt*(chargesP/100));
-                      $("#transferCharges1").val(charges);
+                      /*var charges = (amt*(chargesP/100));
+                      $("#transferCharges1").val(charges);*/
+                      $("#transferCharges1").val(chargesP);
                     }
                     /*if(obj.charges != null){
                       var charges = obj.charges.Amount

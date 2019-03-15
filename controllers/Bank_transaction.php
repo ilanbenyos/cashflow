@@ -57,7 +57,6 @@ class Bank_transaction extends CI_Controller {
             $this->load->view('bank_transaction',$data);
             $this->load->view('templates/footer');
         }else{  
-
                 $this->db->select('UserID,Name');
                 $this->db->from('usermaster');
                 $this->db->where('UserID',$this->input->post('userid'));
@@ -83,67 +82,139 @@ class Bank_transaction extends CI_Controller {
                     $transferAmt = $this->input->post('transferCharges');
                     $uid = $this->input->post('userid');
 
-                    $this->db->select('BankId,BankName,Balance,OctComP');
+                    $this->db->select('BankId,BankName,Balance,OctComP,CurId');
                     $this->db->from('bankmaster');
                     $this->db->where('BankId',$fromBank);
                     $fromBankBal = $this->db->get()->row();
                     
-                    /*$this->db->select('b.BankId,bc.BankTransferId,bc.BankId,bc.Amount');
-                    $this->db->from('bankmaster b');
-                    $this->db->join('banktransfercharges bc','bc.BankId = b.BankId');
-                    $this->db->where('bc.BankTransferId',$transType);
-                    $this->db->where('b.BankId',$fromBank);
-                    $fromBankTransferAmt = $this->db->get()->row();
-                    //print_r($fromBankTransferAmt);exit();
-                    if ($fromBankTransferAmt > 0) {
-                        $transferAmt = $fromBankTransferAmt->Amount;
+                    $fromBankCurr = $fromBankBal->CurId;
+                    if ($fromBankCurr == 2) {
+                        $cur = 'USD';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $rate = $val->rates->EUR;
+                        $from_exchange_rate = $val->rates->EUR;
+                        $from_euro_amount = $amount * $from_exchange_rate;
                     }else{
-                        $transferAmt = 0;
-                    }*/
-/*
-                    if ($fromBankBal > 0) {
-                        $OctComP = $fromBankBal->OctComP;
-                    }else{
-                        $OctComP = 0;
-                    }*/
-                    /*print_r($fromBankBal);
-                    echo '<br>';
-                    print_r($transferAmt);
-                    echo '<br>';
-                    exit();*/
+                        $cur = 'EUR';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $rate = $val->rates->EUR;
+                        //echo "rate EUR " . $rate;
+                        $from_exchange_rate = $val->rates->EUR;
+                        $from_euro_amount = $amount * $from_exchange_rate;
+                    }
 
-                    $this->db->select('BankId,BankName,Balance,InComP');
+                    $this->db->select('BankId,BankName,Balance,InComP,CurId');
                     $this->db->from('bankmaster');
                     $this->db->where('BankId',$toBank);
                     $toBankBal = $this->db->get()->row();
-
-
+                    $toBankCurr = $toBankBal->CurId;
+                    if ($toBankCurr == 2) {
+                        $cur = 'USD';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $rate = $val->rates->EUR;
+                        $to_exchange_rate = $val->rates->EUR;
+                        $to_euro_amount = $amount * $to_exchange_rate;
+                    }else{
+                        $cur = 'EUR';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $rate = $val->rates->EUR;
+                        //echo "rate EUR " . $rate;
+                        $to_exchange_rate = $val->rates->EUR;
+                        $to_euro_amount = $amount * $to_exchange_rate;
+                        //print_r(number_format((float)$euro_amount, 2, '.', ''));
+                    }
+                    if ($from_exchange_rate > 1 ) {
+                        $rate = $from_exchange_rate;
+                    }else if($to_exchange_rate > 1){
+                        $rate = $to_exchange_rate;
+                    }
+                    if($from_euro_amount != $amount){
+                        $conversion_amount = $from_euro_amount;
+                        
+                    }else if($to_euro_amount != $amount){
+                        $conversion_amount = $to_euro_amount;
+                    }else if ($conversion_amount == "") {
+                        $conversion_amount = 0;
+                    }
                     
-                    /*$moneyOutFees = ($transferAmt*$amount);
-                    $moneyOutFees = ($moneyOutFees/100);
+                    if ($fromBankCurr == 1 && $toBankCurr == 1) {        // if From and To Bank is EUR 
+                       $outgoFees = ($fromBankBal->OctComP*$amount);          //10*1000 = 10000
+                       $outgoFees = ($outgoFees/100);                         // (10000/100) = 100
+                       $moneyOutFees = $transferAmt;                          // 120
+                       $fromNewBal = ($fromBankBal->Balance-($moneyOutFees+$amount+$outgoFees)); //(3100-(120+1000+100)) = 660 
 
-                    $fromNewBal = ($fromBankBal->Balance-($moneyOutFees+$amount));*/
+                       $moneyInFees = ($toBankBal->InComP*$amount);          // 5*1000 = 5000
+                       $moneyInFees = ($moneyInFees/100);                    //(5000/100) = 50
+                       $tobal = ($amount-$moneyInFees);                      // (1000-50) = 950
+                       $toNewBal = ($toBankBal->Balance)+($tobal);           // (14,748.00+950) = 15698
+                    }
+
+                    if ($fromBankCurr == 2 && $toBankCurr == 2) {                               // if From and To Bank is USD
+                       $outgoFees = ($fromBankBal->OctComP*$amount);                            //10*1000 = 10000
+                       $outgoFees = ($outgoFees/100);                                           // (10000/100) = 100
+                       $moneyOutFees = $transferAmt;                                            // 120
+                       $fromNewBal = ($fromBankBal->Balance-($moneyOutFees+$amount+$outgoFees)); //(1,880.00-(120+1000+100)) = 660 
+
+                       $moneyInFees = ($toBankBal->InComP*$amount);          // 5*1000 = 5000
+                       $moneyInFees = ($moneyInFees/100);                    //(5000/100) = 50
+                       $tobal = ($amount-$moneyInFees);                      // (1000-50) = 950
+                       $toNewBal = ($toBankBal->Balance)+($tobal);           // (15698+950) = 16648
+                    }
+
+                    if ($fromBankCurr == 2 && $toBankCurr == 1) {    // if From Bank is USD and To Bank is EUR
+                       $outgoFees = ($fromBankBal->OctComP*$amount);          //10*1000 = 10000
+                       $outgoFees = ($outgoFees/100);                         // (10000/100) = 100
+                       $moneyOutFees = $transferAmt;                          // 120
+                       $fromNewBal = ($fromBankBal->Balance-($moneyOutFees+$amount+$outgoFees)); //(660-(120+1000+100)) = 660 
+
+                       $moneyInFees = ($toBankBal->InComP*$to_euro_amount);          // 5*1000 = 5000
+                       $moneyInFees = ($moneyInFees/100);                    //(5000/100) = 50
+                       $tobal = ($to_euro_amount-$moneyInFees);                      // (1000-50) = 950
+                       $toNewBal = ($toBankBal->Balance)+($tobal);           // (16,648.00+950) = 16537.48
+                    }
+
+                    if ($fromBankCurr == 1 && $toBankCurr == 2) {                                 // if From Bank is EUR and To Bank is USD
+                       $outgoFees = ($fromBankBal->OctComP*$amount);          //10*1000 = 10000
+                       $outgoFees = ($outgoFees/100);                         // (10000/100) = 100
+                       $moneyOutFees = $transferAmt;                          // 120
+                       $fromNewBal = ($fromBankBal->Balance-($moneyOutFees+$amount+$outgoFees)); //(3100-(120+1000+100)) = 1880 
+
+                       $moneyInFees = ($toBankBal->InComP*$to_euro_amount);          // 5*883.107 = 4415.535
+                       $moneyInFees = ($moneyInFees/100);                           //(4415.535/100) = 44.15535
+                       $tobal = ($to_euro_amount-$moneyInFees);                      // (883.107-44.15535) = 838.95165
+                       $toNewBal = ($toBankBal->Balance)+($tobal);                   // (17,598.00+838.95165) = 18436.9516
+                    }
+
+
+
+                    /*echo 'conversion_amount ' . $conversion_amount;
+                    echo '</br>';
+                    echo 'toNewBal ' . $toNewBal;*/
                     
-                    $outgoFees = ($fromBankBal->OctComP*$amount);
-                    $outgoFees = ($outgoFees/100);
+                    /*$outgoFees = ($fromBankBal->OctComP*$from_euro_amount); //(10*883.412)
+                    $outgoFees = ($outgoFees/100);                          //(8834.12/100) = 112.4613*/
                     /*$moneyOutFees = ($transferAmt*$amount);
                     $moneyOutFees = ($moneyOutFees/100);*/
-                    $moneyOutFees = $transferAmt;
-                    $fromNewBal = ($fromBankBal->Balance-($moneyOutFees+$amount+$outgoFees));
-                    /*echo 'outgoFees:'.$outgoFees;
-                    echo '<br>';
-                    echo 'moneyOutFees:'.$moneyOutFees;
-                    echo '<br>';
-                    echo 'fromNewBal:'.$fromNewBal;
-                    echo '<br>';
-                    exit();*/
+                    /*$moneyOutFees = $transferAmt;                           //(120)
+                    $fromNewBal = ($fromBankBal->Balance-($moneyOutFees+$from_euro_amount+$outgoFees));  //(3,100.00-(120+883.412+88.3412)) = 2008.2468*/
                     
-                    
-                    $moneyInFees = ($toBankBal->InComP*$amount);
-                    $moneyInFees = ($moneyInFees/100);
 
-                    $tobal = ($amount-$moneyInFees);
-                    $toNewBal = ($toBankBal->Balance)+($tobal);
+                    
+                    
+                    /*$moneyInFees = ($toBankBal->InComP*$to_euro_amount);    // (5*1000)
+                    $moneyInFees = ($moneyInFees/100);                      // (5000/100) = 50
+
+                    $tobal = ($to_euro_amount-$moneyInFees);                //(1000-50)
+                    $toNewBal = ($toBankBal->Balance)+($tobal);             //(14,748.00+950) = 15698*/
+
 
                     $bankTrans = array(
                         'FromBank' => $fromBank,
@@ -152,9 +223,12 @@ class Bank_transaction extends CI_Controller {
                         'MoneyOutFees' => $moneyOutFees,
                         'ToBank' => $toBank,
                         'MoneyInFees' => $moneyInFees,
+                        'ExchangeRate' => $rate,
+                        'EuroValue' => $conversion_amount,
                         'CreatedOn' => $date,
                         'CreatedBy' => $uid
                     );
+
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Bank-Trans". PHP_EOL
                     . "Add-Bank-Trans-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($bankTrans) .PHP_EOL . "-------------------------" . PHP_EOL;
                     file_put_contents ( logger_url_banktrans, $log . "\n", FILE_APPEND );
@@ -177,7 +251,7 @@ class Bank_transaction extends CI_Controller {
 
                     redirect('bank-transaction');
                 }else{
-                    $_SESSION['pop_mes'] = "Token does not matched.";
+                    $_SESSION['pop_mes'] = "Token does not match.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Bank-Trans". PHP_EOL
                         . "Add-Bank-Trans-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_banktrans, $log . "\n", FILE_APPEND );
@@ -224,7 +298,7 @@ class Bank_transaction extends CI_Controller {
                     $transferAmt = str_replace(',','',$this->input->post('transferCharges1'));
                     $uid = $this->input->post('userid');
 
-                    $this->db->select('BankId,BankName,Balance,OctComP');
+                    $this->db->select('BankId,BankName,Balance,OctComP,CurId');
                     $this->db->from('bankmaster');
                     $this->db->where('BankId',$fromBank);
                     $fromBankBal = $this->db->get()->row();
@@ -244,26 +318,103 @@ class Bank_transaction extends CI_Controller {
                     /*echo 'transferAmt:'.$transferAmt;
                     echo '<br>';*/
 
-                    $this->db->select('BankId,BankName,Balance,InComP');
+                    $this->db->select('BankId,BankName,Balance,InComP,CurId');
                     $this->db->from('bankmaster');
                     $this->db->where('BankId',$toBank);
                     $toBankBal = $this->db->get()->row();
+                    $toBankCurr = $toBankBal->CurId;
 
-                    $this->db->select('TransId,FromBank,Amount,BankTransferId,ToBank');
+                    $this->db->select('TransId,FromBank,Amount,BankTransferId,ToBank,EuroValue');
                     $this->db->from('banktransaction');
                     $this->db->where('TransId',$id);
                     $beforeBalance = $this->db->get()->row();
-                    $beforeBalance = $beforeBalance->Amount;
-                    /*echo 'beforeBalance:'.$beforeBalance;
-                    echo '<br>';*/
+                    //$beforeBalance = $beforeBalance->Amount;
 
                     /*$outgoFees = ($fromBankBal->OctComP*$amount);
                     $outgoFees = ($outgoFees/100);
                     $moneyOutFees = ($transferAmt*$amount);
                     $moneyOutFees = ($moneyOutFees/100);*/
+                    $fromBankCurr = $fromBankBal->CurId;
+                    if ($fromBankCurr == 2) {
+                        $cur = 'USD';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $from_exchange_rate = $val->rates->EUR;
+                        $from_euro_amount = $amount * $from_exchange_rate;
+                    }else{
+                        $cur = 'EUR';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $from_exchange_rate = $val->rates->EUR;
+                        $from_euro_amount = $amount * $from_exchange_rate;
+                    }
 
-                    
-                    $fromNewBal = ($fromBankBal->Balance+($beforeBalance-$amount));
+                    if ($toBankCurr == 2) {
+                        $cur = 'USD';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $rate = $val->rates->EUR;
+                        $to_exchange_rate = $val->rates->EUR;
+                        $to_euro_amount = $amount * $to_exchange_rate;
+                    }else{
+                        $cur = 'EUR';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+                                
+                        $val=json_decode($val);
+                        $rate = $val->rates->EUR;
+                        $to_exchange_rate = $val->rates->EUR;
+                        $to_euro_amount = $amount * $to_exchange_rate;
+                        //print_r(number_format((float)$euro_amount, 2, '.', ''));
+                    }
+                    if ($from_exchange_rate > 1 ) {
+                        $rate = $from_exchange_rate;
+                    }else if($to_exchange_rate > 1){
+                        $rate = $to_exchange_rate;
+                    }
+                    if($from_euro_amount != $amount){
+                        $conversion_amount = $from_euro_amount;
+                        
+                    }else if($to_euro_amount != $amount){
+                        $conversion_amount = $to_euro_amount;
+                    }else if ($conversion_amount == "") {
+                        $conversion_amount = 0;
+                    }
+
+
+
+                    if ($fromBankCurr == 1 && $toBankCurr == 1) {           // if From and To Bank is EUR 
+                        $fromNewBal = ($fromBankBal->Balance+($beforeBalance->Amount-$amount));  // (1,880.00+(800-1000)) = 1680
+
+                        $toNewBal1 = ($toBankBal->Balance-$beforeBalance->Amount);   // (18,436.95 - 800) = 17636.95
+                        $toNewBal = ($toNewBal1+$amount);            // (17636.95+1000) = 18636.95  
+                    }
+
+                    if ($fromBankCurr == 2 && $toBankCurr == 2) {         // if From and To Bank is USD 
+                        $fromNewBal = ($fromBankBal->Balance+($beforeBalance->Amount-$amount));  // (1,680.00+(1000-1200)) = 1480
+
+                        $toNewBal1 = ($toBankBal->Balance-$beforeBalance->Amount);   // (18,636.95 - 1000) = 17636.95
+                        $toNewBal = ($toNewBal1+$amount);            // (17636.95+1200) = 18836.95
+                    }
+
+                    if ($fromBankCurr == 2 && $toBankCurr == 1) {         // if From BAnk is USD and To Bank is Eur
+                        $fromNewBal = ($fromBankBal->Balance+($beforeBalance->Amount-$amount));  // (1,680.00+(1000-1200)) = 1480
+
+                        $toNewBal1 = ($toBankBal->Balance-$beforeBalance->Amount);   // (20,986.95 - 1000) = 19986.95
+                        $toNewBal = ($toNewBal1+$amount);            // (19986.95+1200) = 21186.95
+                    }
+
+                    if ($fromBankCurr == 1 && $toBankCurr == 2) {         // if From Bank is EUR and To BAnk is USD
+                        $fromNewBal = ($fromBankBal->Balance+($beforeBalance->Amount-$amount));  // (1,880.00+(1000-1200)) = 1680
+
+                        $toNewBal1 = ($toBankBal->Balance-$beforeBalance->EuroValue);   // (20,380.13 - 883.22) = 19496.91
+                        $toNewBal = ($toNewBal1+$to_euro_amount);            // (19496.91+1,060.13) = 20557.04
+                    }
+
+                    //$fromNewBal = ($fromBankBal->Balance+($beforeBalance-$from_euro_amount));  // (2,008.25+(883.41-800)) = 2354.99
+
                     //$fromNewBal = ($fromNewBal1-$amount);
                     //$fromNewBal = ($fromNewBal1+$amount);
                    // $fromNewBal = ($moneyOutFees+$fromNewBal1+$outgoFees);
@@ -277,8 +428,8 @@ class Bank_transaction extends CI_Controller {
                     echo 'fromNewBal:'.$fromNewBal;
                     echo '<br>';
                     exit();*/
-                    $toNewBal1 = ($toBankBal->Balance-$beforeBalance);
-                    $toNewBal = ($toNewBal1+$amount);
+                    /*$toNewBal1 = ($toBankBal->Balance-$beforeBalance);   // (16,042.15 - 1350.38)
+                    $toNewBal = ($toNewBal1+$to_euro_amount);            // (14691.77+899.69) = 15591.46   // if amount changed to 1200 to 800*/
                     /*$moneyInFees = ($toBankBal->InComP*$amount);
                     $moneyInFees = ($moneyInFees/100);
                     
@@ -292,6 +443,8 @@ class Bank_transaction extends CI_Controller {
                         'Amount' => $amount,
                         'BankTransferId' => $transType,
                         'ToBank' => $toBank,
+                        'ExchangeRate' => $rate,
+                        'EuroValue' => $conversion_amount,
                         'ModifiedBy' => $uid
                     );
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Bank-Trans". PHP_EOL
@@ -316,7 +469,7 @@ class Bank_transaction extends CI_Controller {
                         file_put_contents ( logger_url_banktrans, $log . "\n", FILE_APPEND );
                     return 1;
                 }else{
-                    $_SESSION['pop_mes'] = "Token does not matched.";
+                    $_SESSION['pop_mes'] = "Token does not match.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Bank-Trans". PHP_EOL
                         . "Edit-Bank-Trans-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( 'Logs/banktrans.txt', $log . "\n", FILE_APPEND );

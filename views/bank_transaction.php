@@ -296,8 +296,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         amt = amount;
                       }
                       var chargesP = obj.charges.Amount
-                      var charges = (amt*(chargesP/100));
-                      $("#transferCharges").val(charges);
+                      /*var charges = (amt*(chargesP/100));
+                      $("#transferCharges").val(charges);*/
+                      $("#transferCharges").val(chargesP);
                     }else{
                       var amount = $("#amount").val();
                       if (amount == "") {
@@ -306,8 +307,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         amt = amount;
                       }
                       var chargesP = 0;
-                      var charges = (amt*(chargesP/100));
-                      $("#transferCharges").val(charges);
+                      /*var charges = (amt*(chargesP/100));
+                      $("#transferCharges").val(charges);*/
+                      $("#transferCharges").val(chargesP);
                     }
                    }
                });
@@ -331,8 +333,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         amt = amount;
                       }
                       var chargesP =  obj.charges.Amount
-                      var charges = (amt*(chargesP/100));
-                      $("#transferCharges").val(charges);
+                      /*var charges = (amt*(chargesP/100));
+                      $("#transferCharges").val(charges);*/
+                      $("#transferCharges").val(chargesP);
                     }else{
                       var amount = $("#amount").val();
                       if (amount == "") {
@@ -341,8 +344,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         amt = amount;
                       }
                       var chargesP = 0;
-                      var charges = (amt*(chargesP/100));
-                      $("#transferCharges").val(charges);
+                      /*var charges = (amt*(chargesP/100));
+                      $("#transferCharges").val(charges);*/
+                      $("#transferCharges").val(chargesP);
                     }
                    }
                });
@@ -370,8 +374,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       if (chargesP == "") {
                         chargesP = 0;
                       }
-                      var charges = (amt*(chargesP/100));
-                      $("#transferCharges").val(charges);
+                      /*var charges = (amt*(chargesP/100));
+                      $("#transferCharges").val(charges);*/
+                      $("#transferCharges").val(chargesP);
                     }else{
                       var amount = $("#amount").val();
                       if (amount == "") {
@@ -380,8 +385,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         amt = amount;
                       }
                       var chargesP = 0;
-                      var charges = (amt*(chargesP/100));
-                      $("#transferCharges").val(charges);
+                      /*var charges = (amt*(chargesP/100));
+                      $("#transferCharges").val(charges);*/
+                      $("#transferCharges").val(chargesP);
                     }
                    }
                });
@@ -407,8 +413,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         amt = amount;
                       }
                       var chargesP =  obj.charges.Amount
-                      var charges = (amt*(chargesP/100));
-                      $("#transferCharges").val(charges);
+                      /*var charges = (amt*(chargesP/100));
+                      $("#transferCharges").val(charges);*/
+                      $("#transferCharges").val(chargesP);
                     }else{
                       var amount = $("#amount").val();
                       if (amount == "") {
@@ -417,8 +424,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         amt = amount;
                       }
                       var chargesP = 0;
-                      var charges = (amt*(chargesP/100));
-                      $("#transferCharges").val(charges);
+                      /*var charges = (amt*(chargesP/100));
+                      $("#transferCharges").val(charges);*/
+                      $("#transferCharges").val(chargesP);
                     }
                    }
                });

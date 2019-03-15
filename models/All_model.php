@@ -94,6 +94,16 @@ class All_model extends CI_Model {
 		$this->db->order_by('p.CreatedOn','DESC');
 		return $this->db->get ()->result();
 	}
+	public function get_all_active_banks_with_psp($id){
+		$this->db->select('p.PspId, p.PspName, p.BankId, p.CreatedOn, p.Comments, b.BankId, b.BankName,p.Active,p.Balance');
+		$this->db->from('pspmaster p');
+		$this->db->join('bankmaster b','p.BankId = b.BankId');
+		//$this->db->where('p.Active',1);
+		$this->db->where('b.BankId',$id);
+		/*$this->db->order_by('p.Active','DESC');
+		$this->db->order_by('p.CreatedOn','DESC');*/
+		return $this->db->get ()->result();
+	}
 	public function get_all_banks(){
 		$this->db->select('BankId,BankName');
 		$this->db->from('bankmaster');
@@ -159,6 +169,7 @@ class All_model extends CI_Model {
 		$this->db->select('CatId,Category,Description,CreatedOn,Active');
 		$this->db->from('expcategory');
 		$this->db->where('Active',1);
+		$this->db->order_by('CreatedOn','DESC');
 		return $this->db->get()->result();
 	}
 	public function getcategory($id){
@@ -298,6 +309,13 @@ class All_model extends CI_Model {
 		$this->db->join('banktransfertype bt','bt.BankTransferId = b.BankTransferId');
 		$this->db->where('b.TransId',$id);
 		return $this->db->get()->row();
+	}
+	public function getAllNotifications(){
+		$this->db->select('*');
+		$this->db->from('vendormaster');
+		$this->db->where('Active',1);
+		$this->db->where('Comments!=',"");
+		return $this->db->get()->result();
 	}
 	
 }
