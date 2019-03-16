@@ -108,6 +108,7 @@
                $this->db->select('VendorId, VendorName, InvoiceType, ReminderOn');
                $this->db->from('vendormaster');
                $this->db->where('InvoiceType', 'Monthly');
+              $this->db->where('ReminderOn !=',NULL);
                $this->db->where('Day(STR_TO_DATE(REPLACE(ReminderOn , "/", ","),"%d,%m,%Y")) = day(NOW())');
                $this->db->get();
               $query2= $this->db->last_query();
@@ -115,6 +116,7 @@
                $this->db->select('VendorId, VendorName, InvoiceType, ReminderOn');
                $this->db->from('vendormaster');
                $this->db->where('InvoiceType', 'Quarterly');
+               $this->db->where('ReminderOn !=',NULL);
                $this->db->where('Day(STR_TO_DATE(REPLACE(ReminderOn , "/", ","),"%d,%m,%Y")) = day(NOW())');
                $this->db->get();
               $query3= $this->db->last_query();
@@ -125,6 +127,7 @@
                
                $result1 = $alldata->result();
                $count1 = count($result1);
+
                    
                 /*}
                 
