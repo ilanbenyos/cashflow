@@ -42,7 +42,7 @@ $(document).ready(function() {
   $('#tabledata').DataTable( {
     "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
     dom: "lBfrtip",
-	aaSorting: [[4, "asc"]],
+	aaSorting: [[4, "asc"],[0, "asc"]],
 	//"processing": false,
 	//"ajax": '<?= base_url('configuration/bank/listbankdata')?>',
     //data: data,
@@ -86,6 +86,22 @@ responsive  : true,
 ]
 
 });
+ $('#tablebankTrans').DataTable( {
+    "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
+    dom: "lBfrtip",
+  aaSorting: [[0, "desc"]],
+    columnDefs: [
+   { orderable: false, targets: 5 }
+]
+  });
+ $('#tabledataPsp').DataTable( {
+    "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
+    dom: "lBfrtip",
+     aaSorting: [[5, "asc"]],
+
+  });
+
+ 
 });
 </script>
 <script type="text/javascript">
@@ -103,6 +119,8 @@ responsive  : true,
               $('#tabledata_next').css( 'display', 'none' );
               $('#tablevendor_previous').css( 'display', 'none' );
               $('#tablevendor_next').css( 'display', 'none' );
+              $('#tablebankTrans_previous').css( 'display', 'none' );
+              $('#tablebankTrans_next').css( 'display', 'none' );
             }
       });
 });
@@ -173,7 +191,7 @@ $('input.xyz').keyup(function(event) {
   $(this).val(function(index, value) {
     return value
       .replace(/\D/g, "")
-      .regex(^(0|[1-9]\d*)$)
+      //.regex(^(0|[1-9]\d*)$)
       //.replace(/([0-9])([0-9]{2})$/, '$1.$2')  
       .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
     ;
