@@ -101,6 +101,7 @@
                $this->db->from('vendormaster');
                $this->db->where('InvoiceType', 'Weekly');
                $this->db->where('ReminderOn',$date);
+			   $this->db->where('Active',1);
                $this->db->get();
                $query1= $this->db->last_query();
                
@@ -110,6 +111,7 @@
                $this->db->where('InvoiceType', 'Monthly');
               $this->db->where('ReminderOn !=',NULL);
                $this->db->where('Day(STR_TO_DATE(REPLACE(ReminderOn , "/", ","),"%d,%m,%Y")) = day(NOW())');
+			   $this->db->where('Active',1);
                $this->db->get();
               $query2= $this->db->last_query();
 
@@ -118,6 +120,7 @@
                $this->db->where('InvoiceType', 'Quarterly');
                $this->db->where('ReminderOn !=',NULL);
                $this->db->where('Day(STR_TO_DATE(REPLACE(ReminderOn , "/", ","),"%d,%m,%Y")) = day(NOW())');
+			   $this->db->where('Active',1);
                $this->db->get();
               $query3= $this->db->last_query();
                //$query3 = $this->db->get_compiled_select();

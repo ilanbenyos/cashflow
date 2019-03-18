@@ -223,12 +223,20 @@ class All_model extends CI_Model {
 		$this->db->order_by('CreatedOn','DESC');
 		return $this->db->get()->row();
 	}
+	public function GET_vendors($id){
+		$this->db->select('v.VendorId,v.VendorName,v.Active,v.Currency');
+		$this->db->from('vendormaster v');
+		$this->db->where('v.Active',1);
+		$this->db->where('v.VendorId',$id);
+		return $this->db->get()->row();;
+	}
 	public function vendors(){
 		$this->db->select('v.VendorId,v.VendorName,v.Active,v.Currency');
 		$this->db->from('vendormaster v');
 		/*$this->db->join('currencymaster c','c.CurId = v.Currency');
 		$this->db->join('bankmaster b','b.CurId = v.Currency');*/
 		$this->db->where('v.Active',1);
+		$this->db->order_by('v.VendorName','ASE');
 		return $this->db->get()->result();
 	}
 	public function getBanks($id){

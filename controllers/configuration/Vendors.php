@@ -118,6 +118,7 @@ echo '<pre/>';
 					'CreatedOn' =>$date
     	        );
     	        $user = $this->db->insert('vendormaster',$aVendorInfo);
+				$insert_id = $this->db->insert_id();
 				
                 $_SESSION['pop_mes'] = "New Vendor Created."; 
     	       redirect('configuration/vendors');
@@ -234,8 +235,8 @@ echo '<pre/>';
 		
 		$this->db->where ( 'VendorId', $id );
 		$this->db->update ( 'vendormaster', $userinfo );
-		
-		redirect('configuration/vendors');
+		$_SESSION['vendor_id'] =$id;
+		redirect('Expenses/addExpenseDetails');
 	}
 	public function notification(){
 		if (! isset ( $_SESSION ['logged_in'] )) {

@@ -33,11 +33,14 @@
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Vendor</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <select class="form-control" name="vendor" id="vendor" onchange="">
-                            <option selected="" value="">Select Vendor</option>
+                          <select class="form-control vendor" name="vendor" id="vendor" onchange="">
+						 <?php  if(!empty($vendors_first)){
+							 foreach ($vendors as $vendor) { ?>							
+						 <option <?php if($vendor->VendorId== $vendors_first->VendorId){ echo 'selected="selected"'; } ?> value="<?php echo $vendor->VendorId; ?>"><?php echo $vendor->VendorName; ?></option>
+						 <?php }  }else{ ?>
                             <?php foreach ($vendors as $vendor) { ?>
                             <option value="<?php echo $vendor->VendorId; ?>"><?php echo $vendor->VendorName; ?></option>      
-                                  <?php   } ?>
+						 <?php   } }?>
                           </select>
                         </div>
                       </div>
@@ -81,6 +84,14 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" name="plcurr" id="plcurr" readonly>
+                        </div>
+                      </div>
+                    </div>
                     
                   </div>
                   <!--planned info starts -->
@@ -107,14 +118,14 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="plcurr" id="plcurr" readonly>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Transfer Type</label>
@@ -231,7 +242,7 @@ $('.datepicker').datepicker({
 </script>
 <script type="text/javascript">
   $(document).ready(function(){
-
+    
     //sort by albhabetical order start
     var options = $('select#bankid option');
     var arr = options.map(function(_, o) {
@@ -249,6 +260,26 @@ $('.datepicker').datepicker({
         $(o).text(arr[i].t);
     });
     //sort by albhabetical order end
+
+    //sort by albhabetical order start
+    /*var options1 = $('select#vendor option');
+    var arr1 = options1.map(function(_, o) {
+        return {
+            t: $(o).text(),
+            v: o.value
+        };
+    }).get();
+    arr1.sort(function(o1, o2) {
+        return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
+    });
+    
+    options1.each(function(i, o) {
+        //console.log(i);
+        o.value = arr1[i].v;
+        $(o).text(arr1[i].t);
+    });*/
+    //sort by albhabetical order end
+
 
     /*$('#vendor').on('change',function() {
         var vendorId=document.getElementById("vendor").value;  

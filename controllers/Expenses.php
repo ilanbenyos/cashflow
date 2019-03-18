@@ -75,6 +75,14 @@ class Expenses extends CI_Controller {
 		$this->form_validation->set_rules ('expCat', 'Expense Category', 'trim|required');
         $this->form_validation->set_rules ('transType', 'Transfer Type', 'trim|required');
 		if ($this->form_validation->run () === FALSE) {
+			if(!empty($_SESSION['vendor_id'])){
+				$vendorID = $_SESSION['vendor_id'];
+				$data['vendors_first']=$this->all_model->GET_vendors($vendorID);
+				unset($_SESSION['vendor_id']);
+			}else{
+			   $data['vendors_first']="";
+			}
+			   
 			$data['vendors'] = $this->all_model->vendors();
             $data['transType'] = $this->all_model->getTransferType();
             $data['expCat'] = $this->all_model->get_active_categories();
