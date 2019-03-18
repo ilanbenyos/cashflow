@@ -2,7 +2,7 @@
 
 <div id="content">
   <div class="container-fluid">
-    <h1>Current Banks Balance</h1>
+    <h1>PSP Income vs Commission</h1>
     <div class="white-bg">
       <div class="row">
 	     <!-- <div class="col-md-4 inline-divs text-left">
@@ -18,7 +18,7 @@
             </div>
           </div>
 	   </div> -->
-        <div class="col-md-8 inline-divs text-right">
+        <div class="col-md-12 inline-divs text-right">
           <div class="month-expense-box">
             <label>Select months :</label>
             <div class="form-inline">
