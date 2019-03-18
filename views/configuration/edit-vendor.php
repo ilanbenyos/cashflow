@@ -48,7 +48,7 @@
 						<label class="col-md-4 col-sm-4 col-xs-12">Invoice Frequency</label>
 						<div class="col-md-8 col-sm-8 col-xs-12">
 						  <select class="form-control" name="InvoiceType" id="InvoiceType" onchange="">
-							<option value="<?php echo $Vendor_details->InvoiceType; ?> "><?php echo $Vendor_details->InvoiceType; ?></option>
+							<option value="<?php //echo $Vendor_details->InvoiceType; ?> "><?php //echo $Vendor_details->InvoiceType; ?></option>
 							<option value="Weekly">Weekly</option>
 							<option value="Monthly">Monthly</option>
 							<option value ="Quarterly">Quarterly</option>
@@ -67,7 +67,7 @@
 		              <label class="col-md-4 col-sm-4 col-xs-12">Reminder On</label>
 		              <div class="col-md-8 col-sm-8 col-xs-12">
 		                 <select class="form-control" name="weekly_reminder" id="weekly_reminder" onchange="">
-		                  <option selected="selected" value="<?php echo $Vendor_details->ReminderOn ?>"><?php //echo $Vendor_details->ReminderOn  ?></option>
+		                  <option selected="" value="<?php //echo $Vendor_details->ReminderOn ?>"></option>
 		                  <option value="Sunday">Sunday</option>
 		                  <option value="Monday">Monday</option>
 		                  <option value="Tuesday">Tuesday</option>
@@ -85,7 +85,7 @@
 		              <label class="col-md-4 col-sm-4 col-xs-12">Reminder On</label>
 		              <div class="col-md-8 col-sm-8 col-xs-12">
 		                 <div class="input-group date" data-provide="datepicker">
-		                    <input type="text" class="form-control" name="monthly_reminder" id="monthly_reminder" value="<?php //echo $Vendor_details->ReminderOn ?>" />
+		                    <input type="text" class="form-control" name="monthly_reminder" id="monthly_reminder"  />
 		                    <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
 		                  </div>
 		              </div>
@@ -97,7 +97,7 @@
 		              <label class="col-md-4 col-sm-4 col-xs-12">Reminder On</label>
 		              <div class="col-md-8 col-sm-8 col-xs-12">
 		                <div class="input-group date" data-provide="datepicker">
-		                    <input type="text" class="form-control" name="quartely_reminder" id="quartely_reminder" value="<?php //echo $Vendor_details->ReminderOn ?>"/>
+		                    <input type="text" class="form-control" name="quartely_reminder" id="quartely_reminder"/>
 		                    <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
 		                    </div>
 		              </div>
@@ -175,10 +175,9 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
  <script type="text/javascript">
   $(document).ready(function(){
-    //$("#weekly").hide();
     var reminderValue = $("#invoiceTyp").val();	
     var reminder = $("#reminder").val();
-    //alert(reminder);
+    $("#InvoiceType").val(reminderValue);
     if(reminderValue == 'Weekly'){
         $("#weekly").show();
         $("#weekly_reminder").val(reminder);
