@@ -58,13 +58,16 @@
 						</div>
 					  </div>
 					</div>
-					<?php if ($Vendor_details->InvoiceType == 'Weekly') { ?>
-						<div class="col-md-12 col-sm-12 col-xs-12" id="weekly" >
+					<input type="hidden" name="reminder" id="reminder" value="<?php echo $Vendor_details->ReminderOn; ?>">
+					<input type="hidden" name="invoiceTyp" id="invoiceTyp" value="<?php echo $Vendor_details->InvoiceType; ?>">
+
+					<?php //if ($Vendor_details->InvoiceType == 'Weekly') { ?>
+						<div class="col-md-12 col-sm-12 col-xs-12" id="weekly" style="display: none;">
 		              <div class="form-group">
 		              <label class="col-md-4 col-sm-4 col-xs-12">Reminder On</label>
 		              <div class="col-md-8 col-sm-8 col-xs-12">
 		                 <select class="form-control" name="weekly_reminder" id="weekly_reminder" onchange="">
-		                  <option selected="selected" value="<?php echo $Vendor_details->ReminderOn ?>"><?php echo $Vendor_details->ReminderOn  ?></option>
+		                  <option selected="selected" value="<?php echo $Vendor_details->ReminderOn ?>"><?php //echo $Vendor_details->ReminderOn  ?></option>
 		                  <option value="Sunday">Sunday</option>
 		                  <option value="Monday">Monday</option>
 		                  <option value="Tuesday">Tuesday</option>
@@ -76,31 +79,31 @@
 		              </div>
 		              </div>
             		</div>
-					<?php }elseif ($Vendor_details->InvoiceType == 'Monthly') { ?>
-						<div class="col-md-12 col-sm-12 col-xs-12" id="monthly" >
+					<?php //}elseif ($Vendor_details->InvoiceType == 'Monthly') { ?>
+						<div class="col-md-12 col-sm-12 col-xs-12" id="monthly" style="display: none;">
 		              <div class="form-group">
 		              <label class="col-md-4 col-sm-4 col-xs-12">Reminder On</label>
 		              <div class="col-md-8 col-sm-8 col-xs-12">
 		                 <div class="input-group date" data-provide="datepicker">
-		                    <input type="text" class="form-control" name="monthly_reminder" id="monthly_reminder" value="<?php echo $Vendor_details->ReminderOn ?>" />
+		                    <input type="text" class="form-control" name="monthly_reminder" id="monthly_reminder" value="<?php //echo $Vendor_details->ReminderOn ?>" />
 		                    <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
 		                  </div>
 		              </div>
 		              </div>
 		            </div>
-					<?php }elseif ($Vendor_details->InvoiceType == 'Quarterly') { ?>
-						<div class="col-md-12 col-sm-12 col-xs-12" id="quartely" >
+					<?php //}elseif ($Vendor_details->InvoiceType == 'Quarterly') { ?>
+						<div class="col-md-12 col-sm-12 col-xs-12" id="quartely" style="display: none;">
 		              <div class="form-group">
 		              <label class="col-md-4 col-sm-4 col-xs-12">Reminder On</label>
 		              <div class="col-md-8 col-sm-8 col-xs-12">
 		                <div class="input-group date" data-provide="datepicker">
-		                    <input type="text" class="form-control" name="quartely_reminder" id="quartely_reminder" value="<?php echo $Vendor_details->ReminderOn ?>"/>
+		                    <input type="text" class="form-control" name="quartely_reminder" id="quartely_reminder" value="<?php //echo $Vendor_details->ReminderOn ?>"/>
 		                    <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
 		                    </div>
 		              </div>
 		              </div>
 		            </div>
-					<?php } ?>
+					<?php //} ?>
                     <div class="col-md-12 col-sm-12 col-xs-12">
 						  <div class="form-group">
 							<label class="col-md-4 col-sm-4 col-xs-12">Comments</label>
@@ -170,11 +173,39 @@
 </div>
 <!-- Modal -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<!-- <script type="text/javascript">
+ <script type="text/javascript">
   $(document).ready(function(){
-    $("#weekly").hide();
+    //$("#weekly").hide();
+    var reminderValue = $("#invoiceTyp").val();	
+    var reminder = $("#reminder").val();
+    //alert(reminder);
+    if(reminderValue == 'Weekly'){
+        $("#weekly").show();
+        $("#weekly_reminder").val(reminder);
+        $("#monthly").hide();
+        $("#quartely").hide();
+      }else if(reminderValue == 'Monthly'){
+        $("#monthly").show();
+        $("#monthly_reminder").val(reminder);
+        $("#weekly").hide();
+        $("#quartely").hide();
+      }else if(reminderValue == 'Quarterly'){
+        $("#monthly").hide();
+        $("#weekly").hide();
+        $("#quartely").show();
+        $("#quartely_reminder").val(reminder);
+      }
+      else{
+        $("#monthly").hide();
+        $("#weekly").hide();
+        $("#quartely").hide();
+      }
+
+
+
     $("#InvoiceType").on('change',function(){
       var reminderValue = $("#InvoiceType").val();
+      var reminderon = $("#ReminderOn").val();	
       if(reminderValue == 'Weekly'){
         $("#weekly").show();
         $("#monthly").hide();
@@ -195,7 +226,7 @@
       }
     });
   });
-</script> -->
+</script> 
 <script type="text/javascript">
   (function($){
 

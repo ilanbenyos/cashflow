@@ -54,49 +54,9 @@ $(function() {
 
 var url = window.location;
 
-// for sidebar menu entirely but not cover treeview
-//$('.treeview li a').filter(function() {
-//  return this.href == url;
-//}).parent().addClass('active');
-//
-//$('.treeview-menu li a').filter(function() {
-//  return this.href == url;
-//}).closest('.treeview').addClass('active');
-
-
-//jQuery(function ($) {
-//    $(".sidebar-menu li a")
-//        .click(function(e) {
-//            var link = $(this);
-//
-//            var item = link.parent("li");
-//            
-//            if (item.hasClass("active")) {
-//                item.removeClass("active").children("a").removeClass("active");
-//            } else {
-//                item.addClass("active").children("a").addClass("active");
-//            }
-//
-//            if (item.children("ul").length > 0) {
-//                var href = link.attr("href");
-//                link.attr("href");
-//                setTimeout(function () { 
-//                    link.attr("href", href);
-//                }, 300);
-//                e.preventDefault();
-//            }
-//        })
-//        .each(function() {
-//            var link = $(this);
-//            if (link.get(0).href === location.href) {
-//                link.addClass("active").parents("li").addClass("active");
-//                return false;
-//            }
-//        });
-//});
-
+// for sidebar menu entirely
 jQuery(function ($) {
-    $(".treeview li a")
+    $(".sidebar-menu li a")
         .click(function(e) {
             var link = $(this);
             var item = link.parent("li");
@@ -109,29 +69,6 @@ jQuery(function ($) {
             }
         });
 });
-
-jQuery(function ($) {
-$('sidebar-menu li a').click( function(){
-    if ( $(this).hasClass('current') ) {
-        $(this).removeClass('current');
-    } else {
-        $('a.current').removeClass('current');
-        $(this).addClass('current');    
-    }
-});
-});
-//$(".sidebar-menu li a").click(function() {
-//    $(this).parent().addClass('active').siblings().removeClass('active');
-//
-//    });
-
-//jQuery(function ($) {
-//	$(".sidebar-menu a").on("click", function() {
-//  $(".sidebar-menu").find(".active").removeClass("active");
-//  $(this).parent().addClass("active");
-//});
-//});
-
 
 
 //Clone the hidden element and shows it

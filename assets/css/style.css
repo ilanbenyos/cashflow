@@ -72,13 +72,16 @@ header { position:relative; background: #fff; }
 .user-dropdown span:last-child { border-right: none; }
 .notification-detail { padding: 0; background: #dadada; border-radius: 22px; margin-right: 18px; margin-top: 4px; }
 .notification-detail a { color:#20a0a7; text-decoration:none; padding: 8px 11px; }
-.notification-detail a:hover, .notification-detail a:focus { text-decoration:none;  }
+.notification-detail a:hover, .notification-detail a:focus { text-decoration:none; }
 .notification-detail abbr { position: absolute; right: -8px; top: -5px; background: #da0000; color: #fff; width: 18px; display: flex; height: 18px; text-align: center; font-family: 'RobotoBold'; font-size: 12px; justify-content: center; align-items: center; }
 .notification-dropdown { width: 261px; padding: 0; }
 .notification-dropdown .notification-menu, .notification-dropdown > ul.notification-menu { margin: 0 auto; padding: 0; list-style: none; text-align: left; }
 .notification-menu > li { padding: 5px 0; }
 .note-title, .btm-view-all, .btm-view-all a { text-align: center; font-family: 'RobotoMedium'; color: #000; background: #e8e8e8; padding:0; }
 .inner-menu { margin: 0 auto; padding: 6px 10px; list-style: none; text-align: left; }
+.inner-menu li { padding-bottom: 4px; border-bottom: 1px solid #ccc; padding-top: 4px; }
+.inner-menu li:first-child { padding-top: 0; }
+.inner-menu li:last-child { padding-bottom: 0; border-bottom: none; }
 .inner-menu li a { color: #000; padding: 0; }
 /***** Sidebar CSS Style *****/
 .wrapper { display: flex; width: 100%; position:relative; }
