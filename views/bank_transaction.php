@@ -82,7 +82,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
               <label class="col-md-5 col-sm-5 col-xs-12">From Bank</label>
               <div class="col-md-7 col-sm-7 col-xs-12">
                 <select class="form-control" name="fromBank" id="fromBank" onchange="">
-                <!-- <option selected="" value="">Select From Bank</option> -->
+                 <option selected="" value="">Select From Bank</option>
                             <?php foreach ($banks as $bank1) { ?>
 
                             <option value="<?php echo $bank1->BankId; ?>"><?php echo $bank1->BankName; ?></option>      
@@ -97,7 +97,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
               <label class="col-md-5 col-sm-5 col-xs-12">To Bank</label>
               <div class="col-md-7 col-sm-7 col-xs-12" id='msg'>
                 <select class="form-control" name="toBank" id="toBank" onchange="">
-                <!-- <option selected="" value="">Select To Bank</option> -->
+                 <option selected="" value="">Select To Bank</option> 
                     <?php foreach ($banks as $bank2) { ?>
 
                     <option value="<?php echo $bank2->BankId; ?>"><?php echo $bank2->BankName; ?></option>      
