@@ -1,4 +1,4 @@
-<?php //print_r($allPspIncome->isCRR);exit(); ?> 
+<?php //print_r($allPspIncome);exit(); ?> 
 <!-- Page Content  -->
 <div id="content">
   <div class="container-fluid">
@@ -64,6 +64,29 @@
                         </div>
                       </div>
                     </div> --> 
+                     <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" name="plcurr" id="plcurr" value="<?php echo $allPspIncome->Currency; ?>" readonly>
+                          <!-- <select class="form-control" name="plcurr" id="plcurr" >
+                            <option value="USD" selected="">USD</option>
+                            <option value="EUR">EUR</option>
+                            <!-- <option value="GBP">GBP</option> 
+                          </select> -->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="hidden" class="form-control xyz" name="accommP" id="accommP" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualComP ?>" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
+                    
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
@@ -72,6 +95,7 @@
                         </div>
                       </div>
                     </div>
+                    
                     
                   </div>
                   <!--planned info starts -->
@@ -110,27 +134,27 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="plcurr" id="plcurr" value="<?php echo $allPspIncome->Currency; ?>" readonly>
+                          <input type="text" class="form-control" name="plcurr" id="plcurr" value="<?php echo $allPspIncome->Currency; ?>" readonly> -->
                           <!-- <select class="form-control" name="plcurr" id="plcurr" >
                             <option value="USD" selected="">USD</option>
                             <option value="EUR">EUR</option>
                             <!-- <option value="GBP">GBP</option> 
                           </select> -->
-                        </div>
+                        <!-- </div>
                       </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    </div> -->
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="plcommval" id="plcommval" value="<?php echo $allPspIncome->PlannedComP ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Commission Amount</label>
@@ -225,20 +249,20 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="accurr" id="accurr" value="<?php echo $allPspIncome->Currency; ?>" readonly>
+                          <input type="text" class="form-control" name="accurr" id="accurr" value="<?php echo $allPspIncome->Currency; ?>" readonly> -->
                           <!-- <select class="form-control" name="accurr" id="accurr" onchange="">
                             <option selected="">USD</option>
                             <option>EUR</option>
                             <option>GBP</option> 
                           </select> -->
-                        </div>
+                        <!-- </div>
                       </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    </div> -->
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -246,7 +270,7 @@
                           <input type="text" class="form-control xyz" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualComP ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Commission Amount</label>
@@ -255,10 +279,18 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group align-top">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Additional Fees</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control xyz" name="additionalFees" id="additionalFees" value="<?php echo $allPspIncome->AdditionalFees; ?>" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
                     <?php if ($allPspIncome->isCRR == 1) { ?>
                       <div class="col-md-12 col-sm-12 col-xs-12" id="crr">
                       <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">CRR Amount</label>
+                        <label class="col-md-5 col-sm-5 col-xs-12">Rolling Reserved Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" name="crrComm" id="crrComm">
                            <?php if ($crrData->isCRR == 0 && $crrData->CRRId == $allPspIncome->TransId ) { ?>
@@ -356,6 +388,7 @@
   $(document).ready(function(){
 
     $('#psp').attr('disabled',true);
+    $('#accommval').attr('disabled',true);
 
     var pldatereceive = $("#pldatereceive").val();
     var acdatereceive = $("#acdatereceive").val();
@@ -410,6 +443,14 @@ if ($("#acamtReceive").val() == 0.00) {
                     $("#accommval").val(commAmount);
                     
 
+
+                    var additionalfees = $("#additionalFees").val();
+                    if (additionalfees != "") {
+                      var fees = additionalfees;
+                    }else{
+                      var fees = 0;
+                    }
+
                     //net to bank amount calculation start
                     var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");   //actual process amount
                     var accommP = $("#accommval").val();                          //PSP Commission 
@@ -422,7 +463,7 @@ if ($("#acamtReceive").val() == 0.00) {
 
                     
 
-                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)).toFixed(2);  
+                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);  
                     $("#bankcomm").val(bankcomm);
                     $("#acamtval").val(commAmount);
                     $("#nettoBankAmt").val(netToBank);
@@ -438,9 +479,50 @@ if ($("#acamtReceive").val() == 0.00) {
                    }
                });
        });
+      $( "#additionalFees" ).keyup(function( event ) { 
+      var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");   //actual process amount
+     /* var crrComm = document.getElementById("crrComm").value;        // CRR Commission %
+      var crrAmt = (crrComm/100);                                    
+      var crrAmt = Number(actualAmt*crrAmt).toFixed(2);*/
+      var additionalfees = document.getElementById("additionalFees").value;
+
+      if (additionalfees != "") {
+        var fees = additionalfees;
+      }else{
+        var fees = 0;
+      }
+
+
+
+      //net to bank amount calculation start
+      var accommP = $("#accommval").val();                          //PSP Commission 
+      var bankcommP = $("#bankcommP").val();                        //BAnk Inflow Commission
+      //var commAmount = ("#acamtval").val();
+
+      var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
+
+      var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
+
+      
+
+      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);  
+      $("#bankcomm").val(bankcomm);
+      $("#acamtval").val(commAmount);
+      $("#nettoBankAmt").val(netToBank);
+
+      /*console.log('commission %' +  accommP);
+      console.log('bankcommP %' +  bankcommP);
+
+      console.log('Bank commission' +  bankcomm);
+      console.log('commission Amount' +  commAmount);
+
+      console.log('Net To Bank' +  netToBank);*/
+      //net to bank amount calculation end
+    });
     }else if(($("#crrVal").val() == 0) && ($("#crrVAlId").val() != 0)){        //CRR record and Actual amount is zero 
       $( "#acamtReceive" ).keyup(function( event ) {
         $("#accommval").attr('disabled',true);
+        $("#acamtval").attr('disabled',true);
         $("#acamtval").attr('disabled',true);
         var pspid=document.getElementById("psp").value;  
         //alert(pspid);
@@ -462,6 +544,12 @@ if ($("#acamtReceive").val() == 0.00) {
                     $("#bankcommP").val(obj.getpsp.InComP);
                     //$("#accommval").val(commAmount);
                     
+                    var additionalfees = $("#additionalFees").val();
+                    if (additionalfees != "") {
+                      var fees = additionalfees;
+                    }else{
+                      var fees = 0;
+                    }
 
                     //net to bank amount calculation start
                     var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");   //actual process amount
@@ -475,7 +563,7 @@ if ($("#acamtReceive").val() == 0.00) {
 
                     
 
-                    var netToBank = Number(parseInt(actualAmt)-parseInt(bankcomm)).toFixed(2);  
+                    var netToBank = Number(parseInt(actualAmt)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);  
                     $("#bankcomm").val(bankcomm);
                     //$("#acamtval").val(commAmount);
                     $("#nettoBankAmt").val(netToBank);
@@ -491,6 +579,46 @@ if ($("#acamtReceive").val() == 0.00) {
                    }
                });
       });
+      $( "#additionalFees" ).keyup(function( event ) { 
+      var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");   //actual process amount
+     /* var crrComm = document.getElementById("crrComm").value;        // CRR Commission %
+      var crrAmt = (crrComm/100);                                    
+      var crrAmt = Number(actualAmt*crrAmt).toFixed(2);*/
+      var additionalfees = document.getElementById("additionalFees").value;
+
+      if (additionalfees != "") {
+        var fees = additionalfees;
+      }else{
+        var fees = 0;
+      }
+
+
+
+      //net to bank amount calculation start
+      var accommP = $("#accommval").val();                          //PSP Commission 
+      var bankcommP = $("#bankcommP").val();                        //BAnk Inflow Commission
+      //var commAmount = ("#acamtval").val();
+
+      var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
+
+      var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
+
+      
+
+      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);  
+      $("#bankcomm").val(bankcomm);
+      $("#acamtval").val(commAmount);
+      $("#nettoBankAmt").val(netToBank);
+
+      /*console.log('commission %' +  accommP);
+      console.log('bankcommP %' +  bankcommP);
+
+      console.log('Bank commission' +  bankcomm);
+      console.log('commission Amount' +  commAmount);
+
+      console.log('Net To Bank' +  netToBank);*/
+      //net to bank amount calculation end
+    });
     }
 }else{
   //alert(5555);
@@ -924,6 +1052,8 @@ autoclose: true
           if(returnvar == true){
             //alert(returnvar);
             $('#psp').attr('disabled',false);
+            $('#accommval').attr('disabled',false);
+            $("#acamtval").attr('disabled',false);
              $("#editPspIncome").hide();
             $(".page-loader").show();
      } 

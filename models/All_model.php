@@ -62,7 +62,7 @@ class All_model extends CI_Model {
 	    return $this->db->get ()->result(); 
 	}
 	public function get_vendor_details_byid($id){
-	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Currency,v.Active,v.Comments,v.ReminderOn, c.CurId,c.CurName' );
+	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Currency,v.InvoiceDate,v.Active,v.Comments,v.ReminderOn, c.CurId,c.CurName' );
 	    $this->db->from ( 'vendormaster v' );
 	    $this->db->join('currencymaster c','c.CurId = v.Currency');
 		//$this->db->join('expcategory c', 'v.CategoryId=c.CatId');

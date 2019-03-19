@@ -91,7 +91,7 @@ public function que()
     	           return 1;
     	        
     	    }else{
-    	        $_SESSION['pop_mes'] = "Token does not matched.";
+    	        $_SESSION['pop_mes'] = "Token does not match.";
     	            return 1;
     	    }
     			
@@ -152,7 +152,7 @@ public function que()
 	        return 1;
 	        //redirect('configuration/users');
 	    }else{
-	    	$_SESSION['pop_mes'] = "Token does not matched.";
+	    	$_SESSION['pop_mes'] = "Token does not match.";
 	       return 1;
 	    }
 	        

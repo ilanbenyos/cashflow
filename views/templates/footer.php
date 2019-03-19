@@ -82,7 +82,9 @@ responsive  : true,
      dom: 'lBfrtip',
 
   columnDefs: [
-   { orderable: false, targets: 8 }
+   { orderable: false, targets: 8 },
+   { orderable: false, targets: 9},
+
 ]
 
 });
@@ -91,13 +93,22 @@ responsive  : true,
     dom: "lBfrtip",
   aaSorting: [[0, "desc"]],
     columnDefs: [
-   { orderable: false, targets: 5 }
+   { orderable: false, targets: 6 }
 ]
   });
  $('#tabledataPsp').DataTable( {
     "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
     dom: "lBfrtip",
      aaSorting: [[5, "asc"]],
+
+  });
+ $('#exptabledata').DataTable( {
+    "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
+    dom: "lBfrtip",
+     aaSorting: [[0, "desc"]],
+     columnDefs: [
+   { orderable: false, targets: 10 }
+]
 
   });
 
@@ -191,7 +202,7 @@ $('input.xyz').keyup(function(event) {
   $(this).val(function(index, value) {
     return value
       .replace(/\D/g, "")
-      //.regex(^(0|[1-9]\d*)$)
+      .regex(^(0|[1-9]\d*)$)
       //.replace(/([0-9])([0-9]{2})$/, '$1.$2')  
       .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
     ;

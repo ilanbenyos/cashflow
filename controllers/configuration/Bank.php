@@ -56,7 +56,7 @@ class Bank extends CI_Controller {
 	        redirect('login');
 	    }
 		$this->form_validation->set_rules ( 'BankName', 'Bank Name', 'trim|required' );
-			$this->form_validation->set_rules ( 'status', 'Status', 'trim|required' );
+		$this->form_validation->set_rules ( 'status', 'Status', 'trim|required' );
 		
 		if ($this->form_validation->run () === FALSE) {
 		$data['currency'] = $this->all_model->getAllCurrency();
@@ -132,7 +132,7 @@ class Bank extends CI_Controller {
 				redirect('configuration/bank');
 				}
 				else{
-					$_SESSION['pop_mes'] = "Token does not matched."; 
+					$_SESSION['pop_mes'] = "Token does not match."; 
 				
 				redirect('configuration/bank');
 					
@@ -163,13 +163,15 @@ class Bank extends CI_Controller {
 		$data['transferDetails'] = $this->all_model->BankTransferdetails($id);
 		$data['transferData'] = $this->all_model->getBankTransferdetails($id);  // to get all banktranfer ad and amount related to bank
 		$data['transferType'] = $this->all_model->getTransferType();
+		$data['getAllbanksWithPSP'] = $this->all_model->get_all_active_banks_with_psp($id);
+		//print_r($data['getAllbanksWithPSP']);exit();
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/left-sidebar', $data);
 		$this->load->view('configuration/edit-new-bank', $data);
 		$this->load->view('templates/footer');
 		}
 		else
-		{
+		{		
 				$token = $this->input->post('my_token_editbank');
         		$session_token=null;
         		$session_token = $_SESSION['form_token_editbank'];
@@ -227,7 +229,7 @@ class Bank extends CI_Controller {
 				redirect('configuration/bank');	
 				}
 				else{
-					$_SESSION['pop_mes'] = "Token does not matched."; 
+					$_SESSION['pop_mes'] = "Token does not match."; 
 				
 				redirect('configuration/bank');
 					
@@ -270,7 +272,7 @@ class Bank extends CI_Controller {
         			$_SESSION['pop_mes'] = "Bank Transfer Type Added Successfully."; 
 					return 1;
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not matched."; 
+        			$_SESSION['pop_mes'] = "Token does not match."; 
 					return 1;
         		}
 		}
@@ -301,7 +303,7 @@ class Bank extends CI_Controller {
         			$_SESSION['pop_mes'] = "Bank Transfer Type Updated Successfully."; 
 					return 1;
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not matched."; 
+        			$_SESSION['pop_mes'] = "Token does not match."; 
 					return 1;
         		}
 
@@ -309,15 +311,20 @@ class Bank extends CI_Controller {
 
 	}
 	public function test(){ // not in use
-		//$data['transferType'] = $this->all_model->getBankTransferData();
-		/*$date = date("Y-m-d");
-    	echo date('Y-m-d', strtotime($date. ' + 180 days'));
-    	exit();*/
-		//$data['transferType'] = $this->all_model->getTransferType();
-		//$this->load->view('templates/header');
-		//$this->load->view('templates/left-sidebar');
-		$this->load->view('configuration/bank_transfer_type');
-		//$this->load->view('templates/footer');
 		
+		$cur = 'EUR';
+		$val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
+				
+				$val=json_decode($val);
+
+				$exchange_rate = $val->rates->EUR;
+				$amount = 1200 * $exchange_rate;
+				print_r($amount);exit();
+				print_r(number_format((float)$amount, 2, '.', ''));
+				/*$current_val=$val->rates->$table_currency;
+			
+				$new_val = $amount * $current_val;
+				 
+				$trans_amount=number_format((float)$new_val, 2, '.', '');*/
 	}
 }

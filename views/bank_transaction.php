@@ -15,9 +15,10 @@ if (isset ( $_SESSION ['pop_mes'] )) {
           </div>
         <div class="col-md-12">
           <div class="table-responsive common-table">
-            <table id="tablebank" class="table table-hover" cellpadding="0" cellspacing="0">
+            <table id="tablebankTrans" class="table table-hover" cellpadding="0" cellspacing="0">
               <thead>
                 <tr>
+                  <th>No.</th>
                   <th>From Bank </th>
                   <th>To Bank</th>
                   <th>Amount</th>
@@ -30,7 +31,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                  <?php //$i = 1; ?>
                  <?php foreach ($allTransaction as $trans) { ?>
                  <tr>
-                  
+                  <td><?php echo $trans->TransId; ?></td>
                   <td><?php echo $trans->fromBank; ?></td>
                   <td><?php echo $trans->toBank; ?></td> 
                   <td><?php echo number_format($trans->Amount, 2, '.', ','); ?></td>
@@ -180,7 +181,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
   $(document).ready(function(){
 
     //sort by albhabetical order start
-    var options = $('select#fromBank option');
+    /*var options = $('select#fromBank option');
     var arr = options.map(function(_, o) {
         return {
             t: $(o).text(),
@@ -210,7 +211,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
         //console.log(i);
         o.value = arr[i].v;
         $(o).text(arr[i].t);
-    });
+    });*/
     //sort by albhabetical order end
     /*var fromBankId = $("#fromBank").val();
     $.ajax({
@@ -476,15 +477,35 @@ if (isset ( $_SESSION ['pop_mes'] )) {
              $("#errmsg").html('');
               $('#toBankgroup').removeClass('has-error');
               $('#fromBankgroup').removeClass('has-error');
-            }
-          /*console.log(3344444444);
-          $(this).css("border", "1px solid #CCCCCC");   */                      
+            }                   
         }
         
         else if($(this).val()=="") 
         {
            $("#errmsg").html('To Bank is required');
           $('#fromBankgroup').addClass('has-error');
+        }
+      })
+      $('#fromBank').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
+      $('#toBank').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
         }
       })
       $('#amount').on('blur', function() {

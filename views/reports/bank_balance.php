@@ -18,7 +18,18 @@
             </div>
           </div>
 	   </div> -->
-        <div class="col-md-8 inline-divs text-right">
+     
+        <div class="col-md-12 inline-divs text-right">
+          <div class="col-md-4 inline-divs text-left">
+            <div class="month-expense-box">
+              <div class="form-inline" onload="sumOfBanks()">
+                <label>Sum Of Banks:</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="sum" id="sum" readonly>
+                </div>
+              </div>
+            </div>
+          </div> 
           <div class="month-expense-box">
             <label>Select months :</label>
             <div class="form-inline">
@@ -120,14 +131,22 @@
 		//alert(data1);
         // Create our data table out of JSON data loaded from server.
         var data = new google.visualization.DataTable();
-  
       data.addColumn('string', 'Bank Name');
       data.addColumn('number', 'Amount');
       var jsonData = $.parseJSON(data1);
-
+      var total = 0;
       for (var i = 0; i < jsonData.length; i++) {
             data.addRow([jsonData[i].BankName, parseInt(jsonData[i].amount)]);
+
+            // to display sum of all bank start
+            if(isNaN(jsonData[i].amount)){
+                continue;
+                 }
+                 total += parseInt(Number(jsonData[i].amount).toFixed(2));
+                 $("#sum").val(total);
+                 // to display sum of all bank end
       }
+
 	  if(jsonData==""){
 	   var options_bar = {
 		// width:1000,
@@ -137,8 +156,8 @@
 		 legend: { position: 'none' },
 			hAxis: {
 			  title: 'Bank Name',
-			  slantedText:true,  
-			  slantedTextAngle:90
+			  /*slantedText:true,  
+			  slantedTextAngle:60*/
 			},
 			vAxis: {
 			  title: 'Amount',
@@ -154,14 +173,19 @@
      legend: { position: 'none' },
       hAxis: {
         title: 'Bank Name',
-        slantedText:true,  
-        slantedTextAngle:90
+        /*slantedText:true,  
+        slantedTextAngle:60*/
       },
       vAxis: {
         title: 'Amount in (EUR)',
         format: 'short'
       }
       };
+      var sumAmount = $("#sum").val();
+      sumAmount = Number(sumAmount).toFixed(2);
+      var withCommas = Number(sumAmount).toLocaleString('en');
+      $("#sum").val(commaSeparateNumber(sumAmount));
+
     /*
 	  if(jsonData[0].CurName =='USD'){
 		   var options_bar = {
@@ -222,4 +246,10 @@ function myFunction_month() {
   //drawChart(x1,x2,y,c1) ;
   drawChart(x1,x2,y) ;
 }
+function commaSeparateNumber(val){
+    while (/(\d+)(\d{3})/.test(val.toString())){
+      val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+    }
+    return val;
+  }
 </script>

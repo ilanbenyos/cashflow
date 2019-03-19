@@ -90,7 +90,7 @@ class Payment_processor extends CI_Controller {
     	        $_SESSION['pop_mes'] = "Payment Provider Added Successfully."; 
     	           return 1;
     	    }else{
-    	    	$_SESSION['pop_mes'] = "Token does not matched.";
+    	    	$_SESSION['pop_mes'] = "Token does not match.";
     	            return 1;
     	    }
     	}
@@ -98,6 +98,7 @@ class Payment_processor extends CI_Controller {
 	public function editpsp($id){
 		$data['banks'] = $this->all_model->get_all_banks();
 		$data['getpsp'] = $this->all_model->get_psp($id);
+       // print_r($data['getpsp']);exit();
 		$data['all_psp'] = $this->all_model->get_all_psp();
         $data['pspType'] = $this->all_model->allPspType($id);
 		$this->load->view('configuration/edit_psp',$data);
@@ -154,7 +155,7 @@ class Payment_processor extends CI_Controller {
 	        	$_SESSION['pop_mes'] = "Payment Provider Updated Successfully.";
 	        		return 1;
     	    }else{
-    	    	$_SESSION['pop_mes'] = "Token does not matched.";
+    	    	$_SESSION['pop_mes'] = "Token does not match.";
     	            return 1;
     	    }
     	}

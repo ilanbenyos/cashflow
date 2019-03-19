@@ -147,6 +147,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                });
 
     });*/
+    $('#fromBank1').attr('disabled',true);
+    $('#toBank1').attr('disabled',true);
         var transType = document.getElementById("transType1").value;  
         var fromBankId = document.getElementById("fromBank1").value;  
          $.ajax({
@@ -451,6 +453,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
             }
           if(returnvar == true){ 
               //alert(returnvar);
+             $('#fromBank1').attr('disabled',false);
+             $('#toBank1').attr('disabled',false);
              $("#bankTransaction-edit").hide();
              $(".page-loader").show();
               $.ajax({

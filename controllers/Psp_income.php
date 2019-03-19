@@ -98,6 +98,7 @@ class Psp_income extends CI_Controller {
         			//$acnetAmt = str_replace(',','',$this->input->post('acnetAmt'));
                     $nettoBankAmt = str_replace(',','',$this->input->post('nettoBankAmt'));
                     $crrAmt = str_replace(',','',$this->input->post('crrAmt'));
+                    $additionalFees = str_replace(',','',$this->input->post('additionalFees'));
         			$uid = $this->input->post('userid');
 
         			if($plcommval == ""){
@@ -184,6 +185,7 @@ class Psp_income extends CI_Controller {
                         'ActualNetAmt' => $nettoBankAmt,
                         'EuroValue' => $nettoBankAmt,
                         'ActualNetAmt' => $nettoBankAmt,
+                        'AdditionalFees' => $additionalFees,
                         'ExchangeRate' => $exchange_rate,
                         'EuroValue' => $euro_amount,
         				//'ActualNetAmt' => $acnetAmt,
@@ -337,6 +339,7 @@ class Psp_income extends CI_Controller {
         			//$acnetAmt = str_replace(',','',$this->input->post('acnetAmt'));
                     $nettoBankAmt = str_replace(',','',$this->input->post('nettoBankAmt'));
                     $crrAmt = str_replace(',','',$this->input->post('crrAmt'));
+                    $additionalFees = str_replace(',','',$this->input->post('additionalFees'));
         			$uid = $this->input->post('userid');
 
                     $data['allPspIncome'] = $this->all_model->pspIncome($id);
@@ -417,8 +420,10 @@ class Psp_income extends CI_Controller {
         				//'ActualNetAmt' => $acnetAmt,
                         //'EuroValue' => $acnetAmt,
                         'ActualNetAmt' => $nettoBankAmt,
+                        'AdditionalFees' => $additionalFees,
                         //'EuroValue' => $nettoBankAmt,
                         'NetBankAmt' => $nettoBankAmt,
+                        'AdditionalFees' => $additionalFees,
                         'ExchangeRate' => $exchange_rate,
                         'EuroValue' => $euro_amount,
                         'isCRR' => $isCrr,
@@ -507,7 +512,7 @@ class Psp_income extends CI_Controller {
                             $this->db->where('BankId',$BankId);
                             $this->db->update('bankmaster',array('Balance'=>$bankBal));
                             // update CRR Record end
-                            if ($data['allPspIncome']->ActualDate == $crrDate) {
+                            //if ($data['allPspIncome']->ActualDate == $crrDate) {
                                 //to update psp balance of crr record start
                                 $this->db->select('PspId,Balance');
                                 $this->db->from('pspmaster');
@@ -534,7 +539,7 @@ class Psp_income extends CI_Controller {
                                 $this->db->update('pspmaster',array('Balance'=>$pspBalance));                                
                                 
                                 //to update psp balance of crr record end
-                            }
+                            //}
 
                             /*//to update crr record and update psp balance start
                             $this->db->select('PspId,Balance');

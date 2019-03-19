@@ -15,7 +15,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
           </div>
           <div class="col-md-12">
             <div class="table-responsive common-table">
-              <table id="tabledata" class="table table-hover" cellpadding="0" cellspacing="0">
+              <table id="tabledataPsp" class="table table-hover" cellpadding="0" cellspacing="0">
                 <thead>
                   <tr>
                     <th>PSP Name</th>
@@ -131,9 +131,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-6 col-sm-6 col-xs-12">Rolling Reserved %</label>
+                        <label class="col-md-6 col-sm-6 col-xs-12">Rolling Reserved</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" class="form-control" name="crc" id="crc" placeholder="Rolling Reserved %" />
+                          <input type="text" class="form-control" name="crc" id="crc" placeholder="Rolling Reserved" />
                         </div>
                       </div>
                     </div>
@@ -277,6 +277,25 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 </script>
 <script type="text/javascript">
 	$(document).ready(function(){
+
+    //sort by albhabetical order start
+    var options = $('select#bank option');
+    var arr = options.map(function(_, o) {
+        return {
+            t: $(o).text(),
+            v: o.value
+        };
+    }).get();
+    arr.sort(function(o1, o2) {
+        return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
+    });
+    options.each(function(i, o) {
+        //console.log(i);
+        o.value = arr[i].v;
+        $(o).text(arr[i].t);
+    });
+    //sort by albhabetical order end
+
 		$(document).on('click', '.edit_psp', function() {
 	
 	//$('.edit_psp').click(function(event) {

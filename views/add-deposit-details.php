@@ -31,7 +31,7 @@
                         <label class="col-md-5 col-sm-5 col-xs-12">PSP</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="form-control" name="psp" id="psp" onchange="">
-                            <option selected="" value="">Select PSP</option>
+                            <!-- <option selected="" value="">Select PSP</option> -->
                             <?php foreach ($all_psp as $psp) { ?>
                             <option value="<?php echo $psp->PspId; ?>"><?php echo $psp->PspName; ?></option>
                             <?php   } ?>
@@ -61,6 +61,28 @@
                         </div>
                       </div>
                     </div> -->
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" name="plcurr" id="plcurr" readonly>
+                          <!-- <select class="form-control" name="plcurr" id="plcurr" readonly>
+                            <option value="USD" selected="">USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                          </select> --> 
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="hidden" class="form-control xyz" name="accommP" id="accommP" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="accommval" id="accommval" onkeypress="javascript:return isNumber(event)" readonly>
+                        </div>
+                      </div>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
@@ -94,27 +116,15 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="plcurr" id="plcurr" readonly>
-                          <!-- <select class="form-control" name="plcurr" id="plcurr" readonly>
-                            <option value="USD" selected="">USD</option>
-                            <option value="EUR">EUR</option>
-                            <option value="GBP">GBP</option>
-                          </select> --> 
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="plcommval" id="plcommval" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group align-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Commission Amount</label>
@@ -192,20 +202,20 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="accurr" id="accurr" readonly>
+                          <input type="text" class="form-control" name="accurr" id="accurr" readonly> -->
                           <!--  <select class="form-control" name="accurr" id="accurr" onchange="" readonly>
                             <option selected="">USD</option>
                             <option>EUR</option>
                             <option>GBP</option>
                           </select> --> 
-                        </div>
+                        <!-- </div>
                       </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    </div> -->
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -213,18 +223,26 @@
                           <input type="text" class="form-control xyz" name="accommval" id="accommval" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group align-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Commission Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="acamtval" id="acamtval" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="acamtval" id="acamtval" onkeypress="javascript:return isNumber(event)" readonly>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group align-top">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Additional Fees</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control xyz" name="additionalFees" id="additionalFees" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;" id="crr">
                       <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">CRR Amount</label>
+                        <label class="col-md-5 col-sm-5 col-xs-12">Rolling Reserved Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" name="crrComm" id="crrComm">
                           <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" placeholder="CRR Amount" readonly />
@@ -333,16 +351,35 @@ $('.datepicker').datepicker({
 </script> --> 
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#psp').on('change',function() {
+      //sort by albhabetical order start
+    var options = $('select#psp option');
+    var arr = options.map(function(_, o) {
+        return {
+            t: $(o).text(),
+            v: o.value
+        };
+    }).get();
+    arr.sort(function(o1, o2) {
+        return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
+    });
+    options.each(function(i, o) {
+        //console.log(i);
+        o.value = arr[i].v;
+        $(o).text(arr[i].t);
+    });
+    //sort by albhabetical order end
+
+
+      /*on load get bank and currency start*/
         var pspid=document.getElementById("psp").value;  
-         $.ajax({
+        $.ajax({
                 url:"<?php echo base_url ('Psp_income/getBanks/')?>"+ pspid ,
                     type: "POST",
                     data : {pspid:pspid},
                     dataType: "html",
                     success: function(data) {
                     var obj = JSON.parse(data);
-                    console.log(obj.getpsp);
+                    console.log(obj.getpsp.Crr);
                     $("#bank").val(obj.getpsp.BankName);
                     $("#bankid").val(obj.getpsp.BankId);
                     $("#plcurr").val(obj.getpsp.CurName);
@@ -368,13 +405,80 @@ $('.datepicker').datepicker({
                     }
                     var accommP = $("#accommval").val();
                     var bankcommP = $("#bankcommP").val();
+                    var additionalfees = $("#additionalFees").val();
+                    if (additionalfees != "") {
+                      var fees = additionalfees;
+                    }else{
+                      var fees = 0;
+                    }
                     //var commAmount = ("#acamtval").val();
 
                     var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
 
                     var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
-                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)).toFixed(2);
+                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);
+                    $("#bankcomm").val(bankcomm);
+                    $("#acamtval").val(commAmount);
+                    $("#nettoBankAmt").val(netToBank);
+                    //net to bank amount calculation end
+                    /*var actualAmt = $("#acamtReceive").val();
+                    var CRR = obj.getpsp.Crr;
+                    var CRR = ((actualAmt/CRR)*100);
+                    alert(CRR);*/
+                   }
+               });
+          /*on load get bank and currency end*/
+
+    $('#psp').on('change',function() {
+        var pspid=document.getElementById("psp").value;
+         $.ajax({
+                url:"<?php echo base_url ('Psp_income/getBanks/')?>"+ pspid ,
+                    type: "POST",
+                    data : {pspid:pspid},
+                    dataType: "html",
+                    success: function(data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj.getpsp);
+                    $("#bank").val(obj.getpsp.BankName);
+                    $("#bankid").val(obj.getpsp.BankId);
+                    $("#plcurr").val(obj.getpsp.CurName);
+                    $("#accurr").val(obj.getpsp.CurName);
+                    $("#accommP").val(obj.getpsp.Commission);
+                    var commAmount = $("#accommP").val();
+                    var commAmount = commAmount;
+                    $("#bankcommP").val(obj.getpsp.InComP);
+                    $("#accommval").val(commAmount);
+                    if (obj.getpsp.Crr > 0.00) {
+                      $("#crr").show();
+                    $("#crrComm").val(obj.getpsp.Crr);
+                    }else{
+                      $("#crrComm").val(obj.getpsp.Crr);
+                      $("#crr").hide();
+                    }
+
+                    //net to bank amount calculation start
+                    var acamtReceive = $("#acamtReceive").val();
+                    if (acamtReceive == "") {
+                        var actualAmt = 0;
+                    }else{
+                        var actualAmt = acamtReceive;
+                    }
+                    var accommP = $("#accommval").val();
+                    var bankcommP = $("#bankcommP").val();
+                    var additionalfees = $("#additionalFees").val();
+                    if (additionalfees != "") {
+                      var fees = additionalfees;
+                    }else{
+                      var fees = 0;
+                    }
+                    //var commAmount = ("#acamtval").val();
+
+                    var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
+
+                    var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
+
+                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);
                     $("#bankcomm").val(bankcomm);
                     $("#acamtval").val(commAmount);
                     $("#nettoBankAmt").val(netToBank);
@@ -397,6 +501,14 @@ $('.datepicker').datepicker({
       var crrComm = document.getElementById("crrComm").value;        // CRR Commission %
       var crrAmt = (crrComm/100);                                    
       var crrAmt = Number(actualAmt*crrAmt).toFixed(2);
+
+      var additionalfees = document.getElementById("additionalFees").value;
+
+      if (additionalfees != "") {
+        var fees = additionalfees;
+      }else{
+        var fees = 0;
+      }
       //alert(crrAmt);
       $("#crrAmt").val(crrAmt);                                      //CRR Amount
       console.log('actualAmt' + actualAmt);
@@ -417,7 +529,56 @@ $('.datepicker').datepicker({
 
       
 
-      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)).toFixed(2);  
+      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);  
+      $("#bankcomm").val(bankcomm);
+      $("#acamtval").val(commAmount);
+      $("#nettoBankAmt").val(netToBank);
+
+      /*console.log('commission %' +  accommP);
+      console.log('bankcommP %' +  bankcommP);
+
+      console.log('Bank commission' +  bankcomm);
+      console.log('commission Amount' +  commAmount);
+
+      console.log('Net To Bank' +  netToBank);*/
+      //net to bank amount calculation end
+    });
+    $( "#additionalFees" ).keyup(function( event ) { 
+      var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");   //actual process amount
+      var crrComm = document.getElementById("crrComm").value;        // CRR Commission %
+      //alert(crrComm);
+      var crrAmt = (crrComm/100);                                    
+      var crrAmt = Number(actualAmt*crrAmt).toFixed(2);
+      var additionalfees = document.getElementById("additionalFees").value;
+
+      if (additionalfees != "") {
+        var fees = additionalfees;
+      }else{
+        var fees = 0;
+      }
+
+
+      //alert(crrAmt);
+      $("#crrAmt").val(crrAmt);                                      //CRR Amount
+      console.log('actualAmt' + actualAmt);
+      console.log('crrComm' + crrComm);
+      console.log('crrAmt' + crrAmt);
+      //alert(actualAmt);
+
+
+
+      //net to bank amount calculation start
+      var accommP = $("#accommval").val();                          //PSP Commission 
+      var bankcommP = $("#bankcommP").val();                        //BAnk Inflow Commission
+      //var commAmount = ("#acamtval").val();
+
+      var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
+
+      var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
+
+      
+
+      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);  
       $("#bankcomm").val(bankcomm);
       $("#acamtval").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
