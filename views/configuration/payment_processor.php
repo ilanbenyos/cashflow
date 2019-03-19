@@ -131,9 +131,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-6 col-sm-6 col-xs-12">Rolling Reserved</label>
+                        <label class="col-md-6 col-sm-6 col-xs-12">Rolling Reserved %</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" class="form-control" name="crc" id="crc" placeholder="Rolling Reserved" />
+                          <input type="text" class="form-control" name="crc" id="crc" placeholder="Rolling Reserved %" />
                         </div>
                       </div>
                     </div>
