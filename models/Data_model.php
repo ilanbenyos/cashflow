@@ -27,12 +27,7 @@ class Data_model extends CI_Model {
 		//$this->db->select('bm.BankName,sum(bm.EuroValue) as amount,c.CurName');
 		$this->db->from('bankmaster bm');
 	   	$this->db->join('currencymaster c','c.CurId = bm.CurId','left');
-		$this->db->where('bm.Balance !=','0'); 
-		//$this->db->where('bm.EuroValue !=','0');
-		$this->db->where('MONTH(bm.CreatedOn)>=', $month1);
-		$this->db->where('MONTH(bm.CreatedOn)<=', $month2);
-        $this->db->where('YEAR(bm.CreatedOn)', $year);
-		//$this->db->where('c.CurName', $currency);
+		
 		$this->db->where('bm.Active', '1');
 		$this->db->group_by('bm.BankName'); 
 		return $this->db->get()->result_array();
@@ -40,9 +35,10 @@ class Data_model extends CI_Model {
 	
 	public function total_balance($year){
 		$month_all= array("0","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec");
-		$this->db->select('MONTH(ActualDate) as month,MONTHNAME(ActualDate) as m,sum(EuroValue) as  Income');
+		$this->db->select('MONTH(ActualDate) as month,MONTHNAME(ActualDate) as m,sum(NetBankAmt) as  Income');
 		$this->db->from('pspincome');
-        $this->db->where('YEAR(CreatedOn)', $year);
+        //$this->db->where('YEAR(CreatedOn)', $year);
+        $this->db->where('YEAR(ActualDate)', $year);
 		$this->db->where('MONTH(ActualDate)!=',"");
 		//$this->db->where('Currency', $currency);
 		$this->db->group_by('month'); 
@@ -56,7 +52,7 @@ class Data_model extends CI_Model {
 		}else{
 			$array_new_1 =$array1;
 		}
-		$this->db->select('MONTH(ActualDate) as month ,MONTHNAME(ActualDate) as m,sum(EuroValue) as  outcome');
+		$this->db->select('MONTH(ActualDate) as month ,MONTHNAME(ActualDate) as m,sum(NetFromBank) as  outcome');
 		$this->db->from('expenses');
         $this->db->where('YEAR(ActualDate)', $year);
 		$this->db->where('MONTH(ActualDate)!=',"");
