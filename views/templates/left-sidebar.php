@@ -33,12 +33,12 @@
         <li class="treeview"> <a href="#"><i class="fa fa-desktop" aria-hidden="true"></i> <span>Configuration</span></a>
           <ul class="treeview-menu">
             <!--<li><a href="<?= base_url('configuration/roles') ?>">Roles</a></li> -->
-            <li><a href="<?= base_url('configuration/users')?>">Users</a></li>
-            <li><a href="<?= base_url('configuration/bank')?>">Banks</a></li>
-            <li><a href="<?= base_url('payment-processor')?>">Payment Processors</a></li>
-            <li><a href="<?= base_url('configuration/vendors')?>">Vendors</a></li>
-            <li><a href="<?= base_url('expense-category')?>">Expense Categories</a></li>
-            <li><a href="<?= base_url('bank-transfer-type')?>">Bank Transfer Type</a></li>
+            <li><a href="<?= base_url('configuration/users')?>"><i class="fa fa-users" aria-hidden="true"></i> <span>Users</span></a></li>
+            <li><a href="<?= base_url('configuration/bank')?>"><i class="fa fa-university" aria-hidden="true"></i> <span>Banks</span></a></li>
+            <li><a href="<?= base_url('payment-processor')?>"><i class="fa fa-credit-card" aria-hidden="true"></i> <span>Payment Processors</span></a></li>
+            <li><a href="<?= base_url('configuration/vendors')?>"><i class="fa fa-window-restore" aria-hidden="true"></i> <span>Vendors</span></a></li>
+            <li><a href="<?= base_url('expense-category')?>"><i class="fa fa-database" aria-hidden="true"></i> <span>Expense Categories</span></a></li>
+            <li><a href="<?= base_url('bank-transfer-type')?>"><i class="fa fa-exchange" aria-hidden="true"></i> <span>Bank Transfer Type</span></a></li>
           </ul>
         </li>
         <!-- <li><a href="planned-expense.php"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Planned Expense</span></a></li>

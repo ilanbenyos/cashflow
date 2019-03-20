@@ -95,7 +95,7 @@ header { position:relative; background: #fff; }
 .sidebar-menu li a:hover { color: #c1c81e; }
 .sidebar-menu > li > a > .fa { vertical-align: middle; font-size: 20px; color: #c1c81e; padding-right: 16px; }
 /*.sidebar-menu > li:hover > a, .sidebar-menu > li.active > a { color: #c1c81e; background: transparent; }*/
-.sidebar-menu > li > .treeview-menu { margin: 0; padding: 10px 0 10px 38px; border-top: 1px dashed #9a9a9a; }
+.sidebar-menu > li > .treeview-menu { margin: 0; padding: 10px 0 10px 24px; border-top: 1px dashed #9a9a9a; }
 .sidebar-menu li.active > .treeview-menu { display: block; }
 .sidebar-menu a { text-decoration: none; }
 .sidebar-menu .treeview-menu { display: none; list-style: none; padding: 0; margin: 0; }
@@ -104,6 +104,7 @@ header { position:relative; background: #fff; }
 .sidebar-menu .treeview-menu > li > a { display: block; padding: 12px 5px; font-size: 14px; color:#fff; font-family: "RobotoMedium", sans-serif; }
 .sidebar-menu .treeview-menu > li > a > .fa-angle-left, .sidebar-menu .treeview-menu > li > a > .fa-angle-down { width: auto; }
 .sidebar-menu > li.active > a, .sidebar-menu .treeview-menu > li.active > a, .sidebar-menu .treeview-menu > li > a:hover { color: #c1c81e; }
+.treeview a .fa { vertical-align: middle; font-size: 14px; color: #c1c81e; padding-right: 10px; margin-top: -2px; }
 /***** Right Content CSS Style *****/
 #content { width: 100%; padding:30px 0 30px 20px; min-height: 100vh; transition: all 0.3s; position:relative; overflow: hidden; }
 .white-bg { background: #fff; padding: 24px; box-shadow: 0 0 10px #b1b1b1; position:relative; }
@@ -344,7 +345,7 @@ footer { position:relative; }
 .sidebar-menu { padding: 10px 20px 20px; }
 .sidebar-menu > li > a { padding: 14px 5px; font-size: 14px; }
 .sidebar-menu > li > a > .fa { font-size: 18px; padding-right: 10px; }
-.sidebar-menu > li > .treeview-menu { padding: 8px 0 8px 38px; }
+.sidebar-menu > li > .treeview-menu { padding: 8px 0 8px 24px; }
 .sidebar-menu .treeview-menu > li > a { padding: 6px 5px; font-size: 13px; }
 .sidebar-menu > li.treeview::after { top: 14px; font-size: 13px; }
 .form-horizontal .form-group.align-4x-top, .form-horizontal .form-group.align-5x-top { align-items: center; }
