@@ -30,7 +30,7 @@
               </div>
             </div>
           </div> 
-          <div class="month-expense-box">
+          <!-- <div class="month-expense-box">
             <label>Select months :</label>
             <div class="form-inline">
               <label>From :</label>
@@ -70,8 +70,8 @@
                 </select>
               </div>
             </div>
-          </div>
-          <div class="month-expense-box">
+          </div> -->
+          <!-- <div class="month-expense-box">
             <div class="form-inline">
               <label>Select a year :</label>
               <div class="input-group">
@@ -84,7 +84,7 @@
                 </select>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="clearfix"></div>
         <div class="padding4x clearfix">
@@ -112,9 +112,9 @@
       google.charts.load('current', {'packages':['bar','corechart']});
 	  
       //google.charts.setOnLoadCallback(function(){drawChart(month1,month2,year,currency)});
-      google.charts.setOnLoadCallback(function(){drawChart(month1,month2,year)});
+      google.charts.setOnLoadCallback(function(){drawChart()});
 
-    function drawChart(m1,m2,y,c) {
+    function drawChart(m1,m2,y) {
   
         $.ajax({
         type: 'POST',
@@ -156,8 +156,8 @@
 		 legend: { position: 'none' },
 			hAxis: {
 			  title: 'Bank Name',
-			  /*slantedText:true,  
-			  slantedTextAngle:60*/
+			  slantedText:true,  
+			  slantedTextAngle:60
 			},
 			vAxis: {
 			  title: 'Amount',
@@ -173,8 +173,8 @@
      legend: { position: 'none' },
       hAxis: {
         title: 'Bank Name',
-        /*slantedText:true,  
-        slantedTextAngle:60*/
+        slantedText:true,  
+        slantedTextAngle:60
       },
       vAxis: {
         title: 'Amount in (EUR)',

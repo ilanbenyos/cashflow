@@ -73,6 +73,7 @@ class All_model extends CI_Model {
 	public function get_active_categories(){
 	    $this->db->select ( 'Category,CatId ' );
 	    $this->db->from ( 'expcategory' );
+	    $this->db->order_by('Category','ASC');
 		$this->db->where('Active',1);
 	    return $this->db->get ()->result();
 	}
@@ -81,6 +82,7 @@ class All_model extends CI_Model {
 		$this->db->from('pspmaster p');
 		$this->db->join('bankmaster b','p.BankId = b.BankId');
 		$this->db->where('p.Active',1);
+		$this->db->order_by('p.PspName','ASC');
 		$this->db->order_by('p.Active','DESC');
 		$this->db->order_by('p.CreatedOn','DESC');
 		return $this->db->get ()->result();
@@ -141,6 +143,7 @@ class All_model extends CI_Model {
 	public function getAllCurrency(){
 		$this->db->select('CurId,CurName,CurSymbol,Active,CreatedOn');
 		$this->db->from('currencymaster');
+		$this->db->order_by('CurName','ASC');
 		$this->db->where('Active',1);
 		return $this->db->get()->result();
 	}
@@ -155,6 +158,7 @@ class All_model extends CI_Model {
 	public function allPspType(){
 		$this->db->select('TypeId,TypeName,Active');
 		$this->db->from('psptype');
+		$this->db->order_by('TypeName','ASC');
 		$this->db->where('Active',1);
 		return $this->db->get()->result();
 	}
@@ -198,6 +202,7 @@ class All_model extends CI_Model {
 	public function getTransferType(){
 		$this->db->select('BankTransferId,BanktransferName,Active,CreatedBy');
 		$this->db->from('banktransfertype');
+		$this->db->order_by('BanktransferName','ASC');
 		$this->db->where('Active',1);
 		return $this->db->get()->result();
 	}
