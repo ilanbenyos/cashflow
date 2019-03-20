@@ -16,7 +16,7 @@
             </div>
           </div>
 	   </div> -->
-        <div class="col-md-8 inline-divs text-right">
+        <div class="col-md-12 inline-divs text-right">
           <div class="month-expense-box">
             <label>Select months :</label>
             <div class="form-inline">

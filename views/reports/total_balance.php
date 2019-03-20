@@ -16,7 +16,7 @@
             </div>
           </div>
 	   </div> -->
-        <div class="col-md-8 inline-divs text-right">
+        <div class="col-md-12 inline-divs text-right">
         <div class="month-expense-box">
             <div class="form-inline">
               <label>Select a year :</label>
@@ -55,13 +55,13 @@
       google.charts.setOnLoadCallback(function(){drawChart(year)});
 
 
-    function drawChart(y,c) {
+    function drawChart(y) {
 	
         $.ajax({
         type: 'POST',
-		 logScale:true,
+		  logScale:true,
 		
-		data: {
+		  data: {
             'year': y
 			//'currency':c
         },
@@ -73,32 +73,60 @@
   
       data.addColumn('string', '');
       data.addColumn('number', 'income');
-	  data.addColumn('number', 'outcome');
+	    data.addColumn('number', 'outcome');
       var jsonData = $.parseJSON(data1);
-      console.log(jsonData);
+      //console.log('jsonData ' +jsonData);
       for (var i = 0; i < jsonData.length; i++) {
-            data.addRow([jsonData[i].month, parseInt(jsonData[i].income),parseInt(jsonData[i].outcome)]);
+        //alert(jsonData.length);
+          data.addRow([jsonData[i].month, parseInt(jsonData[i].income),parseInt(jsonData[i].outcome)]);
+        
+            
       }
+
+      if(jsonData == "" || jsonData == null){
+        var options = {
+        chart: {
+        },
+        height: 500,
+         logScale:true,
+
+     legend: { position: 'top' },
+     colors: ['#1F9FA6','#1E7FC9'], 
+      hAxis: {
+        title: 'months',
+        //slantedText:true,  
+       // slantedTextAngle:90
+      },
+       vAxis: {
+        title: 'Amount',
+        format: 'short'
+
+      }
+         
+      };
+    }else{
       var options = {
         chart: {
         },
         height: 500,
-				 logScale:true,
+         logScale:true,
 
-		 legend: { position: 'top' },
-		 colors: ['#1F9FA6','#1E7FC9'], 
-		  hAxis: {
-			  title: 'months',
-			  //slantedText:true,  
-			 // slantedTextAngle:90
-			},
-			 vAxis: {
-			  title: 'Amount',
-			  format: 'short'
+     legend: { position: 'top' },
+     colors: ['#1F9FA6','#1E7FC9'], 
+      hAxis: {
+        title: 'months',
+        //slantedText:true,  
+       // slantedTextAngle:90
+      },
+       vAxis: {
+        title: 'Amount',
+        format: 'short'
 
-			}
+      }
          
       };
+    }
+      
       var chart = new google.visualization.ColumnChart(document.getElementById('bar_chart'));
       chart.draw(data, options);
 	  
