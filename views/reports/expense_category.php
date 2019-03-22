@@ -97,13 +97,13 @@
         },
         url: "<?php echo base_url('Ajax_Reports/get_expense_by_category'); ?>" ,
         success: function (data1) {
-			   if (data1== '[]' ) {
+			   //if (data1== '[]' ) {
 				   var data = new google.visualization.DataTable();
-				  data.addColumn('string', '');
+				  data.addColumn('string', 'Category');
 				  data.addColumn('number', 'amount');
 				  var jsonData = $.parseJSON(data1);
 				  for (var i = 0; i < jsonData.length; i++) {
-						data.addRow([jsonData[i].psp, parseInt(jsonData[i].amount)]);
+						data.addRow([jsonData[i].Category, parseInt(jsonData[i].amount)]);
 				  }
 				  var options = {
 					chart: {
@@ -128,7 +128,7 @@
 					};
 				  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 				  chart.draw(data, options);
-            }else{
+            /*}else{
 		    	var data = new google.visualization.DataTable();
 				var jsonData = $.parseJSON(data1);
 				 
@@ -171,11 +171,11 @@
 		  chart.draw(data, options);
 		  var options = {
 			height: 500,
-			 colors: ['#1F9FA6', '#1E7FC9', '#2A3241','#C1CA23','#A692BC','#F8B756'],
+			 colors: ['#1F9FA6', '#1E7FC9', '#08873a','#C1CA23','#A692BC','#F8B756'],
 			};
 		  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 		  chart.draw(data, options);
-		   }
+		   }*/
 		}
      });
     }

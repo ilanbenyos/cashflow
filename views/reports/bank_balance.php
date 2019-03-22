@@ -136,13 +136,13 @@
       var jsonData = $.parseJSON(data1);
       var total = 0;
       for (var i = 0; i < jsonData.length; i++) {
-            data.addRow([jsonData[i].BankName, parseInt(jsonData[i].amount)]);
+            data.addRow([jsonData[i].BankName, parseInt(jsonData[i].euroVal)]);
 
             // to display sum of all bank start
-            if(isNaN(jsonData[i].amount)){
+            if(isNaN(jsonData[i].euroVal)){
                 continue;
                  }
-                 total += parseInt(Number(jsonData[i].amount).toFixed(2));
+                 total += parseInt(Number(jsonData[i].euroVal).toFixed(2));
                  $("#sum").val(total);
                  // to display sum of all bank end
       }
@@ -227,7 +227,7 @@
       bar_chart.draw(data, options_bar);
 	  var options = {
            height: 500,
-		   		 colors: ['#1F9FA6', '#1E7FC9', '#2A3241','#C1CA23','#A692BC','#F8B756'],
+		   		 colors: ['#1F9FA6', '#1E7FC9', '#08873a','#C1CA23','#A692BC','#F8B756'],
 
         };
 	  var chart = new google.visualization.PieChart(document.getElementById('piechart'));

@@ -23,7 +23,8 @@ class Data_model extends CI_Model {
 	}
 	
 	public function BankIncome($year,$month1,$month2){
-		$this->db->select('bm.BankName,sum(bm.Balance) as amount,c.CurName');
+		//$this->db->select('bm.BankName,sum(bm.Balance) as amount,c.CurName');
+		$this->db->select('bm.BankName,bm.Balance as amount,c.CurName');
 		//$this->db->select('bm.BankName,sum(bm.EuroValue) as amount,c.CurName');
 		$this->db->from('bankmaster bm');
 	   	$this->db->join('currencymaster c','c.CurId = bm.CurId','left');
@@ -31,11 +32,27 @@ class Data_model extends CI_Model {
 		$this->db->where('bm.Active', '1');
 		$this->db->group_by('bm.BankName'); 
 		return $this->db->get()->result_array();
+		/*foreach ($array as $val) {
+			//print_r($val['CurName']);
+			//print_r($val['amount']);
+			$amount = $val['amount'];
+			$val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$val['CurName']);
+                                
+                        $val=json_decode($val);
+                       
+                        $exchange_rate = $val->rates->EUR;
+                        //echo $exchange_rate;
+                        $euro_amount = $amount * $exchange_rate;
+
+        	$array['euroValue'] = $euro_amount;  
+		
+		}
+		return $array;*/
 	}
 	
 	public function total_balance($year){
 		$month_all= array("0","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec");
-		$this->db->select('MONTH(ActualDate) as month,MONTHNAME(ActualDate) as m,sum(NetBankAmt) as  Income');
+		$this->db->select('MONTH(ActualDate) as month,MONTHNAME(ActualDate) as m,sum(EuroValue) as  Income');
 		$this->db->from('pspincome');
         //$this->db->where('YEAR(CreatedOn)', $year);
         $this->db->where('YEAR(ActualDate)', $year);
@@ -52,7 +69,7 @@ class Data_model extends CI_Model {
 		}else{
 			$array_new_1 =$array1;
 		}
-		$this->db->select('MONTH(ActualDate) as month ,MONTHNAME(ActualDate) as m,sum(NetFromBank) as  outcome');
+		$this->db->select('MONTH(ActualDate) as month ,MONTHNAME(ActualDate) as m,sum(EuroValue) as  outcome');
 		$this->db->from('expenses');
         $this->db->where('YEAR(ActualDate)', $year);
 		$this->db->where('MONTH(ActualDate)!=',"");
@@ -121,22 +138,27 @@ class Data_model extends CI_Model {
 		    $final_array[$month_all[$key]]['month'] =$month_all[$key];
 	   }
 		$final_array = array_values($final_array);
- 	   return $final_array;
+ 	   //return $final_array;
+ 	   if ($final_array == null) {
+ 	   	return $final_array = array();
+ 	   }else{
+ 	   	return $final_array;
+ 	   }
 	}
 
 	public function Expense_by_Category($year,$month1,$month2){
 		$this->db->select('distinct(Currency)');
 		$this->db->from('expenses');
 		$currency_array= $this->db->get()->result_array();
-		 $this->db->select('ex.CatId,c.Category');
-		 foreach($currency_array as $currency){
+		 $this->db->select('ex.CatId,SUM(ex.EuroValue) as amount,c.Category');
+		 /*foreach($currency_array as $currency){
 			$this->db->select('sum(if(ex.Currency ="'.$currency['Currency'].'",ex.ActualAmt,0))as '.$currency['Currency']);
-		}
+		}*/
 	//  $this->db->select('ex.CatId,c.Category,sum(if(ex.Currency ="EUR",ex.ActualAmt,0))as amount_eur,sum(if(ex.Currency ="USD",ex.ActualAmt,0))as amount_usd');
 
 		$this->db->from('expenses ex');
 		$this->db->join('expcategory c','ex.CatId = c.CatId','left');
-		$this->db->where('ex.ActualAmt >','0.00'); 
+		$this->db->where('ex.EuroValue >','0.00'); 
 		$this->db->where('MONTH(ex.ActualDate)>=', $month1);
 		$this->db->where('MONTH(ex.ActualDate)<=', $month2);
         $this->db->where('YEAR(ex.ActualDate)', $year);

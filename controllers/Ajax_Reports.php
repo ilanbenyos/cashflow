@@ -39,7 +39,29 @@ class Ajax_Reports extends CI_Controller {
 			$month1 =$month2;
 		}
 		//$data = $this->data_model->BankIncome($year,$month1,$month2,$currency);
-		$data = $this->data_model->BankIncome($year,$month1,$month2);
+		$data_1 = $this->data_model->BankIncome($year,$month1,$month2);
+		$currency = 'USD';
+		$val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$currency);
+                                
+        $val=json_decode($val);
+        $exchange_rate = $val->rates->EUR;
+        $data = array();
+		foreach ($data_1 as $val) {
+			$amount = $val['amount'];
+			/*$currency = 'USD';
+			$cval=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$val['CurName']);
+	                                
+	        $cval=json_decode($cval);
+	        $exchange_rate = $cval->rates->EUR;*/
+	        if ($val['CurName'] == 'EUR') {
+	        	$val['euroVal'] = $amount * 1;
+	        }else{
+	        	$euro_amount = $amount * $exchange_rate;
+            	$val['euroVal'] = $euro_amount;
+	        }
+            $data[] = $val;
+		}
+		//print_r($this->db->last_query());exit();
         print_r(json_encode($data, true));
     }
 	
@@ -48,7 +70,7 @@ class Ajax_Reports extends CI_Controller {
 			//$currency =$_POST['currency'];
 			//$data = $this->data_model->total_balance($year,$currency);
 			$data = $this->data_model->total_balance($year);
-	 // print_r($data); 
+	  //print_r($data); exit();
 	 print_r(json_encode($data, true));
     }
 	
