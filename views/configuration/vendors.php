@@ -286,6 +286,28 @@ if (isset ( $_SESSION ['pop_mes'] )) {
           $(this).css("border", "1px solid #be1622");
         }
       })
+      $('#Currency').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
+      $('#Status').on('blur', function() {
+        $(this).css("border", "1px solid #CCCCCC");
+            if($(this).val()!="")
+        { 
+          $(this).css("border", "1px solid #CCCCCC");                         
+        }
+        else if($(this).val()=="") 
+        {
+          $(this).css("border", "1px solid #be1622");
+        }
+      })
 	  
   
   $("#vendor-submit").click(function(){
@@ -309,6 +331,10 @@ if (isset ( $_SESSION ['pop_mes'] )) {
            $("#Amount").css("border", "1px solid #be1622");
            returnvar = false;
           }
+        if($("#Currency").val() ==""){
+         $("#Currency").css("border", "1px solid #be1622");
+         returnvar = false;
+        }
 		   if($("#BankName").val() ==""){
            $("#BankName").css("border", "1px solid #be1622");
            returnvar = false;
