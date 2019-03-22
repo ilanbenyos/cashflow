@@ -16,7 +16,7 @@
             </div>
           </div>
 	   </div> -->
-        <!-- <div class="col-md-12 inline-divs text-right">
+        <div class="col-md-12 inline-divs text-right">
         <div class="month-expense-box">
             <div class="form-inline">
               <label>Select a year :</label>
@@ -30,7 +30,7 @@
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
         <div class="clearfix"></div>
         <div class="padding4x clearfix">
           <div class="col-md-6 col-sm-12 col-xs-12">
@@ -75,18 +75,16 @@
       data.addColumn('number', 'income');
 	    data.addColumn('number', 'outcome');
       var jsonData = $.parseJSON(data1);
-      //console.log('jsonData ' + data1);
+      console.log('jsonData ' + data1);
       for (var i = 0; i < jsonData.length; i++) {
-        //alert(jsonData.length);
+        console.log(jsonData.length);
           data.addRow([jsonData[i].month, parseInt(jsonData[i].income),parseInt(jsonData[i].outcome)]);
       }
 
-      /*if(jsonData == ""){
+      if(jsonData == ""){
         var options = {
-        chart: {
-        },
         height: 500,
-         logScale:true,
+         //logScale:true,
 
      legend: { position: 'top' },
      colors: ['#1F9FA6','#1E7FC9'], 
@@ -98,14 +96,13 @@
        vAxis: {
         title: 'Amount',
         format: 'short'
-
       }
          
       };
-    }else{*/
+    }else{
       var options = {
         height: 500,
-         logScale:true,
+        //logScale:true,
 
      legend: { position: 'top' },
      colors: ['#1F9FA6','#1E7FC9'], 
@@ -120,7 +117,7 @@
 
       }
       };
-    //}
+    }
       var chart = new google.visualization.ColumnChart(document.getElementById('bar_chart'));
       chart.draw(data, options);
 	  
@@ -133,7 +130,7 @@
       }
 	  var options = {
 		  height: 500,
-		  		 logScale:true,
+		  		 //logScale:true,
 
           curveType: 'function',
           legend: { position: 'bottom' },
