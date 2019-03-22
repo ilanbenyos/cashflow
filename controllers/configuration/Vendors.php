@@ -83,6 +83,7 @@ echo '<pre/>';
     	        $sVname = $this->input->post('Vname');
     	       // $ExpCatID = $this->input->post('ExpCatID');
     	        $sInvoiceType = $this->input->post('InvoiceType');
+    	        $invoiceDate = $this->input->post('invoiceDate');
     	        $Currency = $this->input->post('Currency');
     	        //$BankId = $this->input->post('BankId');
 				$Status= $this->input->post('Status');
@@ -104,6 +105,13 @@ echo '<pre/>';
 					$reminderOn = "";
 				}
 
+				$date = $invoiceDate;
+                        
+                    $a2 = explode ( '/', $date );
+                    $c2 = trim ( $a2 [2], " " );
+                    $d2 = trim ( $a2 [0], " " );
+                    $date = $c2 . '-' . $a2 [1] . '-' . $d2;
+
     	        $aVendorInfo = array(
     	            
     	            'VendorName' => $sVname,
@@ -112,6 +120,7 @@ echo '<pre/>';
     	            'InvoiceType' => $sInvoiceType,
     	            'Currency' => $Currency,
     	            'ReminderOn' => $reminderOn,
+    	            'InvoiceDate' => $date,
     	            //'BankId' => $BankId,
 					'Active' => $Status,
 					'CreatedBy' => $uid,
@@ -170,6 +179,7 @@ echo '<pre/>';
 				$sVname = $this->input->post('Vname');
     	     //   $ExpCatID = $this->input->post('ExpCatID');
     	        $sInvoiceType = $this->input->post('InvoiceType');
+    	        $invoiceDate = $this->input->post('invoiceDate');
     	        $Currency = $this->input->post('Currency');
     	        //$BankId = $this->input->post('BankId');
 				$Status= $this->input->post('Status');
@@ -192,6 +202,12 @@ echo '<pre/>';
 				}else{
 					$reminderOn = "";
 				}
+				$date = $invoiceDate;
+                        
+                    $a2 = explode ( '/', $date );
+                    $c2 = trim ( $a2 [2], " " );
+                    $d2 = trim ( $a2 [0], " " );
+                    $date = $c2 . '-' . $a2 [1] . '-' . $d2;
 
 			   $aVendorInfo = array(
     	            
@@ -200,6 +216,7 @@ echo '<pre/>';
     	            'InvoiceType' => $sInvoiceType,
     	            'Currency' => $Currency,
     	            'ReminderOn' => $reminderOn,
+    	            'InvoiceDate' => $date,
     	            //'BankId' => $BankId,
 					'Comments' => $Comments,
 					'Active' => $Status,

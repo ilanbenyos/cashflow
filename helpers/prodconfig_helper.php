@@ -51,8 +51,13 @@ $('#myModal2_popup').modal('show');
                 <p><?php  print $_SESSION ['pop_mes']; ?>
 		          <?php unset ( $_SESSION ['pop_mes'] ); ?>
 		         </p>
+
               </div>
+              <div class="col-xs-12 text-center spacetop2x">
+              <button type="button" data-dismiss="modal" class="btn-submit transitions" id="user-submit">OK</button>
             </div>
+            </div>
+            
           </div>
         </div>
       </div>

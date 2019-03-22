@@ -31,7 +31,7 @@
                         <label class="col-md-5 col-sm-5 col-xs-12">PSP</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="form-control" name="psp" id="psp" onchange="">
-                            <!-- <option selected="" value="">Select PSP</option> -->
+                             <option selected="" value="">Select PSP</option> 
                             <?php foreach ($all_psp as $psp) { ?>
                             <option value="<?php echo $psp->PspId; ?>"><?php echo $psp->PspName; ?></option>
                             <?php   } ?>
@@ -352,7 +352,7 @@ $('.datepicker').datepicker({
 <script type="text/javascript">
   $(document).ready(function(){
       //sort by albhabetical order start
-    var options = $('select#psp option');
+    /*var options = $('select#psp option');
     var arr = options.map(function(_, o) {
         return {
             t: $(o).text(),
@@ -366,7 +366,7 @@ $('.datepicker').datepicker({
         //console.log(i);
         o.value = arr[i].v;
         $(o).text(arr[i].t);
-    });
+    });*/
     //sort by albhabetical order end
 
 

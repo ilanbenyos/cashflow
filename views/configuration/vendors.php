@@ -142,9 +142,21 @@ if (isset ( $_SESSION ['pop_mes'] )) {
               </div>
               </div>
             </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="form-group">
+              <label class="col-md-6 col-sm-6 col-xs-12">Invoice Date</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="input-group date" data-provide="datepicker">
+                    <input type="text" class="form-control" name="invoiceDate" id="invoiceDate" />
+                    <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+                  </div>
+              </div>
+              </div>
+            </div>
 						  
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
               <label class="col-md-6 col-sm-6 col-xs-12">Comments</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -177,6 +189,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                          <!--  <input type="text" class="form-control" name="Currency" id="Currency"> -->
                           <select class="form-control" name="Currency" id="Currency" >
                              <!-- <option selected="" value="" id="val"></option> -->
+                             <option selected="" value="">Select Currency</option>
                            <?php foreach ($currency as $curr) {
                              ?>
                            <option value="<?php echo $curr->CurId; ?>"><?php echo $curr->CurName; ?></option>      
@@ -189,7 +202,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 						     <div class="form-group">
 								<label class="col-md-6 col-sm-6 col-xs-12">Status</label>
 								<div class="col-md-6 col-sm-6 col-xs-12">
-					                <select class="form-control" name="Status" id="Status">
+	                <select class="form-control" name="Status" id="Status">
+                  <option selected="" value="">Select Status</option>
 									<option value="1">Active</option>      
 									<option value="0">Disabled</option>      
 								</select>

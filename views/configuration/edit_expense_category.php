@@ -18,7 +18,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
               <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
               <div class="row clearfix spacetop4x">
                 <div class="clearfix">
-                  <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                  <div class="col-lg-3 hidden-md hidden-sm hidden-xs"></div>
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
@@ -29,7 +29,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                  <div class="col-lg-3 hidden-md hidden-sm hidden-xs"></div>
                 </div>
                 <div class="col-xs-12 text-center spacetop4x">
                   <button type="button" class="btn-submit transitions" id="editExpense-submit">Submit</button>

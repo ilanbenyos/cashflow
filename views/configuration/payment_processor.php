@@ -114,6 +114,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <label class="col-md-6 col-sm-6 col-xs-12">PSP Type</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" name="psp_type" id="psp_type" onchange="">
+                            <option selected="" value="">Select PSP Type</option>
                             <?php foreach ($pspType as $psptype) { ?>
                             <option value="<?php echo $psptype->TypeId; ?>"><?php echo $psptype->TypeName; ?></option>            
                                   <?php   } ?>
@@ -160,6 +161,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <label class="col-md-6 col-sm-6 col-xs-12">Status</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
 					      <select class="form-control" name="status" id="status">
+                  <option selected="" value="">Select Status</option>
                             <option value="1">Active</option>      
                             <option value="0">Disabled</option>      
                           </select>
@@ -279,7 +281,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 	$(document).ready(function(){
 
     //sort by albhabetical order start
-    var options = $('select#bank option');
+    /*var options = $('select#bank option');
     var arr = options.map(function(_, o) {
         return {
             t: $(o).text(),
@@ -293,7 +295,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
         //console.log(i);
         o.value = arr[i].v;
         $(o).text(arr[i].t);
-    });
+    });*/
     //sort by albhabetical order end
 
 		$(document).on('click', '.edit_psp', function() {

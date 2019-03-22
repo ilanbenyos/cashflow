@@ -1,4 +1,5 @@
 <!-- Page Content  -->
+
 <div id="content">
   <div class="container-fluid">
     <div class="white-bg">
@@ -7,7 +8,7 @@
           <h2 class="modal-title">Update Bank Details</h2>
           <div class="defination-box clearfix">
             <form class="form-horizontal clearfix" id="addbankform" method="post" action="">
-			<?php 
+              <?php 
 			$token = md5(uniqid(rand(), TRUE));
 
 if(isset ($_SESSION['form_token_editbank']))
@@ -19,56 +20,60 @@ if(isset ($_SESSION['form_token_editbank']))
 }
 $_SESSION['form_token_editbank'] = $token;
 			?>
-			<input type="hidden" name="my_token_editbank" value="<?php echo $token;?>">
+              <input type="hidden" name="my_token_editbank" value="<?php echo $token;?>">
               <div class="row clearfix spacetop4x">
                 <div class="row-flex clearfix">
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
-                     <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                    <div class="col-md-10 col-sm-12 col-xs-12 text-center">
                       <h4>General Information</h4>
                     </div>
+                    <div class="col-md-2 hidden-sm hidden-xs"> &nbsp; </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-6 col-sm-6 col-xs-12">Bank Name</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Bank Name</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" placeholder="Bank Name" value="<?php echo $result->BankName; ?>" id="BankName" name="BankName" />
                         </div>
                       </div>
                     </div>
-					<div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-6 col-sm-6 col-xs-12">Balance</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Balance</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" placeholder="Balance" value="<?php echo number_format($result->Balance, 2, '.', ','); ?>" id="Balance" name="Balance" onkeypress="javascript:return isNumber(event)" />
                         </div>
                       </div>
                     </div>
-          <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-6 col-sm-6 col-xs-12">Currency</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="form-control" name="cur" id="cur" onChange="">
                             <?php //print_r($currency);
                             foreach ($currency as $curr) { ?>
-                            <option <?php if($curr->CurId == $currencyId->CurId){ echo 'selected="selected"'; } ?> value="<?php echo $curr->CurId; ?>"><?php echo $curr->CurName; ?></option>      
-                                  <?php   } ?>
+                            <option <?php if($curr->CurId == $currencyId->CurId){ echo 'selected="selected"'; } ?> value="<?php echo $curr->CurId; ?>"><?php echo $curr->CurName; ?></option>
+                            <?php   } ?>
                           </select>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-6 col-sm-6 col-xs-12">Status</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                         <select class="form-control" name="status" id="status">
-                            <option selected="selected" value="<?php echo $result->Active; ?>"><?php if( $result->Active == "1"){ echo "Active";}else{ echo "Disabled";}?> </option>
-              <option value="<?php if( $result->Active== "1"){ echo "0";}else{ echo "1";}?>"><?php if( $result->Active == "1"){ echo "Disabled";}else{ echo "Active";}?> </option>     
+                        <label class="col-md-5 col-sm-5 col-xs-12">Status</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <select class="form-control" name="status" id="status">
+                            <option selected="selected" value="<?php echo $result->Active; ?>">
+                            <?php if( $result->Active == "1"){ echo "Active";}else{ echo "Disabled";}?>
+                            </option>
+                            <option value="<?php if( $result->Active== "1"){ echo "0";}else{ echo "1";}?>">
+                            <?php if( $result->Active == "1"){ echo "Disabled";}else{ echo "Active";}?>
+                            </option>
                           </select>
                         </div>
                       </div>
-                    </div>             
-					
-
-                  <!--  <div class="col-md-12 col-sm-12 col-xs-12">
+                    </div>
+                    
+                    <!--  <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Transfer Type</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
@@ -93,26 +98,26 @@ $_SESSION['form_token_editbank'] = $token;
                         } ?> 
                         </div>
                       </div>
-                    </div>  -->
-
+                    </div>  --> 
+                    
                   </div>
-                  
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-10 col-sm-12 col-xs-12 text-center">
                       <h4>Money-In Commisions</h4>
                     </div>
+                    <div class="col-md-2 hidden-sm hidden-xs"> &nbsp; </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-6 col-sm-6 col-xs-12">Inflow Commission %</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Inflow Commission %</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" id="InComP" value="<?php echo $result->InComP; ?>" name="InComP" placeholder="Inflow Commission %" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-6 col-sm-6 col-xs-12">Inflow Commission Per Transitions</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group align-top">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Inflow Commission Per Transitions</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="InCom" value="<?php echo $result->InCom; ?>" id="InCom" placeholder="Inflow Commission Per Transitions" />
                         </div>
                       </div>
@@ -120,52 +125,54 @@ $_SESSION['form_token_editbank'] = $token;
                     <div class="col-md-10 col-sm-12 col-xs-12 text-center">
                       <h4>Money-Out Commisions</h4>
                     </div>
+                    <div class="col-md-2 hidden-sm hidden-xs"> &nbsp; </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-6 col-sm-6 col-xs-12">Outgo Commission %</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Outgo Commission %</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="OutComP" value="<?php echo $result->OctComP; ?>" id="OutComP" placeholder="Outgo Commission %" />
                         </div>
                       </div>
                     </div>
-                   
-					
-					<div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-6 col-sm-6 col-xs-12">Outgo Fix Commission</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Outgo Fix Commission</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" class="form-control xyz" name="OutCom" value="<?php echo $result->OutCom; ?>" id="OutCom" placeholder="Outgo Fix Commission" />
                           <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-container">
-           <div class="form-group">
-                          <div class="col-md-12">
-              <button class="add-one add_more_button"><i class="fa fa-plus-square" aria-hidden="true"></i> Transfer Type</button>
-                          </div>
-                        </div>
-                    <div class="dynamic-stuff">
-                      
-                        <?php 
+                            <div class="form-container">
+                              <div class="form-group">
+                                <div class="col-md-12">
+                                  <button class="add-one add_more_button"><i class="fa fa-plus-square" aria-hidden="true"></i> Transfer Type</button>
+                                </div>
+                              </div>
+                              <div class="dynamic-stuff">
+                                <?php 
                             $i = 1;
                             foreach ($transferDetails as $type2) {
                              ?>
-                             <div class="form-group dynamic-element"><div class="col-md-5">
-                          <select class="type_input form-control" name="transfertype[]" id="transfer_type<?php echo $i; ?>" readonly>
-                            <option value="<?php echo $type2->BankTransferId; ?>"><?php echo $type2->BanktransferName; ?></option>
-                            <?php 
+                                <div class="form-group dynamic-element">
+                                  <div class="col-md-5">
+                                    <select class="type_input form-control" name="transfertype[]" id="transfer_type<?php echo $i; ?>" readonly>
+                                      <option value="<?php echo $type2->BankTransferId; ?>"><?php echo $type2->BanktransferName; ?></option>
+                                      <?php 
                             
                               
                             foreach ($transferType as $type) { 
                               if ($type2->BankTransferId != $type->BankTransferId) {
                               ?>
-
-                            <option value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>      
-                                  <?php   }} ?>
-                            
-                          </select></div>
-              <div class="col-md-4 no-padding">
-                          <input type="text" id="amount<?php echo $i; ?>" class="amount_input form-control" name="amount[]" value="<?php echo $type2->Amount ?>" onkeypress="javascript:return isNumber(event)" readonly><span class="help-block form-error" id="emailspan<?php echo $i; ?>" value="0"></span></div><div class="col-md-3"><div class="action-icons"><span class="remove_field delete"><i class="fa fa-minus-square" aria-hidden="true"></i></span><span href="#" id="edit_field<?php echo $i; ?>" class="edit_field edit"><i class="fa fa-pencil-square" aria-hidden="true"></i></span></div></div>
-                          </div>
-              <script>
+                                      <option value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>
+                                      <?php   }} ?>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-4 no-padding">
+                                    <input type="text" id="amount<?php echo $i; ?>" class="amount_input form-control" name="amount[]" value="<?php echo $type2->Amount ?>" onkeypress="javascript:return isNumber(event)" readonly>
+                                    <span class="help-block form-error" id="emailspan<?php echo $i; ?>" value="0"></span></div>
+                                  <div class="col-md-3">
+                                    <div class="action-icons"><span class="remove_field delete"><i class="fa fa-minus-square" aria-hidden="true"></i></span><span href="#" id="edit_field<?php echo $i; ?>" class="edit_field edit"><i class="fa fa-pencil-square" aria-hidden="true"></i></span></div>
+                                  </div>
+                                </div>
+                                <script>
     $(document).ready(function() {
     
     $('.dynamic-stuff').on("click","#edit_field<?php echo $i; ?>", function(e){ //user click on remove text links
@@ -191,19 +198,16 @@ $_SESSION['form_token_editbank'] = $token;
   
   });
   </script>
-              
-                          <?php 
+                                <?php 
                           $i++;
-                        } ?>  
-                      
-                      </div>
-                    <span id="errmsg" class="help-block form-error"></span>
-                   </div></div>
+                        } ?>
+                              </div>
+                              <span id="errmsg" class="help-block form-error"></span> </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-					
-					<div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12"> 
                       <!-- <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Status</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
@@ -212,7 +216,7 @@ $_SESSION['form_token_editbank'] = $token;
 				      <option value="<?php if( $result->Active== "1"){ echo "0";}else{ echo "1";}?>"><?php if( $result->Active == "1"){ echo "Disabled";}else{ echo "Active";}?> </option>     
                           </select>
                         </div>
-                      </div> -->
+                      </div> --> 
                       <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Amount</label>
@@ -220,17 +224,40 @@ $_SESSION['form_token_editbank'] = $token;
                           <input type="text" class="form-control" name="amount" id="amount" value="<?php echo $transferDetails->Amount; ?>" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
-                    </div> -->
+                    </div> --> 
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-12 text-center spacetop2x">
-				<div class="page-loader" style="display:none;">
-                        <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
+                  <!-- <div class="modal common-modal" id="myModal3_popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content clearfix">
+                      <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h2 class="modal-title">Notice</h2>
                       </div>
+                      <div class="modal-body clearfix">
+                      <div class="defination-box clearfix">
+                        <td>Following PSP's are linked with this bank. please assign these PSP's to a different bank. </td><br>
+                      
+                        <?php foreach ($getAllbanksWithPSP as $psp) { ?>
+                           
+                           <td><?php echo $psp->PspName ;?></td></br>
+                           
+                        <?php } ?>
+                      
+                      </div>
+                      <a href="<?= base_url('payment-processor');?>" id="ok" class="btn-submit transitions" style="text-decoration: none;">OK</a>
+                      </div>
+
+                      </div>
+                    </div>
+                  </div> -->
+                <div class="col-xs-12 text-center spacetop2x">
+                  <div class="page-loader" style="display:none;">
+                    <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
+                  </div>
                   <button type="submit" id="addbankbtn" class="btn-submit transitions">Submit</button>
-                  <a href="<?= base_url('configuration/bank');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a>
-                </div>
+                  <a href="<?= base_url('configuration/bank');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a> </div>
               </div>
             </form>
           </div>
@@ -239,8 +266,8 @@ $_SESSION['form_token_editbank'] = $token;
     </div>
   </div>
 </div>
-<!-- Modal -->
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<!-- Modal --> 
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
 <script>
     function isNumber(evt) {
         var iKeyCode = (evt.which) ? evt.which : evt.keyCode
@@ -249,7 +276,7 @@ $_SESSION['form_token_editbank'] = $token;
 
         return true;
     }    
-</script>
+</script> 
 <script>
     $(document).ready(function() {
 		
@@ -334,7 +361,28 @@ $('input#amount'+x).focus();
     })
 
 });
-</script>
+</script> 
+
+<!-- <script type="text/javascript">
+   $(document).ready(function(){
+       $("#addbankform").on('submit', function(){
+    var status = $("#status").val();
+  if (status == 0) {
+    popup2();
+  }
+
+    function popup2() {
+      $('#myModal3_popup').modal('show');
+    }
+    $('.close').click(function() {
+          $('.common-modal').hide();
+               window.location.reload();
+          });
+  });
+  
+   });
+ 
+</script> -->
 <script type="text/javascript">
     
 $('form#addbankform').on('submit', function(event) {
@@ -361,6 +409,10 @@ $('form#addbankform').on('submit', function(event) {
             });
     });
 
+    var status = $("#status").val();
+    alert(status);
+
+
 });
 $('#addbankform').validate({ // initialize the plugin
         rules: {
@@ -371,7 +423,7 @@ $('#addbankform').validate({ // initialize the plugin
                 required: true,
             }
         },
-        submitHandler: function (form) { // for demo
+        submitHandler: function (form) { 
             $("#addbankbtn").hide();
             $(".page-loader").show();
             form.submit();

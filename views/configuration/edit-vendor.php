@@ -104,6 +104,17 @@
 		              </div>
 		            </div>
 					<?php //} ?>
+					<div class="col-md-12 col-sm-12 col-xs-12">
+		              <div class="form-group">
+		              <label class="col-md-4 col-sm-4 col-xs-12">Invoice Date</label>
+		              <div class="col-md-8 col-sm-8 col-xs-12">
+		                <div class="input-group date" data-provide="datepicker">
+		                    <input type="text" class="form-control" name="invoiceDate" id="invoiceDate" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $Vendor_details->InvoiceDate)));  ?>" />
+		                    <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+		                  </div>
+		              </div>
+		              </div>
+            		</div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
 						  <div class="form-group">
 							<label class="col-md-4 col-sm-4 col-xs-12">Comments</label>

@@ -38,6 +38,7 @@
 							 foreach ($vendors as $vendor) { ?>							
 						 <option <?php if($vendor->VendorId== $vendors_first->VendorId){ echo 'selected="selected"'; } ?> value="<?php echo $vendor->VendorId; ?>"><?php echo $vendor->VendorName; ?></option>
 						 <?php }  }else{ ?>
+                            <option selected="" value="">Select Vendor</option> 
                             <?php foreach ($vendors as $vendor) { ?>
                             <option value="<?php echo $vendor->VendorId; ?>"><?php echo $vendor->VendorName; ?></option>      
 						 <?php   } }?>
@@ -52,12 +53,20 @@
                           <!-- <input type="hidden" class="form-control" name="bankid" id="bankid" />
                           <input type="text" class="form-control" name="bank" id="bank" readonly/> -->
                           <select class="form-control" name="bankid" id="bankid" onchange="">
-                            <!-- <option selected="" value="">Select Bank</option> -->
+                             <option selected="" value="">Select Bank</option> 
                             <?php foreach ($banks as $bank) { ?>
                             <option value="<?php echo $bank->BankId; ?>"><?php echo $bank->BankName; ?></option>      
                                   <?php   } ?>
                           </select>
                           <input type="hidden" class="form-control" name="outCommP" id="outCommP" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" name="plcurr" id="plcurr" readonly>
                         </div>
                       </div>
                     </div>
@@ -75,7 +84,7 @@
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <!-- <input type="hidden" name="transferAmt" id="transferAmt"> -->
                           <select class="form-control" name="expCat" id="expCat" onchange="">
-                            <!-- <option selected="" value="">Select Expense Category</option> -->
+                            <option selected="" value="">Select Expense Category</option> 
                             <?php foreach ($expCat as $cat) { ?>
 
                             <option value="<?php echo $cat->CatId; ?>"><?php echo $cat->Category; ?></option>      
@@ -84,14 +93,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="plcurr" id="plcurr" readonly>
-                        </div>
-                      </div>
-                    </div>
+                    
                     
                   </div>
                   <!--planned info starts -->
@@ -175,14 +177,14 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="accurr" id="accurr" readonly>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group align-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Final bank commission </label>
@@ -244,7 +246,7 @@ $('.datepicker').datepicker({
   $(document).ready(function(){
     
     //sort by albhabetical order start
-    var options = $('select#bankid option');
+    /*var options = $('select#bankid option');
     var arr = options.map(function(_, o) {
         return {
             t: $(o).text(),
@@ -258,7 +260,7 @@ $('.datepicker').datepicker({
         //console.log(i);
         o.value = arr[i].v;
         $(o).text(arr[i].t);
-    });
+    });*/
     //sort by albhabetical order end
 
     //sort by albhabetical order start

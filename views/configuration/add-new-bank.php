@@ -8,7 +8,7 @@
           <h2 class="modal-title">Add New Bank</h2>
           <div class="defination-box clearfix">
             <form class="form-horizontal clearfix" id="addbankform" method="post" action="">
-			<?php 
+              <?php 
 			$token = md5(uniqid(rand(), TRUE));
 
 if(isset ($_SESSION['form_token_addbank']))
@@ -20,15 +20,14 @@ if(isset ($_SESSION['form_token_addbank']))
 }
 $_SESSION['form_token_addbank'] = $token;
 			?>
-			<input type="hidden" name="my_token_addbank" value="<?php echo $token;?>">
+              <input type="hidden" name="my_token_addbank" value="<?php echo $token;?>">
               <div class="row clearfix spacetop4x">
                 <div class="row-flex clearfix">
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
-				  <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                    <div class="col-md-10 col-sm-12 col-xs-12 text-center">
                       <h4>General Information</h4>
                     </div>
-                  
-                    
+                    <div class="col-md-2 hidden-sm hidden-xs"> &nbsp; </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Bank Name</label>
@@ -37,7 +36,7 @@ $_SESSION['form_token_addbank'] = $token;
                         </div>
                       </div>
                     </div>
-					<div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Balance</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -45,16 +44,16 @@ $_SESSION['form_token_addbank'] = $token;
                         </div>
                       </div>
                     </div>
-           <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="form-control" name="cur" id="cur" onChange="">
-                             <!-- <option selected="" value="">Select Currency</option> -->
+                             <option selected="" value="">Select Currency</option>
                             <?php foreach ($currency as $curr) {
                              ?>
-                           <option value="<?php echo $curr->CurId; ?>"><?php echo $curr->CurName; ?></option>      
-                                  <?php   } ?>
+                            <option value="<?php echo $curr->CurId; ?>"><?php echo $curr->CurName; ?></option>
+                            <?php   } ?>
                           </select>
                         </div>
                       </div>
@@ -63,13 +62,14 @@ $_SESSION['form_token_addbank'] = $token;
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Status</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                         <select class="form-control" name="status" id="status">
-                            <option value="1">Active</option>      
-                            <option value="0">Disabled</option>      
+                          <select class="form-control" name="status" id="status">
+                            <option selected="" value="">Select Status</option>
+                            <option value="1">Active</option>
+                            <option value="0">Disabled</option>
                           </select>
                         </div>
                       </div>
-                    </div>    
+                    </div>
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Transfer Type</label>
@@ -82,7 +82,7 @@ $_SESSION['form_token_addbank'] = $token;
                           </select> 
                         </div>
                       </div>
-                    </div> -->
+                    </div> --> 
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-container">
                         <div class="form-group">
@@ -111,18 +111,16 @@ $_SESSION['form_token_addbank'] = $token;
                             </div>
                         </div>
                       </div>
-                    </div> -->
+                    </div> --> 
                     <!--<div class="dynamic-stuff"> </div>
                     <span id="errmsg"></span>
-					         <button class="btn btn-sm btn-primary add_more_button">Add More Fields</button>-->
+					         <button class="btn btn-sm btn-primary add_more_button">Add More Fields</button>--> 
                   </div>
-                  
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
-				 				
-					<div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                    <div class="col-md-10 col-sm-12 col-xs-12 text-center">
                       <h4>Money-In Commisions</h4>
                     </div>
-                    
+                    <div class="col-md-2 hidden-sm hidden-xs"> &nbsp; </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Inflow Commission %</label>
@@ -132,19 +130,17 @@ $_SESSION['form_token_addbank'] = $token;
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
+                      <div class="form-group align-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Inflow Commission Per Transitions</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control xyz" name="InCom" id="InCom" placeholder="Inflow Commission Per Transitions" />
                         </div>
                       </div>
                     </div>
-					
-					<div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                    <div class="col-md-10 col-sm-12 col-xs-12 text-center">
                       <h4>Money-Out Commisions</h4>
                     </div>
-                  
-                     <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Outgo Commission %</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -152,22 +148,21 @@ $_SESSION['form_token_addbank'] = $token;
                         </div>
                       </div>
                     </div>
-					
-					<div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Outgo Fix Commission</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="hidden" class="form-control xyz" name="OutCom" id="OutCom" placeholder="Outgo Commission Per Transitions" /> 
+                          <input type="hidden" class="form-control xyz" name="OutCom" id="OutCom" placeholder="Outgo Commission Per Transitions" />
                           <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-container">
-           <div class="form-group">
-                          <div class="col-md-12">
-              <button class="add-one add_more_button"><i class="fa fa-plus-square" aria-hidden="true"></i> Transfer Type</button>
+                            <div class="form-container">
+                              <div class="form-group">
+                                <div class="col-md-12">
+                                  <button class="add-one add_more_button"><i class="fa fa-plus-square" aria-hidden="true"></i> Transfer Type</button>
+                                </div>
+                              </div>
+                              <div class="dynamic-stuff"> </div>
+                              <span id="errmsg" class="help-block form-error"></span> </div>
                           </div>
-                        </div>
-             <div class="dynamic-stuff"> </div>
-                    <span id="errmsg" class="help-block form-error"></span>
-            </div></div>
                         </div>
                       </div>
                     </div>
@@ -180,9 +175,8 @@ $_SESSION['form_token_addbank'] = $token;
                         </div>
              <div class="dynamic-stuff"> </div>
                     <span id="errmsg" class="help-block form-error"></span>
-            </div></div> -->
-					
-					
+            </div></div> --> 
+                    
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Amount</label>
@@ -190,17 +184,16 @@ $_SESSION['form_token_addbank'] = $token;
                           <input type="text" class="form-control" name="amount" id="amount" onkeypress="javascript:return isNumber(event)">
                         </div>
                       </div>
-                    </div> -->
+                    </div> --> 
                   </div>
                 </div>
                 <div class="col-xs-12 text-center spacetop2x">
-				<div class="page-loader" style="display:none;">
-                        <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
-                      </div>
+                  <div class="page-loader" style="display:none;">
+                    <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
+                  </div>
                   <button type="submit" id="addbankbtn" class="btn-submit transitions">Submit</button>
-                  <!-- <button type="reset" class="btn-reset transitions">Reset</button> -->
-                   <a href="<?= base_url('configuration/bank');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a>
-                </div>
+                  <!-- <button type="reset" class="btn-reset transitions">Reset</button> --> 
+                  <a href="<?= base_url('configuration/bank');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a> </div>
               </div>
             </form>
           </div>
@@ -209,8 +202,8 @@ $_SESSION['form_token_addbank'] = $token;
     </div>
   </div>
 </div>
-<!-- Modal -->
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<!-- Modal --> 
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
 <script>
     function isNumber(evt) {
         var iKeyCode = (evt.which) ? evt.which : evt.keyCode
@@ -219,7 +212,7 @@ $_SESSION['form_token_addbank'] = $token;
 
         return true;
     }    
-</script>
+</script> 
 <script>
     $(document).ready(function() {
     
@@ -270,7 +263,7 @@ $_SESSION['form_token_addbank'] = $token;
     })
 
 });
-</script>
+</script> 
 <script type="text/javascript">
     
 $('form#addbankform').on('submit', function(event) {

@@ -41,14 +41,6 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="col-md-6 col-sm-6 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-3 col-sm-4 col-xs-12">PSP Type</label>
-                        <div class="col-md-9 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="psp_type1" id="psp_type1" value="<?php echo $getpsp->PspType; ?>" placeholder="PSP Type" />
-                        </div>
-                      </div>
-                    </div> -->
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-6 col-sm-6 col-xs-12">PSP Type</label>
@@ -125,6 +117,30 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   </div>
                 </form>
               </div>
+
+              <script type="text/javascript">
+                $(document).ready(function(){
+                  //sort by albhabetical order start
+                  /*var options1 = $('select#bank1 option');
+                  console.log(options1);
+                  var arr1 = options1.map(function(_, o) {
+                      return {
+                          t: $(o).text(),
+                          v: o.value
+                      };
+                  }).get();
+                  arr1.sort(function(o1, o2) {
+                      return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
+                  });
+                  console.log(arr1);
+                  options1.each(function(i, o) {
+                      //console.log(options1);
+                      o.value = arr1[i].v;
+                      $(o).text(arr1[i].t);
+                  });*/
+                  //sort by albhabetical order end
+                });
+              </script>
               <script type="text/javascript">
   	(function($){
   		$('#psp_name1').on('blur', function() {

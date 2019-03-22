@@ -7,6 +7,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
     // to get roles
     $this->db->select('RoleId,RoleName');
     $this->db->from('rolemaster');
+    $this->db->order_by('RoleName','ASC');
     $query = $this->db-> get();
     $res = $query->result_array();
 
@@ -141,6 +142,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <label class="col-md-3 col-sm-4 col-xs-12">Role</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
                           <select class="form-control" name="role" id="role" onchange="" name="role">
+                            <option selected="" value="">Select Role</option>
                             <?php foreach ($res as $role) { ?>
                             <option value="<?php echo $role['RoleId']; ?>"><?php echo $role['RoleName']; ?></option>      
                                   <?php   } ?>
@@ -156,6 +158,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <label class="col-md-3 col-sm-4 col-xs-12">Status</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
 					                <select class="form-control" name="status" id="status">
+                            <option selected="" value="">Select Status</option>
                             <option value="1">Active</option>      
                             <option value="0">Disabled</option>      
                           </select>

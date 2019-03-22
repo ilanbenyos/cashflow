@@ -61,6 +61,14 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" name="plcurr" id="plcurr" value="<?php echo $expenses->Currency ?>" readonly>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <textarea class="form-control" name="desc" id="desc" placeholder="Description" value="<?php echo $expenses->Description ?>"></textarea>
@@ -81,6 +89,7 @@
                         </div>
                       </div>
                     </div>
+                    
                   </div>
                   <!--planned info starts -->
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
@@ -106,14 +115,14 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="plcurr" id="plcurr" value="<?php echo $expenses->Currency ?>" readonly>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Transfer Type</label>
@@ -175,14 +184,14 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="accurr" id="accurr"  value="<?php echo $expenses->Currency ?>" readonly>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group align-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Final bank commission</label>
@@ -232,7 +241,7 @@
     $('#bankid').attr('disabled',true);
     $('#transType').attr('disabled',true);
     $('#shareP').attr('disabled',true);
-    $('#vendor').attr('disabled',true);
+    //$('#vendor').attr('disabled',true);
     /*$('#vendor').on('change',function() {
         var vendorId=document.getElementById("vendor").value;  
          $.ajax({
@@ -637,7 +646,7 @@
             $('#bankid').attr('disabled',false);
             $('#transType').attr('disabled',false);
             $('#shareP').attr('disabled',false);
-            $('#vendor').attr('disabled',false);
+            //$('#vendor').attr('disabled',false);
             $("#addExpense").hide();
             $(".page-loader").show();
      } 
