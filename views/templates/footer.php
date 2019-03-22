@@ -42,7 +42,7 @@ $(document).ready(function() {
   $('#tabledata').DataTable( {
     "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
     dom: "lBfrtip",
-	aaSorting: [[0, "asc"]],
+	aaSorting: [[4, "desc"],[0, "asc"]],
 	//"processing": false,
 	//"ajax": '<?= base_url('configuration/bank/listbankdata')?>',
     //data: data,
