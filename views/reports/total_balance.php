@@ -16,7 +16,7 @@
             </div>
           </div>
 	   </div> -->
-        <div class="col-md-12 inline-divs text-right">
+        <!-- <div class="col-md-12 inline-divs text-right">
         <div class="month-expense-box">
             <div class="form-inline">
               <label>Select a year :</label>
@@ -30,7 +30,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="clearfix"></div>
         <div class="padding4x clearfix">
           <div class="col-md-6 col-sm-12 col-xs-12">
@@ -75,15 +75,13 @@
       data.addColumn('number', 'income');
 	    data.addColumn('number', 'outcome');
       var jsonData = $.parseJSON(data1);
-      //console.log('jsonData ' +jsonData);
+      //console.log('jsonData ' + data1);
       for (var i = 0; i < jsonData.length; i++) {
         //alert(jsonData.length);
           data.addRow([jsonData[i].month, parseInt(jsonData[i].income),parseInt(jsonData[i].outcome)]);
-        
-            
       }
 
-      if(jsonData == "" || jsonData == null){
+      /*if(jsonData == ""){
         var options = {
         chart: {
         },
@@ -104,10 +102,8 @@
       }
          
       };
-    }else{
+    }else{*/
       var options = {
-        chart: {
-        },
         height: 500,
          logScale:true,
 
@@ -123,10 +119,8 @@
         format: 'short'
 
       }
-         
       };
-    }
-      
+    //}
       var chart = new google.visualization.ColumnChart(document.getElementById('bar_chart'));
       chart.draw(data, options);
 	  
