@@ -84,7 +84,7 @@
       if(jsonData == ""){
         var options = {
         height: 500,
-         //logScale:true,
+         logScale:true,
 
      legend: { position: 'top' },
      colors: ['#1F9FA6','#1E7FC9'], 
@@ -102,7 +102,7 @@
     }else{
       var options = {
         height: 500,
-        //logScale:true,
+        logScale:true,
 
      legend: { position: 'top' },
      colors: ['#1F9FA6','#1E7FC9'], 
@@ -130,7 +130,7 @@
       }
 	  var options = {
 		  height: 500,
-		  		 //logScale:true,
+		  		 logScale:true,
 
           curveType: 'function',
           legend: { position: 'bottom' },
