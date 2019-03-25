@@ -406,6 +406,7 @@ $('.datepicker').datepicker({
                     var accommP = $("#accommval").val();
                     var bankcommP = $("#bankcommP").val();
                     var additionalfees = $("#additionalFees").val();
+                    var rolingReserved = $("#crrAmt").val();
                     if (additionalfees != "") {
                       var fees = additionalfees;
                     }else{
@@ -417,7 +418,7 @@ $('.datepicker').datepicker({
 
                     var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
-                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);
+                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);
                     $("#bankcomm").val(bankcomm);
                     $("#acamtval").val(commAmount);
                     $("#nettoBankAmt").val(netToBank);
@@ -467,6 +468,7 @@ $('.datepicker').datepicker({
                     var accommP = $("#accommval").val();
                     var bankcommP = $("#bankcommP").val();
                     var additionalfees = $("#additionalFees").val();
+                    var rolingReserved = $("#crrAmt").val();
                     if (additionalfees != "") {
                       var fees = additionalfees;
                     }else{
@@ -478,7 +480,7 @@ $('.datepicker').datepicker({
 
                     var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
-                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);
+                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);
                     $("#bankcomm").val(bankcomm);
                     $("#acamtval").val(commAmount);
                     $("#nettoBankAmt").val(netToBank);
@@ -521,15 +523,16 @@ $('.datepicker').datepicker({
       //net to bank amount calculation start
       var accommP = $("#accommval").val();                          //PSP Commission 
       var bankcommP = $("#bankcommP").val();                        //BAnk Inflow Commission
+      var rolingReserved = $("#crrAmt").val();
+      console.log('rolingReserved' + rolingReserved);
       //var commAmount = ("#acamtval").val();
 
       var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
 
       var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
-      
-
-      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);  
+      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2); 
+      console.log('Net To Bank' +  netToBank);
       $("#bankcomm").val(bankcomm);
       $("#acamtval").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
@@ -570,6 +573,7 @@ $('.datepicker').datepicker({
       //net to bank amount calculation start
       var accommP = $("#accommval").val();                          //PSP Commission 
       var bankcommP = $("#bankcommP").val();                        //BAnk Inflow Commission
+      var rolingReserved = $("#crrAmt").val();
       //var commAmount = ("#acamtval").val();
 
       var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
@@ -578,7 +582,7 @@ $('.datepicker').datepicker({
 
       
 
-      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);  
+      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);  
       $("#bankcomm").val(bankcomm);
       $("#acamtval").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
