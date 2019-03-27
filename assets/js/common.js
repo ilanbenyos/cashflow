@@ -70,7 +70,6 @@ jQuery(function ($) {
         });
 });
 
-
 //Clone the hidden element and shows it
 /*
 $('.add-one').click(function(){
