@@ -14,7 +14,7 @@
 <script src="<?= base_url('assets/js/common.js')?>"></script> 
 <script src="<?= base_url('assets/js/bootstrap.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/bootstrap-datepicker.js')?>"></script> 
-<!--<script src="<?= base_url('assets/js/SidebarNav.min.js')?>"></script> -->
+<script src="<?= base_url('assets/js/SidebarNav.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/jquery.dataTables.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/dataTables.bootstrap.js')?>"></script> 
 <script>
