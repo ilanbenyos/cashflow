@@ -1,6 +1,6 @@
 <div id="content">
   <div class="container-fluid">
-    <h1>Total Balance Report</h1>
+    <h1>Income Vs Outcome Report</h1>
     <div class="white-bg">
       <div class="row">
 	   <!-- <div class="col-md-4 inline-divs text-left">

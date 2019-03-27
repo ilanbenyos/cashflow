@@ -49,7 +49,7 @@
         <li class="treeview"> <a href="#"> <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
           <ul class="treeview-menu">
             <li><a href="<?= base_url('Reports/psp_income')?>">Total Income Per PSP </a></li>
-			<li><a href="<?= base_url('Reports/total_balance')?>">Total Balance </a></li>
+			<li><a href="<?= base_url('Reports/total_balance')?>">Income Vs Outcome </a></li>
 			<li><a href="<?= base_url('Reports/vendor_outcome')?>">Outcome for Vendors</a></li>
 			<li><a href="<?= base_url('Reports/psp_commision')?>">PSP Income vs Commissions</a></li>
 			<li><a href="<?= base_url('Reports/bank_balance')?>">Current Banks Balance </a></li>
@@ -64,7 +64,7 @@
         <li class="treeview"> <a href="#"> <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
           <ul class="treeview-menu">
             <li><a href="<?= base_url('Reports/psp_income')?>">Total Income Per PSP </a></li>
-      <li><a href="<?= base_url('Reports/total_balance')?>">Total Balance </a></li>
+      <li><a href="<?= base_url('Reports/total_balance')?>">Income Vs Outcome </a></li>
       <li><a href="<?= base_url('Reports/vendor_outcome')?>">Outcome for Vendors</a></li>
       <li><a href="<?= base_url('Reports/psp_commision')?>">PSP Income vs Commissions</a></li>
       <li><a href="<?= base_url('Reports/bank_balance')?>">Current Banks Balance </a></li>
@@ -77,7 +77,7 @@
         <li class="treeview"> <a href="#"> <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
           <ul class="treeview-menu">
             <li><a href="<?= base_url('Reports/psp_income')?>">Total Income Per PSP </a></li>
-      <li><a href="<?= base_url('Reports/total_balance')?>">Total Balance </a></li>
+      <li><a href="<?= base_url('Reports/total_balance')?>">Income Vs Outcome </a></li>
       <li><a href="<?= base_url('Reports/vendor_outcome')?>">Outcome for Vendors</a></li>
       <li><a href="<?= base_url('Reports/psp_commision')?>">PSP Income vs Commissions</a></li>
       <li><a href="<?= base_url('Reports/bank_balance')?>">Current Banks Balance </a></li>
