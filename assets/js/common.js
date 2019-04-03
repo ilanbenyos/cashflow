@@ -71,6 +71,16 @@ jQuery(function ($) {
 });
 
 
+$('.sidebar-menu li a').click(function() {
+  var target = $(this).data('target');
+	
+  preloader.fadeIn(function() {
+    $(target).siblings().css('opacity', 0);
+    $(target).css('opacity', 1);
+  }).delay(800).fadeOut();
+});
+
+
 //Clone the hidden element and shows it
 /*
 $('.add-one').click(function(){
