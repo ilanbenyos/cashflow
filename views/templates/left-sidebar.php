@@ -1,11 +1,8 @@
 <!-- Sidebar  -->
 <nav id="sidebar">
-    <div class="sidebar-header">
-      <h3>Menu</h3>
-    </div>
     <ul class="list-unstyled components">
-      <li class="active"> <a href="#OrgSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Configuration</a>
-        <ul class="collapse list-unstyled" id="OrgSubmenu" data-parent="#sidebar">
+      <li> <a href="#OrgSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Configuration</a>
+        <ul class="collapse list-unstyled inner-menu" id="OrgSubmenu" data-parent="#sidebar">
           <li><a href="<?= base_url('configuration/users')?>"><i class="fa fa-users" aria-hidden="true"></i> <span>Users</span></a></li>
             <li><a href="<?= base_url('configuration/bank')?>"><i class="fa fa-university" aria-hidden="true"></i> <span>Banks</span></a></li>
             <li><a href="<?= base_url('payment-processor')?>"><i class="fa fa-credit-card" aria-hidden="true"></i> <span>Payment Processors</span></a></li>
@@ -18,8 +15,8 @@
         <li><a href="<?= base_url('expenses')?>"><i  class="fa fa-briefcase"  aria-hidden="true"></i> <span>Expenses</span></a></li>
         <li><a href="<?= base_url('bank-transaction')?>"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Bank Transaction</span></a></li>
       
-      <li class="active"> <a href="#PersonneSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reports</a>
-        <ul class="collapse list-unstyled" id="PersonneSubmenu" data-parent="#sidebar">
+      <li> <a href="#PersonneSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reports</a>
+        <ul class="collapse list-unstyled inner-menu" id="PersonneSubmenu" data-parent="#sidebar">
           <li><a href="<?= base_url('Reports/psp_income')?>">Total Income Per PSP </a></li>
 			<li><a href="<?= base_url('Reports/total_balance')?>">Income Vs Outcome </a></li>
 			<li><a href="<?= base_url('Reports/vendor_outcome')?>">Outcome for Vendors</a></li>
