@@ -11,11 +11,10 @@
 
 <script src="<?= base_url('assets/js/jquery.validate.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/additional-methods.js')?>"></script> 
-<script src="<?= base_url('assets/js/common.js')?>"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script> 
-<!--<script src="<?= base_url('assets/js/bootstrap.min.js')?>"></script> -->
+<script src="<?= base_url('assets/js/common.js')?>"></script> 
+<script src="<?= base_url('assets/js/bootstrap.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/bootstrap-datepicker.js')?>"></script> 
-<!--<script src="<?= base_url('assets/js/SidebarNav.min.js')?>"></script> -->
+<script src="<?= base_url('assets/js/SidebarNav.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/jquery.dataTables.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/dataTables.bootstrap.js')?>"></script> 
 <script>
