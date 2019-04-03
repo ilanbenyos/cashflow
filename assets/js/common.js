@@ -56,7 +56,7 @@ var url = window.location;
 
 // for sidebar menu entirely
 jQuery(function ($) {
-    $(".components li a")
+    $(".sidebar-menu li a")
         .click(function(e) {
             var link = $(this);
             var item = link.parent("li");
@@ -68,6 +68,12 @@ jQuery(function ($) {
                 return false;
             }
         });
+});
+
+$(document).ready(function(){
+  if ( $('.sidebar-menu li').hasClass('active') ) {
+    $('.sidebar-menu li.active ul.collapse').addClass('show');
+  }
 });
 
 

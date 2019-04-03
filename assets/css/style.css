@@ -87,14 +87,12 @@ header { position:relative; background: #fff; }
 .wrapper { display: flex; width: 100%; position:relative; }
 #sidebar { min-width: 270px; max-width: 270px; background: #2a3241; color: #fff; transition: all 0.3s; display: block; padding: 0; border-radius: 0; margin-bottom: 0; }
 #sidebar.active { margin-left: -270px; }
-.sidebar-menu { list-style: none; margin: 0; padding: 22px; }
+/*.sidebar-menu { list-style: none; margin: 0; padding: 22px; }
 .sidebar-menu > li { position: relative; margin: 0; padding: 0; border-bottom: 1px dashed #9a9a9a; }
-/*.sidebar-menu > li.treeview.active:first-child > a { color:#fff; }*/
 .sidebar-menu > li.treeview::after { font-family: 'Glyphicons Halflings'; content: "\e080"; transform: rotate(90deg); display: block; position: absolute; top: 16px; right: 0; border: none; font-size: 15px; color: #9a9a9a; transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; -moz-transition: all .5s ease; }
 .sidebar-menu > li > a { padding: 18px 5px; display: block; color: #fff; font-size: 15px; transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; -moz-transition: all .5s ease; }
 .sidebar-menu li a:hover { color: #c1c81e; }
 .sidebar-menu > li > a > .fa { vertical-align: middle; font-size: 20px; color: #c1c81e; padding-right: 16px; }
-/*.sidebar-menu > li:hover > a, .sidebar-menu > li.active > a { color: #c1c81e; background: transparent; }*/
 .sidebar-menu > li > .treeview-menu { margin: 0; padding: 10px 0 10px 24px; border-top: 1px dashed #9a9a9a; }
 .sidebar-menu li.active > .treeview-menu { display: block; }
 .sidebar-menu a { text-decoration: none; }
@@ -104,7 +102,18 @@ header { position:relative; background: #fff; }
 .sidebar-menu .treeview-menu > li > a { display: block; padding: 12px 5px; font-size: 14px; color:#fff; font-family: "RobotoMedium", sans-serif; }
 .sidebar-menu .treeview-menu > li > a > .fa-angle-left, .sidebar-menu .treeview-menu > li > a > .fa-angle-down { width: auto; }
 .sidebar-menu > li.active > a, .sidebar-menu .treeview-menu > li.active > a, .sidebar-menu .treeview-menu > li > a:hover { color: #c1c81e; }
-.treeview a .fa { vertical-align: middle; font-size: 14px; color: #c1c81e; padding-right: 10px; margin-top: -2px; }
+.treeview a .fa { vertical-align: middle; font-size: 14px; color: #c1c81e; padding-right: 10px; margin-top: -2px; }*/
+
+.sidebar-menu { list-style: none; margin: 0; padding: 22px; }
+.sidebar-menu > li { position: relative; margin: 0; padding: 0; border-bottom: 1px dashed #9a9a9a; }
+.sidebar-menu > li:first-child:after, .sidebar-menu > li:last-child:after { font-family: 'Glyphicons Halflings'; content: "\e080"; transform: rotate(90deg); display: block; position: absolute; top: 16px; right: 0; border: none; font-size: 15px; color: #9a9a9a; }
+.sidebar-menu > li > a { padding: 18px 5px; display: block; color: #fff; font-size: 15px; text-decoration: none; }
+.sidebar-menu li a:hover { color: #c1c81e; text-decoration: none; }
+.sidebar-menu > li > a > .fa { vertical-align: middle; font-size: 20px; color: #c1c81e; padding-right: 16px; }
+.sidebar-menu > li > .list-unstyled { margin: 0; padding: 0 0 0 24px; border-top: 1px dashed #9a9a9a; list-style: none; }
+.sidebar-menu .list-unstyled > li > a { display: block; padding: 12px 5px; font-size: 14px; color: #fff; font-family: robotomedium, sans-serif; }
+.sidebar-menu li.active a.active { color: #c1c81e; }
+.sidebar-menu li a .fa { vertical-align: middle; font-size: 14px; color: #c1c81e; padding-right: 10px; margin-top: -2px; }
 /***** Right Content CSS Style *****/
 #content { width: 100%; padding:30px 0 30px 20px; min-height: 100vh; transition: all 0.3s; position:relative; overflow: hidden; }
 .white-bg { background: #fff; padding: 24px; box-shadow: 0 0 10px #b1b1b1; position:relative; }
