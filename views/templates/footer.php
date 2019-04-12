@@ -18,7 +18,7 @@
 <script src="<?= base_url('assets/js/jquery.dataTables.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/dataTables.bootstrap.js')?>"></script> 
 <script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script>
-<script data-cfasync="false" src="/javascript.js"></script>   
+<script data-cfasync="false" src="/javascript.js"></script>    
 
 <script>
 // Sidebar js
