@@ -279,7 +279,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
         }else{
           $("#vendor").hide();
         }
-      });
+      }); 
     /*function IsPassword(password)
       {
           var regex = /^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,20}$/;
