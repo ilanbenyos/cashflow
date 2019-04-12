@@ -54,7 +54,7 @@ $('#myModal2_popup').modal('show');
 
               </div>
               <div class="col-xs-12 text-center spacetop2x">
-              <button type="button" data-dismiss="modal" class="btn-submit transitions" id="user-submit">OK</button>
+              <button type="button" data-dismiss="modal" class="btn-submit transitions" >OK</button>
             </div>
             </div>
             
