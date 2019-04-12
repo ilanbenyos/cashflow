@@ -1,7 +1,7 @@
 <?php 
 defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 if (isset ( $_SESSION ['pop_mes'] )) {
-   popup2 ();
+   popup2 (); 
   //echo $_SESSION ['pop_mes'];
 }
     // to get roles
