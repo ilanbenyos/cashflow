@@ -288,7 +288,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
   </div>
 </div>
 <!-- Modal --> 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> --> 
 <script type="text/javascript">
   $(document).ready(function(){
     $("#weekly").hide();
