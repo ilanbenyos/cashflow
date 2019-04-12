@@ -31,9 +31,10 @@ public function que()
 	    {
 	        redirect('login');
 	    }
+	    $data['vendors'] = $this->all_model->getCallCenterVendor();
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar');
-		$this->load->view('configuration/users');
+		$this->load->view('configuration/users',$data);
 		$this->load->view('templates/footer');
 	}
 	public function createUser()
@@ -73,6 +74,7 @@ public function que()
     	        $password = $this->input->post('password');
     	        $email = $this->input->post('email');
     	        $role = $this->input->post('role');
+    	        $vendor = $this->input->post('vendor');
     	        $uid = $this->input->post('userid');
     	        $status = $this->input->post('status');
     	        $userinfo = array(
@@ -82,6 +84,7 @@ public function que()
     	            'Password' => $password,
     	            'CreatedOn' => $date.$time,
     	            'RoleId' => $role,
+    	            'CallCenterVendorId'=>$vendor,
     	            'CreatedBy' => $uid,
 					'Active' => $status
     	        );
@@ -98,6 +101,7 @@ public function que()
     	}
 	}
 	public function editUser($id){
+		$data['vendors'] = $this->all_model->getCallCenterVendor();
 	    $data ['result'] = $this->all_model->get_user_details ( $id );
 	    $this->load->view('configuration/edit_user',$data);
 	}
@@ -135,6 +139,7 @@ public function que()
 	        $password = $this->input->post('password1');
 	        $email = $this->input->post('email1');
 	        $role = $this->input->post('role1');
+	        $vendor = $this->input->post('vendor1');
 	        $status = $this->input->post('status');
 	        $userinfo = array(
 	            
@@ -143,6 +148,7 @@ public function que()
 	            'Password' => $password,
 	            'CreatedOn' => $date.$time,
 	            'RoleId' => $role,
+	            'CallCenterVendorId'=>$vendor,
 				'Active' => $status
 	        );
 	        $this->db->where('UserID',$userid);
@@ -157,5 +163,18 @@ public function que()
 	    }
 	        
 	   // }
+	}
+	public function delete($id){
+		if(!isset($_SESSION['logged_in']))
+	    {
+	        redirect('login');
+	    }
+	    $data = array(
+	    	'IsDelete' => 0
+	    );
+	    $this->db->where('UserID',$id);
+	    $this->db->update('usermaster',$data);
+	    $_SESSION['pop_mes'] = "User Deleted Successfully.";
+	    redirect('configuration/users');
 	}
 }

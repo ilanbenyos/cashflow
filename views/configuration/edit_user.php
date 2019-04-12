@@ -7,6 +7,7 @@ $this->db->select('RoleId,RoleName');
 $this->db->from('rolemaster');
 $query = $this->db-> get();
 $res = $query->result_array();
+//print_r($result);
 ?>
 
 <div class="defination-box clearfix">
@@ -92,6 +93,27 @@ $res = $query->result_array();
                         </div>
                       </div>
                     </div>
+                    <?php 
+                    //if ($result->CallCenterVendorId != 0 && $result->CallCenterVendorId > 0) {
+                     //if ($result->RoleId == 4) { ?>
+                      <div class="col-md-6 col-sm-6 col-xs-12" id="editVendor" style="display: none">
+                      <div class="form-group">
+                        <label class="col-md-3 col-sm-4 col-xs-12">Select Vendor</label>
+                        <div class="col-md-9 col-sm-8 col-xs-12">
+                          <select class="form-control" name="vendor1" id="vendor1" onchange="">
+                            <option selected="" value="">Select Vendor</option>
+                            <?php foreach ($vendors as $val) { 
+                              ?>
+                            <option <?php if($val->VendorId == $result->CallCenterVendorId){ echo 'selected="selected"'; } ?> value="<?php echo $val->VendorId; ?>"><?php echo $val->VendorName; ?></option>   
+                                  <?php   } ?>
+                            <!-- <option selected="">Admin</option>
+                            <option>CEO</option>
+                            <option>Book Keeper</option> -->
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                     <?php //} //}?>
                     <!--<div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="row">
                         <div class="col-md-3 col-sm-4 col-xs-12"><strong>Associated Priviledges</strong></div>
@@ -134,6 +156,27 @@ $res = $query->result_array();
           var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
           return regex.test(email);
       }
+
+      // on load show vendor data 
+      var role = $("#role1").val();
+        if (role == '4' ) {
+          $("#editVendor").show();
+        }else{
+          $("#editVendor").hide();
+        }
+
+
+
+        // on change show vendor data
+      $("#role1").on('change',function(){
+        var role = $("#role1").val();
+        alert(role);
+        if (role == '4' ) {
+          $("#editVendor").show();
+        }else{
+          $("#editVendor").hide();
+        }
+      });
   });
 
 </script>

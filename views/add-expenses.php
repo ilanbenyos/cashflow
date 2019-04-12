@@ -1,3 +1,10 @@
+<?php 
+  if (isset($callCenter)) {
+    $isSet = $callCenter->NotificationId;
+  }else{
+    $isSet = "";
+  }
+ ?>
 <!-- Page Content  -->
 <div id="content">
   <div class="container-fluid">
@@ -22,6 +29,7 @@
               <input type="hidden" name="shareAmount" id="shareAmount">
               <input type="hidden" name="BankOutCommAmount" id="BankOutCommAmount">
               <input type="hidden" name="TransferCommAmount" id="TransferCommAmount">
+              <input type="hidden" name="callCenterNotiId" id="callCenterNotiId" value="<?php echo $isSet ?>">
 
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex">
@@ -74,7 +82,41 @@
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <textarea class="form-control" name="desc" id="desc" placeholder="Description"></textarea>
+                          <?php if(!empty($isSet)){ 
+                            $des = array();
+                            $this->db->select('NotificationId,VendorId,CallCenterExpId,PlannedDate');
+                            $this->db->from('callcenternotification');
+                            $this->db->where('NotificationId',$isSet);
+                            $query = $this->db->get();
+                            $res = $query->row();
+                            $res = explode(',', $res->CallCenterExpId);
+                            
+                             $first = reset($res);
+                             $last = end($res);
+
+                             $data['first'] = $first;
+                             $data['last'] = $last;
+                            foreach ($data as $value) {
+                            $this->db->select('ExpId,ExpName,ExpAmount,ExpDate,ExpenseId');
+                            $this->db->from('callcenterexpenses');
+                            $this->db->where('ExpId',$value);
+                            $query1 = $this->db->get();
+                            $res1 = $query1->result();
+                            foreach ($res1 as  $val) {
+                              $des[] = date('d/m/Y', strtotime(str_replace('-','/', $val->ExpDate)));
+                            }
+                            }
+                            if (count($res) > 0 && count($res) == 1) {
+                              $desc = 'Invoice Date - ' .$des[0];
+                            }else{
+                              $desc = 'First Invoice Date - ' .$des[0] . ' Last Invoice Date - ' .$des[1] ;
+                            }
+                            
+                           ?>
+                          <textarea class="form-control" name="desc" id="desc"  placeholder="Description" style="height: 80px;"><?php echo $desc ?></textarea>
+                        <?php }else{ ?>
+                          <textarea class="form-control" name="desc" id="desc" placeholder="Description" ></textarea>
+                        <?php } ?>
                         </div>
                       </div>
                     </div>
@@ -106,7 +148,12 @@
                         <label class="col-md-5 col-sm-5 col-xs-12">Planned date <span class="red">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Date" />
+                            <?php if (!empty($callCenter)) { ?>
+                              <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $callCenter->PlannedDate))) ?>" placeholder="Planned Date" />
+                            <?php }else{ ?>
+                              <input type="text" class="form-control" name="pldatereceive" id="pldatereceive" placeholder="Planned Date" />
+                            <?php  } ?>
+                            
                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
                           </div>
                         </div>
@@ -116,7 +163,12 @@
                       <div class="form-group align-4x-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Planned Amount <span class="red">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
+                          <?php if (!empty($callCenter)) { ?>
+                            <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo $callCenter->Amount ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
+                          <?php }else { ?>
+                            <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
+                          <?php } ?>
+                          
                         </div>
                       </div>
                     </div>
@@ -128,29 +180,7 @@
                         </div>
                       </div>
                     </div> -->
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Transfer Type</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12"> 
-                          <select class="form-control" name="transType" id="transType" onchange="">
-                            <option selected="" value="">Select Transfer Type</option>
-                            <?php foreach ($transType as $type) { ?>
-
-                            <option value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>      
-                                  <?php   } ?>
-                          </select>
-                           <input type="hidden" class="form-control" name="transferCommP" id="transferCommP">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Share %</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="shareP" id="shareP" placeholder="Share %" onkeypress="javascript:return isNumber(event)">
-                        </div>
-                      </div>
-                    </div>
+                    
                   </div>
                   <!--planned info ends -->
                   <!-- Actual info starts -->
@@ -185,6 +215,29 @@
                         </div>
                       </div>
                     </div> -->
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Transfer Type</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12"> 
+                          <select class="form-control" name="transType" id="transType" onchange="">
+                            <option selected="" value="">Select Transfer Type</option>
+                            <?php foreach ($transType as $type) { ?>
+
+                            <option value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>      
+                                  <?php   } ?>
+                          </select>
+                           <input type="hidden" class="form-control" name="transferCommP" id="transferCommP">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Share %</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control xyz" name="shareP" id="shareP" placeholder="Share %" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group align-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Final bank commission </label>

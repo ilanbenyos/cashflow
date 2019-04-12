@@ -67,14 +67,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <textarea class="form-control" name="desc" id="desc" placeholder="Description" value="<?php echo $expenses->Description ?>"></textarea>
-                        </div>
-                      </div>
-                    </div>
+                    
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group align-4x-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Expense Category</label>
@@ -86,6 +79,14 @@
                             <option <?php if($cat->CatId == $expenses->CatId){ echo 'selected="selected"'; } ?> value="<?php echo $cat->CatId; ?>"><?php echo $cat->Category; ?></option>
                             <?php   } ?>
                           </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <textarea class="form-control" name="desc" id="desc" placeholder="Description" style="height: 80px;"><?php echo $expenses->Description ?></textarea>
                         </div>
                       </div>
                     </div>
@@ -123,29 +124,7 @@
                         </div>
                       </div>
                     </div> -->
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Transfer Type</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="hidden" name="transferAmt" id="transferAmt">
-                          <select class="form-control" name="transType" id="transType" onchange="">
-                            <option selected="" value="">Select Transfer Type</option>
-                            <?php foreach ($transType as $type) { ?>
-                            <option <?php if($type->BankTransferId == $expenses->BankTransferId){ echo 'selected="selected"'; } ?> value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>
-                            <?php   } ?>
-                          </select>
-                          <input type="hidden" class="form-control xyz" name="transferCommP" id="transferCommP" value="<?php echo $expenses->TransferCommP ?>">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Share %</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="shareP" id="shareP" value="<?php echo number_format($expenses->Share, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)">
-                        </div>
-                      </div>
-                    </div>
+                    
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Shares %</label>
@@ -192,6 +171,29 @@
                         </div>
                       </div>
                     </div> -->
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Transfer Type</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="hidden" name="transferAmt" id="transferAmt">
+                          <select class="form-control" name="transType" id="transType" onchange="">
+                            <option selected="" value="">Select Transfer Type</option>
+                            <?php foreach ($transType as $type) { ?>
+                            <option <?php if($type->BankTransferId == $expenses->BankTransferId){ echo 'selected="selected"'; } ?> value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>
+                            <?php   } ?>
+                          </select>
+                          <input type="hidden" class="form-control xyz" name="transferCommP" id="transferCommP" value="<?php echo $expenses->TransferCommP ?>">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Share %</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control xyz" name="shareP" id="shareP" value="<?php echo number_format($expenses->Share, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group align-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Final bank commission</label>

@@ -165,6 +165,41 @@
 								</div>
 							</div>
 						</div>
+						
+			            <?php if ($Vendor_details->IsCallCenter == 1) { ?>
+			            	<div class="col-md-12 col-sm-12 col-xs-12">
+				              <div class="form-group">
+				              <label class="col-md-6 col-sm-6 col-xs-12">Call Center </label>
+				              <div class="col-md-6 col-sm-6 col-xs-12">
+				                <input type="checkbox" name="callcenter" id="callcenter" <?= ( $Vendor_details->IsCallCenter=='1'?  "checked" : "") ?>>
+				              </div>
+				              </div>
+				            </div>
+			            	<div class="col-md-12 col-sm-12 col-xs-12" id="show1">
+				              <div class="form-group">
+				              <label class="col-md-6 col-sm-6 col-xs-12"></label>
+				              <div class="col-md-6 col-sm-6 col-xs-12">
+				                <input type="text" class="form-control" name="callcenterLocation" id="callcenterLocation" value="<?php echo $Vendor_details->CallCenterlocation ?>" placeholder="Call Center Location">
+				              </div>
+				              </div>
+				            </div>
+				            <div class="col-md-12 col-sm-12 col-xs-12" id="show2">
+				              <div class="form-group">
+				              <label class="col-md-6 col-sm-6 col-xs-12"></label>
+				              <div class="col-md-6 col-sm-6 col-xs-12">
+				                <input type="text" class="form-control" name="callcenterManager" id="callcenterManager" value="<?php echo $Vendor_details->CallCenterManager ?>" placeholder="Call Center Manager">
+				              </div>
+				              </div>
+				            </div>
+				            <div class="col-md-12 col-sm-12 col-xs-12" id="show3">
+				              <div class="form-group">
+				              <label class="col-md-6 col-sm-6 col-xs-12"></label>
+				              <div class="col-md-6 col-sm-6 col-xs-12">
+				                <input type="text" class="form-control" name="callcenterCashBAl" id="callcenterCashBAl" value="<?php echo number_format($Vendor_details->CallCenterCashBalance, 2, '.', ','); ?>" placeholder="Call Center Cash Balance">
+				              </div>
+				              </div>
+				            </div>
+			            <?php } ?>
 					  </div>
 					</div>
 					<div class="col-xs-12 text-center spacetop4x">
@@ -291,4 +326,18 @@
      return returnvar;
       });
 })(jQuery);
+</script>
+<script type="text/javascript">
+	$('input[type="checkbox"]').click(function(){
+            if($(this).prop("checked") == true){
+                $("#show1").show();
+                $("#show2").show();
+                $("#show3").show();
+            }
+            else if($(this).prop("checked") == false){
+                $("#show1").hide();
+                $("#show2").hide();
+                $("#show3").hide();
+            }
+        });
 </script>

@@ -61,6 +61,8 @@ $route['expense-category'] = 'configuration/expense_category';
 $route['payment-processor'] = 'configuration/payment_processor';
 $route['psp-income'] = 'Psp_income';
 $route['add-psp-income'] = 'psp_income/addDepositDetails';
+$route['call-center-expenses'] = 'callcenter/Add_expenses/add_expense';
+$route['all-expenses'] = 'callcenter/Add_expenses/allExpenses';
 
 $route['default_controller'] = 'login';
 $route['404_override'] = '';

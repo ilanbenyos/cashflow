@@ -17,6 +17,8 @@
 <script src="<?= base_url('assets/js/SidebarNav.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/jquery.dataTables.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/dataTables.bootstrap.js')?>"></script> 
+<script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script>
+
 <script>
 // Sidebar js
 $.sidebarMenu($('.sidebar-menu'))
@@ -74,7 +76,7 @@ responsive  : true,
    { orderable: false, targets: 3 }
 ]
 });
-var table = $('#psptabledata').DataTable({
+/*var table = $('#psptabledata').DataTable({
 
   "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
 responsive  : true,
@@ -86,9 +88,20 @@ responsive  : true,
    { orderable: false, targets: 8 },
    { orderable: false, targets: 9},
 
+    {
+                "targets": [ 10 ],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [ 11 ],
+                "visible": false,
+                "searchable": false
+            }
+
 ]
 
-});
+});*/
  $('#tablebankTrans').DataTable( {
     "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
     dom: "lBfrtip",
@@ -103,7 +116,7 @@ responsive  : true,
      aaSorting: [[5, "asc"]],
 
   });
- $('#exptabledata').DataTable( {
+ /*$('#exptabledata').DataTable( {
     "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
     dom: "lBfrtip",
      aaSorting: [[0, "desc"]],
@@ -111,7 +124,7 @@ responsive  : true,
    { orderable: false, targets: 10 }
 ]
 
-  });
+  });*/
 
  
 });
@@ -209,5 +222,44 @@ $('input.xyz').keyup(function(event) {
     ;
   });
 });
+</script>
+<script type="text/javascript">
+var auto_refreshpopup = setInterval(
+function ()
+{
+  
+  
+  $.ajax({
+      type: 'POST',
+      url: '<?php echo base_url('psp_income/get_popup_notification') ?>',
+      success: function(msg) {
+          if (msg == 'loggedOut') {
+            //alert(msg);
+              window.location.href = '<?php echo base_url('login/') ?>';
+          }
+          else
+          {
+            
+               var updateurl = '<?php echo base_url ("psp_income/update_notification" ); ?>';
+              
+             $.each( JSON.parse(msg), function( key, value ) {
+              console.log(value.TransId);
+            var output= "<ul>";
+             output += "<li><a href="+updateurl+value.TransId+">"+value.Description+"</a></li>";
+             output += "<li><a href="+updateurl+value.TransId+">"+value.PlannedAmt+"</a></li>";
+             output += "</ul>";
+             //$.playSound("<?php //echo base_url('assets/popupnoti/slow-spring-board-longer-tail.mp3') ?>");
+             new PNotify({
+                  text: value.Description +'<br>'+ 'Amount: '+ value.PlannedAmt,
+                  type: 'danger',
+            
+              });
+              });
+                
+           }
+          }
+      
+  });
+}, 20000); // refresh every 10000 milliseconds
 </script>
 </body></html>

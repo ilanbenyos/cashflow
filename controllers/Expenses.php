@@ -70,6 +70,7 @@ class Expenses extends CI_Controller {
 		if (!isset($_SESSION['logged_in'])) {
 			redirect('login');
 		}
+        
 		$this->form_validation->set_rules ( 'vendor', 'Vendor Name', 'trim|required' );
 		$this->form_validation->set_rules ( 'bankid', 'Bank', 'trim|required' );
 		$this->form_validation->set_rules ('expCat', 'Expense Category', 'trim|required');
@@ -79,10 +80,17 @@ class Expenses extends CI_Controller {
 				$vendorID = $_SESSION['vendor_id'];
 				$data['vendors_first']=$this->all_model->GET_vendors($vendorID);
 				unset($_SESSION['vendor_id']);
-			}else{
+			}elseif(!empty($_SESSION['callCenterUser'])){
+                $notificationID = $_SESSION['callCenterUser'];
+                $data['callCenter'] = $this->all_model->callCenterVendor($notificationID);
+                
+                 $vendorID = $data['callCenter']->VendorId;
+                 $data['vendors_first']=$this->all_model->GET_vendors($vendorID);
+
+            }else{
 			   $data['vendors_first']="";
 			}
-			   
+			$data['description'] = $this->all_model->callCenterNoti();
 			$data['vendors'] = $this->all_model->vendors();
             $data['transType'] = $this->all_model->getTransferType();
             $data['expCat'] = $this->all_model->get_active_categories();
@@ -133,6 +141,7 @@ class Expenses extends CI_Controller {
                     $transferCommP = str_replace(',','',$this->input->post('transferCommP'));
                     $TransferCommAmount = str_replace(',','',$this->input->post('TransferCommAmount'));
                     $outCommP = str_replace(',','',$this->input->post('outCommP'));
+                    $callCenterNotiId = $this->input->post('callCenterNotiId');
 
                   
 			       $from = $pldatereceive;
@@ -216,6 +225,30 @@ class Expenses extends CI_Controller {
                         . "Add-Exp-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($expenses) .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
                         $this->db->insert('expenses',$expenses);
+                        $callCenterUserId = $this->db->insert_id();
+                        if (!empty($callCenterNotiId)) {
+                            
+                            $this->db->where('NotificationId',$callCenterNotiId);
+                            $this->db->update('callcenternotification',array('ExpId'=>$callCenterUserId,'Status'=>2));
+
+                            $this->db->select('NotificationId,VendorId,CallCenterExpId');
+                            $this->db->from('callcenternotification');
+                            $this->db->where('NotificationId',$callCenterNotiId);
+                            $query = $this->db->get();
+                            $res = $query->row();
+                            //$res = $res->CallCenterExpId;
+                            /*$data = array();
+                            foreach ($res as $val) {
+                                $data = $val;
+                            }*/
+                            $res = explode(',', $res->CallCenterExpId);
+                            foreach ($res as $value) {
+                                $this->db->where('ExpId',$value);
+                                $this->db->update('callcenterexpenses',array('IsInvoiceGen'=>2,'ExpenseId'=>$callCenterUserId));
+                            }
+
+                        }
+
                         $UpdatedBal = ($bal->Balance-$euro_amount);
                         /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
                         . "Bank-Balance-Before: ". "Transaction ID:" . $transactionId  . ' - ' . $bal->Balance .PHP_EOL . "-------------------------" . PHP_EOL;
@@ -437,5 +470,14 @@ class Expenses extends CI_Controller {
         		}
 		}
 	}
+
+    public function updateCallCenterExp($id){
+        if(!isset($_SESSION['logged_in']))
+        {
+            redirect('login');
+        }
+        $_SESSION['callCenterUser'] =$id;
+        redirect('Expenses/addExpenseDetails');
+    }
 
 }

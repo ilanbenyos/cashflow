@@ -4,6 +4,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
    popup2 ();
 }
 ?>
+
 <div id="content">
   <div class="container-fluid">
     <h1>Vendors</h1>
@@ -11,50 +12,50 @@ if (isset ( $_SESSION ['pop_mes'] )) {
       <div class="row">
         <div class="col-md-12 text-right">
           <div class="add-icon-box"><a data-toggle="modal" data-target="#myModal" href="#"><span class="plus-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>Add New Vendor</a></div>
-		</div>
+        </div>
         <div class="col-md-12">
           <div class="table-responsive common-table">
             <table id="tablevendor" class="table table-hover" cellpadding="0" cellspacing="0">
               <thead>
                 <tr>
                   <th>Vendor Name</th>
-                 <!-- <th>Category</th>-->
+                  <!-- <th>Category</th>-->
                   <th>Invoice</th>
                   <th>Status</th>
-			  <th>Action</th>
+                  <th>Action</th>
                 </tr>
               </thead>
-              <tbody> 
-			  <?php foreach ($vendors as $vendor) { ?>
+              <tbody>
+                <?php foreach ($vendors as $vendor) { ?>
                 <tr>
                   <td><?php echo  $vendor->VendorName; ?></td>
-                <!--      <td><?php // echo  $vendor->Category; ?></td>-->
-                     <td><?php echo  $vendor->InvoiceType; ?></td>
-				<td><?php if($vendor->Active == "1" ){ echo '<span class="completed bold">Active</span>' ; }else{ echo  '<span class="pending bold">Disabled</span>' ;} ?></td>
-                   <td><a class="grey-icon edit_user" href="<?= base_url('configuration/vendors/update/'.$vendor->VendorId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                  <!--      <td><?php // echo  $vendor->Category; ?></td>-->
+                  <td><?php echo  $vendor->InvoiceType; ?></td>
+                  <td><?php if($vendor->Active == "1" ){ echo '<span class="completed bold">Active</span>' ; }else{ echo  '<span class="pending bold">Disabled</span>' ;} ?></td>
+                  <td><a class="grey-icon edit_user" href="<?= base_url('configuration/vendors/update/'.$vendor->VendorId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> <a class="grey-icon del_vendor" href="javascript:void(0);" onclick="myFunction(<?php echo $vendor->VendorId;?>);"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                 </tr>
-			  <?php } ?>
+                <?php } ?>
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
-	
-<!-- Button trigger modal --> 
-      <!-- Modal -->
-      <div class="modal common-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content clearfix">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h2 class="modal-title">Add New Vendor</h2>
-            </div>
-            <div class="modal-body clearfix">
-              <div class="defination-box clearfix">
-                <form class="form-horizontal clearfix" action="<?php echo base_url ('configuration/vendors/createVendor/')?>" id="addvendor" method="post" autocomplete="off">
+    
+    <!-- Button trigger modal --> 
+    <!-- Modal -->
+    <div class="modal common-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content clearfix">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h2 class="modal-title">Add New Vendor</h2>
+          </div>
+          <div class="modal-body clearfix">
+            <div class="defination-box clearfix">
+              <form class="form-horizontal clearfix" action="<?php echo base_url ('configuration/vendors/createVendor/')?>" id="addvendor" method="post" autocomplete="off">
                 <?= form_open()?>
-                    <?php 	
+                <?php 	
                     $token = md5(uniqid(rand(), TRUE));
                     if(isset ($_SESSION['vendor_details']))
                     {
@@ -62,20 +63,20 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                    }
                    $_SESSION['vendor_details'] = $token;
                    ?>
-                   <input type="hidden" name="vendor_details" value="<?php echo $token;?>">
-                   <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
-				 <div class="row clearfix spacetop4x">
-					<div class="clearfix">
-					  <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
-						<div class="col-md-12 col-sm-12 col-xs-12">
-						  <div class="form-group">
-							<label class="col-md-6 col-sm-6 col-xs-12">Vendor Name</label>
-							<div class="col-md-6 col-sm-6 col-xs-12">
-							  <input type="text" class="form-control" name="Vname" id="Vname" placeholder="Vendor Name" />
-							</div>
-						  </div>
-						</div>
-					<!--	<div class="col-md-12 col-sm-12 col-xs-12">
+                <input type="hidden" name="vendor_details" value="<?php echo $token;?>">
+                <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
+                <div class="row clearfix spacetop4x">
+                  <div class="clearfix">
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Vendor Name</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control" name="Vname" id="Vname" placeholder="Vendor Name" />
+                          </div>
+                        </div>
+                      </div>
+                      <!--	<div class="col-md-12 col-sm-12 col-xs-12">
 						  <div class="form-group">
 							<label class="col-md-4 col-sm-4 col-xs-12">Category</label>
 							<div class="col-md-8 col-sm-8 col-xs-12">
@@ -87,88 +88,84 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 							  </select>
 							</div>
 						  </div>
-						</div> --> 
-						<div class="col-md-12 col-sm-12 col-xs-12">
-						  <div class="form-group">
-							<label class="col-md-6 col-sm-6 col-xs-12">Invoice Frequency</label>
-							<div class="col-md-6 col-sm-6 col-xs-12">
-							  <select class="form-control" name="InvoiceType" id="InvoiceType" onchange="">
-								<option selected="" value="">Select Frequency</option>
-								<option value="Weekly">Weekly</option>
-								<option value="Monthly">Monthly</option>
-								<option value ="Quarterly">Quarterly</option>
-								<option value="Yearly">Yearly</option>
-                <option value="PerTransaction">Per Transaction</option>
-							  </select>
-							</div>
-						  </div>
-						</div>
-            <div class="col-md-12 col-sm-12 col-xs-12" id="weekly" style="display: none;">
-              <div class="form-group">
-              <label class="col-md-6 col-sm-6 col-xs-12">Reminder On</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                 <select class="form-control" name="weekly_reminder" id="weekly_reminder" onchange="">
-                  <option selected="" value="">Select Days</option>
-                  <option value="Sunday">Sunday</option>
-                  <option value="Monday">Monday</option>
-                  <option value="Tuesday">Tuesday</option>
-                  <option value="Wednesday">Wednesday</option>
-                  <option value="Thursday">Thursday</option>
-                  <option value="Friday">Friday</option>
-                  <option value="Saturday">Saturday</option>
-                </select> 
-              </div>
-              </div>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12" id="monthly" style="display: none;">
-              <div class="form-group">
-              <label class="col-md-6 col-sm-6 col-xs-12">Reminder On</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                 <div class="input-group date" data-provide="datepicker">
-                    <input type="text" class="form-control" name="monthly_reminder" id="monthly_reminder" />
-                    <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
-                  </div>
-              </div>
-              </div>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12" id="quartely" style="display: none;">
-              <div class="form-group">
-              <label class="col-md-6 col-sm-6 col-xs-12">Reminder On</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="input-group date" data-provide="datepicker">
-                    <input type="text" class="form-control" name="quartely_reminder" id="quartely_reminder" />
-                    <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+						</div> -->
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Invoice Frequency</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" name="InvoiceType" id="InvoiceType" onchange="">
+                              <option selected="" value="">Select Frequency</option>
+                              <option value="Weekly">Weekly</option>
+                              <option value="Monthly">Monthly</option>
+                              <option value ="Quarterly">Quarterly</option>
+                              <option value="Yearly">Yearly</option>
+                              <option value="PerTransaction">Per Transaction</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12" id="weekly" style="display: none;">
+                        <div class="form-group">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Reminder On</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" name="weekly_reminder" id="weekly_reminder" onchange="">
+                              <option selected="" value="">Select Days</option>
+                              <option value="Sunday">Sunday</option>
+                              <option value="Monday">Monday</option>
+                              <option value="Tuesday">Tuesday</option>
+                              <option value="Wednesday">Wednesday</option>
+                              <option value="Thursday">Thursday</option>
+                              <option value="Friday">Friday</option>
+                              <option value="Saturday">Saturday</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12" id="monthly" style="display: none;">
+                        <div class="form-group">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Reminder On</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="input-group date" data-provide="datepicker">
+                              <input type="text" class="form-control" name="monthly_reminder" id="monthly_reminder" />
+                              <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12" id="quartely" style="display: none;">
+                        <div class="form-group">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Reminder On</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="input-group date" data-provide="datepicker">
+                              <input type="text" class="form-control" name="quartely_reminder" id="quartely_reminder" />
+                              <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Invoice Date</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="input-group date" data-provide="datepicker">
+                              <input type="text" class="form-control" name="invoiceDate" id="invoiceDate" />
+                              <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Comments</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control" name="Comments"  id="Comments" placeholder="Comments" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-              </div>
-              </div>
-            </div>
-
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="form-group">
-              <label class="col-md-6 col-sm-6 col-xs-12">Invoice Date</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="input-group date" data-provide="datepicker">
-                    <input type="text" class="form-control" name="invoiceDate" id="invoiceDate" />
-                    <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
-                  </div>
-              </div>
-              </div>
-            </div>
-						  
-
-              <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="form-group">
-              <label class="col-md-6 col-sm-6 col-xs-12">Comments</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" class="form-control" name="Comments"  id="Comments" placeholder="Comments" />
-              </div>
-              </div>
-            </div>
-					  </div>
-					
-					  <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
-					
-						<!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box"> 
+                      
+                      <!-- <div class="col-md-12 col-sm-12 col-xs-12">
 						  <div class="form-group">
 							<label class="col-md-4 col-sm-4 col-xs-12">Bank Name</label>
 							<div class="col-md-8 col-sm-8 col-xs-12">
@@ -181,71 +178,117 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 							</div>
 						  </div>
 						</div> -->
-							<div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-6 col-sm-6 col-xs-12">Currency</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="hidden" class="form-control" name="Curr" id="Curr" />
-                         <!--  <input type="text" class="form-control" name="Currency" id="Currency"> -->
-                          <select class="form-control" name="Currency" id="Currency" >
-                             <!-- <option selected="" value="" id="val"></option> -->
-                             <option selected="" value="">Select Currency</option>
-                           <?php foreach ($currency as $curr) {
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Currency</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="hidden" class="form-control" name="Curr" id="Curr" />
+                            <!--  <input type="text" class="form-control" name="Currency" id="Currency"> -->
+                            <select class="form-control" name="Currency" id="Currency" >
+                              <!-- <option selected="" value="" id="val"></option> -->
+                              <option selected="" value="">Select Currency</option>
+                              <?php foreach ($currency as $curr) {
                              ?>
-                           <option value="<?php echo $curr->CurId; ?>"><?php echo $curr->CurName; ?></option>      
-                                  <?php   } ?>
-                          </select> 
+                              <option value="<?php echo $curr->CurId; ?>"><?php echo $curr->CurName; ?></option>
+                              <?php   } ?>
+                            </select>
+                          </div>
                         </div>
                       </div>
-                    </div>  
-						<div class="col-md-12 col-sm-12 col-xs-12">
-						     <div class="form-group">
-								<label class="col-md-6 col-sm-6 col-xs-12">Status</label>
-								<div class="col-md-6 col-sm-6 col-xs-12">
-	                <select class="form-control" name="Status" id="Status">
-                  <option selected="" value="">Select Status</option>
-									<option value="1">Active</option>      
-									<option value="0">Disabled</option>      
-								</select>
-								</div>
-							</div>
-						</div>
-					  </div>
-					</div>
-					<div class="col-xs-12 text-center spacetop4x">
-					<div class="page-loader" style="display:none;">
-                        <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Status</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" name="Status" id="Status">
+                              <!-- <option selected="" value="">Select Status</option> -->
+                              <option value="1">Active</option>
+                              <option value="0">Disabled</option>
+                            </select>
+                          </div>
+                        </div>
                       </div>
-					  <button type="submit" id="vendor-submit" class="btn-submit transitions">Submit</button>
-					  <button type="reset" class="btn-reset transitions">Reset</button>
-					</div>
-				  </div>
-                </form>
-              </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <div class="col-md-6 col-sm-6 col-xs-12 checkbox">
+                            <label>
+                              <input type="checkbox" name="callcenter" id="callcenter">
+                              <span class="cr"><i class="cr-icon fa fa-check"></i></span> <span class="acceptance">Call Center</span> </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12" id="show1" style="display: none;">
+                        <div class="form-group">
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" class="form-control" name="callcenterLocation" id="callcenterLocation" placeholder="Call Center Location">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" class="form-control" name="callcenterManager" id="callcenterManager" placeholder="Call Center Manager">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" class="form-control" name="callcenterCashBAl" id="callcenterCashBAl" placeholder="Call Center Cash Balance">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12" id="show3" style="display: none;">
+                        <div class="form-group"> </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 text-center spacetop4x">
+                    <div class="page-loader" style="display:none;">
+                      <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
+                    </div>
+                    <button type="submit" id="vendor-submit" class="btn-submit transitions">Submit</button>
+                    <button type="reset" class="btn-reset transitions">Reset</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-	  <!--modal end--->
-       <!--edit user modal starts  -->
-      <div class="modal common-modal" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content clearfix">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h2 class="modal-title">Edit Users</h2>
+    </div>
+    <!--modal end---> 
+    <!--edit user modal starts  -->
+    <div class="modal common-modal" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content clearfix">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h2 class="modal-title">Edit Users</h2>
+          </div>
+          <div class="modal-body"> </div>
+        </div>
+      </div>
+    </div>
+    <!--edit user modal ends  -->
+    <div class="modal common-modal" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content clearfix">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h2 class="modal-title">Notice</h2>
+          </div>
+          <div class="modal-body clearfix">
+            <div class="defination-box clearfix">
+              <p>Are you sure You want to delete?</p>
             </div>
-            <div class="modal-body">
-              
+            <div class="col-xs-12 text-center spacetop2x">
+              <button type="button" data-dismiss="modal" class="btn-submit transitions" data-value="1">Yes</button>
+              <button type="button" data-dismiss="modal" class="btn-submit transitions" data-value="0">NO</button>
             </div>
           </div>
         </div>
       </div>
-      <!--edit user modal ends  -->
     </div>
   </div>
-  <!-- Modal -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</div>
+<!-- Modal --> 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
 <script type="text/javascript">
   $(document).ready(function(){
     $("#weekly").hide();
@@ -271,7 +314,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
       }
     });
   });
-</script>
+</script> 
 <script type="text/javascript">
   (function($){
 
@@ -352,7 +395,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
      return returnvar;
       });
 })(jQuery);
-</script>
+</script> 
 <script type="text/javascript">
   $(document).ready(function(){
     $('#BankId').on('change',function() {
@@ -382,6 +425,38 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 
     });
     
+     $('input[type="checkbox"]').click(function(){
+            if($(this).prop("checked") == true){
+                $("#show1").show();
+                $("#show2").show();
+                $("#show3").show();
+            }
+            else if($(this).prop("checked") == false){
+                $("#show1").hide();
+                $("#show2").hide();
+                $("#show3").hide();
+            }
+        });
+    
   });
-</script>
+</script> 
+<script type="text/javascript">
+    var updateUrl="<?php echo base_url('configuration/vendors/delete/');?>";
 
+    var redirectUrl="<?php echo base_url('configuration/vendors')?>";
+    function myFunction(id){
+       //var r=confirm("Do you want to delete this?")
+      $("#myModal2").modal('show');
+      $('.transitions').click(function(){
+        var r = $(this).attr('data-value');
+        if (r=="1"){
+
+          window.top.location = updateUrl+id;
+        }
+        else{
+          window.top.location = redirectUrl;
+        }
+      });
+        
+        } 
+</script>

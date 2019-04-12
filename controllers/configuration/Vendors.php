@@ -88,6 +88,7 @@ echo '<pre/>';
     	        //$BankId = $this->input->post('BankId');
 				$Status= $this->input->post('Status');
 				$uid = $this->input->post('userid');
+				$callcenter = $this->input->post('callcenter');
 
 				if(	$this->input->post('Comments') 	!= ""){
 						$Comments= $this->input->post('Comments');
@@ -103,6 +104,18 @@ echo '<pre/>';
 					$reminderOn = $this->input->post('quartely_reminder');
 				}else{
 					$reminderOn = "";
+				}
+
+				if ($callcenter == 'on') {
+					$IsCallCenter = 1;
+					$callcenterLocation = $this->input->post('callcenterLocation');
+					$callcenterManager = $this->input->post('callcenterManager');
+					$callcenterCashBAl = $this->input->post('callcenterCashBAl');
+				}else{
+					$IsCallCenter = 0;
+					$callcenterLocation = "";
+					$callcenterManager = "";
+					$callcenterCashBAl = "";
 				}
 
 				$date = $invoiceDate;
@@ -123,6 +136,10 @@ echo '<pre/>';
     	            'InvoiceDate' => $date,
     	            //'BankId' => $BankId,
 					'Active' => $Status,
+					'IsCallCenter' => $IsCallCenter,
+					'CallCenterlocation' => $callcenterLocation,
+					'CallCenterManager' => $callcenterManager,
+					'CallCenterCashBalance' => $callcenterCashBAl,
 					'CreatedBy' => $uid,
 					'CreatedOn' =>$date
     	        );
@@ -242,9 +259,10 @@ echo '<pre/>';
 		}
 	}
 	public function update_notification($id) {
-		if (! isset ( $_SESSION ['logged_in'] )) {
-			redirect ( $this->uri->segment ( 1 ) . '/login' );
-		}
+		if(!isset($_SESSION['logged_in']))
+	    {
+	        redirect('login');
+	    }
 		//update notification status 
 		$userinfo = array (
 				'ReminderStatus' => '1' 
@@ -256,14 +274,28 @@ echo '<pre/>';
 		redirect('Expenses/addExpenseDetails');
 	}
 	public function notification(){
-		if (! isset ( $_SESSION ['logged_in'] )) {
-			redirect ( $this->uri->segment ( 1 ) . '/login' );
-		}
+		if(!isset($_SESSION['logged_in']))
+	    {
+	        redirect('login');
+	    }
 			$data['notification'] = $this->all_model->getAllNotifications();
 			$this->load->view('templates/header');
 			$this->load->view('templates/left-sidebar');
 			$this->load->view('notification',$data);
 			$this->load->view('templates/footer');
 
+	}
+	public function delete($id){
+		if(!isset($_SESSION['logged_in']))
+	    {
+	        redirect('login');
+	    }
+	    $data = array(
+	    	'IsDelete' => 0
+	    );
+	    $this->db->where('VendorId',$id);
+	    $this->db->update('vendormaster',$data);
+	    $_SESSION['pop_mes'] = "Vendor Deleted Successfully.";
+	    redirect('configuration/vendors');
 	}
 }

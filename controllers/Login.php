@@ -26,10 +26,10 @@ class Login extends CI_Controller {
 			$this->load->view('templates/footer');
 		}else{
 			$transactionId = guidv4 ( openssl_random_pseudo_bytes ( 16 ) );
-    		$log = "Transaction ID:" . $transactionId  . PHP_EOL . ''. PHP_EOL.
+    		/*$log = "Transaction ID:" . $transactionId  . PHP_EOL . ''. PHP_EOL.
     		"ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
 	        . "Login_Post_Request: " ."Transaction ID:" . $transactionId  . json_encode($_POST).PHP_EOL . "-------------------------" . PHP_EOL;
-	        file_put_contents ( logger_url, $log . "\n", FILE_APPEND );
+	        file_put_contents ( logger_url, $log . "\n", FILE_APPEND );*/
 
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
@@ -37,9 +37,9 @@ class Login extends CI_Controller {
 			if($resolvelogin = $this->all_model->user_login($username, $password))
 			{	
 
-				$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
+				/*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
 		        . "Resolve_login: ". "Transaction ID:" . $transactionId  . json_encode($resolvelogin) .PHP_EOL . "-------------------------" . PHP_EOL;
-		        file_put_contents ( logger_url, $log . "\n", FILE_APPEND );
+		        file_put_contents ( logger_url, $log . "\n", FILE_APPEND );*/
 					// set session user data
 
 					$_SESSION['userid']     = (int)$resolvelogin->UserID;
@@ -50,10 +50,10 @@ class Login extends CI_Controller {
 					$_SESSION['user_role']    = (string)$resolvelogin->RoleName;
 					$_SESSION['user_pass']  = (string)$resolvelogin->Password;
 
-					$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
+					/*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
 			        . "Set_session: ". "Transaction ID:" . $transactionId  . json_encode($_SESSION) .PHP_EOL . "-------------------------" . PHP_EOL;
 			        file_put_contents ( logger_url, $log . "\n", FILE_APPEND );
-
+*/
 
 					if($_SESSION['user_role'] == "Admin" )
 					{
@@ -62,6 +62,8 @@ class Login extends CI_Controller {
 						redirect('configuration');
 					}elseif ($_SESSION['user_role'] == "Book Keeper"){
 						redirect('configuration');
+					}elseif ($_SESSION['user_role'] == "Call Center x"){
+						redirect('all-expenses');
 					}
 			}
 			else

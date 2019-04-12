@@ -15,6 +15,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
     $this->db->select('u.UserID,u.Email,u.Active,u.Name,u.Password,u.RoleId,r.RoleName');
     $this->db->from('usermaster u');
     $this->db->join('rolemaster r', 'r.RoleId = u.RoleId');
+    $this->db->where('u.IsDelete',1);
     $this->db->order_by ( "u.CreatedOn", "desc" );
 
     $users = $this->db->get();
@@ -27,6 +28,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
     $getusers = $this->db->get();
     $getusers = $getusers->result_array();
 
+//print_r($vendors);
 ?>
 <!-- Page Content  -->
   <div id="content">
@@ -60,7 +62,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <td><?php echo $user['RoleName']; ?></td>
 				    <td><?php if($user['Active'] == "1" ){ echo '<span class="completed bold">Active</span>' ; }else{ echo  '<span class="pending bold">Disabled</span>' ;} ?></td>
                         <!-- <a class="td-link deposit_detailsuu" data-action="' + value_5 + '">' + full.acc + '</a> -->
-                        <td><a class="grey-icon edit_user" id="euser<?php echo $user['UserID']?>" data-toggle="modal" data-target="#myModal1" data-action="<?php echo base_url('configuration/users/editUser/')?><?php echo $user['UserID']?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                        <td><a class="grey-icon edit_user" id="euser<?php echo $user['UserID']?>" data-toggle="modal" data-target="#myModal1" data-action="<?php echo base_url('configuration/users/editUser/')?><?php echo $user['UserID']?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                          <a class="grey-icon del_user" id="euser<?php echo $user['UserID']?>" href="javascript:void(0);" onclick="myFunction(<?php echo $user['UserID'];?>);"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        </td>
                      </tr>
                   <?php }?>
                 </tbody>
@@ -153,16 +157,34 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         </div>
                       </div>
                     </div>
+                    
 				            <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-3 col-sm-4 col-xs-12">Status</label>
                         <div class="col-md-9 col-sm-8 col-xs-12">
 					                <select class="form-control" name="status" id="status">
-                            <option selected="" value="">Select Status</option>
+                            <!-- <option selected="" value="">Select Status</option> -->
                             <option value="1">Active</option>      
                             <option value="0">Disabled</option>      
                           </select>
                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12" id="vendor" style="display: none;">
+                      <div class="form-group">
+                        <label class="col-md-3 col-sm-4 col-xs-12">Select Vendor</label>
+                        <div class="col-md-9 col-sm-8 col-xs-12">
+                          <select class="form-control" name="vendor" id="vendor" onchange="">
+                            <option selected="" value="">Select Vendor</option>
+                            <?php foreach ($vendors as $val) { 
+                              ?>
+                            <option value="<?php echo $val->VendorId; ?>"><?php echo $val->VendorName; ?></option>   
+                                  <?php   } ?>
+                            <!-- <option selected="">Admin</option>
+                            <option>CEO</option>
+                            <option>Book Keeper</option> -->
+                          </select>
+                        </div>
                       </div>
                     </div>
                     <!--<div class="col-md-12 col-sm-12 col-xs-12">
@@ -200,6 +222,26 @@ if (isset ( $_SESSION ['pop_mes'] )) {
           </div>
         </div>
       </div>
+      <div class="modal common-modal" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content clearfix">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h2 class="modal-title">Notice</h2>
+            </div>
+            <div class="modal-body clearfix">
+              <div class="defination-box clearfix">
+                <p>Are you sure You want to delete?</p>
+
+              </div>
+              <div class="col-xs-12 text-center spacetop2x">
+              <button type="button" data-dismiss="modal" class="btn-submit transitions" data-value="1">Yes</button>
+              <button type="button" data-dismiss="modal" class="btn-submit transitions" data-value="0">NO</button>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <!--edit user modal ends  -->
     </div>
   </div>
@@ -229,6 +271,15 @@ if (isset ( $_SESSION ['pop_mes'] )) {
           var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
           return regex.test(email);
       }
+
+      $("#role").on('change',function(){
+        var role = $("#role").val();
+        if (role == 4) {
+          $("#vendor").show();
+        }else{
+          $("#vendor").hide();
+        }
+      });
     /*function IsPassword(password)
       {
           var regex = /^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,20}$/;
@@ -405,4 +456,23 @@ $(document).ready(function() {
     });
 });
 
+
+</script>
+<script type="text/javascript">
+    var url="<?php echo base_url();?>";
+    function myFunction(id){
+       //var r=confirm("Do you want to delete this?")
+      $("#myModal2").modal('show');
+      $('.transitions').click(function(){
+        var r = $(this).attr('data-value');
+        if (r=="1"){
+
+          window.top.location = url+"/delete/"+id;
+        }
+        else{
+          window.top.location = url;
+        }
+      });
+        
+        } 
 </script>
