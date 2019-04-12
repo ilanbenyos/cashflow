@@ -51,7 +51,7 @@ class All_model extends CI_Model {
 	    $this->db->from ( $table );
 		$this->db->join ('usermaster UM', 'B.CreatedBy = UM.UserID');
 		$this->db->join ('currencymaster C', 'B.CurId = C.CurId');
-		$this->db->where('b.IsDelete',1);
+		$this->db->where('B.IsDelete',1);
 		$this->db->order_by($value,$orderBy);
 	    return $this->db->get ()->result ();
 	}
