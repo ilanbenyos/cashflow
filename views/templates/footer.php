@@ -198,7 +198,7 @@ $(document).ready(function(){
     $(this).val(function(index, value) {
     return value
 
-      .replace(/\D/g, "")
+      //.replace(/\D/g, "")
       .replace(/([0-9])([0-9]{2})$/, '$1.$2')  
       .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
     ;
