@@ -274,7 +274,6 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 
       $("#role").on('change',function(){
         var role = $("#role").val();
-        alert(role);
         if (role == 4) {
           $("#vendor").show();
         }else{
