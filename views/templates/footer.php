@@ -198,7 +198,7 @@ $(document).ready(function(){
     $(this).val(function(index, value) {
     return value
 
-      .replace(/\D/g, "")
+      //.replace(/\D/g, "")
       //.replace(/([0-9])([0-9]{2})$/, '$1.$2')  
       .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
     ;
@@ -215,8 +215,8 @@ $('input.xyz').keyup(function(event) {
 
   $(this).val(function(index, value) {
     return value
-      .replace(/\D/g, "")
-      .regex(^(0|[1-9]\d*)$)
+      //.replace(/\D/g, "")
+      //.regex(^(0|[1-9]\d*)$)
       //.replace(/([0-9])([0-9]{2})$/, '$1.$2')  
       .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
     ;
