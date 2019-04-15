@@ -193,15 +193,16 @@ class Add_expenses extends CI_Controller {
 	}
 	public function generateInvoice(){
 		$invoice = $this->all_model->generateMonthlyInvoice();
-		
+ 		$month = date('M');
 		if (count($invoice) > 0) {
 			$sum = 0;
 			$data = array();
+			$expdate = array();
 			foreach ($invoice as $key => $value) {
-				
+
 				$sum+= $value->amount;
 				$data[] = $value->ExpId;
-
+				$expdate[] = $value->ExpDate;
 			
 			}
 			$this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
@@ -220,8 +221,6 @@ class Add_expenses extends CI_Controller {
 			$ExpId= json_encode($data);
 			$uid = $_SESSION['userid'];
 
-
-
 			$notification = array(
 				'VendorId'=>$userId,
 				'CallCenterExpId'=>implode(" , ", $data),
@@ -234,12 +233,19 @@ class Add_expenses extends CI_Controller {
 			$this->db->insert('callcenternotification',$notification);
 
 			//update callcenterexpenses 
-			$this->db->where('IsInvoiceGen',0);
-			$this->db->update('callcenterexpenses',array('IsInvoiceGen'=>1,'ExpenseId'=>$ExpId));
+			foreach ($data as  $val) {
+				$this->db->where('ExpId',$val);
+				$this->db->update('callcenterexpenses',array('IsInvoiceGen'=>1));
+			}
+			
+			
 			$_SESSION['pop_mes'] = "Invoice Generated Successfully.";
 			return 1;
-			
-		}
+			 
+		}/*else{
+			$_SESSION['pop_mes'] = "Current month Invoice not found. ";
+			return 1;
+		}*/
 		
 
 

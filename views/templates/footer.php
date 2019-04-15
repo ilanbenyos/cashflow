@@ -250,7 +250,7 @@ function ()
              output += "</ul>";
              //$.playSound("<?php //echo base_url('assets/popupnoti/slow-spring-board-longer-tail.mp3') ?>");
              new PNotify({
-                  text: value.Description +'<br>'+ 'Amount: '+ value.PlannedAmt,
+                  text: value.Description +' is due today of ' + 'amount: '+ value.PlannedAmt,
                   type: 'danger',
             
               });
