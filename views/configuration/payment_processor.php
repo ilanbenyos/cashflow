@@ -161,7 +161,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <label class="col-md-6 col-sm-6 col-xs-12">Status</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
 					      <select class="form-control" name="status" id="status">
-                  <option selected="" value="">Select Status</option>
+                  <!-- <option selected="" value="">Select Status</option> -->
                             <option value="1">Active</option>      
                             <option value="0">Disabled</option>      
                           </select>
