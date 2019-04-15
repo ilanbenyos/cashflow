@@ -46,7 +46,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   <?php }else{ ?>
                   <td></td>
                   <?php } ?>
-                  <?php if ($exp->IsInvoiceGen == 1) { ?>
+                  <?php if ($exp->IsInvoiceGen == 1 || $exp->IsInvoiceGen == 2) { ?>
                   <td><i class="fa fa-check" aria-hidden="true" style="color: #48ad14"></i></td>
                   <?php }else{ ?>
                   <td><i class="fa fa-times" aria-hidden="true" style="color: #d31c1c"></i></td>
