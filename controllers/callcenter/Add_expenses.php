@@ -102,7 +102,7 @@ class Add_expenses extends CI_Controller {
     		if(!empty($token) == $session_token){	
     			$expName = $this->input->post('expName');
     			$Vendorid = $this->input->post('Vendorid');
-    			$expAmount = $this->input->post('expAmount');
+    			$expAmount = str_replace(',','',$this->input->post('expAmount'));
     			$expDate = $this->input->post('expDate');
                 $expPaymentType = $this->input->post('expPaymentType');
                 $uid = $this->input->post('userid');
@@ -159,7 +159,7 @@ class Add_expenses extends CI_Controller {
         		{
         		$expName = $this->input->post('expName');
         		$Vendorid = $this->input->post('Vendorid');
-    			$expAmount = $this->input->post('expAmount');
+    			$expAmount = str_replace(',','',$this->input->post('expAmount'));
     			$expDate = $this->input->post('expDate');
                 $expPaymentType = $this->input->post('expPaymentType');
                 $uid = $this->input->post('userid');
