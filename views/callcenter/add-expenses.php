@@ -103,7 +103,7 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                     </div>
                     <button type="button" id="addExpense" class="btn-submit transitions">Submit</button>
                     <!-- <button type="reset" class="btn-reset transitions">Reset</button> --> 
-                    <a href="<?= base_url('expenses');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a> </div>
+                    <a href="<?= base_url('all-expenses');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a> </div>
                   <!-- </div> --> 
                 </div>
               </div>
