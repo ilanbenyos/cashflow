@@ -63,10 +63,26 @@ $_SESSION['form_token_addbank'] = $token;
                         <label class="col-md-5 col-sm-5 col-xs-12">Status</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="form-control" name="status" id="status">
-                            <option selected="" value="">Select Status</option>
+                            <!-- <option selected="" value="">Select Status</option> -->
                             <option value="1">Active</option>
                             <option value="0">Disabled</option>
                           </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Min Balance</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control xyz" placeholder="Min Balance" id="minBalance" name="minBalance" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Max Balance</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control xyz" placeholder="Max Balance" id="maxBalance" name="maxBalance" />
                         </div>
                       </div>
                     </div>
@@ -285,9 +301,9 @@ $('#addbankform').validate({ // initialize the plugin
             BankName: {
                 required: true,
             }
-			amount: {
+			/*amount: {
                 required: true,
-            }
+            }*/
         },
         submitHandler: function (form) { // for demo
             $("#addbankbtn").hide();
