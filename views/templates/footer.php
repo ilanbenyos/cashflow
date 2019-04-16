@@ -7,8 +7,6 @@
 <!----- Footer -----> 
 
 <!------------- Common JS -------------> 
-
-
 <script src="<?= base_url('assets/js/jquery.validate.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/additional-methods.js')?>"></script> 
 <script src="<?= base_url('assets/js/common.js')?>"></script> 
@@ -240,10 +238,10 @@ function ()
           else
           {
             
-               var updateurl = '<?php echo base_url ("psp_income/update_notification" ); ?>';
+               var updateurl = '<?php echo base_url ("psp_income/get_popup_notification" ); ?>';
               
              $.each( JSON.parse(msg), function( key, value ) {
-              console.log(value.TransId);
+              //sconsole.log(value.TransId);
             var output= "<ul>";
              output += "<li><a href="+updateurl+value.TransId+">"+value.Description+"</a></li>";
              output += "<li><a href="+updateurl+value.TransId+">"+value.PlannedAmt+"</a></li>";
@@ -251,6 +249,84 @@ function ()
              //$.playSound("<?php //echo base_url('assets/popupnoti/slow-spring-board-longer-tail.mp3') ?>");
              new PNotify({
                   text: value.Description +' is due today of ' + 'amount: '+ value.PlannedAmt,
+                  type: 'danger',
+            
+              });
+              });
+                
+           }
+          }
+      
+  });
+}, 20000); // refresh every 10000 milliseconds
+</script>
+<script type="text/javascript">
+var auto_refreshpopup = setInterval(
+function ()
+{
+  
+  
+  $.ajax({
+      type: 'POST',
+      url: '<?php echo base_url('configuration/configuration/minAlert') ?>',
+      success: function(msg) {
+          if (msg == 'loggedOut') {
+            //alert(msg);
+              window.location.href = '<?php echo base_url('login/') ?>';
+          }
+          else
+          {
+            
+               var updateurl = '<?php echo base_url ("configuration/configuration/minAlert" ); ?>';
+              
+             $.each( JSON.parse(msg), function( key, value ) {
+              //console.log(value);
+            var output= "<ul>";
+             output += "<li><a href="+updateurl+value.BankId+">"+value.MinBalance+"</a></li>";
+             output += "<li><a href="+updateurl+value.BankId+">"+value.Balance+"</a></li>";
+             output += "</ul>";
+             //$.playSound("<?php //echo base_url('assets/popupnoti/slow-spring-board-longer-tail.mp3') ?>");
+             new PNotify({
+                  text: 'Minimum Balance for ' + value.BankName + ' is ' + value.MinBalance,
+                  type: 'danger',
+            
+              });
+              });
+                
+           }
+          }
+      
+  });
+}, 20000); // refresh every 10000 milliseconds
+</script>
+<script type="text/javascript">
+var auto_refreshpopup = setInterval(
+function ()
+{
+  
+  
+  $.ajax({
+      type: 'POST',
+      url: '<?php echo base_url('configuration/configuration/maxAlert') ?>',
+      success: function(msg) {
+          if (msg == 'loggedOut') {
+            //alert(msg);
+              window.location.href = '<?php echo base_url('login/') ?>';
+          }
+          else
+          {
+            
+               var updateurl = '<?php echo base_url ("configuration/configuration/maxAlert" ); ?>';
+              
+             $.each( JSON.parse(msg), function( key, value ) {
+              //console.log(value);
+            var output= "<ul>";
+             output += "<li><a href="+updateurl+value.BankId+">"+value.MaxBalance+"</a></li>";
+             output += "<li><a href="+updateurl+value.BankId+">"+value.Balance+"</a></li>";
+             output += "</ul>";
+             //$.playSound("<?php //echo base_url('assets/popupnoti/slow-spring-board-longer-tail.mp3') ?>");
+             new PNotify({
+                  text: 'Maximum Balance for ' + value.BankName + ' is ' + value.MaxBalance,
                   type: 'danger',
             
               });
