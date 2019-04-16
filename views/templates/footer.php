@@ -16,11 +16,10 @@
 <script src="<?= base_url('assets/js/jquery.dataTables.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/dataTables.bootstrap.js')?>"></script> 
 <script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script>
-
 <script>
-// Sidebar js
-$.sidebarMenu($('.sidebar-menu'))
-	
+    $.sidebarMenu($('.sidebar-menu'))
+</script>
+<script>	
 $('#addbankform').validate({ // initialize the plugin
         rules: {
             BankName: {
