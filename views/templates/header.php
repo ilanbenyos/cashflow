@@ -228,5 +228,3 @@
 <!----- Header ends -----> 
 <!----- Wrapper starts ----->
 <div class="wrapper">
-<script type="text/javascript" src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script> 
-<script type="text/javascript" src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script> 
