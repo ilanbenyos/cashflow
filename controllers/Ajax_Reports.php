@@ -75,6 +75,8 @@ class Ajax_Reports extends CI_Controller {
     }
 	
 	function get_expense_by_category(){
+		/*$color= $this->randomColor();
+		print_r($color);exit();*/
 		$year =$_POST['year'];
 		$month1 =$_POST['month1'];
 		$month2 =$_POST['month2'];
@@ -84,16 +86,58 @@ class Ajax_Reports extends CI_Controller {
 			$month1 =$month2;
 		}
 		$data = $this->data_model->Expense_by_Category($year,$month1,$month2);
+		
+		$new_data = array();
 		if(!empty($data)){
 			foreach ($data as $single_array){
 				array_shift($single_array);
+				 $single_array['color']=$this->randomColor();
 				$new_data[]=$single_array;
+
+				//array_push($new_data['color'],$color);
+				
+				//$new_data['color']= $this->randomColor();
 			}
 		}else{
 			$new_data=$data;
 		}
+
+
 		print_r(json_encode($new_data, true));
     }
+    function randomColor(){
+    /*$result = array('rgb' => '', 'hex' => '');
+    foreach(array('r', 'b', 'g') as $col){
+        $rand = mt_rand(0, 255);
+        $result['rgb'][$col] = $rand;
+        $dechex = dechex($rand);
+        if(strlen($dechex) < 2){
+            $dechex = '0' . $dechex;
+        }
+        $result['hex'] .= $dechex;
+    }
+    return $result;*/
+    $hex = '#';
+ 
+//Create a loop.
+foreach(array('r', 'g', 'b') as $color){
+    //Random number between 0 and 255.
+    $val = mt_rand(0, 255);
+    //Convert the random number into a Hex value.
+    $dechex = dechex($val);
+    //Pad with a 0 if length is less than 2.
+    if(strlen($dechex) < 2){
+        $dechex = "0" . $dechex;
+    }
+    //Concatenate
+    $hex .= $dechex;
+}
+ 
+//Print out our random hex color.
+return $hex;
+}
+ 
+
 	
 	function get_psp_income_vs_commision(){
 		$year =$_POST['year'];
