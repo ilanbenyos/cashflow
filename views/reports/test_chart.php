@@ -151,6 +151,8 @@ var d = new Date();
                       chartLeftMargin:"15px",
                       chartRightMargin:"15px",
                       legendItemFontSize: "12",
+                      labelDisplay: "rotate",
+                      slantLabel: "1",
                      //plotTooltext: "Age group : $label<br>Total visit : $value",
                       theme: "fusion"
                     },
