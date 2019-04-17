@@ -98,7 +98,12 @@ header { position:relative; background: #fff; }
 .sidebar-menu > li > a > .fa { vertical-align: middle; font-size: 20px; color: #c1c81e; padding-right: 16px; }
 /*.sidebar-menu > li:hover > a, .sidebar-menu > li.active > a { color: #c1c81e; background: transparent; }*/
 .sidebar-menu > li > .treeview-menu { margin: 0; padding: 10px 0 10px 24px; border-top: 1px dashed #9a9a9a; }
-.sidebar-menu li.active > .treeview-menu { display: block; }
+/*.sidebar-menu li.active > .treeview-menu { display: block; }*/
+.sidebar-menu li > .treeview-menu { display: block; }
+.sidebar-menu li:last-child > .treeview-menu { display: none; }
+.sidebar-menu li.active:last-child > .treeview-menu { display: block; }
+/*.sidebar-menu li:first-child .treeview-menu.fade-in { display: none; opacity: 0; transition: opacity 300ms; }
+.sidebar-menu li.active:first-child .treeview-menu.fade-in { display: block; opacity: 1; }*/
 .sidebar-menu a { text-decoration: none; }
 .sidebar-menu .treeview-menu { display: none; list-style: none; padding: 0; margin: 0; }
 .sidebar-menu .treeview-menu .treeview-menu { padding-left: 20px; }
