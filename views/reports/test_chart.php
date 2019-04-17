@@ -150,6 +150,7 @@ var d = new Date();
                       pieRadius:"80",
                       chartLeftMargin:"15px",
                       chartRightMargin:"15px",
+                      legendItemFontSize: "14",
                      //plotTooltext: "Age group : $label<br>Total visit : $value",
                       theme: "fusion"
                     },
