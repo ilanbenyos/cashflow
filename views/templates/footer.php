@@ -63,7 +63,7 @@ else{
     $(".sidebar-menu li:first-child .treeview-menu").removeClass("fade-in");
 }
 if ($('.sidebar-menu li.treeview:first-child').hasClass('active')){
-     $(".sidebar-menu li:first-child .treeview-menu").addClass("fade-in");
+     $(".sidebar-menu li:first-child .treeview-menu").removeClass("fade-in");
 }
 
 });
