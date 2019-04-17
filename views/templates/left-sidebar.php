@@ -68,7 +68,8 @@
         <li><a href="<?= base_url('Reports/bank_balance')?>">Current Banks Balance </a></li>
         <li><a href="<?= base_url('Reports/expense_category')?>">Total Expenses Per Category</a></li>
       </ul>
-      <?php }else if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Book Keeper")){?>
+    </li>
+    <?php }else if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Book Keeper")){?>
     <li><a href="<?= base_url('psp-income')?>"><i class="fa fa-download" aria-hidden="true"></i> <span>PSP Income</span></a></li>
     <li><a href="<?= base_url('expenses')?>"><i i class="fa fa-briefcase"  aria-hidden="true"></i> <span>Expenses</span></a></li>
     <li><a href="<?= base_url('bank-transaction')?>"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Bank Transaction</span></a></li>
@@ -81,8 +82,9 @@
         <li><a href="<?= base_url('Reports/bank_balance')?>">Current Banks Balance </a></li>
         <li><a href="<?= base_url('Reports/expense_category')?>">Total Expenses Per Category</a></li>
       </ul>
-      <?php }elseif (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Call Center x")) { ?>
-    <li><a href="<?= base_url('all-expenses')?>"><i class="fa fa-briefcase" aria-hidden="true"></i> <span>Call Center Expenses</span></a></li>
-    <?php  } ?>
+    </li>
+    <?php }elseif (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Call Center x")) { ?>
+      <li><a href="<?= base_url('all-expenses')?>"><i class="fa fa-briefcase" aria-hidden="true"></i> <span>Call Center Expenses</span></a></li>
+      <?php  } ?>
   </ul>
 </nav>
