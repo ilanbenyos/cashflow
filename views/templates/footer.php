@@ -15,7 +15,7 @@
 <script src="<?= base_url('assets/js/SidebarNav.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/jquery.dataTables.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/dataTables.bootstrap.js')?>"></script> 
-<script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script>
+<script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script> 
 <script>
         $(document).ready(function(){
            $("a").attr("href");
@@ -39,7 +39,7 @@
 			//$('.sidebar-menu li:first-child .treeview-menu').addClass('fade-in');
 
 		})
-</script>
+</script> 
 
 <!--<script>
 $(document).ready(function(){
@@ -51,7 +51,7 @@ else{
 }
 
 });
-</script>-->
+</script>--> 
 
 <script>
 
@@ -70,12 +70,10 @@ if ($('.sidebar-menu li.treeview:first-child').hasClass('active')){
 
 
 
-</script>
-
-
+</script> 
 <script>
     $.sidebarMenu($('.sidebar-menu'))
-</script>
+</script> 
 <script>	
 $('#addbankform').validate({ // initialize the plugin
         rules: {
@@ -182,7 +180,7 @@ responsive  : true,
 
  
 });
-</script>
+</script> 
 <script type="text/javascript">
    $(document).ready(function() {
       $('select').change(function() {
@@ -203,7 +201,7 @@ responsive  : true,
             }
       });
 });
-</script>
+</script> 
 <script type="text/javascript">  // to disable future dates(Actual Date) for PSP Income and Expenses 
   jQuery(document).ready(function ($) {
       var today = new Date();
@@ -214,7 +212,7 @@ $('.datepicker').datepicker({
             maxDate: today
         });
   });
-</script>
+</script> 
 <script type="text/javascript"> // to format numbers i.e 1000 to 1,000
   /*$('input.xyz').keyup(function(event){
       // skip for arrow keys
@@ -276,7 +274,7 @@ $('input.xyz').keyup(function(event) {
     ;
   });
 });
-</script>
+</script> 
 <script type="text/javascript">
 var auto_refreshpopup = setInterval(
 function ()
@@ -315,7 +313,7 @@ function ()
       
   });
 }, 20000); // refresh every 10000 milliseconds
-</script>
+</script> 
 <!-- <script type="text/javascript">
 var auto_refreshpopup = setInterval(
 function ()
@@ -354,7 +352,7 @@ function ()
       
   });
 }, 20000); // refresh every 10000 milliseconds
-</script> -->
+</script> --> 
 <!-- <script type="text/javascript">
 var auto_refreshpopup = setInterval(
 function ()
