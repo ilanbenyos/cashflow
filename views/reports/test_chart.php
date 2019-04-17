@@ -74,121 +74,15 @@
     </div>
   </div>
 </div>
+<style type="text/css">
+    g[class^='raphael-group-'][class$='-creditgroup'] {
+         display:none !important;
+    }
+</style>
  <script src=" https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
  <script src=" https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
-<script type="text/javascript">
-    /*var d = new Date();
-    var month1 = day_of_the_month(d);
-    var month2 = month1;
-    var year = d.getFullYear();
-    function day_of_the_month(d)
-    { 
-      return (d.getMonth() < 10 ? '0' : '') + (d.getMonth()+1);
-    }
-      //google.charts.load('current', {'packages':['bar','corechart']});
-    
-      //google.charts.setOnLoadCallback(function(){drawChart(month1,month2,year)});
 
-
-    function drawChart(m1,m2,y) {
-  
-        $.ajax({
-        type: 'POST',
-        data: {
-            'month1': m1,
-            'month2': m2,
-            'year': y,
-        },
-        url: "<?php echo base_url('Ajax_Reports/get_expense_by_category'); ?>" ,
-        success: function (data1) {
-         //if (data1== '[]' ) {
-          var jsonData = $.parseJSON(data1);
-          for (var i = 0; i < jsonData.length; i++) {
-            //data.addRow([jsonData[i].Category, parseInt(jsonData[i].amount)]);
-            return [jsonData[i].Category, parseInt(jsonData[i].amount)];
-            //console.log([jsonData[i].Category, parseInt(jsonData[i].amount)]);
-          }
-          /*const dataSource = {
-                    chart: {
-                    //caption: "Countries With Most Oil Reserves [2017-18]",
-                    //subcaption: "In MMbbl = One Million barrels",
-                    xaxisname: "Categories",
-                    yaxisname: "Amount",
-                    //numbersuffix: "K",
-                    usePlotGradientColor: "1",
-                    plotGradientColor:"#ffffff"
-                    //theme: "fusion"
-                  },
-                  data:[jsonData[i].Category, parseInt(jsonData[i].amount)]
-          };*/
-   /* }
-     });
-    }*/
-  </script>
 <script type="text/javascript">
-  /*var test =  drawChart();
-  console.log(test);*/
-  /*const dataSource = {
-  chart: {
-    //caption: "Countries With Most Oil Reserves [2017-18]",
-    //subcaption: "In MMbbl = One Million barrels",
-    xaxisname: "Categories",
-    yaxisname: "Amount",
-    //numbersuffix: "K",
-    usePlotGradientColor: "1",
-    plotGradientColor:"#ffffff"
-    //theme: "fusion"
-  },
-  colorrange: {
-        "minvalue": "0",
-        "startlabel": "Low",
-        "endlabel": "High",
-        "code": "#FF4411",
-        "gradient": "1",
-        "color": [{
-            "maxvalue": "25",
-            "code": "#FFDD44",
-            "displayValue": "Median"
-        }, {
-            "maxvalue": "100",
-            "code": "#6baa01"
-        }]
-    },
-  data: [
-    {
-      label: "Venezuela",
-      value: "290"
-    },
-    {
-      label: "Saudi",
-      value: "260"
-    },
-    {
-      label: "Canada",
-      value: "180"
-    },
-    {
-      label: "Iran",
-      value: "140"
-    },
-    {
-      label: "Russia",
-      value: "115"
-    },
-    {
-      label: "UAE",
-      value: "100"
-    },
-    {
-      label: "US",
-      value: "30"
-    },
-    {
-      label: "China",
-      value: "30"
-    }
-  ]
-};*/
 var d = new Date();
     var month1 = day_of_the_month(d);
     var month2 = month1;
@@ -235,48 +129,46 @@ var d = new Date();
             }]
             test2.push(obj1);
           }*/
-         // console.log(test2);
+          console.log(test1);
 
           const dataSource = {
                     chart: {
+                      //caption: "Categories",
                       xaxisname: "Categories",
                       yaxisname: "Amount",
+                      bgColor:"#FFFFFF",
                       paletteColors: "#3366cc,#dc3912,#ff9900,#109618,#990099",
-                      //plotGradientColor:"#ffffff",
-                     theme: "fusion"
+                      startingAngle: "0",
+                      startingAngle: "120",
+                      showLabels: "1",
+                      showLegend: "1",
+                      enableMultiSlicing: "0",
+                      slicingDistance: "15",
+                      showPercentValues: "1",
+                      showPercentInTooltip: "0",
+                      alignCaptionWithCanvas:"1",
+                      pieRadius:"80",
+                      chartLeftMargin:"15px",
+                      chartRightMargin:"15px",
+                     //plotTooltext: "Age group : $label<br>Total visit : $value",
+                      theme: "fusion"
                     },
-                    /*colorrange: {
-                      minvalue: "0",
-                      startlabel: "Low",
-                      endlabel: "High",
-                      code: "#FF4411",
-                      gradient: "1",
-                      color: [{
-                          maxvalue: "25",
-                          code: "#FFDD44",
-                          displayValue: "Median"
-                      }, {
-                          maxvalue: "100",
-                          code: "#6baa01"
-                      }]
-                  },*/
                     data:test1
                   };
           //console.log(dataSource);
           FusionCharts.ready(function() {
+            //FusionCharts.options.SVGDefinitionURL = 'absolute';
             var myChart = new FusionCharts({
               type: "column3d",
               renderAt: "chart-container",
-              /*width: "40%",
-              height: "50%",*/
+              width: "450",
+              height: "300",
               dataFormat: "json",
               dataSource
             }).render();
             var myChart1 = new FusionCharts({
               type: "pie3d",
               renderAt: "piechart-container",
-              /*width: "40%",
-              height: "50%",*/
               dataFormat: "json",
               dataSource
             }).render();
