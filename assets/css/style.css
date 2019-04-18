@@ -69,7 +69,7 @@ header { position:relative; background: #fff; }
 .user-detail a span { position:relative; }
 .user-detail a span:after { position:absolute; content:"\f107"; top:-1px; right: -20px; font-size:14px; font-family: 'Fontawesome'; }
 .user-dropdown, .notification-dropdown { position: absolute; width:100%; top: 100%; left: 0; z-index: 1000; display: none; float: left; padding: 10px 0; text-align: center; list-style: none; background-color: #fff; color:#808080; border: 1px solid #adadad;}
-.notification-dropdown { height: 300px; overflow-y: scroll; }
+.notification-dropdown { /*height: 300px; overflow-y: scroll;*/ }
 .user-dropdown a, .user-dropdown a:hover, .user-dropdown a:focus { color: #808080; text-decoration:none; }
 .user-dropdown span { display: inline-block; padding: 0 10px; border-right: 1px solid #808080; }
 .user-dropdown span:last-child { border-right: none; }
