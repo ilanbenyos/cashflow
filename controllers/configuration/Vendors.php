@@ -110,7 +110,7 @@ echo '<pre/>';
 					$IsCallCenter = 1;
 					$callcenterLocation = $this->input->post('callcenterLocation');
 					$callcenterManager = $this->input->post('callcenterManager');
-					$callcenterCashBAl = $this->input->post('callcenterCashBAl');
+					$callcenterCashBAl = str_replace(',','',$this->input->post('callcenterCashBAl'));
 				}else{
 					$IsCallCenter = 0;
 					$callcenterLocation = "";
@@ -202,6 +202,7 @@ echo '<pre/>';
 				$Status= $this->input->post('Status');
     	       	$Comments= $this->input->post('Comments');
     	       	$uid = $this->input->post('userid');
+    	       	$callcenter = $this->input->post('callcenter');
 
 
     	       	if(	$this->input->post('Comments') 	!= ""){
@@ -219,6 +220,19 @@ echo '<pre/>';
 				}else{
 					$reminderOn = "";
 				}
+
+				if ($callcenter == 'on') {
+					$IsCallCenter = 1;
+					$callcenterLocation = $this->input->post('callcenterLocation');
+					$callcenterManager = $this->input->post('callcenterManager');
+					$callcenterCashBAl = str_replace(',','',$this->input->post('callcenterCashBAl'));
+				}else{
+					$IsCallCenter = 0;
+					$callcenterLocation = "";
+					$callcenterManager = "";
+					$callcenterCashBAl = "";
+				}
+
 				$date = $invoiceDate;
                         
                     $a2 = explode ( '/', $date );
@@ -237,6 +251,10 @@ echo '<pre/>';
     	            //'BankId' => $BankId,
 					'Comments' => $Comments,
 					'Active' => $Status,
+					'IsCallCenter' => $IsCallCenter,
+					'CallCenterlocation' => $callcenterLocation,
+					'CallCenterManager' => $callcenterManager,
+					'CallCenterCashBalance' => $callcenterCashBAl,
 					'ModifiedBy' => $uid
     	        );
 			 $this->db->where('VendorId',$id);

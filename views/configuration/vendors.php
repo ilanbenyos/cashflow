@@ -218,18 +218,21 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       </div>
                       <div class="col-md-12 col-sm-12 col-xs-12" id="show1" style="display: none;">
                         <div class="form-group">
-                          <div class="col-md-12 col-sm-12 col-xs-12">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Call Center Location</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" class="form-control" name="callcenterLocation" id="callcenterLocation" placeholder="Call Center Location">
                           </div>
                         </div>
                         <div class="form-group">
-                          <div class="col-md-12 col-sm-12 col-xs-12">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Call Center Manager</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" class="form-control" name="callcenterManager" id="callcenterManager" placeholder="Call Center Manager">
                           </div>
                         </div>
                         <div class="form-group">
-                          <div class="col-md-12 col-sm-12 col-xs-12">
-                            <input type="text" class="form-control" name="callcenterCashBAl" id="callcenterCashBAl" placeholder="Call Center Cash Balance">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Call Center Cash Balance</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control xyz" name="callcenterCashBAl" id="callcenterCashBAl" placeholder="Call Center Cash Balance">
                           </div>
                         </div>
                       </div>
@@ -288,7 +291,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
   </div>
 </div>
 <!-- Modal --> 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>  -->
 <script type="text/javascript">
   $(document).ready(function(){
     $("#weekly").hide();
