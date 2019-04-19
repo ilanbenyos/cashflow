@@ -17,31 +17,6 @@
 <script src="<?= base_url('assets/js/dataTables.bootstrap.js')?>"></script> 
 <script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script> 
 <script>
-        $(document).ready(function(){
-           $("a").attr("href");
-            $(".title:contains(Quick Sidebar)").on("click",function(){
-                 $(".sub-menu").not($(".sub-menu").eq(0)).hide(500);
-                $(".sub-menu").eq(0).toggle(500);
-            })
-            $(".title:contains(Email Templates)").on("click",function(){
-                $(".sub-menu").not($(".sub-menu").eq(1)).hide(500);
-                $(".sub-menu").eq(1).toggle(500);
-            })
-            $(".title:contains(aps)").on("click",function(){
-                $(".sub-menu").not($(".sub-menu").eq(2)).hide(500);
-                $(".sub-menu").eq(2).toggle(500);
-            })
-            $(".sub-menu li").on("click",function(){
-                $(".sub-menu li").removeClass("active");
-                $(this).addClass("active");
-            })
-			
-			//$('.sidebar-menu li:first-child .treeview-menu').addClass('fade-in');
-
-		})
-</script> 
-
-<!--<script>
 $(document).ready(function(){
 if ($('.sidebar-menu li.treeview:last-child').hasClass('active')){
      $(".sidebar-menu li:first-child .treeview-menu").addClass("fade-in");
@@ -49,27 +24,14 @@ if ($('.sidebar-menu li.treeview:last-child').hasClass('active')){
 else{
    $('.sidebar-menu li:first-child .treeview-menu').addClass('rotated')
 }
-
 });
-</script>--> 
-
+</script> 
 <script>
-
-$(document).ready(function(){
-if ($('.sidebar-menu li.treeview').hasClass('active')){
-     $(".sidebar-menu li:first-child .treeview-menu").addClass("fade-in");
-}
-else{
-    $(".sidebar-menu li:first-child .treeview-menu").removeClass("fade-in");
-}
-if ($('.sidebar-menu li.treeview:first-child').hasClass('active')){
-     $(".sidebar-menu li:first-child .treeview-menu").removeClass("fade-in");
-}
-
-});
-
-
-
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    document.getElementByClass('treeview-menu').className = 'slideDown';
+  }, 5000);
+}, false);
 </script> 
 <script>
     $.sidebarMenu($('.sidebar-menu'))

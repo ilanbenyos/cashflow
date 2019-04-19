@@ -68,8 +68,8 @@ header { position:relative; background: #fff; }
 .user-detail a span i { padding-right: 8px; font-size: 15px; }
 .user-detail a span { position:relative; }
 .user-detail a span:after { position:absolute; content:"\f107"; top:-1px; right: -20px; font-size:14px; font-family: 'Fontawesome'; }
-.user-dropdown, .notification-dropdown { position: absolute; width:100%; top: 100%; left: 0; z-index: 1000; display: none; float: left; padding: 10px 0; text-align: center; list-style: none; background-color: #fff; color:#808080; border: 1px solid #adadad;}
-.notification-dropdown { /*height: 300px; overflow-y: scroll;*/}
+.user-dropdown, .notification-dropdown { position: absolute; width:100%; top: 100%; left: 0; z-index: 1000; display: none; float: left; padding: 10px 0; text-align: center; list-style: none; background-color: #fff; color:#808080; border: 1px solid #adadad; }
+.notification-dropdown { /*height: 300px; overflow-y: scroll;*/ }
 .user-dropdown a, .user-dropdown a:hover, .user-dropdown a:focus { color: #808080; text-decoration:none; }
 .user-dropdown span { display: inline-block; padding: 0 10px; border-right: 1px solid #808080; }
 .user-dropdown span:last-child { border-right: none; }
@@ -88,23 +88,19 @@ header { position:relative; background: #fff; }
 .inner-menu li a { color: #000; padding: 0; }
 /***** Sidebar CSS Style *****/
 .wrapper { display: flex; width: 100%; position:relative; }
-#sidebar { min-width: 270px; max-width: 270px; min-height: inherit; background: #2a3241; color: #fff; /*transition: all 0.3s;*/ display: block; padding: 0; border-radius: 0; margin-bottom: 0; }
+#sidebar { min-width: 270px; max-width: 270px; min-height: inherit; background: #2a3241; color: #fff; transition: all 0.3s; display: block; padding: 0; border-radius: 0; margin-bottom: 0; }
 #sidebar.active { margin-left: -270px; }
 .sidebar-menu { list-style: none; margin: 0; padding: 22px; }
 .sidebar-menu > li { position: relative; margin: 0; padding: 0; border-bottom: 1px dashed #9a9a9a; }
-/*.sidebar-menu > li.treeview.active:first-child > a { color:#fff; }*/
 .sidebar-menu > li.treeview::after { font-family: 'Glyphicons Halflings'; content: "\e080"; transform: rotate(90deg); display: block; position: absolute; top: 16px; right: 0; border: none; font-size: 15px; color: #9a9a9a; transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; -moz-transition: all .5s ease; }
 .sidebar-menu > li > a { padding: 18px 5px; display: block; color: #fff; font-size: 15px; transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; -moz-transition: all .5s ease; }
 .sidebar-menu li a:hover { color: #c1c81e; }
 .sidebar-menu > li > a > .fa { vertical-align: middle; font-size: 20px; color: #c1c81e; padding-right: 16px; }
-/*.sidebar-menu > li:hover > a, .sidebar-menu > li.active > a { color: #c1c81e; background: transparent; }*/
 .sidebar-menu > li > .treeview-menu { margin: 0; padding: 10px 0 10px 24px; border-top: 1px dashed #9a9a9a; }
-/*.sidebar-menu li.active > .treeview-menu { display: block; }*/
-.sidebar-menu li > .treeview-menu { display: block; }
+.sidebar-menu li > .treeview-menu { /*display: block;*/ }
 .sidebar-menu li:last-child > .treeview-menu { display: none; }
 .sidebar-menu li.active:last-child > .treeview-menu { display: block; }
-/*.sidebar-menu li:first-child .treeview-menu.fade-in { display: none; opacity: 0; transition: opacity 300ms; }
-.sidebar-menu li.active:first-child .treeview-menu.fade-in { display: block; opacity: 1; }*/
+.sidebar-menu li.active:first-child > .treeview-menu { display: block; transition: 5s; }
 .sidebar-menu a { text-decoration: none; }
 .sidebar-menu .treeview-menu { display: none; list-style: none; padding: 0; margin: 0; }
 .sidebar-menu .treeview-menu .treeview-menu { padding-left: 20px; }
@@ -113,6 +109,45 @@ header { position:relative; background: #fff; }
 .sidebar-menu .treeview-menu > li > a > .fa-angle-left, .sidebar-menu .treeview-menu > li > a > .fa-angle-down { width: auto; }
 .sidebar-menu > li.active > a, .sidebar-menu .treeview-menu > li.active > a, .sidebar-menu .treeview-menu > li > a:hover { color: #c1c81e; }
 .treeview a .fa { vertical-align: middle; font-size: 14px; color: #c1c81e; padding-right: 10px; margin-top: -2px; }
+.treeview-menu { animation-name: slideDown; -webkit-animation-name: slideDown; animation-duration: 1s; -webkit-animation-duration: 1s; animation-timing-function: ease; -webkit-animation-timing-function: ease; visibility: visible !important; }
+ @keyframes slideDown {  0% {
+ transform: translateX(-100%);
+}
+ 50% {
+ transform: translateX(8%);
+}
+ 65% {
+ transform: translateX(-4%);
+}
+ 80% {
+ transform: translateX(4%);
+}
+ 95% {
+ transform: translateX(-2%);
+}
+ 100% {
+ transform: translateX(0%);
+}
+}
+ @-webkit-keyframes slideDown {  0% {
+ -webkit-transform: translateX(-100%);
+}
+ 50% {
+ -webkit-transform: translateX(8%);
+}
+ 65% {
+ -webkit-transform: translateX(-4%);
+}
+ 80% {
+ -webkit-transform: translateX(4%);
+}
+ 95% {
+ -webkit-transform: translateX(-2%);
+}
+ 100% {
+ -webkit-transform: translateX(0%);
+}
+}
 /***** Right Content CSS Style *****/
 #content { width: 100%; padding:30px 0 30px 20px; min-height: 100vh; transition: all 0.3s; position:relative; overflow: hidden; }
 .white-bg { background: #fff; padding: 24px; box-shadow: 0 0 10px #b1b1b1; position:relative; }
@@ -128,9 +163,7 @@ header { position:relative; background: #fff; }
 .common-table .table { margin-bottom:0; }
 .common-table .table thead tr th { background: #f4f7f9; color: #20a0a7; font-size: 15px; font-family: 'RobotoLight'; letter-spacing: 0.8px; padding: 12px 12px; text-transform:capitalize; }
 .common-table .table thead tr th, .common-table .table tbody tr td { vertical-align:middle; border-right: 1px solid #e2e2e2; }
-.common-table .table thead tr th:last-child, .common-table .table tbody tr td:last-child {
-    border-right: none;
-}
+.common-table .table thead tr th:last-child, .common-table .table tbody tr td:last-child { border-right: none; }
 .common-table .table tbody tr td { padding: 10px 12px; }
 .common-table .table tbody tr:hover { background-color: #f4f7f9; }
 .common-table .table tbody tr td i { cursor:pointer; }
@@ -334,8 +367,6 @@ footer { position:relative; }
 .morris-hover.morris-default-style .morris-hover-point { font-weight: 500; font-size: 16px; color: #2d3b48 !important; }
 .morris-hover.morris-default-style .morris-hover-row-label { background-color: #2d3b48; color: #ffffff; padding: 10px; border-radius: 5px 5px 0 0; margin: -10px -12px 10px; }
 .graph-chart { padding: 20px; position: relative; border: 1px solid #ececec; }
-
-
 /*******Filter in table CSS*********/
 .filterIcon { padding-left: 4px; }
 .modalFilter { display: none; height: auto; background: #FFF; border: none; padding: 0; position: absolute; z-index: 1001; width:auto !important; }
@@ -458,3 +489,4 @@ h3 { font-size: 22px; }
 .notification-detail { margin-right: 12px; }
 .action-icons span { padding: 0 0; font-size: 20px; margin-top: -5px; }
 }
+

@@ -111,11 +111,3 @@
       <?php  } ?>
   </ul> 
 </nav>
-<!--<style>
-.sub-menu {      display: none; 
-    opacity: 0; transition: opacity 800ms; }
-.active { color:#20a0a7; }
-.sidebar-menu > li .sub-menu {
-    display: block; opacity: 1;
-}
-</style>-->
