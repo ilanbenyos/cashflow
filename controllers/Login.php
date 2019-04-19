@@ -62,7 +62,7 @@ class Login extends CI_Controller {
 						redirect('configuration');
 					}elseif ($_SESSION['user_role'] == "Book Keeper"){
 						redirect('configuration');
-					}elseif ($_SESSION['user_role'] == "Call Center x"){
+					}elseif ($_SESSION['user_role'] == "Call Center User"){
 						redirect('all-expenses');
 					}
 			}
