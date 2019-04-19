@@ -211,17 +211,20 @@
                       </div>
                       <div class="col-md-12 col-sm-12 col-xs-12" id="show1" style="display: none;">
                         <div class="form-group">
-                          <div class="col-md-12 col-sm-12 col-xs-12">
+                        	<label class="col-md-6 col-sm-6 col-xs-12">Call Center Location</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" class="form-control" name="callcenterLocation" id="callcenterLocation" placeholder="Call Center Location">
                           </div>
                         </div>
                         <div class="form-group">
-                          <div class="col-md-12 col-sm-12 col-xs-12">
+                        	<label class="col-md-6 col-sm-6 col-xs-12">Call Center Manager</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" class="form-control" name="callcenterManager" id="callcenterManager" placeholder="Call Center Manager">
                           </div>
                         </div>
                         <div class="form-group">
-                          <div class="col-md-12 col-sm-12 col-xs-12">
+                        	<label class="col-md-6 col-sm-6 col-xs-12">Call Center Cash Balance</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" class="form-control xyz" name="callcenterCashBAl" id="callcenterCashBAl" placeholder="Call Center Cash Balance">
                           </div>
                         </div>
