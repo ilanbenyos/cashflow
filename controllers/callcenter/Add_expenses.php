@@ -71,7 +71,7 @@ class Add_expenses extends CI_Controller {
 	      $this->db->where('UserID',$_SESSION['userid']);
 	      $this->db->where('Active',1);
 	      $query = $this->db->get();
-	      $VendorId = $query->row();
+	      $VendorId = $query->row(); 
 		$data['expenses'] = $this->all_model->getAllCallCenterExp($VendorId->CallCenterVendorId);
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar');
