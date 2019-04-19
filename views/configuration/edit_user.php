@@ -131,11 +131,11 @@ $res = $query->result_array();
                 </form>
               </div>
               
-              <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+              <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 <script>
    $( function() {
     var $datepicker = $('#date1');
@@ -170,7 +170,7 @@ $res = $query->result_array();
         // on change show vendor data
       $("#role1").on('change',function(){
         var role = $("#role1").val();
-        alert(role);
+        //alert(role);
         if (role == '4' ) {
           $("#editVendor").show();
         }else{
