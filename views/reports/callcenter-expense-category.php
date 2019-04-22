@@ -119,7 +119,8 @@ var d = new Date();
           for (var i = 0; i < jsonData.length; i++) {
             var obj = {
               "label":jsonData[i].Category,
-              "value":parseInt(jsonData[i].amount)
+              "value":parseInt(jsonData[i].amount),
+              "color":jsonData[i].color
             }
             test1.push(obj);
           }

@@ -201,12 +201,13 @@ return $hex;
 		if(!empty($data)){
 			foreach ($data as $single_array){
 				array_shift($single_array);
+				$single_array['color']=$this->randomColor();
 				$new_data[]=$single_array;
 			}
 		}else{
 			$new_data=$data;
 		}
-
+		//print_r($this->db->last_query());exit();
 		print_r(json_encode($new_data, true));
     }
 	
