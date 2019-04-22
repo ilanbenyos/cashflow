@@ -96,6 +96,7 @@ header { position:relative; background: #fff; }
 .sidebar-menu > li > a { padding: 18px 5px; display: block; color: #fff; font-size: 15px; transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; -moz-transition: all .5s ease; }
 .sidebar-menu li a:hover { color: #c1c81e; }
 .sidebar-menu > li > a > .fa { vertical-align: middle; font-size: 20px; color: #c1c81e; padding-right: 16px; }
+.call-centre-icon { width: 20px; }
 .sidebar-menu > li > .treeview-menu { margin: 0; padding: 10px 0 10px 24px; border-top: 1px dashed #9a9a9a; }
 .sidebar-menu li > .treeview-menu { /*display: block;*/ }
 .sidebar-menu li:last-child > .treeview-menu { display: none; }
@@ -110,7 +111,7 @@ header { position:relative; background: #fff; }
 .sidebar-menu > li.active > a, .sidebar-menu .treeview-menu > li.active > a, .sidebar-menu .treeview-menu > li > a:hover { color: #c1c81e; }
 .treeview a .fa { vertical-align: middle; font-size: 14px; color: #c1c81e; padding-right: 10px; margin-top: -2px; }
 .treeview-menu { animation-name: slideDown; -webkit-animation-name: slideDown; animation-duration: 1s; -webkit-animation-duration: 1s; animation-timing-function: ease; -webkit-animation-timing-function: ease; visibility: visible !important; }
- @keyframes slideDown {  0% {
+ @keyframes slideDown { 0% {
  transform: translateX(-100%);
 }
  50% {
@@ -129,7 +130,7 @@ header { position:relative; background: #fff; }
  transform: translateX(0%);
 }
 }
- @-webkit-keyframes slideDown {  0% {
+ @-webkit-keyframes slideDown { 0% {
  -webkit-transform: translateX(-100%);
 }
  50% {
@@ -489,4 +490,3 @@ h3 { font-size: 22px; }
 .notification-detail { margin-right: 12px; }
 .action-icons span { padding: 0 0; font-size: 20px; margin-top: -5px; }
 }
-

@@ -76,7 +76,7 @@
     
         <?php 
         foreach ($callCenter as $value) { ?>
-          <li><a href="<?= base_url('all-expenses')?>"><i class="fa fa-phone" aria-hidden="true"></i> <span><?php echo $value->RoleName; ?></span></a></li>
+          <li><a href="<?= base_url('all-expenses')?>"><i class="fa"><img class="call-centre-icon img-responsive" src="<?= base_url('assets/images/callcenter-expenses.png')?>"></i><span>Call Center Expenses</span></a></li>
         <?php }
         ?>
 

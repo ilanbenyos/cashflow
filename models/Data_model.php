@@ -168,7 +168,7 @@ class Data_model extends CI_Model {
 	    $this->db->get();
 		$query1= $this->db->last_query();
 
-	    $this->db->select('TransId,(sum(ActualCom) +sum(AdditionalFees)) as amount,"PSP" As Category');
+	    $this->db->select('0,(sum(ActualCom) +(AdditionalFees)) as amount,"PSP" As Category');
 		$this->db->from('pspincome');
 		$this->db->where('ActualCom !=','0');
 		$this->db->where('MONTH(ActualDate)>=', $month1);
@@ -229,13 +229,13 @@ class Data_model extends CI_Model {
 		return $this->db->get()->result_array();
 	}
 	public function callCenterExoense($year,$month1,$month2){
-		$this->db->select('c.ExpId,c.ExpName,c.VendorId,sum(c.ExpAmount) as amount,c.ExpDate,c.ExpPaymentType,c.ExpenseId,c.CreatedOn,ex.CatId,ex.Category');
+		$this->db->select('c.ExpId,c.ExpName,c.VendorId,sum(c.ExpAmount) as amount,ex.Category');
 		$this->db->from('callcenterexpenses c');
 		$this->db->join('expcategory ex','ex.CatId = c.ExpName','left');
 		$this->db->where('c.ExpAmount >','0.00'); 
-		$this->db->where('MONTH(c.CreatedOn)>=', $month1);
-		$this->db->where('MONTH(c.CreatedOn)<=', $month2);
-        $this->db->where('YEAR(c.CreatedOn)', $year);
+		$this->db->where('MONTH(c.ExpDate)>=', $month1);
+		$this->db->where('MONTH(c.ExpDate)<=', $month2);
+        $this->db->where('YEAR(c.ExpDate)', $year);
 		$this->db->group_by('c.ExpName'); 
 	    $this->db->order_by('c.ExpName');
 	    return $this->db->get()->result_array();

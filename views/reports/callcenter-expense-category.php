@@ -155,7 +155,7 @@ var d = new Date();
                       legendItemFontSize: "12",
                       labelDisplay: "auto",
                       slantLabel: "1",
-                      numberSuffix: "k",
+                      //numberSuffix: "k",
                       yAxisMinValue:"0",
                       yAxisMaxValue:"200",
                       formatNumberScale:"0",

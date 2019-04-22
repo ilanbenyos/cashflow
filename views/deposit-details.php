@@ -238,7 +238,7 @@ initComplete: function () {
     var bankName = '<?php echo $_SESSION['bankName']; ?>';
     var maxBal = '<?php echo $_SESSION['MaxBalance']; ?>';
     var tooltip = new PNotify({
-                  text: 'Maximum Bank Balance for ' + bankName + ' is ' + maxBal,
+                  text: bankName +  " 's" + ' Balance Is More Than Maximum Balance Of ' + maxBal,
                   type: 'danger',
             
               });

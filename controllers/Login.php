@@ -58,6 +58,7 @@ class Login extends CI_Controller {
 					if($_SESSION['user_role'] == "Admin" )
 					{	$_SESSION['minBal'] =1;
 						$_SESSION['maxBal']=1;
+						$_SESSION['rolling_reserve'] = 1;
 						redirect('configuration');
 					}elseif ($_SESSION['user_role'] == "CEO" ) {
 						redirect('configuration');

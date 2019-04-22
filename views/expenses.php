@@ -189,7 +189,7 @@ initComplete: function () {
     var bankName = '<?php echo $_SESSION['bankName']; ?>';
     var minBal = '<?php echo $_SESSION['MinBalance']; ?>';
     var tooltip = new PNotify({
-                  text: 'Minimum Bank Balance for ' + bankName + ' is ' + minBal,
+                  text: bankName +  "'s" + ' Balance Is Below Minimum Balance Of ' + minBal,
                   type: 'danger',
             
               });

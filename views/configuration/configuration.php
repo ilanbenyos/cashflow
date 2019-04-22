@@ -106,7 +106,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
              output += "</ul>";
              //$.playSound("<?php //echo base_url('assets/popupnoti/slow-spring-board-longer-tail.mp3') ?>");
              new PNotify({
-                  text: 'Minimum Bank Balance for ' + value.BankName + ' is ' + value.MinBalance,
+                  text: value.BankName + "'s" + ' Balance Is Below Minimum Balance Of ' + value.MinBalance,
                   type: 'danger',
             
               });
@@ -147,7 +147,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
              output += "</ul>";
              //$.playSound("<?php //echo base_url('assets/popupnoti/slow-spring-board-longer-tail.mp3') ?>");
              new PNotify({
-                  text: 'Maximum Bank Balance for ' + value.BankName + ' is ' + value.MaxBalance,
+                  text: value.BankName + " 's" + ' Balance Is More Than Maximum Balance Of ' + value.MaxBalance,
                   type: 'danger',
             
               });
@@ -161,6 +161,47 @@ if (isset ( $_SESSION ['pop_mes'] )) {
   <?php if (isset($_SESSION['maxBal'])) { ?>
       max();
   <?php unset ( $_SESSION ['maxBal'] );
+} ?>
+//})
+</script>
+<script type="text/javascript">
+//$(document).ready(function(){
+  function rollingReserved(){
+    $.ajax({
+      type: 'POST',
+      url: '<?php echo base_url('psp_income/get_popup_notification') ?>',
+      success: function(msg) {
+          if (msg == 'loggedOut') {
+            //alert(msg);
+              window.location.href = '<?php echo base_url('login/') ?>';
+          }
+          else
+          {
+            
+               var updateurl = '<?php echo base_url ("psp_income/get_popup_notification" ); ?>';
+              
+             $.each( JSON.parse(msg), function( key, value ) {
+              //sconsole.log(value.TransId);
+            var output= "<ul>";
+             output += "<li><a href="+updateurl+value.TransId+">"+value.Description+"</a></li>";
+             output += "<li><a href="+updateurl+value.TransId+">"+value.PlannedAmt+"</a></li>";
+             output += "</ul>";
+             //$.playSound("<?php //echo base_url('assets/popupnoti/slow-spring-board-longer-tail.mp3') ?>");
+             new PNotify({
+                  text: value.Description +' is due today of ' + 'amount: '+ value.PlannedAmt,
+                  type: 'danger',
+            
+              });
+              });
+                
+           }
+          }
+      
+  });
+  }
+  <?php if (isset($_SESSION['rolling_reserve'])) { ?>
+      rollingReserved();
+  <?php unset ( $_SESSION ['rolling_reserve'] );
 } ?>
 //})
 </script>

@@ -138,12 +138,14 @@ if (isset ( $_SESSION ['pop_mes'] )) {
     $('#exptabledata').DataTable( {
     "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
     dom: "lBfrtip",
-     aaSorting: [[4, "desc"]],
+     aaSorting: [[0, "desc"]],
      columnDefs: [
    { orderable: false, targets: 6 }
 ],
 initComplete: function () {
-      configFilter(this, [1]);
+  if (user == "Admin") {
+    configFilter(this, [1]);
+  }
   }
 
   });
