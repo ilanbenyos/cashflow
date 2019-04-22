@@ -160,4 +160,17 @@ class Payment_processor extends CI_Controller {
     	    }
     	}
 	}
+    public function delete($id){
+        if(!isset($_SESSION['logged_in']))
+        {
+            redirect('login');
+        }
+        $data = array(
+            'IsDelete' => 0
+        );
+        $this->db->where('PspId',$id);
+        $this->db->update('pspmaster',$data);
+        $_SESSION['pop_mes'] = "Payment Processor Deleted Successfully.";
+        redirect('payment-processor');
+    }
 }

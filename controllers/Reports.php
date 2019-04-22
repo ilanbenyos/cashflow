@@ -54,4 +54,10 @@ class Reports extends CI_Controller {
 		$this->load->view('reports/test_chart');
 		$this->load->view('templates/footer');
 	}
+	public function callCenterExp(){
+		$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');
+		$this->load->view('reports/callcenter-expense-category');
+		$this->load->view('templates/footer');
+	}
 }

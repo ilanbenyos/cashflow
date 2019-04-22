@@ -17,6 +17,13 @@
           </div>
 	   </div> -->
         <div class="col-md-12 inline-divs text-right">
+          <div class="col-md-5 inline-divs text-left">
+            <div class="month-expense-box">
+              <div class="form-inline">
+                <label>This report will reflect the total amount paid to each vendor.</label>
+              </div>
+            </div>
+          </div> 
           <div class="month-expense-box">
             <label>Select months :</label>
             <div class="form-inline">

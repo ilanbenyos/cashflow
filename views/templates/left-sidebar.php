@@ -51,6 +51,13 @@
       </ul>
     </li>
   </ul>-->
+  <?php 
+    $this->db->select('RoleId,RoleName,Active');
+    $this->db->from('rolemaster');
+    $this->db->where('RoleId',4);
+    $callCenter = $this->db->get ()->result();
+    //print_r($callCenter);
+  ?>
   
   <ul class="sidebar-menu">
     <?php if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Admin"))
@@ -66,6 +73,13 @@
       </ul>
     </li>
     <li><a href="<?= base_url('psp-income')?>"><i class="fa fa-download" aria-hidden="true"></i> <span>PSP Income</span></a></li>
+    
+        <?php 
+        foreach ($callCenter as $value) { ?>
+          <li><a href="<?= base_url('all-expenses')?>"><i class="fa fa-phone" aria-hidden="true"></i> <span><?php echo $value->RoleName; ?></span></a></li>
+        <?php }
+        ?>
+
     <li><a href="<?= base_url('expenses')?>"><i  class="fa fa-briefcase"  aria-hidden="true"></i> <span>Expenses</span></a></li>
     <li><a href="<?= base_url('bank-transaction')?>"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Bank Transaction</span></a></li>
     <li class="treeview"> <a href="#"> <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
@@ -76,6 +90,7 @@
         <li><a href="<?= base_url('Reports/psp_commision')?>">PSP Income vs Commissions</a></li>
         <li><a href="<?= base_url('Reports/bank_balance')?>">Current Banks Balance </a></li>
         <li><a href="<?= base_url('Reports/expense_category')?>">Total Expenses Per Category</a></li>
+        <li><a href="<?= base_url('Reports/callCenterExp')?>">Call Center Expenses</a></li>
       </ul>
     </li>
     <?php }else if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "CEO")){?>

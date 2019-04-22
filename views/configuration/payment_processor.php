@@ -36,7 +36,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <td><?php echo date('d/m/Y', strtotime(str_replace('-','/', $psp->CreatedOn))); ?></td>
                         <td><?php echo $psp->Comments; ?></td>
 				    <td><?php if($psp->Active == "1" ){ echo '<b class= "completed bold" >Active</b>' ; }else{ echo  '<b class= "pending bold" style="margin-left: 0px;">Disabled</b>' ;} ?></td>
-                        <td><a class="grey-icon edit_psp" id="epsp<?php echo $psp->PspId?>" data-toggle="modal" data-target="#myModal1" data-action="<?php echo base_url('configuration/payment_processor/editpsp/')?><?php echo $psp->PspId?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                        <td><a class="grey-icon edit_psp" id="epsp<?php echo $psp->PspId?>" data-toggle="modal" data-target="#myModal1" data-action="<?php echo base_url('configuration/payment_processor/editpsp/')?><?php echo $psp->PspId?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <a class="grey-icon del_psp" href="javascript:void(0);" onclick="myFunction(<?php echo $psp->PspId;?>);"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                      </tr>
                  <?php } ?>
                 </tbody>
@@ -198,13 +199,33 @@ if (isset ( $_SESSION ['pop_mes'] )) {
         </div>
       </div>
       <!--edit psp modal ends  -->
+      <div class="modal common-modal" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content clearfix">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h2 class="modal-title">Notice</h2>
+            </div>
+            <div class="modal-body clearfix">
+              <div class="defination-box clearfix">
+                <p>Are you sure You want to delete?</p>
+
+              </div>
+              <div class="col-xs-12 text-center spacetop2x">
+              <button type="button" data-dismiss="modal" class="btn-submit transitions" data-value="1">Yes</button>
+              <button type="button" data-dismiss="modal" class="btn-submit transitions" data-value="0">NO</button>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>  
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 <script type="text/javascript">
   	(function($){
   		$('#psp_name').on('blur', function() {
@@ -305,4 +326,23 @@ if (isset ( $_SESSION ['pop_mes'] )) {
            $("#myModal1 .modal-body").load( load_data2 );
     	});
 	});
+</script>
+<script type="text/javascript">
+    var updateUrl="<?php echo base_url('configuration/payment_processor/delete/');?>";
+
+    var redirectUrl="<?php echo base_url('payment-processor')?>";
+   // alert(url);
+    function myFunction(id){
+      $("#myModal2").modal('show');
+      $('.transitions').click(function(){
+        var r = $(this).attr('data-value');
+        if (r=="1"){
+          window.top.location = updateUrl+id;
+        }
+        else{
+          window.top.location = redirectUrl;
+        }
+      });
+        
+        } 
 </script>

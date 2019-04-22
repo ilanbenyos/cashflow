@@ -22,6 +22,12 @@
         <div class="col-md-12 inline-divs text-right">
           <div class="col-md-4 inline-divs text-left">
             <div class="month-expense-box">
+              <div class="form-inline">
+                <label>This report will show all the current banks balance in EUR</label>
+              </div>
+            </div>
+          </div> 
+          <div class="month-expense-box">
               <div class="form-inline" onload="sumOfBanks()">
                 <label>Sum Of Banks:</label>
                 <div class="input-group">
@@ -29,7 +35,6 @@
                 </div>
               </div>
             </div>
-          </div> 
           <!-- <div class="month-expense-box">
             <label>Select months :</label>
             <div class="form-inline">

@@ -182,3 +182,24 @@ initComplete: function () {
             $('#mask').hide();
         }
 </script>
+<script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script>
+<script type="text/javascript">
+
+  function minAlert(){
+    var bankName = '<?php echo $_SESSION['bankName']; ?>';
+    var minBal = '<?php echo $_SESSION['MinBalance']; ?>';
+    var tooltip = new PNotify({
+                  text: 'Minimum Bank Balance for ' + bankName + ' is ' + minBal,
+                  type: 'danger',
+            
+              });
+  }
+
+
+  <?php if (isset($_SESSION['minBal'])) { ?>
+      minAlert();
+      //delete minBal;
+  <?php unset ( $_SESSION ['minBal'] );
+} ?>
+
+</script>

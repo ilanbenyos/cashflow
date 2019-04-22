@@ -1,7 +1,9 @@
 <?php 
 if (isset ( $_SESSION ['pop_mes'] )) {
    popup2 ();
+   
 }
+//print_r($_SESSION);
 ?>
 <!-- Page Content  -->
 <div id="content">
@@ -228,4 +230,22 @@ initComplete: function () {
             rootNode.hide();
             $('#mask').hide();
         }
+</script>
+<script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script>
+<script type="text/javascript">
+  function maxAlert(){
+    //alert(121212);
+    var bankName = '<?php echo $_SESSION['bankName']; ?>';
+    var maxBal = '<?php echo $_SESSION['MaxBalance']; ?>';
+    var tooltip = new PNotify({
+                  text: 'Maximum Bank Balance for ' + bankName + ' is ' + maxBal,
+                  type: 'danger',
+            
+              });
+  }
+
+  <?php if (isset($_SESSION['maxBal'])) { ?>
+      maxAlert();
+  <?php  unset ( $_SESSION ['maxBal'] );
+} ?>
 </script>

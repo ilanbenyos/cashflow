@@ -200,7 +200,7 @@ class Psp_income extends CI_Controller {
                     file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );
 
                     $table = 'bankmaster';
-                    $columns = 'BankName,Balance';
+                    $columns = 'BankName,Balance,MaxBalance,BankId';
                     $wherecol = 'BankId';
                     $data['getBankBal'] = $this->all_model->getbankData($table,$columns,$wherecol,$BankId);
                     //$updatedBal = ($data['getBankBal']->Balance + $acnetAmt);
@@ -271,6 +271,13 @@ class Psp_income extends CI_Controller {
                             . "Add-PSP-Info: ". "Transaction ID:" . $transactionId  . ' - ' . "Bank-Balance-Before: " . $data['getBankBal']->Balance .','
                             ."Bank-Balance-After: ".$updatedBal .','."Success-Message: ".$_SESSION['pop_mes']. PHP_EOL . "-------------------------" . PHP_EOL;
                             file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );
+                            if ($data['getBankBal']->Balance > $data['getBankBal']->MaxBalance) {
+                                $_SESSION['bankId']=$data['getBankBal']->BankId;
+                                $_SESSION['balance']=$data['getBankBal']->Balance;
+                                $_SESSION['bankName']=$data['getBankBal']->BankName;
+                                $_SESSION['MaxBalance']=$data['getBankBal']->MaxBalance;
+                                $_SESSION['maxBal']="yes";
+                            }
 					return 1;
         		}else{
         			$_SESSION['pop_mes'] = "Token does not match."; 
@@ -436,7 +443,7 @@ class Psp_income extends CI_Controller {
                     file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );
 
                     $table = 'bankmaster';
-                    $columns = 'BankName,Balance';
+                    $columns = 'BankName,Balance,MaxBalance';
                     $wherecol = 'BankId';
                     $data['getBankBal'] = $this->all_model->getbankData($table,$columns,$wherecol,$BankId);
                         
@@ -500,7 +507,7 @@ class Psp_income extends CI_Controller {
 
 
                             $table = 'bankmaster';
-                            $columns = 'BankName,Balance';
+                            $columns = 'BankName,Balance,MaxBalance';
                             $wherecol = 'BankId';
                             $data['getBankBal'] = $this->all_model->getbankData($table,$columns,$wherecol,$BankId);
 
@@ -574,6 +581,14 @@ class Psp_income extends CI_Controller {
                             . "Edit-PSP-Info: ". "Transaction ID:" . $transactionId  . ' - ' . "Bank-Balance-Before: " . $data['getBankBal']->Balance .','. 
                             "ActualNetAmt-Before-Edit: ". $acamtnetReceivebefore .','."Bank-Balance-After: ".$updatedBal .','."Success-Message: ".$_SESSION['pop_mes']. PHP_EOL . "-------------------------" . PHP_EOL;
                             file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );
+                            if ($data['getBankBal']->Balance > $data['getBankBal']->MaxBalance) {
+                                $_SESSION['bankId']=$data['getBankBal']->BankId;
+                                $_SESSION['balance']=$data['getBankBal']->Balance;
+                                $_SESSION['bankName']=$data['getBankBal']->BankName;
+                                $_SESSION['MaxBalance']=$data['getBankBal']->MaxBalance;
+                                $_SESSION['maxBal']="yes";
+                            }
+                            
 	        		redirect('psp-income');
         		}else{
         			$_SESSION['pop_mes'] = "Token does not match.";
@@ -584,5 +599,39 @@ class Psp_income extends CI_Controller {
         		}
 		}
 	}
+    public function get_popup_notification() {
+        
+        if (! isset ( $_SESSION ['logged_in'] )) {
+            
+            echo "loggedOut";
+            
+        } else {
+            
+            
+            $date = date("Y-m-d");
+
+             $this->db->select('TransId, ExpDate, PlannedAmt, Description');
+               $this->db->from('pspincome');
+               $this->db->where('isCRR', 0);
+               $this->db->where('CRRId !=',0);
+               //$this->db->where('Day(STR_TO_DATE(REPLACE(ExpDate , "/", ","),"%d,%m,%Y")) = day(NOW())');
+               $this->db->where('ExpDate',$date);
+               $query = $this->db->get ();
+            $result = $query->result ();
+              //$query4= $this->db->last_query();
+            
+            //$count = $result[0]->count;
+            $notarra =array();
+            foreach ( $result as $notif ) {
+                //print_r($notif);
+                $notarra[] = $notif;
+            }
+            
+            echo json_encode($notarra);
+            
+            
+            }
+        
+    }
 
 }

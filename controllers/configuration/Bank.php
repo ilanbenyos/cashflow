@@ -86,6 +86,8 @@ class Bank extends CI_Controller {
     	            'InCom' => str_replace(',','',$this->input->post('InCom')),
     	            'OutCom' => str_replace(',','',$this->input->post('OutCom')),
 					'Active' => $this->input->post('status'),
+					'MinBalance' => str_replace(',','',$this->input->post('minBalance')),
+					'MaxBalance' => str_replace(',','',$this->input->post('maxBalance')),
 					'CreatedBy'=> $_SESSION['userid'],
     	        );
 					
@@ -155,7 +157,7 @@ class Bank extends CI_Controller {
 		if ($this->form_validation->run () === FALSE) {
 		$data ['title'] = 'Update New Bank';
 		$table = 'bankmaster';
-		$columns = 'BankName,Balance,InComP,OctComP,InCom,OutCom,Active,CreatedBy,CurId';
+		$columns = 'BankName,Balance,InComP,OctComP,InCom,OutCom,Active,CreatedBy,CurId,MinBalance,MaxBalance';
 		$wherecol = 'BankId';
 		$data['result'] = $this->all_model->getbankData($table,$columns,$wherecol,$id);
 		$data['currency'] = $this->all_model->getAllCurrency();
@@ -189,6 +191,8 @@ class Bank extends CI_Controller {
     	            'InCom' => str_replace(',','',$this->input->post('InCom')),
     	            'OutCom' => str_replace(',','',$this->input->post('OutCom')),
 					'Active' => $this->input->post('status'),
+					'MinBalance' => str_replace(',','',$this->input->post('minBalance')),
+					'MaxBalance' => str_replace(',','',$this->input->post('maxBalance')),
 					'ModifiedBy'=> $_SESSION['userid'],
     	        );
 
@@ -310,9 +314,22 @@ class Bank extends CI_Controller {
 		}
 
 	}
+	public function delete($id){
+		if(!isset($_SESSION['logged_in']))
+	    {
+	        redirect('login');
+	    }
+	    $data = array(
+	    	'IsDelete' => 0
+	    );
+	    $this->db->where('BankId',$id);
+	    $this->db->update('bankmaster',$data);
+	    $_SESSION['pop_mes'] = "Bank Deleted Successfully.";
+	    redirect('configuration/bank');
+	}
 	public function test(){ // not in use
 		
-		$cur = 'EUR';
+		/*$cur = 'EUR';
 		$val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
 				
 				$val=json_decode($val);
@@ -320,11 +337,27 @@ class Bank extends CI_Controller {
 				$exchange_rate = $val->rates->EUR;
 				$amount = 1200 * $exchange_rate;
 				print_r($amount);exit();
-				print_r(number_format((float)$amount, 2, '.', ''));
+				print_r(number_format((float)$amount, 2, '.', ''));*/
 				/*$current_val=$val->rates->$table_currency;
 			
 				$new_val = $amount * $current_val;
 				 
 				$trans_amount=number_format((float)$new_val, 2, '.', '');*/
+				//$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar2');
+		//$this->load->view('configuration/transfer_type',$data);
+		//$this->load->view('templates/footer');
+	}
+	public function test2(){
+		
+		$this->load->view('templates/left-sidebar2');
+	}
+	public function test3(){
+		
+		$this->load->view('templates/left-sidebar2');
+	}
+	public function test4(){
+		
+		$this->load->view('templates/left-sidebar2');
 	}
 }

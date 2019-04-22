@@ -80,3 +80,87 @@ if (isset ( $_SESSION ['pop_mes'] )) {
   <?php } ?>
   </div>
 </div>
+<script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script>
+<script type="text/javascript">
+  
+//$(document).ready(function(){
+  function min(){
+    $.ajax({
+      type: 'POST',
+      url: '<?php echo base_url('configuration/configuration/minAlert') ?>',
+      success: function(msg) {
+          if (msg == 'loggedOut') {
+            //alert(msg);
+              window.location.href = '<?php echo base_url('login/') ?>';
+          }
+          else
+          {
+            
+               var updateurl = '<?php echo base_url ("configuration/configuration/minAlert" ); ?>';
+              
+             $.each( JSON.parse(msg), function( key, value ) {
+              //console.log(value);
+            var output= "<ul>";
+             output += "<li><a href="+updateurl+value.BankId+">"+value.MinBalance+"</a></li>";
+             output += "<li><a href="+updateurl+value.BankId+">"+value.Balance+"</a></li>";
+             output += "</ul>";
+             //$.playSound("<?php //echo base_url('assets/popupnoti/slow-spring-board-longer-tail.mp3') ?>");
+             new PNotify({
+                  text: 'Minimum Bank Balance for ' + value.BankName + ' is ' + value.MinBalance,
+                  type: 'danger',
+            
+              });
+              });
+           }
+          }
+      
+  });
+  }
+  <?php if (isset($_SESSION['minBal'])) { ?>
+      min();
+  <?php unset ( $_SESSION ['minBal'] );
+} ?>
+  
+//})
+</script>
+<script type="text/javascript">
+//$(document).ready(function(){
+  function max(){
+    $.ajax({
+      type: 'POST',
+      url: '<?php echo base_url('configuration/configuration/maxAlert') ?>',
+      success: function(msg) {
+          if (msg == 'loggedOut') {
+            //alert(msg);
+              window.location.href = '<?php echo base_url('login/') ?>';
+          }
+          else
+          {
+            
+               var updateurl = '<?php echo base_url ("configuration/configuration/maxAlert" ); ?>';
+              
+             $.each( JSON.parse(msg), function( key, value ) {
+              //console.log(value);
+            var output= "<ul>";
+             output += "<li><a href="+updateurl+value.BankId+">"+value.MaxBalance+"</a></li>";
+             output += "<li><a href="+updateurl+value.BankId+">"+value.Balance+"</a></li>";
+             output += "</ul>";
+             //$.playSound("<?php //echo base_url('assets/popupnoti/slow-spring-board-longer-tail.mp3') ?>");
+             new PNotify({
+                  text: 'Maximum Bank Balance for ' + value.BankName + ' is ' + value.MaxBalance,
+                  type: 'danger',
+            
+              });
+              });
+                
+           }
+          }
+      
+  });
+  }
+  <?php if (isset($_SESSION['maxBal'])) { ?>
+      max();
+  <?php unset ( $_SESSION ['maxBal'] );
+} ?>
+//})
+</script>

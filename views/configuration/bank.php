@@ -37,7 +37,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                         <td><?php echo $row->CurName; ?></td>
                         <td><?php echo $row->Name; ?></td>
 				    <td><?php if($row->Active == "1" ){ echo '<span class="completed bold">Active</span>' ; }else{ echo  '<span class="pending bold">Disabled</span>' ;} ?></td>
-                      <td><a class="grey-icon edit_user" href="<?= base_url('configuration/bank/update/'.$row->BankId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                      <td><a class="grey-icon edit_user" href="<?= base_url('configuration/bank/update/'.$row->BankId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                      <a class="grey-icon del_bank" href="javascript:void(0);" onclick="myFunction(<?php echo $row->BankId;?>);"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                      </tr>
                   <?php }?>
 				
@@ -48,7 +49,44 @@ if (isset ( $_SESSION ['pop_mes'] )) {
           </div>
         </div>
       </div>
+      <div class="modal common-modal" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content clearfix">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h2 class="modal-title">Notice</h2>
+            </div>
+            <div class="modal-body clearfix">
+              <div class="defination-box clearfix">
+                <p>Are you sure You want to delete?</p>
+
+              </div>
+              <div class="col-xs-12 text-center spacetop2x">
+              <button type="button" data-dismiss="modal" class="btn-submit transitions" data-value="1">Yes</button>
+              <button type="button" data-dismiss="modal" class="btn-submit transitions" data-value="0">NO</button>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- Modal -->
- 
+<script type="text/javascript">
+    var url="<?php echo base_url();?>";
+    function myFunction(id){
+       //var r=confirm("Do you want to delete this?")
+      $("#myModal2").modal('show');
+      $('.transitions').click(function(){
+        var r = $(this).attr('data-value');
+        if (r=="1"){
+
+          window.top.location = url+"/delete/"+id;
+        }
+        else{
+          window.top.location = url;
+        }
+      });
+        
+        } 
+</script>

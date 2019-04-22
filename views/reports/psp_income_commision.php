@@ -19,6 +19,13 @@
           </div>
 	   </div> -->
         <div class="col-md-12 inline-divs text-right">
+          <div class="col-md-5 inline-divs text-left">
+            <div class="month-expense-box">
+              <div class="form-inline">
+                <label>This report will show what percentage from the settlement has been paid to each PSP. The higher the percentage, the more expensive the PSP.</label>
+              </div>
+            </div>
+          </div> 
           <div class="month-expense-box">
             <label>Select months :</label>
             <div class="form-inline">

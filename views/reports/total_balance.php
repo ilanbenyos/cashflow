@@ -17,6 +17,13 @@
           </div>
 	   </div> -->
         <div class="col-md-12 inline-divs text-right">
+          <div class="col-md-5 inline-divs text-left">
+            <div class="month-expense-box">
+              <div class="form-inline">
+                <label>This report will show the total income versus the total outcome into a profit or loss result.</label>
+              </div>
+            </div>
+          </div> 
         <div class="month-expense-box">
             <div class="form-inline">
               <label>Select a year :</label>

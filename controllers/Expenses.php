@@ -83,9 +83,12 @@ class Expenses extends CI_Controller {
 			}elseif(!empty($_SESSION['callCenterUser'])){
                 $notificationID = $_SESSION['callCenterUser'];
                 $data['callCenter'] = $this->all_model->callCenterVendor($notificationID);
-                
-                 $vendorID = $data['callCenter']->VendorId;
+                if (isset($data['callCenter']->VendorId)) {
+                    $vendorID = $data['callCenter']->VendorId;
                  $data['vendors_first']=$this->all_model->GET_vendors($vendorID);
+                 unset($_SESSION['callCenterUser']);
+                }
+                 
 
             }else{
 			   $data['vendors_first']="";
@@ -274,6 +277,13 @@ class Expenses extends CI_Controller {
                             . "Add-Exp-Info: ". "Transaction ID:" . $transactionId  . ' - ' . "Bank-Balance-Before: " . $bal->Balance .','
                             ."Bank-Balance-After: ".$UpdatedBal .','."Success-Message: ".$_SESSION['pop_mes']. PHP_EOL . "-------------------------" . PHP_EOL;
                             file_put_contents (logger_url_exp, $log . "\n", FILE_APPEND );
+                            if ($bal->Balance < $bal->MinBalance) {
+                                $_SESSION['bankId']=$bal->BankId;
+                                $_SESSION['balance']=$bal->Balance;
+                                $_SESSION['bankName']=$bal->BankName;
+                                $_SESSION['MinBalance']=$bal->MinBalance;
+                                $_SESSION['minBal']="yes";
+                            }
 					return 1;
         		}else{
         			$_SESSION['pop_mes'] = "Token does not match.";
@@ -377,7 +387,7 @@ class Expenses extends CI_Controller {
                         $euro_amount = $nfb * $exchange_rate;
                     }*/
 
-                    $this->db->select('BankId,BankName,Balance');
+                    $this->db->select('BankId,BankName,Balance,MinBalance');
                     $this->db->from('bankmaster');
                     $this->db->where('BankId',$BankId);
                     $bal = $this->db->get()->row();
@@ -453,9 +463,15 @@ class Expenses extends CI_Controller {
                         $_SESSION['pop_mes'] = "Not Sufficient Balance.";
                     redirect('expenses');
                     }*/
-                    
 
 	        		$_SESSION['pop_mes'] = "Expenses Updated Successfully.";
+                    if ($bal->Balance < $bal->MinBalance) {
+                                $_SESSION['bankId']=$bal->BankId;
+                                $_SESSION['balance']=$bal->Balance;
+                                $_SESSION['bankName']=$bal->BankName;
+                                $_SESSION['MinBalance']=$bal->MinBalance;
+                                $_SESSION['minBal']="yes";
+                            }
                         /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Edit-Exp" . PHP_EOL
                             . "Edit-Exp-Info: ". "Transaction ID:" . $transactionId  . ' - ' . "Bank-Balance-Before: " . $bal->Balance .','
                             ."Bank-Balance-After: ".$updatedBal .','."Success-Message: ".$_SESSION['pop_mes']. PHP_EOL . "-------------------------" . PHP_EOL;

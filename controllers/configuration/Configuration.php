@@ -17,33 +17,47 @@ class Configuration extends CI_Controller {
 	    {
 	        redirect('login');
 	    }
-		
-		$data['results'] = $this->all_model->get_all_banks();
-		$balance = array();
-		$minBalance = array();
-		$maxBalance = array();
-		foreach ($data['results'] as $value) {
-			$balance[] = $value->Balance;
-			$minBalance[] = $value->MinBalance;
-			$maxBalance[] = $value->MaxBalance;
-			
-			/*if ($value->Balance < $value->MinBalance) {
-				$_SESSION['pop_mes'] = "Minimum bank balance for $value->BankName Bank  is $value->MinBalance."; 
-			}elseif($value->Balance > $value->MaxBalance){
-				$_SESSION['pop_mes'] = "Maximum bank balance for $value->BankName Bank  is $value->MaxBalance.";
-			}*/
-			
-
-		}/*
-		$this->db->select('BankId,BankName,Balance,MinBalance');
-			$this->db->from('bankmaster');
-			$this->db->where_in('MinBalance < ',$minBalance);
-			$bankBalance= $this->db->get ()->result();
-			print_r($this->db->last_query());*/
-
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar');
 		$this->load->view('configuration/configuration');
 		$this->load->view('templates/footer');
+	}
+	public function minAlert(){
+		if(!isset($_SESSION['logged_in']))
+	    {
+	        redirect('login');
+	    }else{
+	    $data = $this->all_model->get_all_banks();
+		$minarray = array();
+		$mindata = array();
+		foreach ($data as $value) {
+			$minarray[] = $value;
+		}
+		foreach ($minarray as $key => $val) {
+			if ($val->Balance < $val->MinBalance) {
+				$mindata[] = $val;
+			}
+		}
+		echo json_encode($mindata);
+	    }
+	}
+	public function maxAlert(){
+		if(!isset($_SESSION['logged_in']))
+	    {
+	        redirect('login');
+	    }else{
+	    $data = $this->all_model->get_all_banks();
+		$maxarray = array();
+		$maxdata = array();
+		foreach ($data as $value) {
+			$maxarray[] = $value;
+		}
+		foreach ($maxarray as $key => $val) {
+			if ($val->Balance > $val->MaxBalance) {
+				$maxdata[] = $val;
+			}
+		}
+		echo json_encode($maxdata);
+	    }
 	}
 }
