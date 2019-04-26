@@ -5,6 +5,11 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 }
 ?>
 <!-- Page Content  -->
+<style type="text/css">
+  .ui-pnotify.custom .ui-pnotify-container {
+background-color: #90989d !important;
+}
+</style>
 
 <div id="content">
   <div class="container-fluid">
@@ -108,6 +113,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
              new PNotify({
                   text: value.BankName + "'s" + ' Balance Is Below Minimum Balance Of ' + value.MinBalance,
                   type: 'danger',
+                  addclass: 'custom',
             
               });
               });
@@ -149,6 +155,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
              new PNotify({
                   text: value.BankName + " 's" + ' Balance Is More Than Maximum Balance Of ' + value.MaxBalance,
                   type: 'danger',
+                  addclass: 'custom',
+  
             
               });
               });
@@ -190,6 +198,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
              new PNotify({
                   text: value.Description +' is due today of ' + 'amount: '+ value.PlannedAmt,
                   type: 'danger',
+                  addclass: 'custom'
             
               });
               });

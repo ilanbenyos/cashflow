@@ -5,6 +5,11 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 }
 //print_r($_SESSION);
 ?>
+<style type="text/css">
+  .ui-pnotify.custom .ui-pnotify-container {
+background-color: #90989d !important;
+}
+</style>
 <!-- Page Content  -->
 <div id="content">
   <div class="container-fluid">
@@ -240,6 +245,7 @@ initComplete: function () {
     var tooltip = new PNotify({
                   text: bankName +  " 's" + ' Balance Is More Than Maximum Balance Of ' + maxBal,
                   type: 'danger',
+                  addclass: 'custom'
             
               });
   }

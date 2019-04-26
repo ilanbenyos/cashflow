@@ -3,6 +3,11 @@ if (isset ( $_SESSION ['pop_mes'] )) {
    popup2 ();
 }
 ?>
+<style type="text/css">
+  .ui-pnotify.custom .ui-pnotify-container {
+background-color: #90989d !important;
+}
+</style>
 <!-- Page Content  -->
 <div id="content">
   <div class="container-fluid">
@@ -191,6 +196,7 @@ initComplete: function () {
     var tooltip = new PNotify({
                   text: bankName +  "'s" + ' Balance Is Below Minimum Balance Of ' + minBal,
                   type: 'danger',
+                  addclass: 'custom'
             
               });
   }

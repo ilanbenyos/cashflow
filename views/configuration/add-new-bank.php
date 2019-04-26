@@ -72,17 +72,17 @@ $_SESSION['form_token_addbank'] = $token;
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Min Balance</label>
+                        <label class="col-md-5 col-sm-5 col-xs-12">Set Minimum Alert</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" placeholder="Min Balance" id="minBalance" name="minBalance" />
+                          <input type="text" class="form-control xyz" placeholder="Set Minimum Alert" id="minBalance" name="minBalance" />
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Max Balance</label>
+                        <label class="col-md-5 col-sm-5 col-xs-12">Set Maximum Alert</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" placeholder="Max Balance" id="maxBalance" name="maxBalance" />
+                          <input type="text" class="form-control xyz" placeholder="Set Maximum Alert" id="maxBalance" name="maxBalance" />
                         </div>
                       </div>
                     </div>
