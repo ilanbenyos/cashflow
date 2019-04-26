@@ -418,8 +418,11 @@ $('.datepicker').datepicker({
 
                     var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
-                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);
-                    $("#bankcomm").val(bankcomm);
+                    var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees)-parseInt(rolingReserved);
+                    var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
+
+                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);
+                    $("#bankcomm").val(bankcomm2);
                     $("#acamtval").val(commAmount);
                     $("#nettoBankAmt").val(netToBank);
                     //net to bank amount calculation end
@@ -480,8 +483,11 @@ $('.datepicker').datepicker({
 
                     var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
-                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);
-                    $("#bankcomm").val(bankcomm);
+                    var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees)-parseInt(rolingReserved);
+                    var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
+
+                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);
+                    $("#bankcomm").val(bankcomm2);
                     $("#acamtval").val(commAmount);
                     $("#nettoBankAmt").val(netToBank);
                     //net to bank amount calculation end
@@ -513,9 +519,9 @@ $('.datepicker').datepicker({
       }
       //alert(crrAmt);
       $("#crrAmt").val(crrAmt);                                      //CRR Amount
-      console.log('actualAmt' + actualAmt);
+      /*console.log('actualAmt' + actualAmt);
       console.log('crrComm' + crrComm);
-      console.log('crrAmt' + crrAmt);
+      console.log('crrAmt' + crrAmt);*/
       //alert(actualAmt);
 
 
@@ -524,16 +530,20 @@ $('.datepicker').datepicker({
       var accommP = $("#accommval").val();                          //PSP Commission 
       var bankcommP = $("#bankcommP").val();                        //BAnk Inflow Commission
       var rolingReserved = $("#crrAmt").val();
-      console.log('rolingReserved' + rolingReserved);
+      //console.log('rolingReserved' + rolingReserved);
       //var commAmount = ("#acamtval").val();
 
       var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
-
+      
       var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
-      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2); 
-      console.log('Net To Bank' +  netToBank);
-      $("#bankcomm").val(bankcomm);
+      var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees)-parseInt(rolingReserved);
+      var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
+      //console.log('bankcomm1  ' + bankcomm1);
+
+      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2); 
+      //console.log('Net To Bank' +  netToBank);
+      $("#bankcomm").val(bankcomm2);
       $("#acamtval").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
 
@@ -580,10 +590,12 @@ $('.datepicker').datepicker({
 
       var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
+      var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees)-parseInt(rolingReserved);
+      var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
       
 
-      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);  
-      $("#bankcomm").val(bankcomm);
+      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);  
+      $("#bankcomm").val(bankcomm2);
       $("#acamtval").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
 

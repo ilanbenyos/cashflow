@@ -461,10 +461,11 @@ if ($("#acamtReceive").val() == 0.00) {
 
                     var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
-                    
+                    var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees);
+                    var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
 
-                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);  
-                    $("#bankcomm").val(bankcomm);
+                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)).toFixed(2);  
+                    $("#bankcomm").val(bankcomm2);
                     $("#acamtval").val(commAmount);
                     $("#nettoBankAmt").val(netToBank);
 
@@ -503,10 +504,11 @@ if ($("#acamtReceive").val() == 0.00) {
 
       var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
-      
+      var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees);
+      var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
 
-      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);  
-      $("#bankcomm").val(bankcomm);
+      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)).toFixed(2);  
+      $("#bankcomm").val(bankcomm2);
       $("#acamtval").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
 
@@ -561,10 +563,11 @@ if ($("#acamtReceive").val() == 0.00) {
 
                     //var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
-                    
+                    var bankcomm1 = parseInt(actualAmt)-parseInt(fees);
+                    var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
 
-                    var netToBank = Number(parseInt(actualAmt)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);  
-                    $("#bankcomm").val(bankcomm);
+                    var netToBank = Number(parseInt(actualAmt)-parseInt(bankcomm2)-parseInt(fees)).toFixed(2);  
+                    $("#bankcomm").val(bankcomm2);
                     //$("#acamtval").val(commAmount);
                     $("#nettoBankAmt").val(netToBank);
 
@@ -603,10 +606,13 @@ if ($("#acamtReceive").val() == 0.00) {
 
       var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
+      var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees);
+      var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
+
       
 
-      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)-parseInt(fees)).toFixed(2);  
-      $("#bankcomm").val(bankcomm);
+      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)).toFixed(2);  
+      $("#bankcomm").val(bankcomm2);
       $("#acamtval").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
 
@@ -718,8 +724,11 @@ var crrVal = $("#crrVal").val();
 
                     var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
-                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm)).toFixed(2); ;
-                    $("#bankcomm").val(bankcomm);
+                    var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees);
+                    var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
+
+                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)).toFixed(2); ;
+                    $("#bankcomm").val(bankcomm2);
                     $("#acamtval").val(commAmount);
                     $("#nettoBankAmt").val(netToBank);
                     //net to bank amount calculation end
