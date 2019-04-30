@@ -5,6 +5,7 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
       $this->db->where('Active',1);
       $query = $this->db->get();
       $VendorId = $query->row();
+      //print_r($vendors->VendorId);
  ?>
 <!-- Page Content  -->
 <div id="content">
@@ -36,6 +37,22 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                     <h4>General Information</h4>
                   </div>
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
+                    <?php if($_SESSION['user_role'] == "Admin") { ?>
+                      <div class="col-md-12 col-sm-12 col-xs-12" >
+                      <div class="form-group align-4x-top">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Select Vendor</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <select class="form-control" name="Vendorid" id="vendor" onchange="">
+                            <option selected="" value="">Select Vendor</option>
+                            <?php foreach ($vendors as $val) { 
+                              ?>
+                            <option <?php if($val->VendorId == $expenses->VendorId){ echo 'selected="selected"'; } ?> value="<?php echo $val->VendorId; ?>"><?php echo $val->VendorName; ?></option>   
+                                  <?php   } ?>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <?php }?>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group align-4x-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Expense Name</label>
@@ -95,7 +112,7 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                     <div class="page-loader" style="display:none;">
                       <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
                     </div>
-                    <button type="submit" id="editExpense" class="btn-submit transitions">Submit</button>
+                    <!-- <button type="submit" id="editExpense" class="btn-submit transitions">Submit</button> -->
                     <!-- <button type="reset" class="btn-reset transitions">Reset</button> --> 
                     <a href="<?= base_url('all-expenses');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a> </div>
                   <!-- </div> --> 
@@ -118,6 +135,14 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
     }    
 </script> 
 <script type="text/javascript">
+  $(document).ready(function(){
+    $('#vendor').attr('disabled',true);
+    $('#expName').attr('disabled',true);
+    $('#expAmount').attr('disabled',true);
+    $('#expDate').attr('disabled',true);
+    $('#expPaymentType').attr('disabled',true);
+
+  })
   $("#editExpense").click(function(){
         var returnvar = true;
       if($("#expName").val() ==""){

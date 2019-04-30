@@ -11,6 +11,7 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
       $query = $this->db->get();
       $VendorId = $query->row();
       //print_r($VendorId->CallCenterVendorId);
+//print_r($_SESSION);
 ?>
 <!-- Page Content  -->
 
@@ -34,8 +35,9 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                 ?>
               <input type="hidden" name="expense_token_add" value="<?php echo $token;?>">
               <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
+              <?php if($_SESSION['user_role'] != "Admin") { ?>
               <input type="hidden" name="Vendorid" value="<?php echo $VendorId->CallCenterVendorId ?>">
-
+              <?php }?>
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex"> 
                   <!--planned info starts -->
@@ -43,6 +45,23 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                     <h4>General Information</h4>
                   </div>
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
+                    <?php if($_SESSION['user_role'] == "Admin") { ?>
+                      <div class="col-md-12 col-sm-12 col-xs-12" id="vendor">
+                      <div class="form-group align-4x-top">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Select Vendor</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <select class="form-control" name="Vendorid" id="vendor" onchange="">
+                            <option selected="" value="">Select Vendor</option>
+                            <?php foreach ($vendors as $val) { 
+                              ?>
+                            <option value="<?php echo $val->VendorId; ?>"><?php echo $val->VendorName; ?></option>   
+                                  <?php   } ?>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <?php }?>
+                    
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group align-4x-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Expense Name</label>
