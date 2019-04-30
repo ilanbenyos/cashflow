@@ -337,6 +337,7 @@ class All_model extends CI_Model {
 		$this->db->from('vendormaster');
 		$this->db->where('Active',1);
 		$this->db->where('Comments!=',"");
+		$this->db->ORDER_BY('VendorId','DESC');
 		return $this->db->get()->result();
 	}
 	public function getAllCallCenterExp($vendorid){ 
@@ -346,6 +347,7 @@ class All_model extends CI_Model {
 		$this->db->join('usermaster u','c.VendorId = u.CallCenterVendorId');
 		$this->db->where('c.VendorId',$vendorid);
 		$this->db->where('e.Active',1);
+		$this->db->where('c.IsDelete',1);
 		//$this->db->order_by('c.CreatedOn','DESC');
 		$this->db->order_by('c.CreatedOn','DESC');
 		//$this->db->join('psptype p','p.TypeId=c.ExpPaymentType');
@@ -354,7 +356,7 @@ class All_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 	public function editCallCenterExp($id){
-		$this->db->select('c.ExpId,c.ExpName,c.ExpAmount,c.ExpDate,c.ExpPaymentType,e.CatId,e.Category,e.Active');
+		$this->db->select('c.ExpId,c.ExpName,c.VendorId,c.ExpAmount,c.ExpDate,c.ExpPaymentType,e.CatId,e.Category,e.Active');
 		$this->db->from('callcenterexpenses c');
 		$this->db->join('expcategory e','c.ExpName = e.CatId');
 		//$this->db->join('psptype p','p.TypeId=c.ExpPaymentType');
@@ -364,12 +366,30 @@ class All_model extends CI_Model {
 		return $this->db->get()->row();
 	}
 	public function generateMonthlyInvoice(){
-		$this->db->select('ExpId,ExpName,sum(ExpAmount) as amount,CreatedOn,ExpDate');
+		/*$this->db->select('ExpId,ExpName,sum(ExpAmount) as amount,CreatedOn,ExpDate');
 		$this->db->from('callcenterexpenses');
 		$this->db->where('IsInvoiceGen',0);
 		$this->db->where('MONTH(ExpDate)=MONTH(CURRENT_DATE())');
+		$this->db->group_by('ExpId');*/
+		//$this->db->order_by('ExpId','DESC');
+		$this->db->select('c.ExpId,c.VendorId,c.ExpName,sum(c.ExpAmount) as amount,c.CreatedOn,c.ExpDate,u.UserID,u.CallCenterVendorId');
+		$this->db->from('callcenterexpenses c');
+		$this->db->join('usermaster u','c.VendorId = u.CallCenterVendorId');
+		//$this->db->where('u.UserID',$_SESSION['userid']);
+		$this->db->where('c.IsInvoiceGen',0);
+		$this->db->where('MONTH(c.ExpDate)=MONTH(CURRENT_DATE())');
+		$this->db->group_by('c.ExpId');
+		return $this->db->get()->result();
+	}
+	public function generateMonthlyInvoiceAdmin(){ 
+		$this->db->select('ExpId,VendorId,ExpName,sum(ExpAmount) as amount,CreatedOn,ExpDate');
+		$this->db->from('callcenterexpenses');
+		$this->db->where('IsInvoiceGen',0);
+		$this->db->where('IsDelete',1);
+		$this->db->where('MONTH(ExpDate)=MONTH(CURRENT_DATE())');
 		$this->db->group_by('ExpId');
 		//$this->db->order_by('ExpId','DESC');
+	
 		return $this->db->get()->result();
 	}
 	public function callCenterNoti(){
@@ -400,10 +420,29 @@ class All_model extends CI_Model {
 		$this->db->join('usermaster u','c.VendorId = u.CallCenterVendorId');
 		$this->db->join('vendormaster v','c.VendorId=v.VendorId');
 		$this->db->where('e.Active',1);
+		$this->db->where('c.IsDelete',1);
 		//$this->db->order_by('c.CreatedOn','DESC');
 		$this->db->order_by('c.CreatedOn','DESC');
 		return $this->db->get ()->result(); 
 	}
+	public function getCallCenterVendorUser(){   // get call center vendor assign to user
+		$this->db->select('u.UserID,u.CallCenterVendorId,v.VendorId,v.VendorName');
+		$this->db->from('usermaster u');
+		$this->db->join('vendormaster v','u.CallCenterVendorId=v.VendorId');
+		$this->db->where('u.Active',1);
+		$this->db->where('u.IsDelete',1);
+		return $this->db->get ()->result(); 
+
+	}
+	/*public function getCallCenterVendorName($id){
+		$this->db->select('c.ExpId,v.VendorId,v.VendorName');
+		$this->db->from('callcenterexpenses c');
+		$this->db->join('vendormaster v','c.VendorId=v.VendorId');
+		$this->db->where('c.ExpId',$id);
+		$this->db->where('c.IsDelete',1);
+		$this->db->order_by('c.CreatedOn','DESC'); 
+		return $this->db->get()->row();
+	}*/
 
 	
 }
