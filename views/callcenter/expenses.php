@@ -7,7 +7,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 
 <div id="content">
   <div class="container-fluid">
-    <h1>Expense</h1>
+    <h1>Call Center Expenses</h1>
     <div class="white-bg">
       <div class="row">
         <?php if ($_SESSION['user_role'] == "Call Center User") { ?>
@@ -19,15 +19,26 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     </div>  
             <a href="<?= base_url('call-center-expenses')?>"><span class="plus-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>Add Expense</a></div>
         </div>
-       <?php  } ?>
+       <?php  }elseif ($_SESSION['user_role'] == "Admin") { ?>
+         <div class="col-md-12 text-right">
+          <div class="add-icon-box">
+            <button type="button" id="generateInvoiceAdmin" class="cmn-btn transitions margin-right-1x">Generate</button>
+            <div class="page-loader" style="display:none;">
+                      <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
+                    </div>  
+            <a href="<?= base_url('call-center-expenses')?>"><span class="plus-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>Add Expense</a></div>
+        </div>
+      <?php  } ?>
         
         <div class="col-md-12">
           <div class="table-responsive common-table">
             <?php if($_SESSION['user_role'] == "Admin"){ ?>
+              <form id="filterForm" action="<?php echo base_url('callcenter/add_expenses/invoiceForVendor') ?>" method="post">
               <div id="mask"></div>
               <table id="exptabledata" class="table table-hover" cellpadding="0" cellspacing="0">
               <thead>
                 <tr>
+                  <!-- <th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th> -->
                   <th>Id</th>
                   <th>Call Center</th>
                   <th>Expense Name</th>
@@ -35,13 +46,15 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   <th>Payment Type</th>
                   <th>Expense Date </th>
                   <th>Invoice</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php foreach ($allexpenses as $key => $exp) { 
-                  //print_r($exp);
                   ?>
+                  <input name="expid[]" value="<?php echo $exp->ExpId; ?>" id="expid" type="hidden" />
                 <tr>
+                  <!-- <td><input name="expid[]" value="<?php echo $exp->ExpId; ?>" id="expid" type="hidden" /></td> -->
                   <td><?php echo $exp->ExpId; ?></td>
                   <td><?php echo $exp->VendorName; ?></td>
                   <td><?php echo $exp->Category; ?></td>
@@ -57,12 +70,18 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                   <?php }else{ ?>
                   <td><i class="fa fa-times" aria-hidden="true" style="color: #d31c1c"></i></td>
                   <?php } ?>
-                  <!-- <td><a class="grey-icon" href="<?= base_url('callcenter/Add_expenses/update/'.$exp->ExpId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td> -->
+                  <?php if ($exp->IsInvoiceGen == 0) { ?>
+                    <td> <a class="grey-icon del_bank" href="javascript:void(0);" onclick="myFunction(<?php echo $exp->ExpId;?>);"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                      <a class="grey-icon" href="<?= base_url('callcenter/Add_expenses/update/'.$exp->ExpId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                   <?php }else{ ?>
+                      <td><a class="grey-icon" href="<?= base_url('callcenter/Add_expenses/update/'.$exp->ExpId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                   <?php } ?>
                 </tr>
                 <?php   } ?>
               </tbody>
             </table>
-            <?php }else{ ?>
+          </form>
+            <?php }else if($_SESSION['user_role'] == "Call Center User"){ ?>
               <table id="exptabledata" class="table table-hover" cellpadding="0" cellspacing="0">
               <thead>
                 <tr>
@@ -104,6 +123,50 @@ if (isset ( $_SESSION ['pop_mes'] )) {
             
           </div>
         </div>
+       <!--  Delete modal starts -->
+        <div class="modal common-modal" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content clearfix">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h2 class="modal-title">Notice</h2>
+            </div>
+            <div class="modal-body clearfix">
+              <div class="defination-box clearfix">
+                <p>Are you sure You want to delete?</p>
+
+              </div>
+              <div class="col-xs-12 text-center spacetop2x">
+              <button type="button" data-dismiss="modal" class="btn-submit transitions" data-value="1">Yes</button>
+              <button type="button" data-dismiss="modal" class="btn-submit transitions" data-value="0">NO</button>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  Delete modal ends -->
+      <!--  Invoice modal starts -->
+      <div class="modal common-modal" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content clearfix">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h2 class="modal-title">Notice</h2>
+            </div>
+            <div class="modal-body clearfix">
+              <div class="defination-box clearfix">
+                <p>To Generate Invoice, Filter Data For Specific Call Center</p>
+
+              </div>
+              <div class="col-xs-12 text-center spacetop2x">
+              <button type="button" data-dismiss="modal" class="btn-submit transitions invoice" data-value="1">OK</button>
+              <!-- <button type="button" data-dismiss="modal" class="btn-submit transitions invoice" data-value="0">NO</button> -->
+            </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+      <!--  Invoice modal ends -->
       </div>
     </div>
   </div>
@@ -128,27 +191,142 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                    }
                });
     })
+
+    /*$("#generateInvoiceAdmin").click(function(){
+      $("#generateInvoiceAdmin").hide();
+      
+
+      $.ajax({
+                url:"<?php echo base_url ('callcenter/add_expenses/generateInvoiceAdmin')?>",
+                    type: "POST",
+                    dataType: "html",
+                   success: function(data) {
+                    alert(data);
+                    $("#myModal3").modal('show');
+                    generateInvoice();
+                    
+                   }
+               });
+    })*/
   });
-  /*function myFunction() {
-  setTimeout(function(){  }, 3000);
-}*/
 </script> 
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('#exptabledata').DataTable( {
-    "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
-    dom: "lBfrtip",
-     aaSorting: [[0, "desc"]],
-     columnDefs: [
-   { orderable: false, targets: 6 }
-],
-initComplete: function () {
-  if (user == "Admin") {
-    configFilter(this, [1]);
-  }
-  }
 
-  });
+  function compare(array) {
+    var isSame = true;
+    for(var i=0; i < array.length; i++) {
+       isSame = array[0] === array[i] ? true : false;
+    }
+    return isSame;
+}
+
+const isUniqueArr = arr => {
+  const tmp = new Set(arr);
+  if(tmp.size > 1) {
+    return false;
+  }
+  return arr[0];
+}
+  $(document).ready(function(){
+    if (user == "Admin") {
+         var table = $('#exptabledata').DataTable( {
+            "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
+            dom: "lBfrtip",
+             aaSorting: [[0, "desc"]],
+             columnDefs: [
+            { orderable: false, targets: 6 }
+            ],
+            initComplete: function () {
+              if (user == "Admin") {
+                configFilter(this, [1]);
+              }
+            }
+
+          });
+    }else{
+      var table = $('#exptabledata').DataTable( {
+          "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
+          dom: "lBfrtip",
+           aaSorting: [[0, "desc"]],
+           columnDefs: [
+         { orderable: false, targets: 6 }
+      ]
+
+        });
+    }
+
+    /*$('#example-select-all').on('click', function(){
+      // Check/uncheck all checkboxes in the table
+      var rows = table.rows({ 'search': 'applied' }).nodes();
+      console.log(rows);
+      $('input[type="checkbox"]', rows).prop('checked', this.checked);
+   });
+
+$('#exptabledata tbody').on('change', 'input[type="checkbox"]', function(){
+      // If checkbox is not checked
+      if(!this.checked){
+         var el = $('#example-select-all').get(0);
+         // If "Select all" control is checked and has 'indeterminate' property
+         if(el && el.checked && ('indeterminate' in el)){
+            // Set visual state of "Select all" control 
+            // as 'indeterminate'
+            el.indeterminate = true;
+         }
+      }
+   });*/
+   
+   $("#generateInvoiceAdmin").click(function(){
+      $("#generateInvoiceAdmin").hide();
+
+           var array = [];
+    table.column(1,  { search:'applied' } ).data().each(function(value, index) {
+        array.push(value);
+    });
+    var vendors = isUniqueArr(array);
+    //var vendors = compare(array);
+    //alert(vendors);
+    if (vendors == false) {
+      $("#myModal3").modal('show');
+      generateInvoice();
+    }else{
+      //alert('qqq');
+      $.ajax({
+                url:"<?php echo base_url ('callcenter/add_expenses/invoiceForVendor')?>",
+                    type: "POST",
+                    dataType: "html",
+                    data:{vendor:array},
+                   success: function(data) {
+                    //console.log(data);
+                    if(data == 1){
+                      window.location.href = '<?php echo base_url('all-expenses') ?>';
+                    }else{
+                      window.location.href = '<?php echo base_url('all-expenses') ?>';
+                    }
+                   }
+               });
+
+    }
+    
+    //alert(vendors);
+    //console.log(compare(array));
+          /*$.ajax({
+                url:"<?php echo base_url ('callcenter/add_expenses/generateInvoiceAdmin')?>",
+                    type: "POST",
+                    dataType: "html",
+                   success: function(data) {
+                    alert(data);
+                    $("#myModal3").modal('show');
+                    generateInvoice();
+                    
+                   }
+               });
+*/        //}
+      
+
+      
+    })
+
+   
 
 });
     
@@ -169,7 +347,7 @@ initComplete: function () {
                                  '{0}</div>' +
                                  '<div class="modal-footer">' +
                                      '<a href="#!" onclick="clearFilter(this, {1}, \'{2}\');"  class="sml-btn transitions">Clear</a>' +
-                                     '<a href="#!" onclick="performFilter(this, {1}, \'{2}\');"  class="sml-btn transitions">Ok</a>' +
+                                     '<a href="#!" onclick="performFilter(this, {1}, \'{2}\');"  class="sml-btn transitions" id="chk">Ok</a>' +
                                  '</div>' +
                              '</div>';
                 $.each(colArray, function (index, value) {
@@ -225,7 +403,6 @@ initComplete: function () {
         function performFilter(node, i, tableId) {
             var rootNode = $(node).parent().parent();
             var searchString = '', counter = 0;
-
             rootNode.find('input:checkbox').each(function (index, checkbox) {
                 if (checkbox.checked) {
                     searchString += (counter == 0) ? checkbox.value : '|' + checkbox.value;
@@ -238,6 +415,8 @@ initComplete: function () {
             ).draw();
             rootNode.hide();
             $('#mask').hide();
+            
+            
         }
 
 
@@ -257,4 +436,46 @@ initComplete: function () {
             $('#mask').hide();
         }
   }
+</script>
+<script type="text/javascript">
+    var updateUrl="<?php echo base_url('callcenter/add_expenses/delete/');?>";
+
+    var redirectUrl="<?php echo base_url('all-expenses')?>";
+   // alert(url);
+    function myFunction(id){
+      $("#myModal2").modal('show');
+      $('.transitions').click(function(){
+        var r = $(this).attr('data-value');
+        if (r=="1"){
+          window.top.location = updateUrl+id;
+        }
+        else{
+          window.top.location = redirectUrl;
+        }
+      });
+        
+    } 
+
+
+    function generateInvoice(){
+      $('.invoice').click(function(){
+        var r = $(this).attr('data-value');
+        //alert(r);
+        if (r=="1"){
+          window.location.href = '<?php echo base_url('all-expenses') ?>';
+          /*$.ajax({
+                url:"<?php echo base_url ('callcenter/add_expenses/generateInvoice')?>",
+                    type: "POST",
+                    dataType: "html",
+                   success: function(data) {
+                    window.location.href = '<?php echo base_url('all-expenses') ?>';
+                   }
+               });*/
+        }/*
+        else{
+          form.submit()
+        }*/
+      });
+        
+    }
 </script>

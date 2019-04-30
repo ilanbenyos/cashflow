@@ -73,6 +73,7 @@ class Add_expenses extends CI_Controller {
 	      $query = $this->db->get();
 	      $VendorId = $query->row();
 		$data['expenses'] = $this->all_model->getAllCallCenterExp($VendorId->CallCenterVendorId);
+		//print_r($this->db->last_query());exit();
 		$data['allexpenses'] = $this->all_model->getAllCallCenterVendor();
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar');
@@ -90,6 +91,7 @@ class Add_expenses extends CI_Controller {
         $this->form_validation->set_rules ('expPaymentType', 'Expense Payment Type', 'trim|required');
 
         if ($this->form_validation->run () === FALSE) {
+        	$data['vendors'] = $this->all_model->getCallCenterVendorUser();
 			$data['pspType'] = $this->all_model->allPspType();
 			$data['expCat'] = $this->all_model->get_active_categories();
 			$this->load->view('templates/header');
@@ -125,7 +127,7 @@ class Add_expenses extends CI_Controller {
             			'CreatedBy' => $uid
             		);
             		$this->db->insert('callcenterexpenses',$expense);
-            		$_SESSION['pop_mes'] = "Expenses Added Successfully."; 
+            		$_SESSION['pop_mes'] = "Call Center Expenses Added Successfully."; 
             		return 1;
         	}else{
         		$_SESSION['pop_mes'] = "Token does not match.";
@@ -143,6 +145,7 @@ class Add_expenses extends CI_Controller {
 		$this->form_validation->set_rules ('expDate', 'Expense Date', 'trim|required');
         $this->form_validation->set_rules ('expPaymentType', 'Expense Payment Type', 'trim|required');
         if ($this->form_validation->run () === FALSE) {
+        	$data['vendors'] = $this->all_model->getCallCenterVendorUser();
         	$data['pspType'] = $this->all_model->allPspType();
 			$data['expCat'] = $this->all_model->get_active_categories();
         	$data['expenses'] = $this->all_model->editCallCenterExp($id);
@@ -182,7 +185,7 @@ class Add_expenses extends CI_Controller {
             		);
             		$this->db->where('ExpId',$id);
 	        		$this->db->update('callcenterexpenses',$expense);
-	        		$_SESSION['pop_mes'] = "Expense Updated Successfully.";
+	        		$_SESSION['pop_mes'] = "Call Center Expense Updated Successfully.";
 					redirect('all-expenses');	
         		}else{
         			$_SESSION['pop_mes'] = "Token does not match.";
@@ -194,6 +197,8 @@ class Add_expenses extends CI_Controller {
 	}
 	public function generateInvoice(){
 		$invoice = $this->all_model->generateMonthlyInvoice();
+		//print_r($_SESSION);exit();
+		//print_r($invoice);exit();
  		$month = date('M');
 		if (count($invoice) > 0) {
 			$sum = 0;
@@ -243,10 +248,10 @@ class Add_expenses extends CI_Controller {
 			$_SESSION['pop_mes'] = "Invoice Generated Successfully.";
 			return 1;
 			 
-		}/*else{
-			$_SESSION['pop_mes'] = "Current month Invoice not found. ";
+		}else{
+			$_SESSION['pop_mes'] = "There are no pending expenses to generate invoice.";
 			return 1;
-		}*/
+		}
 		
 
 
@@ -270,6 +275,181 @@ class Add_expenses extends CI_Controller {
 		$this->db->where('IsInvoiceGen',0);
 		$this->db->update('callcenterexpenses',array('IsInvoiceGen'=>1,'ExpenseId'=>$ExpenseId));
 		$_SESSION['pop_mes'] = "Invoice Generated Successfully.";*/
+	}
+	public function generateInvoiceAdmin(){	
+		$invoice = $this->all_model->generateMonthlyInvoiceAdmin();
+		//print_r($invoice);exit();
+		$month = date('M');
+		if (count($invoice) > 0) {
+			$VendorId = array();
+			$sum = 0;
+			$data = array();
+			$expdate = array();
+			foreach ($invoice as $key => $value) {	
+				//print_r($value->ExpId);
+				$VendorId[] = $value->VendorId;
+				$sum+= $value->amount;
+				$expdate[] = $value->ExpDate;
+			
+			}
+			$vendorCount = array_unique($VendorId);
+			if (count($vendorCount) > 1) { 
+				return 1;
+			 }/*else{
+				return 2;
+			}*/
+			//print_r(count($test));
+			/*$this->db->select('ExpId,ExpName,VendorId,IsInvoiceGen,IsDelete');
+			$this->db->from('callcenterexpenses');
+			$this->db->where('VendorId',$VendorId[0]);
+			$this->db->where('IsInvoiceGen',0);
+			$this->db->where('IsDelete',1);
+			$expId = $this->db->get()->result_array();
+			
+
+			foreach ($expId as $val) {
+				$data[] = $val['ExpId'];
+			}
+			$ExpAmount = $sum;
+			$plannedDate = date("Y-m-d", strtotime("+1 week"));
+			$ExpId= json_encode($data);
+			$uid = $_SESSION['userid'];
+			$notification = array(
+				'VendorId'=>$VendorId[0],
+				'CallCenterExpId'=>implode(" , ", $data),
+				'Amount'=>$sum,
+				'PlannedDate'=>$plannedDate,
+				'ExpId'=>"",
+				'Status'=>'1',
+				'CreatedBy'=>$uid,
+			);
+			$this->db->insert('callcenternotification',$notification);
+
+			//update callcenterexpenses 
+			foreach ($data as  $val) {
+				$this->db->where('ExpId',$val);
+				$this->db->update('callcenterexpenses',array('IsInvoiceGen'=>1));
+			}
+			
+			
+			$_SESSION['pop_mes'] = "Invoice Generated Successfully.";
+			return 1;
+		}else{
+			$_SESSION['pop_mes'] = "There Are No Pending Expenses To Generate Invoice.";
+			return 1;
+		}*/
+
+		}
+	}
+
+	public function invoiceForVendor(){
+		/*print_r($_POST['vendor'][0]);
+		exit();
+*/		/*$this->db->select('VendorId,VendorName,Active,IsDelete');
+		$this->db->from('vendormaster');
+		$this->db->where('VendorName',$_POST['vendor'][0]);
+		$this->db->where('IsDelete',1);
+		$res = $this->db->get()->row();*/
+
+		$this->db->select('c.ExpId,c.VendorId,c.ExpName,sum(c.ExpAmount) as amount,c.CreatedOn,c.ExpDate,v.VendorId,v.VendorName');
+		$this->db->from('callcenterexpenses c');
+		$this->db->join('vendormaster v','v.VendorId = c.VendorId');
+		$this->db->where('v.VendorName',$_POST['vendor'][0]);
+		$this->db->where('c.IsInvoiceGen',0);
+		$this->db->where('MONTH(c.ExpDate)=MONTH(CURRENT_DATE())');
+		$this->db->group_by('c.ExpId');
+
+		$res = $this->db->get()->result();
+		$month = date('M');
+		if (count($res) > 0) {
+			$sum = 0;
+			$data = array();
+			$expdate = array();
+			$vendorId = array();
+			foreach ($res as $value) {
+			
+			$sum+= $value->amount;
+			$data[] = $value->ExpId;
+			$expdate[] = $value->ExpDate;
+			$vendorId[] = $value->VendorId;
+			}
+
+			//print_r($vendorId);exit();
+		$ExpAmount = $sum;
+		$plannedDate = date("Y-m-d", strtotime("+1 week"));
+		$ExpId= json_encode($data);
+		$uid = $_SESSION['userid'];
+		foreach ($vendorId as $val) {
+			//print_r($val);
+			
+		}
+		//print_r($val);exit();
+		$notification = array(
+				'VendorId'=>$val,
+				'CallCenterExpId'=>implode(" , ", $data),
+				'Amount'=>$sum,
+				'PlannedDate'=>$plannedDate,
+				'ExpId'=>"",
+				'Status'=>'1',
+				'CreatedBy'=>$uid,
+			);
+			//print_r($notification);
+			$this->db->insert('callcenternotification',$notification);
+
+		//update callcenterexpenses 
+			foreach ($data as  $val) {
+				$this->db->where('ExpId',$val);
+				$this->db->update('callcenterexpenses',array('IsInvoiceGen'=>1));
+			}
+
+			$_SESSION['pop_mes'] = "Invoice Generated Successfully.";
+			return 1;
+		}else{
+			$_SESSION['pop_mes'] = "There are no pending expenses to generate invoice.";
+			return 1;
+		}
+
+
+		
+		//print_r($res);
+		/*$id = array();
+		$vendors = array();
+		$expId[] = $_POST['expId'];
+		foreach ($expId as $value) {
+			//print_r($value);
+			array_push($id,$value);
+		}
+		print_r($id);
+		exit();*/
+
+		/*foreach ($id as $val) {
+			//print_r($val);
+			array_push($vendors,$val);
+		}
+		print_r($vendors);
+		exit();
+		$vendorCount = array_unique($id);
+		print_r($vendorCount);exit();
+		$allvalues = array(TRUE, TRUE, TRUE);
+		if(array_sum($id) == count($id)) {
+		    echo 'all true';
+		} else {
+		    echo 'some false';
+		}*/
+		//print_r($vendorCount);
+	}
+	public function delete($id){
+		if(!isset($_SESSION['logged_in']))
+	    {
+	        redirect('login');
+	    }
+	    $data = array(
+	    	'IsDelete' => 0
+	    );
+	    $this->db->where('ExpId',$id);
+	    $this->db->update('callcenterexpenses',$data);
+	    $_SESSION['pop_mes'] = "Call Center Expense Deleted Successfully.";
+	    redirect('all-expenses');
 	}
 	
 
