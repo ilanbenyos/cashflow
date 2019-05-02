@@ -66,6 +66,7 @@ class Add_expenses extends CI_Controller {
 		if (!isset($_SESSION['logged_in'])) {
 			redirect('login');
 		}
+		//print_r($_SESSION);
 		$this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
 	      $this->db->from('usermaster');
 	      $this->db->where('UserID',$_SESSION['userid']);
@@ -77,14 +78,11 @@ class Add_expenses extends CI_Controller {
 		$data['allexpenses'] = $this->all_model->getAllCallCenterVendor();
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar2');
-		$this->load->view('templates/content');
+		if ($_SESSION['user_role'] != "Call Center User") {
+			$this->load->view('templates/content');
+		}
+		
 		$this->load->view('callcenter/expenses',$data);
-		$this->load->view('templates/footer');
-	}
-	public function test1(){
-		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar2');
-		$this->load->view('templates/content');
 		$this->load->view('templates/footer');
 	}
 	public function callCenterExpenses(){

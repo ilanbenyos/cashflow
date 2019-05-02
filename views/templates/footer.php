@@ -26,13 +26,13 @@ else{
 }
 });
 </script> 
-<script>
+<!--<script>
 document.addEventListener('DOMContentLoaded', function() {
   setTimeout(function() {
     document.getElementByClass('treeview-menu').className = 'slideDown';
   }, 5000);
 }, false);
-</script> 
+</script>--> 
 <script>
     $.sidebarMenu($('.sidebar-menu'))
 </script> 

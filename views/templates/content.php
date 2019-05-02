@@ -2,12 +2,14 @@
     <div class="container-fluid 1a" id="1a">
      </div>
 </div> --> 
+<?php //print_r( $_SESSION) ?>
 <script type="text/javascript">
   var url = "<?php echo base_url ( 'configuration/add_expenses/callCenterExpenses' ); ?>";
-  //alert(url);
+  var user = "<?php echo $_SESSION['user_role']; ?>";
+  //alert(user);
   $(document).ready(function(){
-    //$(".1a").load("<?php echo base_url ( 'configuration/bank/configuration' ); ?>");
-    //$(".1a").load("<?php echo base_url ( 'configuration/bank/pspIncome' ); ?>");
+    //$(".1a").load("<?php //echo base_url ( 'configuration/bank/configuration' ); ?>");
+    //$(".1a").load("<?php //echo base_url ( 'configuration/bank/pspIncome' ); ?>");
     $(".users").click(function(){
      // $('.1a').html('<div class="text-center"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>');
       $(".1a").load("<?php echo base_url ( 'configuration/users/user' ); ?>");
@@ -60,8 +62,11 @@
     $(".callCenterExpRep").click(function(){
       $(".1a").load("<?php echo base_url ( 'reports/callCenterExp' ); ?>");
     })
+    
+    
     /*$(".callCenter").click(function(){
-      $(".1a").load("<?php echo base_url ( 'callcenter/add_expenses/callCenterExpenses' + ".white-bg" ); ?>");
+      
+     $(".1a").load("<?php echo base_url ( 'callcenter/add_expenses/callCenterExpenses' ); ?>");
       //$( ".1a" ).load(" .1a" );
 
     })*/

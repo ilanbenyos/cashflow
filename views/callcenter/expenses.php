@@ -4,9 +4,10 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 }
 ?>
 <!-- Page Content  -->
-<!-- 
+ <?php if ($_SESSION['user_role'] == "Call Center User") { ?>
 <div id="content">
-  <div class="container-fluid"> -->
+  <div class="container-fluid"> 
+  <?php } ?>
     <h1>Call Center Expenses</h1>
     <div class="white-bg">
       <div class="row">
