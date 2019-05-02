@@ -33,13 +33,20 @@ class Bank_transaction extends CI_Controller {
 		}
         $data['banks'] = $this->all_model->get_all_banks();
         $data['transType'] = $this->all_model->getTransferType();
-        
 		$data['allTransaction'] = $this->all_model->getAllBankTransaction();
+
 		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		$this->load->view('templates/left-sidebar2');
+        $this->load->view('templates/content');
 		$this->load->view('bank_transaction',$data);
 		$this->load->view('templates/footer');
 	}
+    public function bankTransaction(){
+        $data['banks'] = $this->all_model->get_all_banks();
+        $data['transType'] = $this->all_model->getTransferType();
+        $data['allTransaction'] = $this->all_model->getAllBankTransaction();
+        $this->load->view('bank_transaction',$data);
+    }
     public function addBankTransction(){
         if (!isset($_SESSION['logged_in'])) {
             redirect('login');

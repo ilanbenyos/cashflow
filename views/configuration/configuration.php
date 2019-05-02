@@ -11,8 +11,8 @@ background-color: #90989d !important;
 }
 </style>
 
-<div id="content">
-  <div class="container-fluid">
+<!-- <div id="content">
+  <div class="container-fluid"> -->
     <h1>Configuration</h1>
     <?php if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Admin"))
           { ?>
@@ -42,7 +42,7 @@ background-color: #90989d !important;
             <div class="config-icon-box"> <a href="#""> <span class="icons"><img src="<?= base_url('assets/images/Bank-transaction.png')?>"/></span> <span class="medium-heading">Bank Transaction</span> </a> </div>
           </div> -->
           <div class="col-md-3 col-sm-3 col-xs-6">
-            <div class="config-icon-box"> <a href="<?= base_url('Reports/psp_income')?>"> <span class="icons"><i class="fa fa-file-text-o" aria-hidden="true"></i></span> <span class="medium-heading">Reports</span> </a> </div>
+            <div class="config-icon-box"> <a href="<?= base_url('Reports/psp_incomes')?>"> <span class="icons"><i class="fa fa-file-text-o" aria-hidden="true"></i></span> <span class="medium-heading">Reports</span> </a> </div>
           </div>
           
         </div>
@@ -58,7 +58,7 @@ background-color: #90989d !important;
             <div class="config-icon-box"> <a href="<?= base_url('expenses')?>"> <span class="icons"><img src="<?= base_url('assets/images/Expense.png')?>"/></span> <span class="medium-heading">Expenses</span> </a> </div>
           </div>
            <div class="col-md-3 col-sm-3 col-xs-6">
-            <div class="config-icon-box"> <a href="bank-transaction""> <span class="icons"><img src="<?= base_url('assets/images/Bank-transaction.png')?>"/></span> <span class="medium-heading">Bank Transaction</span> </a> </div>
+            <div class="config-icon-box"> <a href="bank-transaction"> <span class="icons"><img src="<?= base_url('assets/images/Bank-transaction.png')?>"/></span> <span class="medium-heading">Bank Transaction</span> </a> </div>
           </div> 
           <div class="col-md-3 col-sm-3 col-xs-6">
             <div class="config-icon-box"> <a href="<?= base_url('Reports/psp_income')?>"> <span class="icons"><img src="<?= base_url('assets/images/reports.png')?>"/></span> <span class="medium-heading">Reports</span> </a> </div>
@@ -83,8 +83,8 @@ background-color: #90989d !important;
         </div>
       </div>
   <?php } ?>
-  </div>
-</div>
+   </div>
+</div> 
 <script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script>
 <script type="text/javascript">
   

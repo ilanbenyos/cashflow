@@ -4,8 +4,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 }
 ?>
 <!-- Page Content  -->
-<div id="content">
-  <div class="container-fluid">
+<!-- <div id="content">
+  <div class="container-fluid"> -->
     <h1>Expense Categories</h1>
     <div class="white-bg">
       <div class="row">

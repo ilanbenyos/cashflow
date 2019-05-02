@@ -5,8 +5,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 }
   ?>
   <!-- Page Content  -->
-  <div id="content">
-    <div class="container-fluid">
+  <!-- <div id="content">
+    <div class="container-fluid"> -->
       <h1>Payment Processors</h1>
       <div class="white-bg">
         <div class="row">
@@ -300,24 +300,22 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 </script>
 <script type="text/javascript">
 	$(document).ready(function(){
+    $('#tabledataPsp').DataTable( {
+    "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
+     dom: "lBfrtip",
+     aaSorting: [[5, "asc"]],
+     columnDefs: [
+   { orderable: false, targets: 6 }
+    ]
 
-    //sort by albhabetical order start
-    /*var options = $('select#bank option');
-    var arr = options.map(function(_, o) {
-        return {
-            t: $(o).text(),
-            v: o.value
-        };
-    }).get();
-    arr.sort(function(o1, o2) {
-        return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
     });
-    options.each(function(i, o) {
-        //console.log(i);
-        o.value = arr[i].v;
-        $(o).text(arr[i].t);
-    });*/
-    //sort by albhabetical order end
+    $('select').change(function() {
+            var val = $(this).val();
+            if(val == -1){
+              $('#psptabledata_previous').css( 'display', 'none' );
+              $('#psptabledata_next').css( 'display', 'none' );
+            }
+      });
 
 		$(document).on('click', '.edit_psp', function() {
 	

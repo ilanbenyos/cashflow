@@ -1,5 +1,5 @@
-<div id="content">
-  <div class="container-fluid">
+<!-- <div id="content">
+  <div class="container-fluid"> -->
     <h1>Total Expenses Per Category Report</h1>
     <div class="white-bg">
       <div class="row">

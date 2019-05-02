@@ -12,41 +12,49 @@ class Reports extends CI_Controller {
 		$this->load->model('data_model');
 
 	}
-	public function psp_income(){
+	public function psp_incomes(){
 		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		$this->load->view('templates/left-sidebar2');
+		$this->load->view('templates/content');
 		$this->load->view('reports/total_deposit');
 		$this->load->view('templates/footer');
 	}
+	public function psp_income(){
+		/*$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar2');
+		$this->load->view('templates/content');*/
+		$this->load->view('reports/total_deposit');
+		//$this->load->view('templates/footer');
+	}
 	public function bank_balance(){
-		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		/*$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');*/
 		$this->load->view('reports/bank_balance');
-		$this->load->view('templates/footer');
+		//$this->load->view('templates/footer');
 	}
 		public function total_balance(){
-		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		/*$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');*/
 		$this->load->view('reports/total_balance');
-		$this->load->view('templates/footer');
+		//$this->load->view('templates/footer');
 	}
 	public function expense_category(){
-		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		/*$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');*/
 		$this->load->view('reports/expense_category');
-		$this->load->view('templates/footer');
+		//$this->load->view('templates/footer');
 	}
 	public function psp_commision(){
-		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		/*$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');*/
 		$this->load->view('reports/psp_income_commision');
-		$this->load->view('templates/footer');
+		//$this->load->view('templates/footer');
 	}
 	public function vendor_outcome(){
-		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		/*$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');*/
 		$this->load->view('reports/vendor_outcome');
-		$this->load->view('templates/footer');
+		//$this->load->view('templates/footer');
 	}
 	public function chart(){
 		$this->load->view('templates/header');
@@ -55,9 +63,16 @@ class Reports extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 	public function callCenterExp(){
-		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		/*$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar');*/
 		$this->load->view('reports/callcenter-expense-category');
+		//$this->load->view('templates/footer');
+	}
+	public function dashboard(){
+		$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar2');
+		$this->load->view('templates/content');
+		$this->load->view('reports/dashboard');
 		$this->load->view('templates/footer');
 	}
 }

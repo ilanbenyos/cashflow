@@ -5,8 +5,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 } 
 ?>
 
-<div id="content">
-  <div class="container-fluid">
+<!-- <div id="content">
+  <div class="container-fluid"> -->
     <h1>Vendors</h1>
     <div class="white-bg">
       <div class="row">
@@ -316,6 +316,16 @@ if (isset ( $_SESSION ['pop_mes'] )) {
         $("#quartely").hide();
       }
     });
+    $('#tablevendor').DataTable({
+  "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
+responsive  : true,
+  
+  aaSorting: [[2, "asc"]],
+     dom: 'lBfrtip',
+     columnDefs: [
+   { orderable: false, targets: 3 }
+]
+});
   });
 </script> 
 <script type="text/javascript">

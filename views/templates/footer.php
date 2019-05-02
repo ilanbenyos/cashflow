@@ -15,7 +15,7 @@
 <script src="<?= base_url('assets/js/SidebarNav.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/jquery.dataTables.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/dataTables.bootstrap.js')?>"></script> 
-<script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script> 
+<script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script>
 <script>
 $(document).ready(function(){
 if ($('.sidebar-menu li.treeview:last-child').hasClass('active')){
@@ -55,7 +55,7 @@ $('#addbankform').validate({ // initialize the plugin
 });
 	
 $(document).ready(function() {
-  $('#tabledata').DataTable( {
+  /*$('#tabledata').DataTable( {
     "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
     dom: "lBfrtip",
 	aaSorting: [[4, "asc"],[0, "asc"]],
@@ -66,9 +66,9 @@ $(document).ready(function() {
     columnDefs: [
    { orderable: false, targets: 5 }
 ]
-  });
+  });*/
   
-$('#tablebank').DataTable({
+/*$('#tablebank').DataTable({
   "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
 responsive  : true,
 	
@@ -79,8 +79,8 @@ responsive  : true,
    { orderable: false, targets: 4 },
    { orderable: false, targets: 5 }
 ]
-});
-$('#tablevendor').DataTable({
+});*/
+/*$('#tablevendor').DataTable({
   "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
 responsive  : true,
 	
@@ -89,7 +89,7 @@ responsive  : true,
      columnDefs: [
    { orderable: false, targets: 3 }
 ]
-});
+});*/
 /*var table = $('#psptabledata').DataTable({
 
   "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
@@ -116,20 +116,20 @@ responsive  : true,
 ]
 
 });*/
- $('#tablebankTrans').DataTable( {
+ /*$('#tablebankTrans').DataTable( {
     "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
     dom: "lBfrtip",
   aaSorting: [[0, "desc"]],
     columnDefs: [
    { orderable: false, targets: 6 }
 ]
-  });
- $('#tabledataPsp').DataTable( {
+  });*/
+ /*$('#tabledataPsp').DataTable( {
     "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
     dom: "lBfrtip",
      aaSorting: [[5, "asc"]],
 
-  });
+  });*/
  /*$('#exptabledata').DataTable( {
     "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
     dom: "lBfrtip",
@@ -144,7 +144,7 @@ responsive  : true,
 });
 </script> 
 <script type="text/javascript">
-   $(document).ready(function() {
+   /*$(document).ready(function() {
       $('select').change(function() {
             var val = $(this).val();
             if(val == -1){
@@ -162,7 +162,7 @@ responsive  : true,
               $('#tablebankTrans_next').css( 'display', 'none' );
             }
       });
-});
+});*/
 </script> 
 <script type="text/javascript">  // to disable future dates(Actual Date) for PSP Income and Expenses 
   jQuery(document).ready(function ($) {
@@ -213,7 +213,7 @@ $(document).ready(function(){
     return value
 
       //.replace(/\D/g, "")
-      //.replace(/([0-9])([0-9]{2})$/, '$1.$2')  
+        //.replace(/([0-9])([0-9]{2})$/, '$1.$2')  
       .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
     ;
     //console.log(value);
@@ -233,7 +233,7 @@ $('input.xyz').keyup(function(event) {
       //.regex(^(0|[1-9]\d*)$)
       //.replace(/([0-9])([0-9]{2})$/, '$1.$2')  
       .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
-    ;
+    
   });
 });
 </script> 

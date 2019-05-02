@@ -1,5 +1,5 @@
-<div id="content">
-  <div class="container-fluid">
+<!-- <div id="content">
+  <div class="container-fluid"> -->
     <h1>Outcome for Vendors</h1>
     <div class="white-bg">
       <div class="row">

@@ -23,8 +23,6 @@ public function que()
 		print_r($data_1);
 		
 	}
-
-
 	public function index(){
 	    //print_r($_SESSION);exit();
 	    if(!isset($_SESSION['logged_in']))
@@ -33,9 +31,16 @@ public function que()
 	    }
 	    $data['vendors'] = $this->all_model->getCallCenterVendor();
 		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		$this->load->view('templates/left-sidebar2');
+		$this->load->view('templates/content');
 		$this->load->view('configuration/users',$data);
+		//$this->load->view('templates/content');
 		$this->load->view('templates/footer');
+	}
+	public function user(){
+		$data['vendors'] = $this->all_model->getCallCenterVendor();
+		$this->load->view('configuration/users',$data);
+		//$this->load->view('templates/footer1');
 	}
 	public function createUser()
 	{	
@@ -55,9 +60,9 @@ public function que()
     		$data['title'] = 'Add New User';
     		
     		$this->load->view('templates/header');
-			$this->load->view('templates/left-sidebar');
+			$this->load->view('templates/left-sidebar2');
 			$this->load->view('configuration/users');
-			$this->load->view('templates/footer');
+			//$this->load->view('templates/footer');
     	}else{
     	    $token = $this->input->post('user_details');
     	    

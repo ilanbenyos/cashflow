@@ -4,6 +4,7 @@
   }else{
     $isSet = "";
   }
+  //print_r($_SESSION);
  ?>
 <!-- Page Content  -->
 <div id="content">
@@ -769,7 +770,7 @@ $('.datepicker').datepicker({
           $(this).css("border", "1px solid #be1622");
         }
       })
-      $('#bank').on('blur', function() {
+      $('#bankid').on('blur', function() {
         $(this).css("border", "1px solid #CCCCCC");
             if($(this).val()!="")
         { 
@@ -854,8 +855,8 @@ $('.datepicker').datepicker({
            $("#vendor").css("border", "1px solid #be1622");           
            returnvar = false;
           }
-          if($("#bank").val() ==""){
-           $("#bank").css("border", "1px solid #be1622");           
+          if($("#bankid").val() ==""){
+           $("#bankid").css("border", "1px solid #be1622");           
            returnvar = false;
           }
           if($("#expCat").val() ==""){

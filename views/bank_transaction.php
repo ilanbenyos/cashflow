@@ -4,8 +4,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 }
 ?>
 <!-- Page Content  -->
-<div id="content">
-  <div class="container-fluid">
+<!-- <div id="content">
+  <div class="container-fluid"> -->
     <h1>Bank Transactions</h1>
     <div class="white-bg">
       <div class="row">
@@ -179,40 +179,15 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
-
-    //sort by albhabetical order start
-    /*var options = $('select#fromBank option');
-    var arr = options.map(function(_, o) {
-        return {
-            t: $(o).text(),
-            v: o.value
-        };
-    }).get();
-    arr.sort(function(o1, o2) {
-        return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
-    });
-    options.each(function(i, o) {
-        //console.log(i);
-        o.value = arr[i].v;
-        $(o).text(arr[i].t);
-    });
-
-    var options = $('select#toBank option');
-    var arr = options.map(function(_, o) {
-        return {
-            t: $(o).text(),
-            v: o.value
-        };
-    }).get();
-    arr.sort(function(o1, o2) {
-        return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
-    });
-    options.each(function(i, o) {
-        //console.log(i);
-        o.value = arr[i].v;
-        $(o).text(arr[i].t);
-    });*/
-    //sort by albhabetical order end
+    $('#tablebankTrans').DataTable( {
+    "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
+    dom: "lBfrtip",
+    aaSorting: [[0, "desc"]],
+    columnDefs: [
+   { orderable: false, targets: 6 }
+]
+  });
+    
     /*var fromBankId = $("#fromBank").val();
     $.ajax({
                 url:"<?php echo base_url ('bank_transaction/getTransactionCharges/')?>"+ fromBankId ,

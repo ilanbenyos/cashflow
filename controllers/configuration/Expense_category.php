@@ -19,9 +19,14 @@ class Expense_category extends CI_Controller {
 	    }
 		$data['allCat'] = $this->all_model->getAllCategories();
 		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		$this->load->view('templates/left-sidebar2');
+		$this->load->view('templates/content');
 		$this->load->view('configuration/expense_category',$data);
 		$this->load->view('templates/footer');
+	}
+	public function allExpCategory(){
+		$data['allCat'] = $this->all_model->getAllCategories();
+		$this->load->view('configuration/expense_category',$data);
 	}
 	public function addNewCategory(){
 		if(!isset($_SESSION['logged_in'])){

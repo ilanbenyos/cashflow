@@ -18,7 +18,8 @@ class Configuration extends CI_Controller {
 	        redirect('login');
 	    }
 		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		$this->load->view('templates/left-sidebar2');
+		$this->load->view('templates/content');
 		$this->load->view('configuration/configuration');
 		$this->load->view('templates/footer');
 	}

@@ -4,9 +4,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 }
 ?>
 <!-- Page Content  -->
-
+<!-- 
 <div id="content">
-  <div class="container-fluid">
+  <div class="container-fluid"> -->
     <h1>Call Center Expenses</h1>
     <div class="white-bg">
       <div class="row">
@@ -228,6 +228,7 @@ const isUniqueArr = arr => {
   return arr[0];
 }
   $(document).ready(function(){
+     var user = '<?php echo $_SESSION['user_role']; ?>';
     if (user == "Admin") {
          var table = $('#exptabledata').DataTable( {
             "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
@@ -329,12 +330,8 @@ $('#exptabledata tbody').on('change', 'input[type="checkbox"]', function(){
    
 
 });
-    
-</script>
-<script type="text/javascript">
-  var user = '<?php echo $_SESSION['user_role']; ?>';
-  if (user == "Admin") {
-    function configFilter($this, colArray) {
+
+  function configFilter($this, colArray) {
             setTimeout(function () {
                 var tableName = $this[0].id;
                 var columns = $this.api().columns();
@@ -435,7 +432,7 @@ $('#exptabledata tbody').on('change', 'input[type="checkbox"]', function(){
             rootNode.hide();
             $('#mask').hide();
         }
-  }
+    
 </script>
 <script type="text/javascript">
     var updateUrl="<?php echo base_url('callcenter/add_expenses/delete/');?>";
@@ -462,7 +459,7 @@ $('#exptabledata tbody').on('change', 'input[type="checkbox"]', function(){
         var r = $(this).attr('data-value');
         //alert(r);
         if (r=="1"){
-          window.location.href = '<?php echo base_url('all-expenses') ?>';
+          window.location.href = '<?php echo base_url('callcenter/add_expenses/allExpenses') ?>';
           /*$.ajax({
                 url:"<?php echo base_url ('callcenter/add_expenses/generateInvoice')?>",
                     type: "POST",

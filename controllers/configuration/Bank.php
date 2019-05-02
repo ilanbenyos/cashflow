@@ -45,9 +45,20 @@ class Bank extends CI_Controller {
 		
 		$data['results'] = $this->all_model->listData($table,$columns,$orderBy='DESC','B.Active',$join);
 		$this->load->view('templates/header', $data);
-		$this->load->view('templates/left-sidebar');
+		$this->load->view('templates/left-sidebar2');
+		$this->load->view('templates/content');
 		$this->load->view('configuration/bank', $data);
 		$this->load->view('templates/footer');
+	}
+	public function allBanks(){
+		$table = 'bankmaster B';
+		$join = '';
+		$columns = 'B.BankName,B.Balance,B.Active,UM.Name,B.BankId,B.CurId,C.CurId,C.CurName';
+		$wherecol = 'B.BankId';
+
+		$data['results'] = $this->all_model->listData($table,$columns,$orderBy='DESC','B.Active',$join);
+		$this->load->view('configuration/bank', $data);
+		//$this->load->view('templates/footer');
 	}
 	
 	public function add(){
@@ -243,9 +254,14 @@ class Bank extends CI_Controller {
 	public function bankTransferType(){
 		$data['transferType'] = $this->all_model->getTransferType();
 		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		$this->load->view('templates/left-sidebar2');
+		$this->load->view('templates/content');
 		$this->load->view('configuration/transfer_type',$data);
 		$this->load->view('templates/footer');
+	}
+	public function allBankTransferType(){
+		$data['transferType'] = $this->all_model->getTransferType();
+		$this->load->view('configuration/transfer_type',$data);
 	}
 	public function addBankTransferType(){
 		if(!isset($_SESSION['logged_in'])){
@@ -291,9 +307,9 @@ class Bank extends CI_Controller {
 	    	$data['transferType'] = $this->all_model->transferType($id);
 			$this->load->view('configuration/edit_transfer_type',$data);
 		}else{
-			$token = $this->input->post('editcategory_token');
+			$token = $this->input->post('edittype_token');
         		$session_token=null;
-        		$session_token = $_SESSION['edit_category'];
+        		$session_token = $_SESSION['edit_type'];
         		if(!empty($token) == $session_token){
         			$type = $this->input->post('type');
         			$uid = $this->input->post('userid');
@@ -344,20 +360,63 @@ class Bank extends CI_Controller {
 				 
 				$trans_amount=number_format((float)$new_val, 2, '.', '');*/
 				//$this->load->view('templates/header');
+		$this->load->view('templates/header1');
 		$this->load->view('templates/left-sidebar2');
+		//$this->load->view('module/users');
+		$this->load->view('templates/footer1');
 		//$this->load->view('configuration/transfer_type',$data);
 		//$this->load->view('templates/footer');
 	}
-	public function test2(){
-		
-		$this->load->view('templates/left-sidebar2');
+	/*public function users(){
+		//$this->load->view('templates/header1');
+		$data['vendors'] = $this->all_model->getCallCenterVendor();
+		$this->load->view('module/users',$data);
+		//$this->load->view('templates/footer1');
 	}
-	public function test3(){
+	public function banks(){
+		$table = 'bankmaster B';
+		$join = '';
+		$columns = 'B.BankName,B.Balance,B.Active,UM.Name,B.BankId,B.CurId,C.CurId,C.CurName';
+		$wherecol = 'B.BankId';
 		
-		$this->load->view('templates/left-sidebar2');
-	}
-	public function test4(){
 		
-		$this->load->view('templates/left-sidebar2');
+		$data['results'] = $this->all_model->listData($table,$columns,$orderBy='DESC','B.Active',$join);
+		$this->load->view('module/bank',$data);
+		//$this->load->view('templates/footer1');
 	}
+	public function psp(){
+		$data['banks'] = $this->all_model->get_all_banks();
+	    $data['all_psp'] = $this->all_model->get_all_psps();
+        $data['pspType'] = $this->all_model->allPspType();
+		$this->load->view('module/payment_processor',$data);
+		//$this->load->view('templates/footer1');
+	}
+	public function pspIncome(){
+		$this->load->view('templates/header1');
+		$this->load->view('templates/left-sidebar2');
+		$data['allPspIncome'] = $this->all_model->getPspIncome();
+		$this->load->view('module/deposit-details',$data);
+		//$this->load->view('templates/footer1');
+	}
+	public function expenses(){
+		$data['getallExpenses'] = $this->all_model->getallExpenses();
+		$this->load->view('module/expenses',$data);
+	}
+	public function bankTransaction(){
+		$data['banks'] = $this->all_model->get_all_banks();
+        $data['transType'] = $this->all_model->getTransferType();
+        
+		$data['allTransaction'] = $this->all_model->getAllBankTransaction();
+		$this->load->view('module/bank_transaction',$data);
+		//$this->load->view('templates/footer1');
+	}
+	public function totalIncome(){
+		$this->load->view('module/total_deposit');
+	}
+	public function incomeVSoutcome(){
+		$this->load->view('module/total_balance');
+	}
+	public function configuration(){
+		$this->load->view('module/configuration');
+	}*/
 }

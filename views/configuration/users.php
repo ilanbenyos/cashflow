@@ -31,8 +31,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 //print_r($vendors);
 ?>
 <!-- Page Content  -->
-  <div id="content">
-    <div class="container-fluid">
+  <!-- <div id="content">
+    <div class="container-fluid"> -->
       <h1>Users</h1>
       <div class="white-bg">
         <div class="row">
@@ -260,7 +260,21 @@ if (isset ( $_SESSION ['pop_mes'] )) {
  </script>
  <script>
   $(document).ready(function(){
-
+  $('#tabledata').DataTable( {
+    "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
+    dom: "lBfrtip",
+    aaSorting: [[4, "asc"],[0, "asc"]],
+    columnDefs: [
+   { orderable: false, targets: 5 }
+    ]
+  });
+  $('select').change(function() {
+            var val = $(this).val();
+            if(val == -1){
+              $('#tabledata_previous').css( 'display', 'none' );
+              $('#tabledata_next').css( 'display', 'none' );
+            }
+      });
     function IsPassword(password)
       {
           var regex = /^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,20}$/;
@@ -459,7 +473,7 @@ $(document).ready(function() {
 
 </script>
 <script type="text/javascript">
-    var url="<?php echo base_url();?>";
+    var url="<?php echo base_url('configuration/users');?>";
     function myFunction(id){
        //var r=confirm("Do you want to delete this?")
       $("#myModal2").modal('show');

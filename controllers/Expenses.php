@@ -20,10 +20,15 @@ class Expenses extends CI_Controller {
 		}
 		$data['getallExpenses'] = $this->all_model->getallExpenses();
 		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		$this->load->view('templates/left-sidebar2');
+        $this->load->view('templates/content');
 		$this->load->view('expenses',$data);
 		$this->load->view('templates/footer');
 	}
+    public function allExpenses(){
+        $data['getallExpenses'] = $this->all_model->getallExpenses();
+        $this->load->view('expenses',$data);
+    }
 	public function getBanks($id){
 		$data['banks'] = $this->all_model->getBanks($id);
 		echo json_encode($data);

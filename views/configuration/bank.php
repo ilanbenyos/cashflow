@@ -5,8 +5,8 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 }
 ?>
 <!-- Page Content  -->
-  <div id="content">
-    <div class="container-fluid">
+  <!-- <div id="content">
+    <div class="container-fluid"> -->
       <h1>Bank Accounts</h1>
       <div class="white-bg">
         <div class="row">
@@ -73,7 +73,31 @@ if (isset ( $_SESSION ['pop_mes'] )) {
   </div>
   <!-- Modal -->
 <script type="text/javascript">
-    var url="<?php echo base_url();?>";
+  $(document).ready(function(){
+    $('#tablebank').DataTable({
+      "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
+    responsive  : true,
+      
+      aaSorting: [[3, "desc"]],
+         dom: 'lBfrtip',
+
+      columnDefs: [
+       { orderable: false, targets: 4 },
+       { orderable: false, targets: 5 }
+    ]
+    });
+
+    $('select').change(function() {
+            var val = $(this).val();
+            if(val == -1){
+              $('#tablebank_previous').css( 'display', 'none' );
+              $('#tablebank_next').css( 'display', 'none' );
+            }
+      });
+  });
+</script>
+<script type="text/javascript">
+    var url="<?php echo base_url('configuration/bank');?>";
     function myFunction(id){
        //var r=confirm("Do you want to delete this?")
       $("#myModal2").modal('show');

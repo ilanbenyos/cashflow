@@ -58,9 +58,18 @@ echo '<pre/>';
 		//$data['categories'] = $Categories;
 		//$data['banks'] = $Banks;
 		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		$this->load->view('templates/left-sidebar2');
+		$this->load->view('templates/content');
 		$this->load->view('configuration/vendors',$data);
 		$this->load->view('templates/footer');
+	}
+	public function allVendors(){
+		$data['title'] = ' Vendors';
+		$Vendors = $this->all_model->get_vendor_details();
+		$Banks = $this->all_model->get_all_banks();
+		$data['currency'] = $this->all_model->getAllCurrency();
+		$data['vendors'] = $Vendors;
+		$this->load->view('configuration/vendors',$data);
 	}
 	
 	public function createVendor()
@@ -297,6 +306,8 @@ echo '<pre/>';
 	        redirect('login');
 	    }
 			$data['notification'] = $this->all_model->getAllNotifications();
+			$data['callcenter'] = $this->all_model->getAllcallcenternotification();
+			//print_r($this->db->last_query());
 			$this->load->view('templates/header');
 			$this->load->view('templates/left-sidebar');
 			$this->load->view('notification',$data);

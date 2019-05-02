@@ -11,8 +11,8 @@ background-color: #90989d !important;
 }
 </style>
 <!-- Page Content  -->
-<div id="content">
-  <div class="container-fluid">
+<!-- <div id="content">
+  <div class="container-fluid"> -->
     <h1>PSP Income</h1>
     <div class="white-bg">
       <div class="row">
@@ -74,18 +74,18 @@ background-color: #90989d !important;
     </div>
   </div>
 </div>
-<script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> 
+<!-- <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>  
 <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script> 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js"></script> 
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js"></script>  
 <script>
 $.validate({
     modules : 'toggleDisabled',
     disabledFormFilter : 'form.toggle-disabled',
 
 });         
-</script> 
+</script>  -->
 <script type="text/javascript">
   $(document).ready(function(){
     var table = $('#psptabledata').DataTable({
@@ -132,10 +132,8 @@ initComplete: function () {
   } else {
     x.innerHTML = "Hide Rolling Reserved";
   }
-} 
-</script> 
-<script type="text/javascript">
-  function configFilter($this, colArray) {
+}
+function configFilter($this, colArray) {
             setTimeout(function () {
                 var tableName = $this[0].id;
                 var columns = $this.api().columns();
@@ -235,6 +233,9 @@ initComplete: function () {
             rootNode.hide();
             $('#mask').hide();
         }
+</script> 
+<script type="text/javascript">
+  
 </script>
 <script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script>
 <script type="text/javascript">

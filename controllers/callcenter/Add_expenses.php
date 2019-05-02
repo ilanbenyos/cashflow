@@ -76,9 +76,28 @@ class Add_expenses extends CI_Controller {
 		//print_r($this->db->last_query());exit();
 		$data['allexpenses'] = $this->all_model->getAllCallCenterVendor();
 		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		$this->load->view('templates/left-sidebar2');
+		$this->load->view('templates/content');
 		$this->load->view('callcenter/expenses',$data);
 		$this->load->view('templates/footer');
+	}
+	public function test1(){
+		$this->load->view('templates/header');
+		$this->load->view('templates/left-sidebar2');
+		$this->load->view('templates/content');
+		$this->load->view('templates/footer');
+	}
+	public function callCenterExpenses(){
+		$this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
+	      $this->db->from('usermaster');
+	      $this->db->where('UserID',$_SESSION['userid']);
+	      $this->db->where('Active',1);
+	      $query = $this->db->get();
+	      $VendorId = $query->row();
+		$data['expenses'] = $this->all_model->getAllCallCenterExp($VendorId->CallCenterVendorId);
+		//print_r($this->db->last_query());exit();
+		$data['allexpenses'] = $this->all_model->getAllCallCenterVendor();
+		$this->load->view('callcenter/expenses',$data);
 	}
 	public function add_expense(){
 		if (!isset($_SESSION['logged_in'])) {
@@ -95,7 +114,8 @@ class Add_expenses extends CI_Controller {
 			$data['pspType'] = $this->all_model->allPspType();
 			$data['expCat'] = $this->all_model->get_active_categories();
 			$this->load->view('templates/header');
-			$this->load->view('templates/left-sidebar');
+			$this->load->view('templates/left-sidebar2');
+			$this->load->view('templates/content');
 			$this->load->view('callcenter/add-expenses',$data);
 			$this->load->view('templates/footer');
 		}else{
@@ -150,7 +170,8 @@ class Add_expenses extends CI_Controller {
 			$data['expCat'] = $this->all_model->get_active_categories();
         	$data['expenses'] = $this->all_model->editCallCenterExp($id);
 			$this->load->view('templates/header');
-			$this->load->view('templates/left-sidebar');
+			$this->load->view('templates/left-sidebar2');
+			$this->load->view('templates/content');
 			$this->load->view('callcenter/edit-expenses',$data);
 			$this->load->view('templates/footer');
         }else{

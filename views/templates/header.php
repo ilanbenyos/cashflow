@@ -17,6 +17,8 @@
 
 <script src="<?= base_url('assets/js/jquery.min.js')?>"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src=" https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+ <script src=" https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
 </head>
 
 <body>
@@ -100,7 +102,7 @@
                {
                
 
-				   $this->db->select('VendorId, VendorName, InvoiceType, ReminderOn');
+				   $this->db->select('VendorId, VendorName, InvoiceType, ReminderOn,CreatedOn');
 				   $this->db->from('vendormaster');
 				   $this->db->where('InvoiceType', 'Weekly');
 				   $this->db->where('ReminderOn',$date);
@@ -109,7 +111,7 @@
 				   $query1= $this->db->last_query();
 				   
 				   
-				   $this->db->select('VendorId, VendorName, InvoiceType, ReminderOn');
+				   $this->db->select('VendorId, VendorName, InvoiceType, ReminderOn,CreatedOn');
 				   $this->db->from('vendormaster');
 				   $this->db->where('InvoiceType', 'Monthly');
 				  $this->db->where('ReminderOn !=',NULL);
@@ -118,12 +120,13 @@
 				   $this->db->get();
 				  $query2= $this->db->last_query();
 
-				   $this->db->select('VendorId, VendorName, InvoiceType, ReminderOn');
+				   $this->db->select('VendorId, VendorName, InvoiceType, ReminderOn,CreatedOn');
 				   $this->db->from('vendormaster');
 				   $this->db->where('InvoiceType', 'Quarterly');
 				   $this->db->where('ReminderOn !=',NULL);
 				   $this->db->where('Day(STR_TO_DATE(REPLACE(ReminderOn , "/", ","),"%d,%m,%Y")) = day(NOW())');
 				   $this->db->where('Active',1);
+				   $this->db->order_by('CreatedOn','DESC');
 				   $this->db->get();
 				  $query3= $this->db->last_query();
 				   //$query3 = $this->db->get_compiled_select();
@@ -134,7 +137,8 @@
 				   $this->db->join('vendormaster v','v.VendorId = c.VendorId');
 				   $this->db->where('v.Active',1);
 				   $this->db->where('c.status',1);
-					$query4 = $this->db->get();
+				   $this->db->order_by('NotificationId','DESC');
+				   $query4 = $this->db->get();
 				   $callcenter = $query4->result();
 				  //call center notification end
 

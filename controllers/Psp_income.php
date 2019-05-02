@@ -33,10 +33,15 @@ class Psp_income extends CI_Controller {
 		}
 		$data['allPspIncome'] = $this->all_model->getPspIncome();
 		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar');
+		$this->load->view('templates/left-sidebar2');
+        $this->load->view('templates/content');
 		$this->load->view('deposit-details',$data);
 		$this->load->view('templates/footer');
 	}
+    public function pspIncome(){
+        $data['allPspIncome'] = $this->all_model->getPspIncome();
+        $this->load->view('deposit-details',$data);
+    }
 	public function getBanks($id){
 		$data['getpsp'] = $this->all_model->get_psp($id);
 		echo json_encode($data);
