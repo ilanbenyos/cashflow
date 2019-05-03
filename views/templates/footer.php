@@ -10,7 +10,8 @@
 <script src="<?= base_url('assets/js/jquery.validate.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/additional-methods.js')?>"></script> 
 <script src="<?= base_url('assets/js/common.js')?>"></script> 
-<script src="<?= base_url('assets/js/bootstrap.min.js')?>"></script> 
+<script src="<?= base_url('assets/js/crbnMenu.js')?>"></script>
+<script src="<?= base_url('assets/js/bootstrap.min.js')?>"></script>
 <script src="<?= base_url('assets/js/bootstrap-datepicker.js')?>"></script> 
 <script src="<?= base_url('assets/js/SidebarNav.min.js')?>"></script> 
 <script src="<?= base_url('assets/js/jquery.dataTables.min.js')?>"></script> 
@@ -26,6 +27,15 @@ else{
 }
 });
 </script> 
+<script>
+        if ($(window)) {
+            $(function () {
+                $('.menu').crbnMenu({
+                    hideActive: true
+                });
+            });
+        }
+    </script>
 <!--<script>
 document.addEventListener('DOMContentLoaded', function() {
   setTimeout(function() {
