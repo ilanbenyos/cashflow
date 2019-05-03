@@ -17,16 +17,15 @@
         <li class="psp"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-credit-card" aria-hidden="true"></i> <span>Payment Processors</span></a></li>
         <li class="vendors"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-window-restore" aria-hidden="true"></i> <span>Vendors</span></a></li>
         <li class="expCategories"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-database" aria-hidden="true"></i> <span>Expense Categories</span></a></li>
-        <li class="bankTransType"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-exchange" aria-hidden="true"></i> <span>Bank Transfer Type</span></a></li>  
+        <li class="bankTransType"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-exchange" aria-hidden="true"></i> <span>Bank Transfer Type</span></a></li>
       </ul>
     </li>
     <li class="psp-income"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-download" aria-hidden="true"></i> <span>PSP Income</span></a></li>
     <?php 
         foreach ($callCenter as $value) { ?>
-          <li class="callCenterExp"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa"><img class="call-centre-icon img-responsive" src="<?= base_url('assets/images/callcenter-expenses.png')?>"></i><span>Call Center Expenses</span></a></li>
-        <?php }
+    <li class="callCenterExp"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa"><img class="call-centre-icon img-responsive" src="<?= base_url('assets/images/callcenter-expenses.png')?>"></i><span>Call Center Expenses</span></a></li>
+    <?php }
         ?>
-    
     <li class="expenses"><a href='javascript:void(0)' onclick='savesubcat()'><i  class="fa fa-briefcase"  aria-hidden="true"></i> <span>Expenses</span></a></li>
     <li class="bankTrans"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Bank Transaction</span></a></li>
     <li class="treeview"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
@@ -41,10 +40,10 @@
       </ul>
     </li>
     <?php }else if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "CEO")){?>
-      <li class="psp-income"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-download" aria-hidden="true"></i> <span>PSP Income</span></a></li>
-      <li class="expenses"><a href='javascript:void(0)' onclick='savesubcat()'><i  class="fa fa-briefcase"  aria-hidden="true"></i> <span>Expenses</span></a></li>
-      <li class="bankTrans"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Bank Transaction</span></a></li>
-      <li class="treeview"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
+    <li class="psp-income"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-download" aria-hidden="true"></i> <span>PSP Income</span></a></li>
+    <li class="expenses"><a href='javascript:void(0)' onclick='savesubcat()'><i  class="fa fa-briefcase"  aria-hidden="true"></i> <span>Expenses</span></a></li>
+    <li class="bankTrans"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Bank Transaction</span></a></li>
+    <li class="treeview"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
       <ul class="treeview-menu">
         <li class="total-income"><a href='javascript:void(0)' onclick='savesubcat()'>Total Income Per PSP </a></li>
         <li class="invsout"><a href='javascript:void(0)' onclick='savesubcat()'>Income vs Outcome </a></li>
@@ -55,11 +54,11 @@
         <li class="callCenterExpRep"><a href='javascript:void(0)' onclick='savesubcat()'>Call Center Expenses</a></li>
       </ul>
     </li>
-      <?php }else if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Book Keeper")){?>
-        <li class="psp-income"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-download" aria-hidden="true"></i> <span>PSP Income</span></a></li>
-      <li class="expenses"><a href='javascript:void(0)' onclick='savesubcat()'><i  class="fa fa-briefcase"  aria-hidden="true"></i> <span>Expenses</span></a></li>
-      <li class="bankTrans"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Bank Transaction</span></a></li>
-      <li class="treeview"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
+    <?php }else if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Book Keeper")){?>
+    <li class="psp-income"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-download" aria-hidden="true"></i> <span>PSP Income</span></a></li>
+    <li class="expenses"><a href='javascript:void(0)' onclick='savesubcat()'><i  class="fa fa-briefcase"  aria-hidden="true"></i> <span>Expenses</span></a></li>
+    <li class="bankTrans"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Bank Transaction</span></a></li>
+    <li class="treeview"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
       <ul class="treeview-menu">
         <li class="total-income"><a href='javascript:void(0)' onclick='savesubcat()'>Total Income Per PSP </a></li>
         <li class="invsout"><a href='javascript:void(0)' onclick='savesubcat()'>Income vs Outcome </a></li>
@@ -70,8 +69,10 @@
         <li class="callCenterExpRep"><a href='javascript:void(0)' onclick='savesubcat()'>Call Center Expenses</a></li>
       </ul>
     </li>
-        <?php }elseif (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Call Center User")) { ?>
+    <?php }elseif (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Call Center User")) { ?>
       <li class="callCenter"><a href='javascript:void(0)' onclick='savesubcat()'><i class="fa fa-briefcase" aria-hidden="true"></i> <span>Call Center Expenses</span></a></li>
       <?php  } ?>
   </ul>
 </nav>
+
+

@@ -55,20 +55,30 @@ $(function() {
 var url = window.location;
 
 // for sidebar menu entirely
-jQuery(function ($) {
-    $(".sidebar-menu li a")
-        .click(function(e) {
-            var link = $(this);
-            var item = link.parent("li");
-        })
-        .each(function() {
-            var link = $(this);
-            if (link.get(0).href === location.href) {
-                link.addClass("active").parents("li").addClass("active");
-                return false;
-            }
-        });
-});
+//jQuery(function ($) {
+//    $(".sidebar-menu li a")
+//        .click(function(e) {
+//            var link = $(this);
+//            var item = link.parent("li");
+//        })
+//        .each(function() {
+//            var link = $(this);
+//            if (link.get(0).href === location.href) {
+//                link.addClass("active").parents("li").addClass("active");
+//                return false;
+//            }
+//        });
+//});
+
+$(document).ready(function(){
+  $(".sidebar-menu li").on('click', function(){
+    $(this).siblings().removeClass('active');
+    $(this).addClass('active')
+  })
+})
+function savesubcat(){
+  return null
+}
 
 
 //Clone the hidden element and shows it

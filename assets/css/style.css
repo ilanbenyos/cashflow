@@ -100,8 +100,8 @@ header { position:relative; background: #fff; }
 .sidebar-menu > li > .treeview-menu { margin: 0; padding: 10px 0 10px 24px; border-top: 1px dashed #9a9a9a; }
 .sidebar-menu li > .treeview-menu { /*display: block;*/ }
 .sidebar-menu li:last-child > .treeview-menu { display: none; }
-.sidebar-menu li.active:last-child > .treeview-menu { display: block; }
-.sidebar-menu li.active:first-child > .treeview-menu { display: block; transition: 5s; }
+.sidebar-menu li.active:last-child > .treeview-menu { /*display: block;*/ }
+.sidebar-menu li.active:first-child > .treeview-menu { /*display: block;*/ /*transition: 5s;*/ }
 .sidebar-menu a { text-decoration: none; }
 .sidebar-menu .treeview-menu { display: none; list-style: none; padding: 0; margin: 0; }
 .sidebar-menu .treeview-menu .treeview-menu { padding-left: 20px; }
