@@ -82,9 +82,11 @@ class Psp_income extends CI_Controller {
         		//unset($_SESSION['token_pspincome']);
         		if(!empty($token) == $session_token)
         		{	
+                    //print_r($_POST);exit();
         			$pspid = $this->input->post('psp');
         			$BankId = $this->input->post('bankid');
         			$desc = $this->input->post('desc');
+                    $crrVal = $this->input->post('crrVal');
         			$pldatereceive = $this->input->post('pldatereceive');
         			$plamtReceived = str_replace(',','',$this->input->post('plamtReceived'));
         			//$plcurr = $this->input->post('plcurr');
@@ -133,12 +135,21 @@ class Psp_income extends CI_Controller {
                     $d2 = trim ( $a2 [0], " " );
                     $to = $c2 . '-' . $a2 [1] . '-' . $d2;
 
-                    //if (!empty($crrAmt)) {
-                    if ($crrAmt != 0.00) {
+
+                    if ($crrVal != "") {
                         $isCrr = 1;
                     }else{
                         $isCrr = 0;
                     }
+                    /*echo 'isCrr' . $isCrr;
+                    exit();
+*/
+                    //if (!empty($crrAmt)) {
+                    /*if ($crrAmt != 0.00) {
+                        $isCrr = 1;
+                    }else{
+                        $isCrr = 0;
+                    }*/
                     
 
                     /*if ($crr == "") {
@@ -229,7 +240,7 @@ class Psp_income extends CI_Controller {
 
                     $date = $to;
                     $crrReceive =  date('Y-m-d', strtotime($date. ' + 180 days'));
-                    if ($isCrr == 1) {
+                    if ($isCrr == 1 && $acamtReceive != "" && $acamtReceive > 0.00) {
                         $crrData = array(
                         'PspId' => $pspid,
                         'BankId' => $BankId,
@@ -308,6 +319,7 @@ class Psp_income extends CI_Controller {
 			$data['allPspIncome'] = $this->all_model->pspIncome($id);
             //print_r($data['allPspIncome']);
             $data['crrData'] = $this->all_model->getCrrGeneratedData($id); // get only CRR data
+            //print_r($data['crrData']);exit();
 			$this->load->view('templates/header');
 			$this->load->view('templates/left-sidebar');
 			$this->load->view('edit-deposit-details',$data);
@@ -322,10 +334,10 @@ class Psp_income extends CI_Controller {
                 $userName = $this->db->get()->row();
                 $userName = $userName->Name;
                 $transactionId = guidv4 ( openssl_random_pseudo_bytes ( 16 ) );
-                $log = "Transaction ID:" . $transactionId  . ' : ' . "Edit-PSP" . ' - ' . "Created By: ". $userName. PHP_EOL . ''. PHP_EOL.
+/*                $log = "Transaction ID:" . $transactionId  . ' : ' . "Edit-PSP" . ' - ' . "Created By: ". $userName. PHP_EOL . ''. PHP_EOL.
                 "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-PSP" . PHP_EOL
                 . "Edit-PSP-POST-REQUEST: " ."Transaction ID:" . $transactionId  . json_encode($_POST).PHP_EOL . "-------------------------" . PHP_EOL;
-                file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );
+                file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );*/
 
 				$token = $this->input->post('pspin_edittoken');
         		$session_token=null;
@@ -333,9 +345,11 @@ class Psp_income extends CI_Controller {
         		//unset($_SESSION['token_pspincome']);
         		if(!empty($token) == $session_token)
         		{
+
         			$pspid = $this->input->post('psp');
         			$BankId = $this->input->post('bankid');
         			$desc = $this->input->post('desc');
+                    $crrValue = $this->input->post('crrValue');
         			$pldatereceive = $this->input->post('pldatereceive');
         			$plamtReceived = str_replace(',','',$this->input->post('plamtReceived'));
         			//$plcurr = $this->input->post('plcurr');
@@ -392,44 +406,31 @@ class Psp_income extends CI_Controller {
                     }else{
                         $isCrr = 0;
                     }
-                    
-                    /*if ($curr == 'USD') {
-                        $cur = 'EUR';*/
-                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
+                    $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
                                 
-                        $val=json_decode($val);
-                        $exchange_rate = $val->rates->EUR;
-                        $euro_amount = $nettoBankAmt * $exchange_rate;
-                        /*echo 'nettoBankAmt ' . $nettoBankAmt;
-                        echo '</br>';
-                        echo 'euro_amount' . $euro_amount;
-                        echo '</br>';*/
-                    /*}else{
-                        $cur = 'EUR';
-                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
-                                
-                        $val=json_decode($val);
-                        $rate = $val->rates->EUR;
-                        //echo "rate EUR " . $rate;
-                        $exchange_rate = $val->rates->EUR;
-                        $euro_amount = $nettoBankAmt * $exchange_rate;
-                    }*/
+                    $val=json_decode($val);
+                    $exchange_rate = $val->rates->EUR;
+                    $euro_amount = $nettoBankAmt * $exchange_rate;
 
-        			$updatePspIncomeInfo = array(
-        				'PspId' => $pspid,
-        				'BankId' => $BankId,
-        				'Description' => $desc,
-        				'Currency' => $curr,
-        				'ExpDate' => $from,
-        				'PlannedAmt' => $plamtReceived,
-        				'PlannedCom' => $plamtval,
+
+                    // create Rolling Reserved start
+
+                    if ($crrValue != "") {
+                        $updatePspIncomeInfo = array(
+                        'PspId' => $pspid,
+                        'BankId' => $BankId,
+                        'Description' => $desc,
+                        'Currency' => $curr,
+                        'ExpDate' => $from,
+                        'PlannedAmt' => $plamtReceived,
+                        'PlannedCom' => $plamtval,
                         'PlannedComP' => $plcommval,
-        				'PlannedNetAmt' => $plnetAmt,
-        				'ActualDate' => $to,
-        				'ActualAmt' => $acamtReceive,
-        				'ActualCom' => $acamtval,
+                        'PlannedNetAmt' => $plnetAmt,
+                        'ActualDate' => $to,
+                        'ActualAmt' => $acamtReceive,
+                        'ActualCom' => $acamtval,
                         'ActualComP' => $accommval,
-        				//'ActualNetAmt' => $acnetAmt,
+                        //'ActualNetAmt' => $acnetAmt,
                         //'EuroValue' => $acnetAmt,
                         'ActualNetAmt' => $nettoBankAmt,
                         'AdditionalFees' => $additionalFees,
@@ -439,9 +440,91 @@ class Psp_income extends CI_Controller {
                         'ExchangeRate' => $exchange_rate,
                         'EuroValue' => $euro_amount,
                         'isCRR' => $isCrr,
-        				//'CreatedBy' => $uid,
+                        //'CreatedBy' => $uid,
                         'ModifiedBy'=> $uid
-        			);
+                    );
+                        //print_r($updatePspIncomeInfo);
+                    /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-PSP". PHP_EOL
+                    . "Add-PSP-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($updatePspIncomeInfo) .PHP_EOL . "-------------------------" . PHP_EOL;
+                    file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );*/
+
+                    $table = 'bankmaster';
+                    $columns = 'BankName,Balance,MaxBalance,BankId';
+                    $wherecol = 'BankId';
+                    $data['getBankBal'] = $this->all_model->getbankData($table,$columns,$wherecol,$BankId);
+                    //$updatedBal = ($data['getBankBal']->Balance + $acnetAmt);
+                    $updatedBal = ($data['getBankBal']->Balance + $nettoBankAmt);
+
+                    $this->db->where('BankId',$BankId);
+                    $this->db->update('bankmaster',array('Balance'=>$updatedBal));
+
+                    $this->db->where('TransId',$id);
+                    $user = $this->db->update('pspincome',$updatePspIncomeInfo);
+                    // generate new crr record
+
+                    $date = $to;
+                    $crrReceive =  date('Y-m-d', strtotime($date. ' + 180 days'));
+                    if ($isCrr == 1 && $acamtReceive != "" && $acamtReceive > 0.00) {
+                        $crrData = array(
+                        'PspId' => $pspid,
+                        'BankId' => $BankId,
+                        'Description' => 'Rolling Reserve For PSP Income No.'.$id,
+                        'Currency' => $curr,
+                        //'ActualDate' => $crrReceive,
+                        'ExpDate' => $crrReceive,
+                        //'ActualAmt' => $crrAmt,
+                        'PlannedAmt' => $crrAmt,
+                        //'isCRR' => $isCrr,
+                        'CRRId' => $id,
+                        'CreatedBy' => $uid,
+                        'ModifiedBy ' => $uid
+                        );
+
+                        $this->db->select('PspId,Balance');
+                        $this->db->from('pspmaster');
+                        $this->db->where('PspId',$_POST['psp']);
+                        $data['pspBalance'] = $this->db->get()->row();
+                        $crrBal = ($data['pspBalance']->Balance)+($crrAmt);
+                        $pspMaster = array(                            // To update rolling reserve blance
+                                'Balance' => $crrBal
+                            );
+                        
+                        
+                        $this->db->insert('pspincome',$crrData);
+                        $this->db->update('pspmaster',array('Balance'=>$crrAmt),array('PspId'=>$pspid));
+
+                        $this->db->where('PspId',$pspid);
+                        $this->db->update('pspmaster',$pspMaster);
+
+                    }
+                    }else{
+                        $updatePspIncomeInfo = array(
+                        'PspId' => $pspid,
+                        'BankId' => $BankId,
+                        'Description' => $desc,
+                        'Currency' => $curr,
+                        'ExpDate' => $from,
+                        'PlannedAmt' => $plamtReceived,
+                        'PlannedCom' => $plamtval,
+                        'PlannedComP' => $plcommval,
+                        'PlannedNetAmt' => $plnetAmt,
+                        'ActualDate' => $to,
+                        'ActualAmt' => $acamtReceive,
+                        'ActualCom' => $acamtval,
+                        'ActualComP' => $accommval,
+                        //'ActualNetAmt' => $acnetAmt,
+                        //'EuroValue' => $acnetAmt,
+                        'ActualNetAmt' => $nettoBankAmt,
+                        'AdditionalFees' => $additionalFees,
+                        //'EuroValue' => $nettoBankAmt,
+                        'NetBankAmt' => $nettoBankAmt,
+                        'AdditionalFees' => $additionalFees,
+                        'ExchangeRate' => $exchange_rate,
+                        'EuroValue' => $euro_amount,
+                        'isCRR' => $isCrr,
+                        //'CreatedBy' => $uid,
+                        'ModifiedBy'=> $uid
+                    );
 
                     $log = "ip:" . $_SERVER['REMOTE_ADDR'] . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Edit-PSP" . PHP_EOL
                     . "Edit-PSP-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($updatePspIncomeInfo) .PHP_EOL . "-------------------------" . PHP_EOL;
@@ -470,8 +553,8 @@ class Psp_income extends CI_Controller {
                     $this->db->update('bankmaster',array('Balance'=>$updatedBal));
 
 
-        			$this->db->where('TransId',$id);
-	        		$user = $this->db->update('pspincome',$updatePspIncomeInfo);
+                    $this->db->where('TransId',$id);
+                    $user = $this->db->update('pspincome',$updatePspIncomeInfo);
                     
                     $data['allPspIncome'] = $this->all_model->pspIncome($id);
                     $date = date("Y-m-d");
@@ -479,16 +562,7 @@ class Psp_income extends CI_Controller {
                         
                         $crrDate = date("Y-m-d");
                         if ($data['allPspIncome']->isCRR == 0 && $data['allPspIncome']->CRRId != 0) {
-                            /*$table = 'bankmaster';
-                            $columns = 'BankName,Balance';
-                            $wherecol = 'BankId';
-                            $data['getBankBal'] = $this->all_model->getbankData($table,$columns,$wherecol,$BankId);
-
-                            $data['allPspIncome'] = $this->all_model->pspIncome($id);
-                            //$bankBal = ($data['getBankBal']->Balance) + ($nettoBankAmt);
-                            $updatedBal = ($data['getBankBal']->Balance) - ($data['allPspIncome']->NetBankAmt);
-                            $bankBal = ($updatedBal)+($nettoBankAmt);
-                            print_r($bankBal);exit();*/
+                            
                             // update CRR Record start
                             $crrData = array( 
                             'PspId' => $pspid,
@@ -542,44 +616,20 @@ class Psp_income extends CI_Controller {
                                 
                                 //$neBalance = ($balance)+($acamtReceive);
 
-                                $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Edit-PSP" . PHP_EOL
+                                /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Edit-PSP" . PHP_EOL
                                     . "Info: ". "Transaction ID:" . $transactionId  . ' - ' . "psp bal: " . $pspBal['balance']->Balance .','. 
                                     "before amount: ". $beforeActualAmount->ActualAmt .','."bank balance: ".$bankBalance .','."new balance: ".$neBalance. ','."actual amount: ".$acamtReceive. PHP_EOL . "-------------------------" . PHP_EOL;
-                                    file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );
+                                    file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );*/
 
                                 $this->db->where('PspId',$pspid);
                                 $this->db->update('pspmaster',array('Balance'=>$pspBalance));                                
                                 
                                 //to update psp balance of crr record end
                             //}
-
-                            /*//to update crr record and update psp balance start
-                            $this->db->select('PspId,Balance');
-                            $this->db->from('pspmaster');
-                            $this->db->where('PspId',$_POST['psp']);
-
-                            $pspBal['balance'] = $this->db->get()->row();
-
-                            $this->db->select('TransId,PspId,ActualAmt');
-                            $this->db->from('pspincome');
-                            $this->db->where('TransId',$id);
-                            $beforeActualAmount = $this->db->get()->row();
-
-                            $balance = ($pspBal['balance']->Balance)-($acamtReceive);
-
-                            //$neBalance = ($balance)+($acamtReceive);
-
-                            $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Edit-PSP" . PHP_EOL
-                                . "Info: ". "Transaction ID:" . $transactionId  . ' - ' . "psp bal: " . $pspBal['balance']->Balance .','. 
-                                "before amount: ". $beforeActualAmount->ActualAmt .','."balance: ".$balance .','."new balance: ".$neBalance. ','."actual amount: ".$acamtReceive. PHP_EOL . "-------------------------" . PHP_EOL;
-                                file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );
-
-                            $this->db->where('PspId',$pspid);
-                            $this->db->update('pspmaster',array('Balance'=>$balance));
-                            //to update crr record and update psp balance end*/
                         }
                         
-                        
+                    }
+                    // create Rolling Reserved end
 
 	        		$_SESSION['pop_mes'] = "PSP Income Updated Successfully.";
                         $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Edit-PSP" . PHP_EOL

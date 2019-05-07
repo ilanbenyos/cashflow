@@ -20,6 +20,7 @@
                 ?>
               <input type="hidden" name="pspin_token" value="<?php echo $token;?>">
               <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
+              <input type="hidden" name="crrVal" id="crrVal">
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex">
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
@@ -456,6 +457,7 @@ $('.datepicker').datepicker({
                     if (obj.getpsp.Crr > 0.00) {
                       $("#crr").show();
                     $("#crrComm").val(obj.getpsp.Crr);
+                    $("#crrVal").val(obj.getpsp.Crr);
                     }else{
                       $("#crrComm").val(obj.getpsp.Crr);
                       $("#crr").hide();

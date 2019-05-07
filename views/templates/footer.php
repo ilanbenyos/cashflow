@@ -211,11 +211,37 @@ $('.datepicker').datepicker({
     return convertString;
     
 }*/
+$('input.xyz').keyup(function(event) {
+            
+            
+            // When user select text in the document, also abort.
+            var selection = window.getSelection().toString();
+            if ( selection !== '' ) {
+                return;
+            }
+            
+            // When the arrow keys are pressed, abort.
+            if ( $.inArray( event.keyCode, [38,40,37,39] ) !== -1 ) {
+                return;
+            }
+            
+            
+            var $this = $( this );
+            
+            // Get the value.
+            var input = $this.val();
+            
+            var input = input.replace(/[\D\s\._\-]+/g, "");
+                    input = input ? parseInt( input, 10 ) : 0;
+
+                    $this.val( function() {
+                        return ( input === 0 ) ? "" : input.toLocaleString( "en-IN" );
+                    } );
+        } );
 $(document).ready(function(){
   $(".xyz").each(function(event) {
-
     // skip for arrow keys
-  if(event.which >= 37 && event.which <= 40){
+  if(event.which >= 37 && event.which <= 40 && event.which == 9){
     event.preventDefault();
   }
 
@@ -230,21 +256,26 @@ $(document).ready(function(){
   });
 });
 });
-$('input.xyz').keyup(function(event) {
-  //alert(12212)
-  // skip for arrow keys
-  if(event.which >= 37 && event.which <= 40){
-    event.preventDefault();
-  }
+
+$(document).keydown(function(objEvent) {
+  //alert(2222);
+    if (objEvent.keyCode == 9 && objEvent.keyCode >= 37 && objEvent.keyCode <= 40) {  //tab pressed
+        objEvent.preventDefault(); // stops its action
+
+      $('input.xyz').keydown(function(event) {
 
   $(this).val(function(index, value) {
     return value
       .replace(/\D/g, "")
       //.regex(^(0|[1-9]\d*)$)
-      //.replace(/([0-9])([0-9]{2})$/, '$1.$2')  
+     // .replace(/([0-9])([0-9]{2})$/, '$1.$2')
       .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
+
     
   });
 });
+    }
+    
+})
 </script> 
 </body></html>

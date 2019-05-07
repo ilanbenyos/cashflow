@@ -1,4 +1,10 @@
-<?php //print_r($allPspIncome);exit(); ?> 
+<?php //print_r($crrData);exit();
+  if ($crrData) {
+    $crrSet = "set";
+  }else{
+    $crrSet = "not";
+  }
+ ?> 
 <!-- Page Content  -->
 <div id="content">
   <div class="container-fluid">
@@ -22,6 +28,7 @@
       <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
       <input type="hidden" name="crrVal" id="crrVal" value="<?php echo $allPspIncome->isCRR ?>">
       <input type="hidden" name="crrVAlId" id="crrVAlId" value="<?php echo $allPspIncome->CRRId ?>">
+      <input type="hidden" name="crrValue" id="crrValue">
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex">
                   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
@@ -231,6 +238,8 @@
                               <input type="text" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo '1'; ?>" />
                            <?php }elseif ($allPspIncome->isCRR == 0 && $allPspIncome->CRRId > 0 && $allPspIncome->ActualDate == '0000-00-00') { ?>
                              <input type="text" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
+                           <?php }elseif ($allPspIncome->isCRR == 1 && $allPspIncome->CRRId == 0 && $allPspIncome->ActualDate == '0000-00-00') { ?>
+                            <input type="text" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php //echo '1'; ?>" />
                            <?php }else { ?>
                                <input type="text" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" placeholder="Actual Received Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualDate))) ?>" />
                            <?php }?>
@@ -287,21 +296,45 @@
                         </div>
                       </div>
                     </div>
-                    <?php if ($allPspIncome->isCRR == 1) { ?>
+                    <!-- <?php if ($allPspIncome->isCRR == 1) { ?>
                       <div class="col-md-12 col-sm-12 col-xs-12" id="crr">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Rolling Reserved Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" name="crrComm" id="crrComm">
-                           <?php if ($crrData->isCRR == 0 && $crrData->CRRId == $allPspIncome->TransId ) { ?>
+                           <?php if (isset($crrData->isCRR) == 0 && isset($crrData->CRRId) == $allPspIncome->TransId ) { ?>
                              <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" value="<?php echo $crrData->PlannedAmt; ?>" placeholder="CRR Amount" readonly/>
-                          <?php  }else { ?> 
+                          <?php  } else { ?> 
                           <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" value="<?php echo $allPspIncome->PlannedAmt; ?>" placeholder="CRR Amount" readonly/>
                         <?php } ?>
                         </div>
                       </div>
                     </div>
-                   <?php  } ?>
+                   <?php  } ?> -->
+                   <?php if ($crrSet == "set") { ?>
+                      <div class="col-md-12 col-sm-12 col-xs-12" id="crr">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Rolling Reserved Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="hidden" name="crrComm" id="crrComm">
+                             <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" value="<?php echo $crrData->PlannedAmt;; ?>" placeholder="CRR Amount" readonly/>
+                         
+                          
+                        </div>
+                      </div>
+                    </div>
+                   <?php  }elseif ($allPspIncome->isCRR == 1 && $allPspIncome->CRRId == 0) { ?>
+                     <div class="col-md-12 col-sm-12 col-xs-12" id="crr">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Rolling Reserved Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="hidden" name="crrComm" id="crrComm">
+                             <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" value="<?php //echo $allPspIncome->PlannedAmt; ?>" placeholder="CRR Amount" readonly/>
+                          
+                        </div>
+                      </div>
+                    </div>
+                   <?php } ?>
                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Bank Commission</label>
@@ -417,7 +450,69 @@ if (acdatereceive == "01/01/1970") {
     /*$('#pldatereceive').datepicker('setDate', pldatereceive);
     $('#pldatereceive').datepicker('setDate', acdatereceive);*/
     //$( "#nettoBankAmt" ).keyup(function( event ) {
+/*var pspid=document.getElementById("psp").value;
+         $.ajax({
+                url:"<?php echo base_url ('Psp_income/getBanks/')?>"+ pspid ,
+                    type: "POST",
+                    data : {pspid:pspid},
+                    dataType: "html",
+                    success: function(data) {
+                    var obj = JSON.parse(data);
+                      console.log(obj.getpsp);
+                      $("#bank").val(obj.getpsp.BankName);
+                      $("#bankid").val(obj.getpsp.BankId);
+                      $("#plcurr").val(obj.getpsp.CurName);
+                      $("#accurr").val(obj.getpsp.CurName);
+                      $("#accommP").val(obj.getpsp.Commission);
+                      var commAmount = $("#accommP").val();
+                      var commAmount = commAmount;
+                      $("#bankcommP").val(obj.getpsp.InComP);
+                      $("#accommval").val(commAmount);
+                    if (obj.getpsp.Crr > 0.00) {
+                      $("#crr").show();
+                    $("#crrComm").val(obj.getpsp.Crr);
+                    $("#crrValue").val(obj.getpsp.Crr);
+                    }else{
+                      $("#crrComm").val(obj.getpsp.Crr);
+                      $("#crr").hide();
+                    }*/
 
+                    //net to bank amount calculation start
+                    /*var acamtReceive = $("#acamtReceive").val();
+                    if (acamtReceive == "") {
+                        var actualAmt = 0;
+                    }else{
+                        var actualAmt = acamtReceive;
+                    }
+                    var accommP = $("#accommval").val();
+                    var bankcommP = $("#bankcommP").val();
+                    var additionalfees = $("#additionalFees").val();
+                    var rolingReserved = $("#crrAmt").val();
+                    if (additionalfees != "") {
+                      var fees = additionalfees;
+                    }else{
+                      var fees = 0;
+                    }
+                    //var commAmount = ("#acamtval").val();
+
+                    var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
+
+                    var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
+
+                    var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees)-parseInt(rolingReserved);
+                    var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
+
+                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);
+                    $("#bankcomm").val(bankcomm2);
+                    $("#acamtval").val(commAmount);
+                    $("#nettoBankAmt").val(netToBank);*/
+                    //net to bank amount calculation end
+                    /*var actualAmt = $("#acamtReceive").val();
+                    var CRR = obj.getpsp.Crr;
+                    var CRR = ((actualAmt/CRR)*100);
+                    alert(CRR);*/
+                  /* }
+               });*/
 
 
 if ($("#acamtReceive").val() == 0.00) {
@@ -625,9 +720,147 @@ if ($("#acamtReceive").val() == 0.00) {
       console.log('Net To Bank' +  netToBank);*/
       //net to bank amount calculation end
     });
-    }
+    }else if(($("#crrVal").val() == 1) && ($("#crrVAlId").val() == 0)){
+		//alert(444);
+    /*var pspid=document.getElementById("psp").value;  
+        $.ajax({
+                url:"<?php echo base_url ('Psp_income/getBanks/')?>"+ pspid ,
+                    type: "POST",
+                    data : {pspid:pspid},
+                    dataType: "html",
+                    success: function(data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj.getpsp.Crr);
+                    $("#accommval").val(commAmount);
+                    if (obj.getpsp.Crr > 0.00) {
+                      $("#crr").show();
+                    $("#crrComm").val(obj.getpsp.Crr);
+                    }else{
+                      $("#crr").hide();
+                    }
+                   }
+               });*/
+
+      $( "#acamtReceive" ).keyup(function( event ) { 
+
+      var pspid=document.getElementById("psp").value;  
+        $.ajax({
+                url:"<?php echo base_url ('Psp_income/getBanks/')?>"+ pspid ,
+                    type: "POST",
+                    data : {pspid:pspid},
+                    dataType: "html",
+                    success: function(data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj.getpsp.Crr);
+                    $("#bankcommP").val(obj.getpsp.InComP);
+                    $("#accommval").val(commAmount);
+                    if (obj.getpsp.Crr > 0.00) {
+                      $("#crr").show();
+                    $("#crrComm").val(obj.getpsp.Crr);
+                    $("#crrValue").val(obj.getpsp.Crr);
+                    }else{
+                      $("#crr").hide();
+                    }
+                   }
+               });
+      var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");   //actual process amount
+      var crrComm = document.getElementById("crrComm").value;        // CRR Commission %
+      //alert(crrComm);
+      var crrAmt = (crrComm/100);                                    
+      var crrAmt = Number(actualAmt*crrAmt).toFixed(2);
+
+      var additionalfees = document.getElementById("additionalFees").value;
+
+      if (additionalfees != "") {
+        var fees = additionalfees;
+      }else{
+        var fees = 0;
+      }
+      //alert(crrAmt);
+      $("#crrAmt").val(crrAmt);                                      //CRR Amount
+      /*console.log('actualAmt' + actualAmt);
+      console.log('crrComm' + crrComm);
+      console.log('crrAmt' + crrAmt);*/
+      //alert(actualAmt);
+
+
+
+      //net to bank amount calculation start
+      var accommP = $("#accommval").val();                          //PSP Commission 
+      var bankcommP = $("#bankcommP").val();                        //BAnk Inflow Commission
+      var rolingReserved = $("#crrAmt").val();
+      //console.log('rolingReserved' + rolingReserved);
+      //var commAmount = ("#acamtval").val();
+
+      var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
+      
+      var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
+
+      var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees)-parseInt(rolingReserved);
+      var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
+      //console.log('bankcomm1  ' + bankcomm1);
+
+      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2); 
+      //console.log('Net To Bank' +  netToBank);
+      $("#bankcomm").val(bankcomm2);
+      $("#acamtval").val(commAmount);
+      $("#nettoBankAmt").val(netToBank);
+
+      /*console.log('commission %' +  accommP);
+      console.log('bankcommP %' +  bankcommP);
+
+      console.log('Bank commission' +  bankcomm);
+      console.log('commission Amount' +  commAmount);
+
+      console.log('Net To Bank' +  netToBank);*/
+      //net to bank amount calculation end
+    });
+    $( "#additionalFees" ).keyup(function( event ) { 
+      var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");   //actual process amount
+      var crrComm = document.getElementById("crrComm").value;        // CRR Commission %
+      //alert(crrComm);
+      var crrAmt = (crrComm/100);                                    
+      var crrAmt = Number(actualAmt*crrAmt).toFixed(2);
+      var additionalfees = document.getElementById("additionalFees").value;
+
+      if (additionalfees != "") {
+        var fees = additionalfees;
+      }else{
+        var fees = 0;
+      }
+
+
+      //alert(crrAmt);
+      $("#crrAmt").val(crrAmt);                                      //CRR Amount
+      console.log('actualAmt' + actualAmt);
+      console.log('crrComm' + crrComm);
+      console.log('crrAmt' + crrAmt);
+      //alert(actualAmt);
+
+
+
+      //net to bank amount calculation start
+      var accommP = $("#accommval").val();                          //PSP Commission 
+      var bankcommP = $("#bankcommP").val();                        //BAnk Inflow Commission
+      var rolingReserved = $("#crrAmt").val();
+      //var commAmount = ("#acamtval").val();
+
+      var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
+
+      var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
+
+      var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees)-parseInt(rolingReserved);
+      var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
+      
+
+      var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);  
+      $("#bankcomm").val(bankcomm2);
+      $("#acamtval").val(commAmount);
+      $("#nettoBankAmt").val(netToBank);
+    });
+	}
 }else{
-  //alert(5555);
+  //alert(333);
 }
 
 
@@ -744,8 +977,8 @@ var crrVal = $("#crrVal").val();
 
     $( "#acamtReceive" ).keyup(function( event ) { 
       if ($("#crrAmt").attr('readonly',true)) {
-           var crrAmt = document.getElementById("crrAmt").value;
-           $("#crrAmt").val(crrAmt);
+           //var crrAmt = document.getElementById("crrAmt").value;
+           //$("#crrAmt").val(crrAmt);
       }else{
         var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");
       var crrComm = document.getElementById("crrComm").value;
