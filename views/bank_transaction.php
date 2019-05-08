@@ -142,6 +142,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       </div>
                     </div>
                   </div>
+                  <input type="hidden" class="form-control xyz" name="bankInflowComm" id="bankInflowComm" onkeypress="javascript:return isNumber(event)">
 
             </div>
           </div>
@@ -286,6 +287,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       /*var charges = (amt*(chargesP/100));
                       $("#transferCharges").val(charges);*/
                       $("#transferCharges").val(chargesP);
+                      //$("#bankInflowComm").val(obj.charges.InCom);
                     }
                    }
                });
@@ -300,6 +302,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     success: function(data) {
                       $("#charges").show();
                     var obj = JSON.parse(data);
+                    console.log(obj.charges.InCom);
                     if(obj.charges != null){
                       //var charges = obj.charges.Amount
                       var amount = $("#amount").val();
@@ -312,6 +315,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                       /*var charges = (amt*(chargesP/100));
                       $("#transferCharges").val(charges);*/
                       $("#transferCharges").val(chargesP);
+                      $("#bankInflowComm").val(obj.charges.InCom);
                     }else{
                       var amount = $("#amount").val();
                       if (amount == "") {
@@ -339,6 +343,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     success: function(data) {
                       $("#charges").show();
                     var obj = JSON.parse(data);
+                    //console.log(obj);
                     if(obj.charges != null){
                       var amount = $("#amount").val();
                       if (amount == "" && amount == null) {
@@ -380,6 +385,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                     success: function(data) {
                       $("#charges").show();
                     var obj = JSON.parse(data);
+                    console.log(obj);
                     if(obj.charges != null){
                       //var charges = obj.charges.Amount
                       var amount = $("#amount").val();
