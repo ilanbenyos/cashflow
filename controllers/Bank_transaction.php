@@ -14,10 +14,17 @@ class Bank_transaction extends CI_Controller {
 		$this->load->helper('prodconfig');
 	}
     public function getTransactionCharges(){
-        $this->db->select("BankTransferId,BankId,Amount");
+        /*$this->db->select("BankTransferId,BankId,Amount");
         $this->db->from('banktransfercharges');
         $this->db->where('BankTransferId',$_POST['transType']);
         $this->db->where('BankId',$_POST['fromBankId']);
+        $data['charges'] = $this->db->get()->row();*/
+        $this->db->select("b.BankTransferId,b.BankId,b.Amount,bm.BankId,bm.InCom");
+        $this->db->from('banktransfercharges b');
+        $this->db->join('bankmaster bm','b.BankId=bm.BankId');
+        //$this->db->where('bm.BankId',$_POST['fromBankId']);
+        $this->db->where('b.BankTransferId',$_POST['transType']);
+        $this->db->where('b.BankId',$_POST['fromBankId']);
         $data['charges'] = $this->db->get()->row();
        //$data['charges'] = $this->all_model->getTransferTypeAmount($id);
         echo json_encode($data);
@@ -64,6 +71,7 @@ class Bank_transaction extends CI_Controller {
             $this->load->view('bank_transaction',$data);
             $this->load->view('templates/footer');
         }else{  
+                //print_r($_POST);exit();
                 $this->db->select('UserID,Name');
                 $this->db->from('usermaster');
                 $this->db->where('UserID',$this->input->post('userid'));
@@ -88,6 +96,7 @@ class Bank_transaction extends CI_Controller {
                     //$transferAmt = str_replace(',','',$this->input->post('transferAmt'));
                     $transferAmt = $this->input->post('transferCharges');
                     $uid = $this->input->post('userid');
+                    $bankInflowComm = $this->input->post('bankInflowComm');
 
                     $this->db->select('BankId,BankName,Balance,OctComP,CurId');
                     $this->db->from('bankmaster');
@@ -113,6 +122,8 @@ class Bank_transaction extends CI_Controller {
                         $from_exchange_rate = $val->rates->EUR;
                         $from_euro_amount = $amount * $from_exchange_rate;
                     }
+                   /* echo $from_euro_amount;
+                    echo '<br>';*/
 
                     $this->db->select('BankId,BankName,Balance,InComP,CurId');
                     $this->db->from('bankmaster');
@@ -138,6 +149,8 @@ class Bank_transaction extends CI_Controller {
                         $to_euro_amount = $amount * $to_exchange_rate;
                         //print_r(number_format((float)$euro_amount, 2, '.', ''));
                     }
+                    /*echo $to_euro_amount;
+                    exit();*/
                     if ($from_exchange_rate > 1 ) {
                         $rate = $from_exchange_rate;
                     }else if($to_exchange_rate > 1){
@@ -160,7 +173,7 @@ class Bank_transaction extends CI_Controller {
 
                        $moneyInFees = ($toBankBal->InComP*$amount);          // 5*1000 = 5000
                        $moneyInFees = ($moneyInFees/100);                    //(5000/100) = 50
-                       $tobal = ($amount-$moneyInFees);                      // (1000-50) = 950
+                       $tobal = ($amount-$moneyInFees-$bankInflowComm);                      // (1000-50) = 950
                        $toNewBal = ($toBankBal->Balance)+($tobal);           // (14,748.00+950) = 15698
                     }
 
@@ -172,7 +185,7 @@ class Bank_transaction extends CI_Controller {
 
                        $moneyInFees = ($toBankBal->InComP*$amount);          // 5*1000 = 5000
                        $moneyInFees = ($moneyInFees/100);                    //(5000/100) = 50
-                       $tobal = ($amount-$moneyInFees);                      // (1000-50) = 950
+                       $tobal = ($amount-$moneyInFees-$bankInflowComm);                      // (1000-50) = 950
                        $toNewBal = ($toBankBal->Balance)+($tobal);           // (15698+950) = 16648
                     }
 
@@ -184,8 +197,12 @@ class Bank_transaction extends CI_Controller {
 
                        $moneyInFees = ($toBankBal->InComP*$to_euro_amount);          // 5*1000 = 5000
                        $moneyInFees = ($moneyInFees/100);                    //(5000/100) = 50
-                       $tobal = ($to_euro_amount-$moneyInFees);                      // (1000-50) = 950
+                       $tobal = ($to_euro_amount-$moneyInFees-$bankInflowComm);                      // (1000-50) = 950
                        $toNewBal = ($toBankBal->Balance)+($tobal);           // (16,648.00+950) = 16537.48
+                       /*echo 'fromNewBal' . $fromNewBal;
+                       echo '<br>';
+                       echo 'toNewBal' . $toNewBal;
+                       exit();*/
                     }
 
                     if ($fromBankCurr == 1 && $toBankCurr == 2) {                                 // if From Bank is EUR and To Bank is USD
@@ -196,7 +213,7 @@ class Bank_transaction extends CI_Controller {
 
                        $moneyInFees = ($toBankBal->InComP*$to_euro_amount);          // 5*883.107 = 4415.535
                        $moneyInFees = ($moneyInFees/100);                           //(4415.535/100) = 44.15535
-                       $tobal = ($to_euro_amount-$moneyInFees);                      // (883.107-44.15535) = 838.95165
+                       $tobal = ($to_euro_amount-$moneyInFees-$bankInflowComm);                      // (883.107-44.15535) = 838.95165
                        $toNewBal = ($toBankBal->Balance)+($tobal);                   // (17,598.00+838.95165) = 18436.9516
                     }
 

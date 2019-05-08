@@ -120,7 +120,7 @@ class All_model extends CI_Model {
 		return $this->db->get ()->result();
 	}
 	public function get_psp($id){
-		$this->db->select('p.PspId,p.PspName,p.BankId,p.Balance,p.Comments,p.Active,b.BankName,b.BankId,b.CurId,cm.CurName,p.PayTerm,p.Commission,p.Crr,p.TypeId,b.InComP');
+		$this->db->select('p.PspId,p.PspName,p.BankId,p.Balance,p.Comments,p.Active,b.BankName,b.BankId,b.CurId,cm.CurName,p.PayTerm,p.Commission,p.Crr,p.TypeId,b.InComP,b.InCom');
 		$this->db->from('pspmaster p');
 		$this->db->join('bankmaster b','b.BankId = p.BankId');
 		$this->db->join('currencymaster cm','cm.CurId = b.CurId');
@@ -432,6 +432,16 @@ class All_model extends CI_Model {
 		$this->db->where('u.Active',1);
 		$this->db->where('u.IsDelete',1);
 		return $this->db->get ()->result(); 
+
+	}
+	public function getAllcallcenternotification(){
+		$this->db->select('c.NotificationId,c.VendorId,c.ExpId,c.Amount,v.VendorId,v.VendorName,v.IsCallCenter,v.Active');
+	   $this->db->from('callcenternotification c');
+	   $this->db->join('vendormaster v','v.VendorId = c.VendorId');
+	   $this->db->where('v.Active',1);
+	   $this->db->where('c.status',1);
+	   $this->db->order_by('NotificationId','DESC');
+	   return $this->db->get ()->result(); 
 
 	}
 	/*public function getCallCenterVendorName($id){

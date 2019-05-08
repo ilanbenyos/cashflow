@@ -255,6 +255,7 @@
                         <label class="col-md-5 col-sm-5 col-xs-12">Bank Commission</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" class="form-control xyz" name="bankcommP" id="bankcommP" onkeypress="javascript:return isNumber(event)">
+                          <input type="hidden" class="form-control xyz" name="bankInflowComm" id="bankInflowComm" onkeypress="javascript:return isNumber(event)">
                           <input type="text" class="form-control xyz" name="bankcomm" id="bankcomm" onkeypress="javascript:return isNumber(event)" readonly>
                         </div>
                       </div>
@@ -380,12 +381,13 @@ $('.datepicker').datepicker({
                     dataType: "html",
                     success: function(data) {
                     var obj = JSON.parse(data);
-                    console.log(obj.getpsp.Crr);
+                    //console.log(obj.getpsp.InCom);
                     $("#bank").val(obj.getpsp.BankName);
                     $("#bankid").val(obj.getpsp.BankId);
                     $("#plcurr").val(obj.getpsp.CurName);
                     $("#accurr").val(obj.getpsp.CurName);
                     $("#accommP").val(obj.getpsp.Commission);
+                    $("#bankInflowComm").val(obj.getpsp.InCom);
                     var commAmount = $("#accommP").val();
                     var commAmount = commAmount;
                     $("#bankcommP").val(obj.getpsp.InComP);
@@ -444,12 +446,13 @@ $('.datepicker').datepicker({
                     dataType: "html",
                     success: function(data) {
                     var obj = JSON.parse(data);
-                    console.log(obj.getpsp);
+                    //console.log(obj.getpsp.InCom);
                     $("#bank").val(obj.getpsp.BankName);
                     $("#bankid").val(obj.getpsp.BankId);
                     $("#plcurr").val(obj.getpsp.CurName);
                     $("#accurr").val(obj.getpsp.CurName);
                     $("#accommP").val(obj.getpsp.Commission);
+                    $("#bankInflowComm").val(obj.getpsp.InCom);
                     var commAmount = $("#accommP").val();
                     var commAmount = commAmount;
                     $("#bankcommP").val(obj.getpsp.InComP);
@@ -479,6 +482,7 @@ $('.datepicker').datepicker({
                     }else{
                       var fees = 0;
                     }
+                    
                     //var commAmount = ("#acamtval").val();
 
                     var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
@@ -527,10 +531,11 @@ $('.datepicker').datepicker({
       //alert(actualAmt);
 
 
-
       //net to bank amount calculation start
       var accommP = $("#accommval").val();                          //PSP Commission 
       var bankcommP = $("#bankcommP").val();                        //BAnk Inflow Commission
+      var bankInflowComm = $("#bankInflowComm").val();              //Bank Inflow Commission Per Transition
+      //alert('bankInflowComm ' + bankInflowComm);
       var rolingReserved = $("#crrAmt").val();
       //console.log('rolingReserved' + rolingReserved);
       //var commAmount = ("#acamtval").val();
@@ -540,7 +545,8 @@ $('.datepicker').datepicker({
       var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 
       var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees)-parseInt(rolingReserved);
-      var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
+      
+      var bankcomm2 = Number(parseInt(bankInflowComm)+parseInt(bankcomm2)).toFixed(2);
       //console.log('bankcomm1  ' + bankcomm1);
 
       var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2); 
@@ -585,6 +591,7 @@ $('.datepicker').datepicker({
       //net to bank amount calculation start
       var accommP = $("#accommval").val();                          //PSP Commission 
       var bankcommP = $("#bankcommP").val();                        //BAnk Inflow Commission
+      var bankInflowComm = $("#bankInflowComm").val();              //Bank Inflow Commission Per Transition
       var rolingReserved = $("#crrAmt").val();
       //var commAmount = ("#acamtval").val();
 
@@ -594,7 +601,7 @@ $('.datepicker').datepicker({
 
       var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees)-parseInt(rolingReserved);
       var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
-      
+      var bankcomm2 = Number(parseInt(bankInflowComm)+parseInt(bankcomm2)).toFixed(2);
 
       var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);  
       $("#bankcomm").val(bankcomm2);
