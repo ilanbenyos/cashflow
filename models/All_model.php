@@ -340,10 +340,10 @@ class All_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 	public function getAllCallCenterExp($vendorid){ 
-		$this->db->select('c.ExpId,c.ExpName,c.VendorId,c.ExpAmount,c.ExpDate,c.ExpPaymentType,c.IsInvoiceGen,e.CatId,e.Category,e.Active,u.UserID,u.CallCenterVendorId');
+		$this->db->select('c.ExpId,c.ExpName,c.VendorId,c.ExpAmount,c.ExpDate,c.ExpPaymentType,c.IsInvoiceGen,e.CatId,e.Category,e.Active');
 		$this->db->from('callcenterexpenses c');
 		$this->db->join('expcategory e','c.ExpName = e.CatId');
-		$this->db->join('usermaster u','c.VendorId = u.CallCenterVendorId');
+		//$this->db->join('usermaster u','c.VendorId = u.CallCenterVendorId');
 		$this->db->where('c.VendorId',$vendorid);
 		$this->db->where('e.Active',1);
 		$this->db->where('c.IsDelete',1);
