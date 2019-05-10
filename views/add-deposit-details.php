@@ -482,7 +482,7 @@ $('.datepicker').datepicker({
                     }else{
                       var fees = 0;
                     }
-                    
+                    var bankInflowComm = $("#bankInflowComm").val();
                     //var commAmount = ("#acamtval").val();
 
                     var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
@@ -491,6 +491,11 @@ $('.datepicker').datepicker({
 
                     var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees)-parseInt(rolingReserved);
                     var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
+                    var bankcomm2 = Number(parseInt(bankInflowComm)+parseInt(bankcomm2)).toFixed(2);
+                    
+                    if (bankcomm2 =="NaN") {
+                      bankcomm2 = 0;
+                    }
 
                     var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);
                     $("#bankcomm").val(bankcomm2);
@@ -546,7 +551,10 @@ $('.datepicker').datepicker({
 
       var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees)-parseInt(rolingReserved);
       
+      //var bankcomm2 = Number(parseInt(bankInflowComm)+parseInt(bankcomm2)).toFixed(2);
+      var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
       var bankcomm2 = Number(parseInt(bankInflowComm)+parseInt(bankcomm2)).toFixed(2);
+      //alert(bankcomm2);
       //console.log('bankcomm1  ' + bankcomm1);
 
       var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2); 
