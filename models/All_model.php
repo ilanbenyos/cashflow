@@ -283,7 +283,6 @@ class All_model extends CI_Model {
 		$this->db->where('bc.BankTransferId',$id);
 		return $this->db->get()->row();
 	}
-
 	public function getallExpenses(){
 		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Share,e.FinalBankComm,e.NetFromBank,e.Active,v.VendorId,v.VendorName,b.BankId,b.BankName,bc.BankTransferId,bc.Amount,bt.BanktransferName,bt.BankTransferId');
 		$this->db->from('expenses e');
@@ -414,10 +413,10 @@ class All_model extends CI_Model {
 		return $this->db->get()->row();
 	}
 	public function getAllCallCenterVendor(){
-		$this->db->select('c.ExpId,c.ExpName,c.VendorId,c.ExpAmount,c.ExpDate,c.ExpPaymentType,c.IsInvoiceGen,e.CatId,e.Category,e.Active,u.UserID,u.CallCenterVendorId,v.VendorId,v.VendorName');
+		$this->db->select('c.ExpId,c.ExpName,c.VendorId,c.ExpAmount,c.ExpDate,c.ExpPaymentType,c.IsInvoiceGen,e.CatId,e.Category,e.Active,v.VendorId,v.VendorName');
 		$this->db->from('callcenterexpenses c');
 		$this->db->join('expcategory e','c.ExpName = e.CatId');
-		$this->db->join('usermaster u','c.VendorId = u.CallCenterVendorId');
+		//$this->db->join('usermaster u','c.VendorId = u.CallCenterVendorId');
 		$this->db->join('vendormaster v','c.VendorId=v.VendorId');
 		$this->db->where('e.Active',1);
 		$this->db->where('c.IsDelete',1);
@@ -432,7 +431,6 @@ class All_model extends CI_Model {
 		$this->db->where('u.Active',1);
 		$this->db->where('u.IsDelete',1);
 		return $this->db->get ()->result(); 
-
 	}
 	public function getAllcallcenternotification(){
 		$this->db->select('c.NotificationId,c.VendorId,c.ExpId,c.Amount,v.VendorId,v.VendorName,v.IsCallCenter,v.Active');
@@ -442,7 +440,6 @@ class All_model extends CI_Model {
 	   $this->db->where('c.status',1);
 	   $this->db->order_by('NotificationId','DESC');
 	   return $this->db->get ()->result(); 
-
 	}
 	/*public function getCallCenterVendorName($id){
 		$this->db->select('c.ExpId,v.VendorId,v.VendorName');
@@ -453,6 +450,5 @@ class All_model extends CI_Model {
 		$this->db->order_by('c.CreatedOn','DESC'); 
 		return $this->db->get()->row();
 	}*/
-
 	
 }
