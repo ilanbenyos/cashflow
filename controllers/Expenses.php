@@ -98,6 +98,7 @@ class Expenses extends CI_Controller {
             }else{
 			   $data['vendors_first']="";
 			}
+			$data['currency'] = $this->all_model->getAllCurrency();
 			$data['description'] = $this->all_model->callCenterNoti();
 			$data['vendors'] = $this->all_model->vendors();
             $data['transType'] = $this->all_model->getTransferType();

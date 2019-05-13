@@ -2,175 +2,231 @@
 if (isset ( $_SESSION ['pop_mes'] )) {
    popup2 ();
 }
+
+
 ?>
+
 <!-- Page Content  -->
- <?php if ($_SESSION['user_role'] == "Call Center User") { ?>
+<!-- <?php if ($_SESSION['user_role'] == "Call Center User") { ?>
 <div id="content">
   <div class="container-fluid"> 
-  <?php } ?>
-    <h1>Call Center Expenses</h1>
-    <div class="white-bg">
-      <div class="row">
-        <?php if ($_SESSION['user_role'] == "Call Center User") { ?>
-          <div class="col-md-12 text-right">
-          <div class="add-icon-box">
-            <button type="button" id="generateInvoice" class="cmn-btn transitions margin-right-1x">Generate</button>
-            <div class="page-loader" style="display:none;">
-                      <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
-                    </div>  
-            <a href="<?= base_url('call-center-expenses')?>"><span class="plus-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>Add Expense</a></div>
+  <?php } ?> -->
+
+<h1>Call Center Expenses</h1>
+<div class="white-bg">
+  <div class="row">
+    <?php  if ($_SESSION['user_role'] == "Call Center User") { ?>
+    <div class="col-md-12 text-right">
+      <div class="add-icon-box">
+        <button type="button" id="generateInvoice" class="cmn-btn transitions margin-right-1x" style="display:none;">Generate</button>
+        <!--Fund Request Modal -->
+        <button type="button" data-toggle="modal" data-target="#myModal"  class="cmn-btn transitions margin-right-1x" >Fund Request</button>
+        <!--Fund Request Modal -->
+        <div class="page-loader" style="display:none;">
+          <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
         </div>
-       <?php  }elseif ($_SESSION['user_role'] == "Admin") { ?>
-         <div class="col-md-12 text-right">
-          <div class="add-icon-box">
-            <button type="button" id="generateInvoiceAdmin" class="cmn-btn transitions margin-right-1x">Generate</button>
-            <div class="page-loader" style="display:none;">
-                      <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
-                    </div>  
-            <a href="<?= base_url('call-center-expenses')?>"><span class="plus-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>Add Expense</a></div>
+        <a href="<?= base_url('call-center-expenses')?>"><span class="plus-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>Add Expense</a></div>
+    </div>
+    <?php  }elseif ($_SESSION['user_role'] == "Admin") { ?>
+    <div class="col-md-12 text-right">
+      <div class="add-icon-box">
+        <button type="button" id="generateInvoiceAdmin" class="cmn-btn transitions margin-right-1x">Generate</button>
+        <div class="page-loader" style="display:none;">
+          <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
         </div>
-      <?php  } ?>
-        
-        <div class="col-md-12">
-          <div class="table-responsive common-table">
-            <?php if($_SESSION['user_role'] == "Admin"){ ?>
-              <form id="filterForm" action="<?php echo base_url('callcenter/add_expenses/invoiceForVendor') ?>" method="post">
-              <div id="mask"></div>
-              <table id="exptabledata" class="table table-hover" cellpadding="0" cellspacing="0">
-              <thead>
-                <tr>
-                  <!-- <th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th> -->
-                  <th>Id</th>
-                  <th>Call Center</th>
-                  <th>Expense Name</th>
-                  <th>Expense Amount</th>
-                  <th>Payment Type</th>
-                  <th>Expense Date </th>
-                  <th>Invoice</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($allexpenses as $key => $exp) { 
+        <a href="<?= base_url('call-center-expenses')?>"><span class="plus-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>Add Expense</a></div>
+    </div>
+    <?php  } ?>
+    <div class="col-md-12">
+      <div class="table-responsive common-table">
+        <?php if($_SESSION['user_role'] == "Admin"){ ?>
+        <form id="filterForm" action="<?php echo base_url('callcenter/add_expenses/invoiceForVendor') ?>" method="post">
+          <div id="mask"></div>
+          <table id="exptabledata" class="table table-hover" cellpadding="0" cellspacing="0">
+            <thead>
+              <tr> 
+                <!-- <th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th> -->
+                <th>Id</th>
+                <th>Call Center</th>
+                <th>Expense Name</th>
+                <th>Expense Amount</th>
+                <th>Payment Type</th>
+                <th>Expense Date </th>
+                <th>Invoice</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($allexpenses as $key => $exp) { 
                   ?>
-                  <input name="expid[]" value="<?php echo $exp->ExpId; ?>" id="expid" type="hidden" />
-                <tr>
-                  <!-- <td><input name="expid[]" value="<?php echo $exp->ExpId; ?>" id="expid" type="hidden" /></td> -->
-                  <td><?php echo $exp->ExpId; ?></td>
-                  <td><?php echo $exp->VendorName; ?></td>
-                  <td><?php echo $exp->Category; ?></td>
-                  <td><?php echo number_format($exp->ExpAmount); ?></td>
-                  <td><?php echo $exp->ExpPaymentType; ?></td>
-                  <?php if ($exp->ExpDate != '0000-00-00') { ?>
-                  <td><?php echo $exp->ExpDate; ?></td>
-                  <?php }else{ ?>
-                  <td></td>
-                  <?php } ?>
-                  <?php if ($exp->IsInvoiceGen == 1 || $exp->IsInvoiceGen == 2) { ?>
-                  <td><i class="fa fa-check" aria-hidden="true" style="color: #48ad14"></i></td>
-                  <?php }else{ ?>
-                  <td><i class="fa fa-times" aria-hidden="true" style="color: #d31c1c"></i></td>
-                  <?php } ?>
-                  <?php if ($exp->IsInvoiceGen == 0) { ?>
-                    <td> <a class="grey-icon del_bank" href="javascript:void(0);" onclick="myFunction(<?php echo $exp->ExpId;?>);"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                      <a class="grey-icon" href="<?= base_url('callcenter/Add_expenses/update/'.$exp->ExpId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-                   <?php }else{ ?>
-                      <td><a class="grey-icon" href="<?= base_url('callcenter/Add_expenses/update/'.$exp->ExpId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-                   <?php } ?>
-                </tr>
-                <?php   } ?>
+            <input name="expid[]" value="<?php echo $exp->ExpId; ?>" id="expid" type="hidden" />
+            <tr> 
+              <!-- <td><input name="expid[]" value="<?php echo $exp->ExpId; ?>" id="expid" type="hidden" /></td> -->
+              <td><?php echo $exp->ExpId; ?></td>
+              <td><?php echo $exp->VendorName; ?></td>
+              <td><?php echo $exp->Category; ?></td>
+              <td><?php echo number_format($exp->EuroValue); ?></td>
+              <td><?php echo $exp->ExpPaymentType; ?></td>
+              <?php if ($exp->ExpDate != '0000-00-00') { ?>
+              <td><?php echo $exp->ExpDate; ?></td>
+              <?php }else{ ?>
+              <td></td>
+              <?php } ?>
+              <?php if ($exp->IsInvoiceGen == 1 || $exp->IsInvoiceGen == 2) { ?>
+              <td><i class="fa fa-check" aria-hidden="true" style="color: #48ad14"></i></td>
+              <?php }else{ ?>
+              <td><i class="fa fa-times" aria-hidden="true" style="color: #d31c1c"></i></td>
+              <?php } ?>
+              <?php if ($exp->IsInvoiceGen == 0) { ?>
+              <td><a class="grey-icon del_bank" href="javascript:void(0);" onclick="myFunction(<?php echo $exp->ExpId;?>);"><i class="fa fa-trash-o" aria-hidden="true"></i></a> <a class="grey-icon" href="<?= base_url('callcenter/Add_expenses/update/'.$exp->ExpId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+              <?php }else{ ?>
+              <td><a class="grey-icon" href="<?= base_url('callcenter/Add_expenses/update/'.$exp->ExpId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+              <?php } ?>
+            </tr>
+            <?php   } ?>
               </tbody>
-            </table>
-          </form>
-            <?php }else if($_SESSION['user_role'] == "Call Center User"){ ?>
-              <table id="exptabledata" class="table table-hover" cellpadding="0" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>Transaction Id</th>
-                  <th>Expense Name</th>
-                  <th>Expense Amount</th>
-                  <th>Payment Type</th>
-                  <th>Expense Date </th>
-                  <th>Invoice</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($expenses as $key => $exp) { 
+            
+          </table>
+        </form>
+        <?php }else if($_SESSION['user_role'] == "Call Center User"){ ?>
+        <table id="exptabledata" class="table table-hover" cellpadding="0" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Transaction Id</th>
+              <th>Expense Name</th>
+              <th>Expense Amount</th>
+              <th>Payment Type</th>
+              <th>Expense Date </th>
+              <th>Invoice</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($expenses as $key => $exp) { 
                   //print_r($exp);
                   ?>
-                <tr>
-                  <td><?php echo $exp->ExpId; ?></td>
-                  <td><?php echo $exp->Category; ?></td>
-                  <td><?php echo number_format($exp->ExpAmount); ?></td>
-                  <td><?php echo $exp->ExpPaymentType; ?></td>
-                  <?php if ($exp->ExpDate != '0000-00-00') { ?>
-                  <td><?php echo $exp->ExpDate; ?></td>
-                  <?php }else{ ?>
-                  <td></td>
-                  <?php } ?>
-                  <?php if ($exp->IsInvoiceGen == 1 || $exp->IsInvoiceGen == 2) { ?>
-                  <td><i class="fa fa-check" aria-hidden="true" style="color: #48ad14"></i></td>
-                  <?php }else{ ?>
-                  <td><i class="fa fa-times" aria-hidden="true" style="color: #d31c1c"></i></td>
-                  <?php } ?>
-                  <td><a class="grey-icon" href="<?= base_url('callcenter/Add_expenses/update/'.$exp->ExpId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-                </tr>
-                <?php   } ?>
-              </tbody>
-            </table>
-           <?php  }
+            <tr>
+              <td><?php echo $exp->ExpId; ?></td>
+              <td><?php echo $exp->Category; ?></td>
+              <td><?php echo number_format($exp->ExpAmount); ?></td>
+              <td><?php echo $exp->ExpPaymentType; ?></td>
+              <?php if ($exp->ExpDate != '0000-00-00') { ?>
+              <td><?php echo $exp->ExpDate; ?></td>
+              <?php }else{ ?>
+              <td></td>
+              <?php } ?>
+              <?php if ($exp->IsInvoiceGen == 1 || $exp->IsInvoiceGen == 2) { ?>
+              <td><i class="fa fa-check" aria-hidden="true" style="color: #48ad14"></i></td>
+              <?php }else{ ?>
+              <td><i class="fa fa-times" aria-hidden="true" style="color: #d31c1c"></i></td>
+              <?php } ?>
+              <td><a class="grey-icon" href="<?= base_url('callcenter/Add_expenses/update/'.$exp->ExpId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+            </tr>
+            <?php   } ?>
+          </tbody>
+        </table>
+        <?php  }
             ?>
-            
+      </div>
+    </div>
+    <!--  Delete modal starts -->
+    <div class="modal common-modal" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content clearfix">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h2 class="modal-title">Notice</h2>
           </div>
-        </div>
-       <!--  Delete modal starts -->
-        <div class="modal common-modal" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content clearfix">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h2 class="modal-title">Notice</h2>
+          <div class="modal-body clearfix">
+            <div class="defination-box clearfix">
+              <p>Are you sure You want to delete?</p>
             </div>
-            <div class="modal-body clearfix">
-              <div class="defination-box clearfix">
-                <p>Are you sure You want to delete?</p>
-
-              </div>
-              <div class="col-xs-12 text-center spacetop2x">
+            <div class="col-xs-12 text-center spacetop2x">
               <button type="button" data-dismiss="modal" class="btn-submit transitions" data-value="1">Yes</button>
               <button type="button" data-dismiss="modal" class="btn-submit transitions" data-value="0">NO</button>
             </div>
-            </div>
           </div>
         </div>
-      </div>
-      <!--  Delete modal ends -->
-      <!--  Invoice modal starts -->
-      <div class="modal common-modal" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content clearfix">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h2 class="modal-title">Notice</h2>
-            </div>
-            <div class="modal-body clearfix">
-              <div class="defination-box clearfix">
-                <p>To Generate Invoice, Filter Data For Specific Call Center</p>
-
-              </div>
-              <div class="col-xs-12 text-center spacetop2x">
-              <button type="button" data-dismiss="modal" class="btn-submit transitions invoice" data-value="1">OK</button>
-              <!-- <button type="button" data-dismiss="modal" class="btn-submit transitions invoice" data-value="0">NO</button> -->
-            </div>
-            </div>
-          </div>
-        </div>
-      </div> 
-      <!--  Invoice modal ends -->
       </div>
     </div>
+    <!--  Delete modal ends --> 
+    <!--  Invoice modal starts -->
+    <div class="modal common-modal" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content clearfix">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h2 class="modal-title">Notice</h2>
+          </div>
+          <div class="modal-body clearfix">
+            <div class="defination-box clearfix">
+              <p>To Generate Invoice, Filter Data For Specific Call Center</p>
+            </div>
+            <div class="col-xs-12 text-center spacetop2x">
+              <button type="button" data-dismiss="modal" class="btn-submit transitions invoice" data-value="1">OK</button>
+              <!-- <button type="button" data-dismiss="modal" class="btn-submit transitions invoice" data-value="0">NO</button> --> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  Invoice modal ends --> 
+    <!-- Request Fund Modal -->
+    <div class="modal common-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content clearfix">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h2 class="modal-title">Request for Fund</h2>
+          </div>
+          <div class="modal-body clearfix">
+            <div class="defination-box clearfix">
+              <form class="form-horizontal clearfix" method="post" id="request_fund_form">
+                <?php 
+					  $token = md5(uniqid(rand(), TRUE));
+					  if(isset ($_SESSION['new_category']))
+					  {
+						unset($_SESSION['new_category']);
+					  }
+					  $_SESSION['new_category'] = $token;
+					?>
+                <input type="hidden" name="category_token" value="<?php echo $token;?>">
+                <input type="hidden" name="VendorID" value="<?php echo $userdetails->CallCenterVendorId; ?>">
+                <input type="hidden" name="Currency" value="<?php echo $userdetails->Currency; ?>">
+                <div class="row clearfix spacetop4x">
+                  <div class="clearfix">
+                    <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <label class="col-md-4 col-sm-4 col-xs-12">Fund Amount</label>
+                          <div class="col-md-1 col-sm-1"><span><?php echo $userdetails->CurName; ?></span></div>
+                          <div class="col-md-7 col-sm-7 col-xs-12"> 
+                            <input type="text" class="form-control" name="Amount" id="Amount" placeholder="Amount" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                  </div>
+                  <div class="col-xs-12 text-center spacetop4x">
+                    <div class="page-loader" style="display:none;">
+                      <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
+                    </div>
+                    <button type="button" class="btn-submit transitions" id="request_fund_submit">Submit</button>
+                    <button type="reset" class="btn-reset transitions">Reset</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Request Fund Modal --> 
   </div>
+</div>
+</div>
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
@@ -276,7 +332,31 @@ $('#exptabledata tbody').on('change', 'input[type="checkbox"]', function(){
          }
       }
    });*/
-   
+   	  $("#request_fund_submit").click(function(){
+      var returnvar = true;
+      
+      if($("#Amount").val() ==""){
+           $("#Amount").css("border", "1px solid #be1622");           
+           returnvar = false;
+          }
+          if(returnvar == true){  
+              $.ajax({
+                url:"<?php echo base_url ('callcenter/add_expenses/AddFundReuest')?>",
+                    type: "POST",
+                    data : $("#request_fund_form").serialize(),
+                    dataType: "html",
+                   success: function(data) {
+						if(data == 1){
+                      window.location.href = '<?php echo base_url('all-expenses') ?>';
+                    }else{
+                      window.location.href = '<?php echo base_url('all-expenses') ?>';
+                    }
+                   }
+               });
+
+     }  
+     return returnvar;
+      });
    $("#generateInvoiceAdmin").click(function(){
       $("#generateInvoiceAdmin").hide();
 
@@ -434,7 +514,7 @@ $('#exptabledata tbody').on('change', 'input[type="checkbox"]', function(){
             $('#mask').hide();
         }
     
-</script>
+</script> 
 <script type="text/javascript">
     var updateUrl="<?php echo base_url('callcenter/add_expenses/delete/');?>";
 

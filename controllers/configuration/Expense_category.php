@@ -52,7 +52,7 @@ class Expense_category extends CI_Controller {
         				'CreatedBy' => $uid,
         				'CreatedOn' =>$date
         			);
-        			$this->db->insert('expcategory',$addCat);
+        			$this->db->insert('callcenter_expense_category',$addCat);
         			$_SESSION['pop_mes'] = "Expense Category Added Successfully."; 
 					return 1;
         		}else{
@@ -87,7 +87,7 @@ class Expense_category extends CI_Controller {
         				'ModifiedBy' => $uid
         			);
         			$this->db->where('CatId',$id);
-        			$this->db->update('expcategory',$updateCat);
+        			$this->db->update('callcenter_expense_category',$updateCat);
         			$_SESSION['pop_mes'] = "Expense Category Updated Successfully."; 
 					return 1;
         		}else{

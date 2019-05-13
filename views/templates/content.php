@@ -62,14 +62,19 @@
     $(".callCenterExpRep").click(function(){
       $(".1a").load("<?php echo base_url ( 'reports/callCenterExp' ); ?>");
     })
-    
-    
-    /*$(".callCenter").click(function(){
+	 $(".callCenterProfile").click(function(){
+      $(".1a").load("<?php echo base_url ( 'callcenter/add_expenses/callProfile' ); ?>");
+    })
+    $(".callCenter").click(function(){
       
      $(".1a").load("<?php echo base_url ( 'callcenter/add_expenses/callCenterExpenses' ); ?>");
-      //$( ".1a" ).load(" .1a" );
 
-    })*/
+    })
+    $(".dashboard").click(function(){
+      
+     $(".1a").load("<?php echo base_url ( 'reports/dashboard' ); ?>");
+
+    })
     
     
     

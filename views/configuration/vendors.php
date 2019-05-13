@@ -195,6 +195,40 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                           </div>
                         </div>
                       </div>
+					  <!--BANK--->
+					  <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Bank</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <!--  <input type="text" class="form-control" name="Currency" id="Currency"> -->
+                            <select class="form-control" name="bank" id="bank" >
+                              <!-- <option selected="" value="" id="val"></option> -->
+                              <option selected="" value="">Select Bank</option>
+                              <?php foreach ($banks as $bank) {
+                             ?>
+                              <option value="<?php echo $bank->BankId; ?>"><?php echo $bank->BankName; ?></option>
+                              <?php   } ?>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+					  <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <label class="col-md-6 col-sm-6 col-xs-12">Bank Addess</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control" name="bank_add"  id="bank_add" placeholder="Bank Addess" />
+                          </div>
+                        </div>
+                      </div>
+					  <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <label class="col-md-6 col-sm-6 col-xs-12">IBAN</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control" name="iban"  id="iban" placeholder="IBAN" />
+                          </div>
+                        </div>
+                      </div>
+					  <!-- END -->
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                           <label class="col-md-6 col-sm-6 col-xs-12">Status</label>

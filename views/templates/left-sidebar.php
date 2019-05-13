@@ -123,6 +123,7 @@
     </li>
     <?php }elseif (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Call Center User")) { ?>
       <li><a href="<?= base_url('all-expenses')?>"><i class="fa fa-briefcase" aria-hidden="true"></i> <span>Call Center Expenses</span></a></li>
+      <li><a href="<?= base_url('all-expenses')?>"><i class="fa fa-users" aria-hidden="true"></i> <span>Profile</span></a></li>
       <?php  } ?>
   </ul> 
 </nav>

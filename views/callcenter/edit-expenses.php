@@ -8,8 +8,8 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
       //print_r($vendors->VendorId);
  ?>
 <!-- Page Content  -->
-<div id="content">
-  <div class="container-fluid">
+<!--<div id="content">
+  <div class="container-fluid">-->
     <!-- <h1>PSP Income</h1> -->
     <div class="white-bg">
       <div class="row">
@@ -72,7 +72,7 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Expense Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="expAmount" id="expAmount" onkeypress="javascript:return isNumber(event)"  value="<?php echo $expenses->ExpAmount; ?>" placeholder="Expense Amount" />
+                          <input type="text" class="form-control xyz" name="expAmount" id="expAmount" onkeypress="javascript:return isNumber(event)"  value="<?php if($_SESSION['user_role'] != "Admin"){ echo $expenses->ExpAmount;}else{ echo $expenses->EuroValue; } ?>" placeholder="Expense Amount" />
                         </div>
                       </div>
                     </div>

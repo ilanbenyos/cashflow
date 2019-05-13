@@ -14,23 +14,35 @@
 <link rel="stylesheet" href="<?= base_url('assets/css/font-awesome.min.css') ?>">
 <link rel="stylesheet" href="<?= base_url('assets/css/datatable.css') ?>">
 <link href="<?= base_url('assets/css/pnotify.custom.min.css')?>" media="all" rel="stylesheet" type="text/css" />
-
 <script src="<?= base_url('assets/js/jquery.min.js')?>"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src=" https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
- <script src=" https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<script src=" https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<script type="text/javascript">
+   $(function(){
+   $(".announce").click(function(){
+	var val = this.id;	
+    var num = val.split("^");
+	var txt = "";
+	var txt = num[2]+" requested for Fund of " +num[1]+' '+num[3];
+	var paragraph = document.getElementById("label_note");
+	paragraph.innerHTML = txt;
+     $('#myModal_popo').modal('show');
+   });
+   });
+</script>
 </head>
-
+ 
 <body>
 <header class="site-header">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 no-padding relative">
-      	 <?php if ($_SESSION['user_role'] == "Call Center User") { 
+        <?php if ($_SESSION['user_role'] == "Call Center User") { 
       		$url = base_url('all-expenses');
       	 }else{
       	 	$url = base_url('configuration');;
-      	 } ?> 
+      	 } ?>
         <div class="logo"> <a href="<?= $url; ?>"><img class="aligncenter img-responsive" src="<?= base_url('assets/images/logo.png')?>"></a></div>
         <div class="navbar-bars">
           <button type="button" id="sidebarCollapse" class="navbar-toggle"><i class="fa fa-bars" aria-hidden="true"></i></button>
@@ -148,22 +160,13 @@
 				  //call center notification end
 
 				   //Bank Balance Alert start
-					/*$this->db->select('BankId,BankName,Balance,MinBalance,MaxBalance');
-					$this->db->from('bankmaster');
-					$this->db->where('Active',1);
-					$this->db->where('IsDelete',1);
-					$this->db->order_by('BankName','ASC');
-					$bankBalance= $this->db->get ()->result();
-					$minBalance = array();
-					$MaxBalance = array();
-					$minCount =array();
-					foreach ($bankBalance as $bal) {
-						$minBalance[]['bal'] = $bal->MinBalance;
-						$minBalance[]['id'] = $bal->BankId;
-						$MaxBalance[] = $bal->MaxBalance;
-						
-					}
-					print_r($minBalance);*/
+				    $this->db->select('r.RequestId,r.VendorID,r.RequestAmount,c.CurName,v.VendorName as Name,r.CreatedOn');
+					$this->db->from('callcenter_request r');
+					$this->db->join('vendormaster v','v.VendorId = r.VendorID');
+					$this->db->join('currencymaster c','r.Currency = c.CurId');
+					$this->db->where('r.ReminderStatus',0);
+					$this->db->order_by('r.CreatedOn','DESC');
+					$callcenter_request= $this->db->get ()->result();
 				   //Bank Balance Alert end
 
 				   $alldata = $this->db->query($query1." UNION ALL ".$query2. " UNION ALL " .$query3);
@@ -172,6 +175,7 @@
 				   $count1 = count($result1);
 
 				   $count1+= count($callcenter);
+				   $count1+= count($callcenter_request);
 					  
 					/*}
 					
@@ -181,7 +185,7 @@
 
 				   
 			   ?>
-				<a href="#" <?php 
+            <a href="#" <?php 
 				  if($count1 > 0)
 				  {
 				  ?>
@@ -189,28 +193,35 @@
 				  }
 				  ?>
 				  >
-				<?php 
+            <?php 
 				  if($count1 > 0)
 				  {
 				  ?>
-				<abbr class="note-count" style="border-radius:10px;"><?php echo $count1; ?></abbr>
-				<?php 
+            <abbr class="note-count" style="border-radius:10px;"><?php echo $count1; ?></abbr>
+            <?php 
 				  }
 				  ?>
-				<span><i class="fa fa-bell" aria-hidden="true"></i></span></a>
-				<div class="notification-dropdown">
-				  <ul class="notification-menu">
-					<li class="note-title">You have <?php echo $count1; ?> notifications</li>
-					<li> 
-					  <!-- inner menu: contains the actual data -->
-					  <ul class="inner-menu">
-						<?php 
+            <span><i class="fa fa-bell" aria-hidden="true"></i></span></a>
+            <div class="notification-dropdown">
+              <div class="note-title">You have <?php echo $count1; ?> notifications</div>
+              <ul class="notification-menu">
+                <li> 
+                  <!-- inner menu: contains the actual data -->
+                  <ul class="inner-menu">
+                    <?php 
+					foreach($callcenter_request as $notif1)
+						{
+
+						?>
+                    <li> <a  class="announce" data-toggle="modal"   id="<?php  echo $notif1->RequestId.'^'.$notif1->RequestAmount.'^'.$notif1->Name .'^'.$notif1->CurName ?>"> <?php echo $notif1->Name. ' Requested Fund Of ' . $notif1->RequestAmount .' '.$notif1->CurName  ?> </a> </li>
+                    <?php 
+						}
 					foreach($result1 as $notif)
 					{
 
 					?>
-						<li> <a href="<?php echo base_url('configuration/vendors/update_notification/'.$notif->VendorId);?>"> <?php echo 'Payment Reminder For -' . $notif->VendorName;  ?> </a> </li>
-						<?php 
+                    <li> <a href="<?php echo base_url('configuration/vendors/update_notification/'.$notif->VendorId);?>"> <?php echo 'Payment Reminder For -' . $notif->VendorName;  ?> </a> </li>
+                    <?php 
 					}
 					 
 			  
@@ -218,16 +229,18 @@
 						{
 
 						?>
-							<li> <a href="<?php echo base_url('Expenses/updateCallCenterExp/'.$notif1->NotificationId);?>"> <?php echo 'Call Center Expenses for -' . $notif1->VendorName;  ?> </a> </li>
-							<?php 
+                    <li> <a href="<?php echo base_url('Expenses/updateCallCenterExp/'.$notif1->NotificationId);?>"> <?php echo 'Call Center Expenses for -' . $notif1->VendorName;  ?> </a> </li>
+                    <?php 
 						}
+						
+						
 					  ?>
-					  </ul>
-					</li>
-					<li class="btm-view-all"><a href="<?php echo base_url('configuration/vendors/notification'); ?>">View all</a></li>
-				  </ul>
-				</div>
-	  <?php } ?>
+                  </ul>
+                </li>
+              </ul>
+              <div class="btm-view-all"><a href="<?php echo base_url('configuration/vendors/notification'); ?>">View all</a></div>
+            </div>
+            <?php } ?>
           </div>
         </div>
       </div>
@@ -237,3 +250,24 @@
 <!----- Header ends -----> 
 <!----- Wrapper starts ----->
 <div class="wrapper">
+ <!--  Invoice modal starts -->
+    <div class="modal common-modal" id="myModal_popo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content clearfix">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h2 class="modal-title">Notice</h2>
+          </div>
+          <div class="modal-body clearfix">
+            <div class="defination-box clearfix">
+              <p id="label_note"></p>
+            </div>
+            <div class="col-xs-12 text-center spacetop2x">
+              <button type="button" data-dismiss="modal" class="btn-submit transitions invoice" data-value="1">OK</button>
+              <!-- <button type="button" data-dismiss="modal" class="btn-submit transitions invoice" data-value="0">NO</button> --> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--  Invoice modal ends --> 

@@ -19,11 +19,18 @@
                 	<?php foreach ($notification as $noti){ ?> 
 
                   <tr>
-                    <td><?php  echo $i; ?></td>
+                    <!-- <td><?php  echo $i; ?></td> -->
                     <td><?php echo $noti->Comments; ?></td>
                   </tr>
-              <?php $i++; 
+              <?php 
           		} ?>
+              <?php foreach ($callcenter as $value) { ?>
+                <tr>
+                    <!-- <td><?php  echo $i; ?></td> -->
+                    <td><?php echo $value->VendorName; ?></td> 
+                  </tr>
+              <?php $i++; 
+            } ?>
               
                 </tbody>
               </table>

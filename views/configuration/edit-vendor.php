@@ -153,6 +153,41 @@
                         </div>
                       </div>
                     </div> 
+					
+					 <!--BANK--->
+					  <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <label class="col-md-4 col-sm-4 col-xs-12">Bank</label>
+                          <div class="col-md-8 col-sm-8 col-xs-12">
+                            <!--  <input type="text" class="form-control" name="Currency" id="Currency"> -->
+                            <select class="form-control" name="bank" id="bank" >
+                              <!-- <option selected="" value="" id="val"></option> -->
+                              <option selected="" value="">Select Bank</option>
+                              <?php foreach ($banks as $bank) {
+                             ?>
+                              <option  <?php if($bank->BankId == $Vendor_details->Bank){ echo 'selected="selected"'; } ?> value="<?php echo $bank->BankId; ?>"><?php echo $bank->BankName; ?></option>
+                              <?php   } ?>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+					  <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <label class="col-md-4 col-sm-4 col-xs-12">Bank Addess</label>
+                          <div class="col-md-8 col-sm-8 col-xs-12">
+                            <input type="text" class="form-control" name="bank_add"  id="bank_add" placeholder="Bank Addess" value="<?php echo $Vendor_details->BankAddress; ?>" />
+                          </div>
+                        </div>
+                      </div>
+					  <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <label class="col-md-4 col-sm-4 col-xs-12">IBAN</label>
+                          <div class="col-md-8 col-sm-8 col-xs-12">
+                            <input type="text" class="form-control" name="iban"  id="iban" placeholder="IBAN"  value="<?php echo $Vendor_details->IBAN; ?>"/>
+                          </div>
+                        </div>
+                      </div>
+					  <!-- END -->
 						<div class="col-md-12 col-sm-12 col-xs-12">
 						     <div class="form-group">
 								<label class="col-md-4 col-sm-4 col-xs-12">Status</label>

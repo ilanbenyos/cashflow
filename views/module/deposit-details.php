@@ -1,95 +1,130 @@
 <?php 
 if (isset ( $_SESSION ['pop_mes'] )) {
    popup2 ();
+   
 }
+//print_r($_SESSION);
 ?>
-<style type="text/css">
-  .ui-pnotify.custom .ui-pnotify-container {
-background-color: #90989d !important;
-}
-</style>
 <!-- Page Content  -->
 <!-- <div id="content">
   <div class="container-fluid"> -->
-    <h1>Expense</h1>
+    <h1>PSP Income</h1>
     <div class="white-bg">
       <div class="row">
         <div class="col-md-12 text-right">
-            <div class="add-icon-box"><a href="<?= base_url('add-expenses')?>"><span class="plus-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>Add Expense</a></div>
-          </div>
+          <div class="add-icon-box">
+            <button type="button" id="hideRR" class="cmn-btn transitions margin-right-1x">Hide rolling reserved</button>
+            <button type="button" id="showRR" class="cmn-btn transitions margin-right-1x" style="display: none">Show rolling reserved</button>
+            <a href="<?= base_url('add-psp-income')?>"><span class="plus-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>Add PSP Income</a></div>
+        </div>
         <div class="col-md-12">
           <div class="table-responsive common-table">
             <div id="mask"></div>
-            <table id="exptabledata" class="table table-hover" cellpadding="0" cellspacing="0">
+            <table id="psptabledata" class="table table-hover" cellpadding="0" cellspacing="0">
               <thead>
                 <tr>
-                  <th>Id</th>
-                  <th>Vendor</th>
+                  <th>No.</th>
+                  <th>PSP</th>
                   <th>Bank</th>
-                  <th>Transfer Type </th>
-                  <th>Planned Amount </th>
                   <th>Description</th>
-                  <th>Actual Amount</th>
-                  <th>Shares</th>
-                  <th>Final Bank Commission</th>
-                  <th>Net From Bank</th>
+                  <th>Proccessed Amount</th>
+                  <th>Commission</th>
+                  <th>Net Amount Received</th>
                   <th>Date Received</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                 <?php //$i = 1; ?>
-                <?php foreach ($getallExpenses as $exp) {
-                  
+                <?php //$i = 1; ?>
+                <?php foreach ($allPspIncome as $psp) {
                  ?>
-                 <tr>
-                  <td><?php echo $exp->TransId; ?></td>
-                  <td><?php echo $exp->VendorName; ?></td>
-                  <td><?php echo $exp->BankName; ?></td>
-                  <td><?php echo $exp->BanktransferName; ?></td>
-                  <td><?php echo $exp->PlannedAmt; ?></td>
-                  <td><?php echo $exp->Description; ?></td>
-                  <td><?php echo number_format($exp->ActualAmt, 2, '.', ','); ?></td>
-                  <td><?php echo number_format($exp->Share, 2, '.', ','); ?></td>
-                  <td><?php echo number_format($exp->FinalBankComm, 2, '.', ','); ?></td>
-                  <td><?php echo number_format($exp->NetFromBank, 2, '.', ','); ?></td>
-                  <?php if ($exp->ActualDate != '0000-00-00') { ?>
-                  <td><?php echo $exp->ActualDate; ?></td>
+                <tr data-user="<?php echo $psp->CRRId; ?>">
+                  <td><?php echo $psp->TransId; ?></td>
+                  <td><?php echo $psp->PspName; ?></td>
+                  <td><?php echo $psp->BankName; ?></td>
+                  <td><?php echo $psp->Description; ?></td>
+                  <td><?php echo number_format($psp->ActualAmt, 2, '.', ','); ?></td>
+                  <td><?php echo number_format($psp->ActualCom, 2, '.', ','); ?></td>
+                  <td><?php echo number_format($psp->NetBankAmt, 2, '.', ','); ?></td>
+                  <?php if ($psp->ActualDate != '0000-00-00') { ?>
+                  <td><?php echo $psp->ActualDate; ?></td>
                   <?php }else{ ?>
                   <td></td>
                   <?php } ?>
-                  <td><a class="grey-icon" href="<?= base_url('expenses/update/'.$exp->TransId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-                 </tr>
-             <?php  //$i++; 
-           } ?> 
+                  <?php if ($psp->ActualAmt != 0.00 || $psp->NetBankAmt != 0.00) { ?>
+                  <td><i class="fa fa-check" aria-hidden="true" style="color: #48ad14"></i></td>
+                  <?php }else{ ?>
+                  <td><i class="fa fa-times" aria-hidden="true" style="color: #d31c1c"></i></td>
+                  <?php } ?>
+                  <td><a class="grey-icon edit_pspdetails" href="<?= base_url('psp_income/update/'.$psp->TransId)?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                </tr>
+                <?php  //$i++; 
+           } ?>
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  <!-- </div>
+</div> -->
+
+ <script>
+/*$.validate({
+    modules : 'toggleDisabled',
+    disabledFormFilter : 'form.toggle-disabled'
+
+});   */      
+</script>  
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#exptabledata').DataTable( {
-    "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
-    dom: "lBfrtip",
-     aaSorting: [[0, "desc"]],
-     columnDefs: [
-   { orderable: false, targets: 10 }
+    var table = $('#psptabledata').DataTable({
+
+  "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
+responsive  : true,
+  
+  aaSorting: [[0, "desc"]],
+     dom: 'lBfrtip',
+
+  columnDefs: [
+   { orderable: false, targets: 8 },
+   { orderable: false, targets: 9},
 ],
 initComplete: function () {
       configFilter(this, [1,2]);
   }
 
-  });
-
 });
-    
-</script> 
-<script type="text/javascript">
-  function configFilter($this, colArray) {
+    $("#hideRR").click(function() {
+      $("#showRR").show();
+      $("#hideRR").hide();
+    $.fn.dataTable.ext.search.push(
+      function(settings, data, dataIndex) {
+        //console.log(dataIndex);
+          return $(table.row(dataIndex).node()).attr('data-user') == 0;
+          myFunction();
+
+        }
+    );
+    table.draw();
+}); 
+    $("#showRR").click(function() {
+      $("#showRR").hide();
+      $("#hideRR").show();
+     $.fn.dataTable.ext.search.pop();
+    table.draw();
+});
+  })
+  function myFunction() {
+  var x = document.getElementById("hideRR");
+  if (x.innerHTML === "Hide Rolling Reserved") {
+    x.innerHTML = "Show Rolling Reserved";
+  } else {
+    x.innerHTML = "Hide Rolling Reserved";
+  }
+}
+function configFilter($this, colArray) {
             setTimeout(function () {
                 var tableName = $this[0].id;
                 var columns = $this.api().columns();
@@ -188,27 +223,22 @@ initComplete: function () {
             ).draw();
             rootNode.hide();
             $('#mask').hide();
-        }
+        } 
 </script>
-<script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script>
 <script type="text/javascript">
-
-  function minAlert(){
+  function maxAlert(){
+    //alert(121212);
     var bankName = '<?php echo $_SESSION['bankName']; ?>';
-    var minBal = '<?php echo $_SESSION['MinBalance']; ?>';
+    var maxBal = '<?php echo $_SESSION['MaxBalance']; ?>';
     var tooltip = new PNotify({
-                  text: bankName +  "'s" + ' Balance Is Below Minimum Balance Of ' + minBal,
+                  text: bankName +  " 's" + ' Balance Is More Than Maximum Balance Of ' + maxBal,
                   type: 'danger',
-                  addclass: 'custom'
             
               });
   }
 
-
-  <?php if (isset($_SESSION['minBal'])) { ?>
-      minAlert();
-      //delete minBal;
-  <?php unset ( $_SESSION ['minBal'] );
+  <?php if (isset($_SESSION['maxBal'])) { ?>
+      maxAlert();
+  <?php  unset ( $_SESSION ['maxBal'] );
 } ?>
-
 </script>

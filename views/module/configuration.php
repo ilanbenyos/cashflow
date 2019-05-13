@@ -5,11 +5,6 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 }
 ?>
 <!-- Page Content  -->
-<style type="text/css">
-  .ui-pnotify.custom .ui-pnotify-container {
-background-color: #90989d !important;
-}
-</style>
 
 <!-- <div id="content">
   <div class="container-fluid"> -->
@@ -23,7 +18,7 @@ background-color: #90989d !important;
             <div class="config-icon-box"> <a href="<?= base_url('configuration/bank')?>"> <span class="icons"><i class="fa fa-university" aria-hidden="true"></i></span> <span class="medium-heading">Banks</span> </a> </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-6">
-            <div class="config-icon-box"> <a href="<?= base_url('configuration/users')?>""> <span class="icons"><i class="fa fa-users" aria-hidden="true"></i></span> <span class="medium-heading">Users</span> </a> </div>
+            <div class="config-icon-box"> <a href="<?= base_url('configuration/users')?>"> <span class="icons"><i class="fa fa-users" aria-hidden="true"></i></span> <span class="medium-heading">Users</span> </a> </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-6">
             <div class="config-icon-box"> <a href="<?= base_url('payment-processor')?>"> <span class="icons"><i class="fa fa-credit-card" aria-hidden="true"></i></span> <span class="medium-heading">PSP's</span> </a> </div>
@@ -42,7 +37,7 @@ background-color: #90989d !important;
             <div class="config-icon-box"> <a href="#""> <span class="icons"><img src="<?= base_url('assets/images/Bank-transaction.png')?>"/></span> <span class="medium-heading">Bank Transaction</span> </a> </div>
           </div> -->
           <div class="col-md-3 col-sm-3 col-xs-6">
-            <div class="config-icon-box"> <a href="<?= base_url('Reports/psp_incomes')?>"> <span class="icons"><i class="fa fa-file-text-o" aria-hidden="true"></i></span> <span class="medium-heading">Reports</span> </a> </div>
+            <div class="config-icon-box"> <a href="<?= base_url('Reports/psp_income')?>"> <span class="icons"><i class="fa fa-file-text-o" aria-hidden="true"></i></span> <span class="medium-heading">Reports</span> </a> </div>
           </div>
           
         </div>
@@ -58,7 +53,7 @@ background-color: #90989d !important;
             <div class="config-icon-box"> <a href="<?= base_url('expenses')?>"> <span class="icons"><img src="<?= base_url('assets/images/Expense.png')?>"/></span> <span class="medium-heading">Expenses</span> </a> </div>
           </div>
            <div class="col-md-3 col-sm-3 col-xs-6">
-            <div class="config-icon-box"> <a href="bank-transaction"> <span class="icons"><img src="<?= base_url('assets/images/Bank-transaction.png')?>"/></span> <span class="medium-heading">Bank Transaction</span> </a> </div>
+            <div class="config-icon-box"> <a href="bank-transaction""> <span class="icons"><img src="<?= base_url('assets/images/Bank-transaction.png')?>"/></span> <span class="medium-heading">Bank Transaction</span> </a> </div>
           </div> 
           <div class="col-md-3 col-sm-3 col-xs-6">
             <div class="config-icon-box"> <a href="<?= base_url('Reports/psp_income')?>"> <span class="icons"><img src="<?= base_url('assets/images/reports.png')?>"/></span> <span class="medium-heading">Reports</span> </a> </div>
@@ -83,8 +78,8 @@ background-color: #90989d !important;
         </div>
       </div>
   <?php } ?>
-   </div>
-</div> 
+  <!-- </div>
+</div> -->
 <script src="<?= base_url('assets/js/pnotify.custom.min.js')?>"></script>
 <script type="text/javascript">
   
@@ -113,7 +108,6 @@ background-color: #90989d !important;
              new PNotify({
                   text: value.BankName + "'s" + ' Balance Is Below Minimum Balance Of ' + value.MinBalance,
                   type: 'danger',
-                  addclass: 'custom',
             
               });
               });
@@ -155,8 +149,6 @@ background-color: #90989d !important;
              new PNotify({
                   text: value.BankName + " 's" + ' Balance Is More Than Maximum Balance Of ' + value.MaxBalance,
                   type: 'danger',
-                  addclass: 'custom',
-  
             
               });
               });
@@ -198,7 +190,6 @@ background-color: #90989d !important;
              new PNotify({
                   text: value.Description +' is due today of ' + 'amount: '+ value.PlannedAmt,
                   type: 'danger',
-                  addclass: 'custom'
             
               });
               });
@@ -208,33 +199,8 @@ background-color: #90989d !important;
       
   });
   }
-  
-  function rollingFundRequest(){
-    $.ajax({
-      type: 'POST',
-      url: '<?php echo base_url('callcenter/add_expenses/allRequestes') ?>',
-      success: function(msg) {
-          if (msg == 'loggedOut') {
-              window.location.href = '<?php echo base_url('login/') ?>';
-          }
-          else
-          { 
-             $.each( JSON.parse(msg), function( key, value ) {
-             new PNotify({
-                  text: value.Name +' is requested for fund of ' + 'amount: '+ value.RequestAmount,
-                  type: 'danger',
-                  addclass: 'custom'
-            
-              });
-              });
-                
-           }
-      }
-  });
-  }
   <?php if (isset($_SESSION['rolling_reserve'])) { ?>
       rollingReserved();
-	  rollingFundRequest();
   <?php unset ( $_SESSION ['rolling_reserve'] );
 } ?>
 //})

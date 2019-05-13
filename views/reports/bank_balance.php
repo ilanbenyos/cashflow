@@ -2,13 +2,14 @@
 
 <!-- <div id="content">
   <div class="container-fluid"> -->
-    <h1>Current Banks Balance</h1>
-    <div class="white-bg">
-      <div class="row">
-	     <!-- <div class="col-md-4 inline-divs text-left">
+
+<h1>Current Banks Balance</h1>
+<div class="white-bg">
+  <div class="row"> 
+    <!-- <div class="col-md-4 inline-divs text-left">
 	      <div class="month-expense-box">
             <div class="form-inline">
-              <label>Select a Currency :</label>
+              <strong>Select a Currency :</strong>
               <div class="input-group">
                 <select class="form-control" id="mySelect_currency" onChange="myFunction_month()">
                   <option  selected value="USD">USD</option>
@@ -18,27 +19,21 @@
             </div>
           </div>
 	   </div> -->
-     
-        <div class="col-md-12 inline-divs text-right">
-          <div class="col-md-4 inline-divs text-left">
-            <div class="month-expense-box">
-              <div class="form-inline">
-                <label>This report will show all the current banks balance in EUR</label>
-              </div>
+    
+    <div class="col-md-12 inline-divs row-flex align">
+      <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12 inline-divs text-left no-padding"><strong>This report will show all the current banks balance in EUR</strong></div>
+      <div class="col-lg-6 col-md-4 col-sm-12 col-xs-12 inline-divs no-padding text-right">
+        <div class="month-expense-box">
+          <div class="form-inline" onload="sumOfBanks()"> <strong>Sum Of Banks:</strong>
+            <div class="input-group">
+              <input type="text" class="form-control" name="sum" id="sum" readonly>
             </div>
-          </div> 
-          <div class="month-expense-box">
-              <div class="form-inline" onload="sumOfBanks()">
-                <label>Sum Of Banks:</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" name="sum" id="sum" readonly>
-                </div>
-              </div>
-            </div>
-          <!-- <div class="month-expense-box">
-            <label>Select months :</label>
+          </div>
+        </div>
+        <!-- <div class="month-expense-box">
+            <strong>Select months :</strong>
             <div class="form-inline">
-              <label>From :</label>
+              <strong>From :</strong>
               <div class="input-group">
                 <select class="form-control" id="mySelect_month_from" onChange="myFunction_month()">
                   <option value="<?php echo  date('m') ?>"><?php echo  date('M') ?></option>
@@ -56,7 +51,7 @@
                   <option value="12">Dec</option>
                 </select>
               </div>
-              <label>To :</label>
+              <strong>To :</strong>
               <div class="input-group">
                 <select class="form-control" id="mySelect_month_to" onChange="myFunction_month()">
                   <option value="<?php echo  date('m') ?>"><?php echo  date('M') ?></option>
@@ -75,10 +70,10 @@
                 </select>
               </div>
             </div>
-          </div> -->
-          <!-- <div class="month-expense-box">
+          </div> --> 
+        <!-- <div class="month-expense-box">
             <div class="form-inline">
-              <label>Select a year :</label>
+              <strong>Select a year :</strong>
               <div class="input-group">
                 <select class="form-control" id="mySelect_year" onChange="myFunction_month()">
 				  <option  value="<?php echo  date('Y') ?>"><?php echo  date('Y') ?></option> 
@@ -89,20 +84,21 @@
                 </select>
               </div>
             </div>
-          </div> -->
-        </div>
-        <div class="clearfix"></div>
-        <div class="padding4x clearfix">
-          <div class="col-md-7 col-sm-6 col-xs-12">
-            <div id="bar_chart"></div>
-          </div>
-          <div class="col-md-5 col-sm-6 col-xs-12">
-            <div id="piechart"></div>
-          </div>
-        </div>
+          </div> --> 
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="padding4x clearfix">
+      <div class="col-md-7 col-sm-6 col-xs-12">
+        <div id="bar_chart"></div>
+      </div>
+      <div class="col-md-5 col-sm-6 col-xs-12">
+        <div id="piechart"></div>
       </div>
     </div>
   </div>
+</div>
+</div>
 </div>
 <script type="text/javascript">
 		var d = new Date();

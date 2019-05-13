@@ -62,9 +62,7 @@
         <div class="clearfix"></div>
         <div class="padding4x clearfix">
           <div class="col-md-7 col-sm-12 col-xs-12">
-            
-<div id="chart-container"></div>
-
+            <div id="chart-container"></div>
           </div>
           <div class="col-md-5 col-sm-12 col-xs-12">
             <div id="piechart-container"></div>
@@ -79,8 +77,8 @@
          display:none !important;
     }
 </style>
- <script src=" https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
- <script src=" https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<!--  <script src=" https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+ <script src=" https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script> --> 
 
 <script type="text/javascript">
 var d = new Date();
@@ -129,7 +127,7 @@ var d = new Date();
             }]
             test2.push(obj1);
           }*/
-          console.log(test1);
+          //console.log(test1);
 
           const dataSource = {
                     chart: {
@@ -152,6 +150,7 @@ var d = new Date();
                       chartRightMargin:"15px",
                       legendItemFontSize: "12",
                       labelDisplay: "rotate",
+                      formatNumberScale:"0",
                       slantLabel: "1",
                      //plotTooltext: "Age group : $label<br>Total visit : $value",
                       theme: "fusion"
@@ -182,7 +181,7 @@ var d = new Date();
     }
     
 
-</script>
+</script> 
 <script>
 function myFunction_month() {
   var x1 = document.getElementById("mySelect_month_from").value;

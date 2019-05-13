@@ -58,24 +58,33 @@ class All_model extends CI_Model {
 	public function get_vendor_details(){
 	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Currency,v.Active,v.IsDelete' );
 	    $this->db->from ( 'vendormaster v' );
-		//$this->db->join('expcategory c', 'v.CategoryId=c.CatId');
+		//$this->db->join('callcenter_expense_category c', 'v.CategoryId=c.CatId');
 		$this->db->order_by('v.Active','DESC');
 		$this->db->where('v.IsDelete',1);
 		$this->db->order_by('v.VendorId','DESC');
 	    return $this->db->get ()->result(); 
 	}
 	public function get_vendor_details_byid($id){
-	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Currency,v.InvoiceDate,v.Active,v.Comments,v.ReminderOn,v.IsCallCenter,v.CallCenterlocation,v.CallCenterManager,v.CallCenterCashBalance, c.CurId,c.CurName' );
+	    $this->db->select ( 'v.VendorId,v.VendorName,v.InvoiceType,v.Currency,v.InvoiceDate,v.Active,v.Comments,v.ReminderOn,v.IsCallCenter,v.CallCenterlocation,v.CallCenterManager,v.CallCenterCashBalance, c.CurId,c.CurName,v.Bank,v.BankAddress,v.IBAN' );
 	    $this->db->from ( 'vendormaster v' );
 	    $this->db->join('currencymaster c','c.CurId = v.Currency');
-		//$this->db->join('expcategory c', 'v.CategoryId=c.CatId');
+		//$this->db->join('callcenter_expense_category c', 'v.CategoryId=c.CatId');
 		//$this->db->join('bankmaster b', 'v.BankId=b.BankId');
 		$this->db->where('v.VendorId',$id);
 	    return $this->db->get ()->row();
 	}
+	
+	public function get_vendor_currency_byid($id){
+	    $this->db->select ( 'c.CurName' );
+	    $this->db->from ( 'vendormaster v' );
+	    $this->db->join('currencymaster c','c.CurId = v.Currency');
+		$this->db->where('v.VendorId',$id);
+	    return $this->db->get ()->row();
+	}
+	
 	public function get_active_categories(){
 	    $this->db->select ( 'Category,CatId ' );
-	    $this->db->from ( 'expcategory' );
+	    $this->db->from ( 'callcenter_expense_category' );
 	    $this->db->order_by('Category','ASC');
 		$this->db->where('Active',1);
 	    return $this->db->get ()->result();
@@ -178,14 +187,14 @@ class All_model extends CI_Model {
 	}
 	public function getAllCategories(){
 		$this->db->select('CatId,Category,Description,CreatedOn,Active');
-		$this->db->from('expcategory');
+		$this->db->from('callcenter_expense_category');
 		$this->db->where('Active',1);
 		$this->db->order_by('CreatedOn','DESC');
 		return $this->db->get()->result();
 	}
 	public function getcategory($id){
 		$this->db->select('CatId,Category,CreatedOn,Active');
-		$this->db->from('expcategory');
+		$this->db->from('callcenter_expense_category');
 		$this->db->where('CatId',$id);
 		return $this->db->get()->row();
 	}
@@ -283,6 +292,7 @@ class All_model extends CI_Model {
 		$this->db->where('bc.BankTransferId',$id);
 		return $this->db->get()->row();
 	}
+
 	public function getallExpenses(){
 		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Share,e.FinalBankComm,e.NetFromBank,e.Active,v.VendorId,v.VendorName,b.BankId,b.BankName,bc.BankTransferId,bc.Amount,bt.BanktransferName,bt.BankTransferId');
 		$this->db->from('expenses e');
@@ -340,9 +350,9 @@ class All_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 	public function getAllCallCenterExp($vendorid){ 
-		$this->db->select('c.ExpId,c.ExpName,c.VendorId,c.ExpAmount,c.ExpDate,c.ExpPaymentType,c.IsInvoiceGen,e.CatId,e.Category,e.Active');
+		$this->db->select('c.ExpId,c.ExpName,c.VendorId,c.ExpAmount,c.EuroValue,c.ExpDate,c.ExpPaymentType,c.IsInvoiceGen,e.CatId,e.Category,e.Active');
 		$this->db->from('callcenterexpenses c');
-		$this->db->join('expcategory e','c.ExpName = e.CatId');
+		$this->db->join('callcenter_expense_category e','c.ExpName = e.CatId');
 		//$this->db->join('usermaster u','c.VendorId = u.CallCenterVendorId');
 		$this->db->where('c.VendorId',$vendorid);
 		$this->db->where('e.Active',1);
@@ -355,9 +365,9 @@ class All_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 	public function editCallCenterExp($id){
-		$this->db->select('c.ExpId,c.ExpName,c.VendorId,c.ExpAmount,c.ExpDate,c.ExpPaymentType,e.CatId,e.Category,e.Active');
+		$this->db->select('c.ExpId,c.ExpName,c.VendorId,c.ExpAmount,c.EuroValue,c.ExpDate,c.ExpPaymentType,e.CatId,e.Category,e.Active');
 		$this->db->from('callcenterexpenses c');
-		$this->db->join('expcategory e','c.ExpName = e.CatId');
+		$this->db->join('callcenter_expense_category e','c.ExpName = e.CatId');
 		//$this->db->join('psptype p','p.TypeId=c.ExpPaymentType');
 		/*$this->db->where('e.Active',1);
 		$this->db->where('p.Active',1);*/
@@ -371,7 +381,7 @@ class All_model extends CI_Model {
 		$this->db->where('MONTH(ExpDate)=MONTH(CURRENT_DATE())');
 		$this->db->group_by('ExpId');*/
 		//$this->db->order_by('ExpId','DESC');
-		$this->db->select('c.ExpId,c.VendorId,c.ExpName,sum(c.ExpAmount) as amount,c.CreatedOn,c.ExpDate,u.UserID,u.CallCenterVendorId');
+		$this->db->select('c.ExpId,c.VendorId,c.ExpName,sum(c.ExpAmount) as amount,sum(c.EuroValue) as amount_euro,c.CreatedOn,c.ExpDate,u.UserID,u.CallCenterVendorId');
 		$this->db->from('callcenterexpenses c');
 		$this->db->join('usermaster u','c.VendorId = u.CallCenterVendorId');
 		//$this->db->where('u.UserID',$_SESSION['userid']);
@@ -413,9 +423,9 @@ class All_model extends CI_Model {
 		return $this->db->get()->row();
 	}
 	public function getAllCallCenterVendor(){
-		$this->db->select('c.ExpId,c.ExpName,c.VendorId,c.ExpAmount,c.ExpDate,c.ExpPaymentType,c.IsInvoiceGen,e.CatId,e.Category,e.Active,v.VendorId,v.VendorName');
+		$this->db->select('c.ExpId,c.ExpName,c.VendorId,c.ExpAmount,c.EuroValue,c.ExpDate,c.ExpPaymentType,c.IsInvoiceGen,e.CatId,e.Category,e.Active,v.VendorId,v.VendorName');
 		$this->db->from('callcenterexpenses c');
-		$this->db->join('expcategory e','c.ExpName = e.CatId');
+		$this->db->join('callcenter_expense_category e','c.ExpName = e.CatId');
 		//$this->db->join('usermaster u','c.VendorId = u.CallCenterVendorId');
 		$this->db->join('vendormaster v','c.VendorId=v.VendorId');
 		$this->db->where('e.Active',1);
@@ -431,6 +441,7 @@ class All_model extends CI_Model {
 		$this->db->where('u.Active',1);
 		$this->db->where('u.IsDelete',1);
 		return $this->db->get ()->result(); 
+
 	}
 	public function getAllcallcenternotification(){
 		$this->db->select('c.NotificationId,c.VendorId,c.ExpId,c.Amount,v.VendorId,v.VendorName,v.IsCallCenter,v.Active');
@@ -440,6 +451,7 @@ class All_model extends CI_Model {
 	   $this->db->where('c.status',1);
 	   $this->db->order_by('NotificationId','DESC');
 	   return $this->db->get ()->result(); 
+
 	}
 	/*public function getCallCenterVendorName($id){
 		$this->db->select('c.ExpId,v.VendorId,v.VendorName');
@@ -450,5 +462,6 @@ class All_model extends CI_Model {
 		$this->db->order_by('c.CreatedOn','DESC'); 
 		return $this->db->get()->row();
 	}*/
+
 	
 }

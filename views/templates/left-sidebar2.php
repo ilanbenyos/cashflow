@@ -95,6 +95,7 @@
       <li class="callCenterExp"><a class="nav-link" href="#"><i class="fa"><img class="call-centre-icon img-responsive" src="<?= base_url('assets/images/callcenter-expenses.png')?>"></i><span>Call Center Expenses</span></a></li>
       <?php }
         ?>
+        
       <li class="expenses"><a class="nav-link" href="#"><i  class="fa fa-briefcase"  aria-hidden="true"></i> <span>Expenses</span></a></li>
       <li class="bankTrans"><a class="nav-link" href="#"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Bank Transaction</span></a></li>
       <li class="drop-arrow"><a class="nav-link" href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Reports</span> </a>
@@ -139,7 +140,8 @@
         </ul>
       </li>
       <?php }elseif (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Call Center User")) { ?>
-        <li class="callCenter"><a class="nav-link" href="#"><i class="fa fa-briefcase" aria-hidden="true"></i> <span>Call Center Expenses</span></a></li>
+        <li class="callCenter"><a class="nav-link" href="#"><i class="fa"><img class="call-centre-icon img-responsive" src="<?= base_url('assets/images/callcenter-expenses.png')?>"></i> <span>Call Center Expenses</span></a></li>
+        <li class="callCenterProfile"><a class="nav-link" href="#"><i class="fa"><img class="call-centre-icon img-responsive" src="<?= base_url('assets/images/my-profile-icon.png')?>"></i> <span>My Profile</span></a></li>
         <?php  } ?>
     </ul>
   </div>

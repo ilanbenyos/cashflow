@@ -56,7 +56,7 @@ echo '<pre/>';
 		$data['currency'] = $this->all_model->getAllCurrency();
 		$data['vendors'] = $Vendors;
 		//$data['categories'] = $Categories;
-		//$data['banks'] = $Banks;
+		$data['banks'] = $Banks;
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar2');
 		$this->load->view('templates/content');
@@ -68,6 +68,7 @@ echo '<pre/>';
 		$Vendors = $this->all_model->get_vendor_details();
 		$Banks = $this->all_model->get_all_banks();
 		$data['currency'] = $this->all_model->getAllCurrency();
+		$data['banks'] = $Banks;
 		$data['vendors'] = $Vendors;
 		$this->load->view('configuration/vendors',$data);
 	}
@@ -98,7 +99,9 @@ echo '<pre/>';
 				$Status= $this->input->post('Status');
 				$uid = $this->input->post('userid');
 				$callcenter = $this->input->post('callcenter');
-
+				$bank = $this->input->post('bank');
+				$bank_address =$this->input->post('bank_add');
+				$bank_iban =$this->input->post('iban');
 				if(	$this->input->post('Comments') 	!= ""){
 						$Comments= $this->input->post('Comments');
 				}else{ 
@@ -150,6 +153,9 @@ echo '<pre/>';
 					'CallCenterManager' => $callcenterManager,
 					'CallCenterCashBalance' => $callcenterCashBAl,
 					'CreatedBy' => $uid,
+					'Bank' => $bank,
+					'BankAddress' => $bank_address,
+					'IBAN' => $bank_iban,
 					'CreatedOn' =>$date
     	        );
     	        $user = $this->db->insert('vendormaster',$aVendorInfo);
@@ -164,7 +170,103 @@ echo '<pre/>';
     			
     	
 	}
-	
+	public function createVendor_Ajax()
+	{	
+
+	    if(!isset($_SESSION['logged_in']))
+	    {
+	        redirect('login');
+	    }
+			
+    	    $token = $this->input->post('vendor_details');
+    	    $session_token=null;
+    	    $session_token = $_SESSION['vendor_details'];
+    	    unset($_SESSION['vendor_details']);
+    	    
+    	    if(!empty($token) == $session_token)
+    	    {
+    	        $date = date('Y-m-d H:i:s');
+				
+    	        $sVname = $this->input->post('Vname');
+    	       // $ExpCatID = $this->input->post('ExpCatID');
+    	        $sInvoiceType = $this->input->post('InvoiceType');
+    	        $invoiceDate = $this->input->post('invoiceDate');
+    	        $Currency = $this->input->post('Currency');
+    	        //$BankId = $this->input->post('BankId');
+				$Status= $this->input->post('Status');
+				$uid = $this->input->post('userid');
+				$callcenter = $this->input->post('callcenter');
+				$bank = $this->input->post('bank');
+				$bank_address =$this->input->post('bank_add');
+				$bank_iban =$this->input->post('iban');
+				if(	$this->input->post('Comments') 	!= ""){
+						$Comments= $this->input->post('Comments');
+				}else{ 
+				$Comments=" ";
+				}
+
+				if ($sInvoiceType == 'Weekly') {
+					$reminderOn = $this->input->post('weekly_reminder');
+				}else if($sInvoiceType == 'Monthly'){
+					$reminderOn = $this->input->post('monthly_reminder');
+				}else if($sInvoiceType == 'Quarterly'){
+					$reminderOn = $this->input->post('quartely_reminder');
+				}else{
+					$reminderOn = "";
+				}
+
+				if ($callcenter == 'on') {
+					$IsCallCenter = 1;
+					$callcenterLocation = $this->input->post('callcenterLocation');
+					$callcenterManager = $this->input->post('callcenterManager');
+					$callcenterCashBAl = str_replace(',','',$this->input->post('callcenterCashBAl'));
+				}else{
+					$IsCallCenter = 0;
+					$callcenterLocation = "";
+					$callcenterManager = "";
+					$callcenterCashBAl = "";
+				}
+
+				$date = $invoiceDate;
+                        
+                    $a2 = explode ( '/', $date );
+                    $c2 = trim ( $a2 [2], " " );
+                    $d2 = trim ( $a2 [0], " " );
+                    $date = $c2 . '-' . $a2 [1] . '-' . $d2;
+
+    	        $aVendorInfo = array(
+    	            
+    	            'VendorName' => $sVname,
+    	            //'CategoryId' => $ExpCatID,
+					'Comments' => $Comments,
+    	            'InvoiceType' => $sInvoiceType,
+    	            'Currency' => $Currency,
+    	            'ReminderOn' => $reminderOn,
+    	            'InvoiceDate' => $date,
+    	            //'BankId' => $BankId,
+					'Active' => $Status,
+					'IsCallCenter' => $IsCallCenter,
+					'CallCenterlocation' => $callcenterLocation,
+					'CallCenterManager' => $callcenterManager,
+					'CallCenterCashBalance' => $callcenterCashBAl,
+					'CreatedBy' => $uid,
+					'Bank' => $bank,
+					'BankAddress' => $bank_address,
+					'IBAN' => $bank_iban,
+					'CreatedOn' =>$date
+    	        );
+    	        $user = $this->db->insert('vendormaster',$aVendorInfo);
+				$insert_id = $this->db->insert_id();
+				
+                $_SESSION['pop_mes'] = "New Vendor Created."; 
+			    echo 'success';
+    	    }else{
+    	        $_SESSION['pop_mes'] = "Token does not match.";
+    	      echo 'fail';
+    	    }
+    			
+    	
+	}
 	
 		public function update($id){
 	    if(!isset($_SESSION['logged_in']))
@@ -184,7 +286,7 @@ echo '<pre/>';
 			$data['currency'] = $this->all_model->getAllCurrency();
 			$data['currencyId'] = $this->all_model->getCurrency($id);
 		//	$data['categories'] = $Categories;
-			//$data['banks'] = $Banks;
+			$data['banks'] = $Banks;
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/left-sidebar', $data);
 			$this->load->view('configuration/edit-vendor', $data);
@@ -212,7 +314,9 @@ echo '<pre/>';
     	       	$Comments= $this->input->post('Comments');
     	       	$uid = $this->input->post('userid');
     	       	$callcenter = $this->input->post('callcenter');
-
+				$bank = $this->input->post('bank');
+				$bank_address =$this->input->post('bank_add');
+				$bank_iban =$this->input->post('iban');
 
     	       	if(	$this->input->post('Comments') 	!= ""){
 						$Comments= $this->input->post('Comments');
@@ -264,6 +368,9 @@ echo '<pre/>';
 					'CallCenterlocation' => $callcenterLocation,
 					'CallCenterManager' => $callcenterManager,
 					'CallCenterCashBalance' => $callcenterCashBAl,
+					'Bank' => $bank,
+					'BankAddress' => $bank_address,
+					'IBAN' => $bank_iban,
 					'ModifiedBy' => $uid
     	        );
 			 $this->db->where('VendorId',$id);

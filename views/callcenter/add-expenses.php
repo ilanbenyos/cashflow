@@ -14,9 +14,8 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
 //print_r($_SESSION);
 ?>
 <!-- Page Content  -->
-
-<div id="content">
-  <div class="container-fluid"> 
+<!--<div id="content">
+  <div class="container-fluid"> -->
     <!-- <h1>PSP Income</h1> -->
     <div class="white-bg">
       <div class="row">
@@ -46,7 +45,7 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                   </div>
                   <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <?php if($_SESSION['user_role'] == "Admin") { ?>
-                      <div class="col-md-12 col-sm-12 col-xs-12" id="vendor">
+                    <div class="col-md-12 col-sm-12 col-xs-12" id="vendor">
                       <div class="form-group align-4x-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Select Vendor</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -54,17 +53,17 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                             <option selected="" value="">Select Vendor</option>
                             <?php foreach ($vendors as $val) { 
                               ?>
-                            <option value="<?php echo $val->VendorId; ?>"><?php echo $val->VendorName; ?></option>   
-                                  <?php   } ?>
+                            <option value="<?php echo $val->VendorId; ?>"><?php echo $val->VendorName; ?></option>
+                            <?php   } ?>
                           </select>
                         </div>
                       </div>
                     </div>
                     <?php }?>
-                    
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group align-4x-top">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Expense Name</label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">Expense Name</label>
+                        <div class="col-md-1 col-sm-1" id="tooltip"><a data-toggle="modal" data-target="#myModal" href="#"><span class="plus-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i><span class="tooltiptext">Add New Category</span></span></a></div>
                         <div class="col-md-7 col-sm-7 col-xs-12"> 
                           <!-- <input type="hidden" name="transferAmt" id="transferAmt"> -->
                           <select class="form-control" name="expName" id="expName" onchange="">
@@ -129,6 +128,57 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
             </form>
           </div>
         </div>
+        <!-- Modal -->
+        <div class="modal common-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content clearfix">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title">Add New Category</h2>
+              </div>
+              <div class="modal-body clearfix">
+                <div class="defination-box clearfix">
+                  <form class="form-horizontal clearfix" method="post" id="exp_category_2">
+                    <?php 
+									  $token = md5(uniqid(rand(), TRUE));
+									  if(isset ($_SESSION['new_category']))
+									  {
+										unset($_SESSION['new_category']);
+									  }
+									  $_SESSION['new_category'] = $token;
+									?>
+                    <input type="hidden" name="category_token" value="<?php echo $token;?>">
+                    <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
+                    <div class="row clearfix spacetop4x">
+                      <div class="clearfix">
+                        <div class="col-lg-3 hidden-md hidden-sm hidden-xs"></div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                              <label class="col-md-4 col-sm-4 col-xs-12">Category</label>
+                              <div class="col-md-8 col-sm-8 col-xs-12">
+                                <input type="text" class="form-control" name="category" id="category" placeholder="Category" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-3 hidden-md hidden-sm hidden-xs"></div>
+                      </div>
+                      <div class="col-xs-12 text-center spacetop4x">
+                        <div class="page-loader" style="display:none;">
+                          <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
+                        </div>
+                        <button type="button" class="btn-submit transitions" id="expense-submit">Submit</button>
+                        <button type="reset" class="btn-reset transitions">Reset</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal --> 
       </div>
     </div>
   </div>
@@ -170,6 +220,7 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                     data : $("#expenses").serialize(),
                     dataType: "html",
                    success: function(data) {
+					  
                     //console.log(data);
                     if(data == 1){
                       window.location.href = '<?php echo base_url('all-expenses') ?>';
@@ -180,6 +231,39 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                });
 
      } 
+     return returnvar;
+      });
+	  
+	  $("#expense-submit").click(function(){
+      var returnvar = true;
+      
+      if($("#category").val() ==""){
+           $("#category").css("border", "1px solid #be1622");           
+           returnvar = false;
+          }
+          if(returnvar == true){  
+             $("#expense-submit").hide();
+            $(".page-loader").show();
+              $.ajax({
+                url:"<?php echo base_url ('add-category')?>",
+                    type: "POST",
+                    data : $("#exp_category_2").serialize(),
+                    dataType: "html",
+                   success: function(data) {
+                        if(data == 1)
+                {
+                  window.location.href = '<?php echo base_url('call-center-expenses') ?>';
+
+                }
+                else
+                {
+                  window.location.href = '<?php echo base_url('call-center-expenses') ?>';
+
+                }
+                   }
+               });
+
+     }  
      return returnvar;
       });
 </script>

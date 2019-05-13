@@ -5,11 +5,9 @@
     <h1>Reports</h1>
     <div class="white-bg">
       <div class="row">
-        <div class="col-md-12 inline-divs text-right">
-          <div class="month-expense-box">
-            <label>Select months :</label>
-            <div class="form-inline">
-              <label>From :</label>
+        <div class="col-md-12 inline-divs row-flex align text-right">
+          <div class="month-expense-box"> <strong>Select months :</strong>
+            <div class="form-inline"> <strong>From :</strong>
               <div class="input-group">
                 <select class="form-control" id="mySelect_month_from" onChange="myFunction_month()">
                   <option value="<?php echo  date('m') ?>"><?php echo  date('M') ?></option>
@@ -27,7 +25,7 @@
                   <option value="12">Dec</option>
                 </select>
               </div>
-              <label>To :</label>
+              <strong>To :</strong>
               <div class="input-group">
                 <select class="form-control" id="mySelect_month_to" onChange="myFunction_month()">
                   <option value="<?php echo  date('m') ?>"><?php echo  date('M') ?></option>
@@ -48,11 +46,10 @@
             </div>
           </div>
           <div class="month-expense-box">
-            <div class="form-inline">
-              <label>Select a year :</label>
+            <div class="form-inline"> <strong>Select a year :</strong>
               <div class="input-group">
                 <select class="form-control" id="mySelect_year" onChange="myFunction_month()">
-				  <option  value="<?php echo  date('Y') ?>"><?php echo  date('Y') ?></option> 
+                  <option  value="<?php echo  date('Y') ?>"><?php echo  date('Y') ?></option>
                   <option  value="2018">2018</option>
                   <option  value="2019">2019</option>
                   <option  value="2020">2020</option>

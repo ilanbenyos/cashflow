@@ -66,22 +66,37 @@ class Add_expenses extends CI_Controller {
 		if (!isset($_SESSION['logged_in'])) {
 			redirect('login');
 		}
-		//print_r($_SESSION);
+		if ($_SESSION['user_role'] != "Call Center User") {
 		$this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
 	      $this->db->from('usermaster');
 	      $this->db->where('UserID',$_SESSION['userid']);
 	      $this->db->where('Active',1);
 	      $query = $this->db->get();
 	      $VendorId = $query->row();
+		}else{
+			$this->db->select('u.UserID,u.Name,u.RoleId,u.CallCenterVendorId,u.Active,v.Currency,c.CurName');
+			$this->db->from('usermaster u');
+			$this->db->join('vendormaster v','v.VendorId = u.CallCenterVendorId');
+			$this->db->join('currencymaster c','v.Currency = c.CurId');
+			$this->db->where('u.UserID',$_SESSION['userid']);
+			$this->db->where('u.Active',1);
+			$query = $this->db->get();
+			$VendorId = $query->row();
+			//print_r($VendorId);
+		}
+
+			  
 		$data['expenses'] = $this->all_model->getAllCallCenterExp($VendorId->CallCenterVendorId);
-		//print_r($this->db->last_query());exit();
 		$data['allexpenses'] = $this->all_model->getAllCallCenterVendor();
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar2');
-		if ($_SESSION['user_role'] != "Call Center User") {
-			$this->load->view('templates/content');
-		}
 		
+			$this->load->view('templates/content');
+		
+		if ($_SESSION['user_role'] == "Call Center User") {
+			$data['userdetails'] = $VendorId;
+		}
+		//echo $_SESSION['user_role'];
 		$this->load->view('callcenter/expenses',$data);
 		$this->load->view('templates/footer');
 	}
@@ -92,11 +107,88 @@ class Add_expenses extends CI_Controller {
 	      $this->db->where('Active',1);
 	      $query = $this->db->get();
 	      $VendorId = $query->row();
+
+
+	      $this->db->select('u.UserID,u.Name,u.RoleId,u.CallCenterVendorId,u.Active,v.Currency,c.CurName');
+			$this->db->from('usermaster u');
+			$this->db->join('vendormaster v','v.VendorId = u.CallCenterVendorId');
+			$this->db->join('currencymaster c','v.Currency = c.CurId');
+			$this->db->where('u.UserID',$_SESSION['userid']);
+			$this->db->where('u.Active',1);
+			$query = $this->db->get();
+			$res = $query->row();
+
+			if ($_SESSION['user_role'] == "Call Center User") {
+			$data['userdetails'] = $res;
+		}
 		$data['expenses'] = $this->all_model->getAllCallCenterExp($VendorId->CallCenterVendorId);
 		//print_r($this->db->last_query());exit();
 		$data['allexpenses'] = $this->all_model->getAllCallCenterVendor();
+		//print_r($this->db->last_query());exit();
 		$this->load->view('callcenter/expenses',$data);
 	}
+	
+	public function callProfile(){
+		  $this->db->select('v.VendorName,v.InvoiceType,v.Comments,c.CurName,v.BankAddress,v.IBAN,v.Comments,u.Email,u.Password,b.BankName,v.Active');
+	      $this->db->from('vendormaster v');
+		  $this->db->join('usermaster u','v.VendorId = u.CallCenterVendorId');
+		  $this->db->join('bankmaster b','v.Bank = b.BankId');
+		  $this->db->join('currencymaster c','v.Currency = c.CurId');
+	      $this->db->where('u.UserID',$_SESSION['userid']);
+	      $query = $this->db->get();
+	      $VendorId = $query->row();
+		  $data['Vendor_details'] = $VendorId;
+		  
+		  
+		  
+		if ($_SESSION['user_role'] != "Call Center User") {
+			$this->load->view('templates/content');
+		}
+		$this->load->view('callcenter/profile_view',$data);
+	}
+	public function AddFundReuest(){
+		$Vendorid = $this->input->post('VendorID');
+		$Amount = $this->input->post('Amount');
+		$Currency = $this->input->post('Currency');
+	  $request = array(
+					'VendorID' => $Vendorid,
+					'RequestAmount'=> $Amount,
+					'Currency' => $Currency
+	  );
+	$insert = $this->db->insert('callcenter_request',$request);
+		if($insert == 1){
+			$_SESSION['pop_mes'] = "Call Center Fund Request Added Successfully.";
+			echo 1;
+		}else{
+			$_SESSION['pop_mes'] = "Call Center Fund Request Failed.";
+			echo 0;
+		}
+	}
+	
+	 public function allRequestes() {
+        
+        if (! isset ( $_SESSION ['logged_in'] )) {
+            
+            echo "loggedOut";
+            
+        } else {
+			$date = date("Y-m-d");
+            $this->db->select('r.RequestId,r.VendorID,r.RequestAmount,c.CurName,u.Name,r.CreatedOn');
+			$this->db->from('callcenter_request r');
+			$this->db->join('usermaster u','u.CallCenterVendorId = r.VendorID');
+			$this->db->join('currencymaster c','r.Currency = c.CurId');
+			$this->db->where('r.ReminderStatus',0);
+			$this->db->where('DATE(r.CreatedOn)',$date);
+			$callcenter_request= $this->db->get ()->result();
+            $notarra =array();
+            foreach ( $callcenter_request as $notif ) {
+                $notarra[] = $notif;
+            }
+            echo json_encode($notarra);
+            
+      }
+        
+    }
 	public function add_expense(){
 		if (!isset($_SESSION['logged_in'])) {
 			redirect('login');
@@ -123,12 +215,44 @@ class Add_expenses extends CI_Controller {
     		if(!empty($token) == $session_token){	
     			$expName = $this->input->post('expName');
     			$Vendorid = $this->input->post('Vendorid');
+				$vendor_currncy = $this->all_model->get_vendor_currency_byid($Vendorid);
+				$V_Currency =$vendor_currncy->CurName;
     			$expAmount = str_replace(',','',$this->input->post('expAmount'));
     			$expDate = $this->input->post('expDate');
                 $expPaymentType = $this->input->post('expPaymentType');
                 $uid = $this->input->post('userid');
 
                 $from = $expDate;
+				 if($_SESSION['user_role'] == "Admin") {
+						
+					if($V_Currency == 'EUR'){
+						$exchange_rate = 0.00;
+						$EUR_Amount = $Converted_Amount = $expAmount;
+					}else if($V_Currency == 'USD'){
+						$base_currency = 'EUR';
+						$EUR_Amount = $expAmount;
+						$val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$base_currency);
+						$val=json_decode($val);
+						$exchange_rate = $val->rates->USD;
+						$Converted_Amount = $expAmount * $exchange_rate;
+						
+					}
+		
+				 }
+				 if($_SESSION['user_role'] == "Call Center User"){
+					 if($V_Currency == 'EUR'){
+						$exchange_rate = 0.00;
+						$EUR_Amount = $Converted_Amount = $expAmount;
+					}else if($V_Currency == 'USD'){
+						$base_currency = 'USD';
+						$Converted_Amount = $expAmount;
+						$val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$base_currency);
+						$val=json_decode($val);
+						$exchange_rate = $val->rates->EUR;
+						$EUR_Amount = $expAmount * $exchange_rate;
+					}
+				 }
+				
 		
             		$a = explode ( '/', $from );
             		$c = trim ( $a [2], " " );
@@ -139,7 +263,9 @@ class Add_expenses extends CI_Controller {
             		$expense = array(
             			'ExpName' => $expName,
             			'VendorId'=> $Vendorid,
-            			'ExpAmount' => $expAmount,
+            			'ExpAmount' => $Converted_Amount,
+						'ExchangeRate' =>$exchange_rate,
+						'EuroValue'=>$EUR_Amount,
             			'ExpDate' => $from,
             			'ExpPaymentType' => $expPaymentType,
             			'CreatedBy' => $uid
@@ -182,6 +308,8 @@ class Add_expenses extends CI_Controller {
         		{
         		$expName = $this->input->post('expName');
         		$Vendorid = $this->input->post('Vendorid');
+				$vendor_currncy = $this->all_model->get_vendor_currency_byid($Vendorid);
+				$V_Currency =$vendor_currncy->CurName;
     			$expAmount = str_replace(',','',$this->input->post('expAmount'));
     			$expDate = $this->input->post('expDate');
                 $expPaymentType = $this->input->post('expPaymentType');
@@ -192,12 +320,43 @@ class Add_expenses extends CI_Controller {
             		$c = trim ( $a [2], " " );
             		$d = trim ( $a [0], " " );
             		$from = $c . '-' . $a [1] . '-' . $d;
-            		
+					
+            	 if($_SESSION['user_role'] == "Admin") {
+						
+					if($V_Currency == 'EUR'){
+						$exchange_rate = 0.00;
+						$EUR_Amount = $Converted_Amount = $expAmount;
+					}else if($V_Currency == 'USD'){
+						$base_currency = 'EUR';
+						$EUR_Amount = $expAmount;
+						$val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$base_currency);
+						$val=json_decode($val);
+						$exchange_rate = $val->rates->USD;
+						$Converted_Amount = $expAmount * $exchange_rate;
+						
+					}
+		
+				 }
+				 if($_SESSION['user_role'] == "Call Center User"){
+					 if($V_Currency == 'EUR'){
+						$exchange_rate = 0.00;
+						$EUR_Amount = $Converted_Amount = $expAmount;
+					}else if($V_Currency == 'USD'){
+						$base_currency = 'USD';
+						$Converted_Amount = $expAmount;
+						$val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$base_currency);
+						$val=json_decode($val);
+						$exchange_rate = $val->rates->EUR;
+						$EUR_Amount = $expAmount * $exchange_rate;
+					}
+				 }
 
             		$expense = array(
             			'ExpName' => $expName,
             			'VendorId'=> $Vendorid,
-            			'ExpAmount' => $expAmount,
+            			'ExpAmount' => $Converted_Amount,
+						'ExchangeRate' =>$exchange_rate,
+						'EuroValue'=>$EUR_Amount,
             			'ExpDate' => $from,
             			'ExpPaymentType' => $expPaymentType,
             			'CreatedBy' => $uid
@@ -370,7 +529,7 @@ class Add_expenses extends CI_Controller {
 		$this->db->where('IsDelete',1);
 		$res = $this->db->get()->row();*/
 
-		$this->db->select('c.ExpId,c.VendorId,c.ExpName,sum(c.ExpAmount) as amount,c.CreatedOn,c.ExpDate,v.VendorId,v.VendorName');
+		$this->db->select('c.ExpId,c.VendorId,c.ExpName,sum(c.ExpAmount) as amount,sum(c.EuroValue) as amount_euro,c.CreatedOn,c.ExpDate,v.VendorId,v.VendorName');
 		$this->db->from('callcenterexpenses c');
 		$this->db->join('vendormaster v','v.VendorId = c.VendorId');
 		$this->db->where('v.VendorName',$_POST['vendor'][0]);
@@ -387,7 +546,7 @@ class Add_expenses extends CI_Controller {
 			$vendorId = array();
 			foreach ($res as $value) {
 			
-			$sum+= $value->amount;
+			$sum+= $value->amount_euro;
 			$data[] = $value->ExpId;
 			$expdate[] = $value->ExpDate;
 			$vendorId[] = $value->VendorId;
