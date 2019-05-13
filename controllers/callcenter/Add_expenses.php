@@ -136,8 +136,6 @@ class Add_expenses extends CI_Controller {
 		  $this->db->join('currencymaster c','v.Currency = c.CurId');
 	      $this->db->where('u.UserID',$_SESSION['userid']);
 	      $query = $this->db->get();
-		  $echo $this->db->last_query();
-		  exit();
 	      $VendorId = $query->row();
 		  $data['Vendor_details'] = $VendorId;
 		  
