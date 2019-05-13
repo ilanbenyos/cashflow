@@ -132,10 +132,11 @@ class Add_expenses extends CI_Controller {
 		  $this->db->select('v.VendorName,v.InvoiceType,v.Comments,c.CurName,v.BankAddress,v.IBAN,v.Comments,u.Email,u.Password,b.BankName,v.Active');
 	      $this->db->from('vendormaster v');
 		  $this->db->join('usermaster u','v.VendorId = u.CallCenterVendorId');
-		  $this->db->join('bankmaster b','v.Bank = b.BankId');
+		  $this->db->join('bankmaster b','v.Bank = b.BankId','left');
 		  $this->db->join('currencymaster c','v.Currency = c.CurId');
 	      $this->db->where('u.UserID',$_SESSION['userid']);
 	      $query = $this->db->get();
+		  echo $this->db->last_query();
 	      $VendorId = $query->row();
 		  $data['Vendor_details'] = $VendorId;
 		  
