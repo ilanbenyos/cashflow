@@ -62,6 +62,7 @@
     $(".callCenterExpRep").click(function(){
       $(".1a").load("<?php echo base_url ( 'reports/callCenterExp' ); ?>");
     })
+	
 	 $(".callCenterProfile").click(function(){
       $(".1a").load("<?php echo base_url ( 'callcenter/add_expenses/callProfile' ); ?>");
     })
