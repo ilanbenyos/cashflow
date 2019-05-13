@@ -35,7 +35,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Invoice Frequency</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input readonly type="text" class="form-control" name="Frequency" id="Frequency" value="<?php echo $Vendor_details->InvoiceType; ?>"  placeholder="Vendor Name" />
+                          <input readonly type="text" class="form-control" name="Frequency" id="Frequency" value="<?php echo $Vendor_details->InvoiceType; ?>"  placeholder="Invoice Frequency" />
                         </div>
                       </div>
                     </div>
@@ -43,7 +43,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Email</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input readonly type="text" class="form-control" name="Email" id="Email" value="<?php echo $Vendor_details->Email; ?>"  placeholder="Vendor Name" />
+                          <input readonly type="text" class="form-control" name="Email" id="Email" value="<?php echo $Vendor_details->Email; ?>"  placeholder="Email" />
                         </div>
                       </div>
                     </div>
@@ -51,7 +51,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Password</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input readonly type="text" class="form-control" name="Password" id="Password" value="<?php echo $Vendor_details->Password; ?>"  placeholder="Vendor Name" />
+                          <input readonly type="text" class="form-control" name="Password" id="Password" value="<?php echo $Vendor_details->Password; ?>"  placeholder="Password" />
                         </div>
                       </div>
                     </div>
@@ -59,7 +59,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Comments</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input readonly type="text" class="form-control" name="Comments" id="Comments" value="<?php echo $Vendor_details->Comments; ?>"  placeholder="Vendor Name" />
+                          <input readonly type="text" class="form-control" name="Comments" id="Comments" value="<?php echo $Vendor_details->Comments; ?>"  placeholder="Comments" />
                         </div>
                       </div>
                     </div>
@@ -69,7 +69,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Currency</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input readonly type="text" class="form-control" name="Vname" id="Vname" value="<?php echo $Vendor_details->CurName; ?>"  placeholder="Vendor Name" />
+                          <input readonly type="text" class="form-control" name="Vname" id="Vname" value="<?php echo $Vendor_details->CurName; ?>"  placeholder="Currency" />
                         </div>
                       </div>
                     </div>
@@ -77,7 +77,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Bank Name</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input readonly type="text" class="form-control" name="Vname" id="Vname" value="<?php echo $Vendor_details->BankName; ?>"  placeholder="Vendor Name" />
+                          <input readonly type="text" class="form-control" name="Vname" id="Vname" value="<?php echo $Vendor_details->BankName; ?>"  placeholder="Bank Name" />
                         </div>
                       </div>
                     </div>
@@ -85,7 +85,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Bank Address</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input readonly type="text" class="form-control" name="Vname" id="Vname" value="<?php echo $Vendor_details->BankAddress; ?>"  placeholder="Vendor Name" />
+                          <input readonly type="text" class="form-control" name="Vname" id="Vname" value="<?php echo $Vendor_details->BankAddress; ?>"  placeholder="Bank Address" />
                         </div>
                       </div>
                     </div>
@@ -93,7 +93,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">IBAN</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input readonly type="text" class="form-control" name="Vname" id="Vname" value="<?php  echo $Vendor_details->IBAN; ?>"  placeholder="Vendor Name" />
+                          <input readonly type="text" class="form-control" name="Vname" id="Vname" value="<?php  echo $Vendor_details->IBAN; ?>"  placeholder="IBAN" />
                         </div>
                       </div>
                     </div>
@@ -101,7 +101,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Status</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input readonly type="text" class="form-control" name="Vname" id="Vname" value="<?php if($Vendor_details->Active ==1) { echo "Active" ;}else{ echo "Disable"; }?>"  placeholder="Vendor Name" />
+                          <input readonly type="text" class="form-control" name="Vname" id="Vname" value="<?php if($Vendor_details->Active ==1) { echo "Active" ;}else{ echo "Disable"; }?>"  placeholder="Status" />
                         </div>
                       </div>
                     </div>
