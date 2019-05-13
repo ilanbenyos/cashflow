@@ -173,9 +173,9 @@ class Add_expenses extends CI_Controller {
             
         } else {
 			$date = date("Y-m-d");
-            $this->db->select('r.RequestId,r.VendorID,r.RequestAmount,c.CurName,u.Name,r.CreatedOn');
+            $this->db->select('r.RequestId,r.VendorID,r.RequestAmount,c.CurName,v.VendorName as Name,r.CreatedOn');
 			$this->db->from('callcenter_request r');
-			$this->db->join('usermaster u','u.CallCenterVendorId = r.VendorID');
+			$this->db->join('vendormaster v','v.VendorId = r.VendorID');
 			$this->db->join('currencymaster c','r.Currency = c.CurId');
 			$this->db->where('r.ReminderStatus',0);
 			$this->db->where('DATE(r.CreatedOn)',$date);

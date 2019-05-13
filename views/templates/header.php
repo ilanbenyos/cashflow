@@ -24,7 +24,7 @@
 	var val = this.id;	
     var num = val.split("^");
 	var txt = "";
-	var txt = num[2]+" requested for Fund of " +num[1]+' '+num[3];
+	var txt = num[2]+" requested for fund of " +num[1]+' '+num[3];
 	var paragraph = document.getElementById("label_note");
 	paragraph.innerHTML = txt;
      $('#myModal_popo').modal('show');

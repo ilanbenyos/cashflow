@@ -221,7 +221,7 @@ background-color: #90989d !important;
           { 
              $.each( JSON.parse(msg), function( key, value ) {
              new PNotify({
-                  text: value.Name +' is requested for fund of ' + 'amount: '+ value.RequestAmount,
+                  text: value.Name +' Requested For Fund of '+ value.RequestAmount+' '+ value.CurName,
                   type: 'danger',
                   addclass: 'custom'
             
