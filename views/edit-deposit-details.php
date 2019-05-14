@@ -329,7 +329,7 @@
                         <label class="col-md-5 col-sm-5 col-xs-12">Rolling Reserved Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" name="crrComm" id="crrComm">
-                             <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" value="<?php //echo $allPspIncome->PlannedAmt; ?>" placeholder="CRR Amount" readonly/>
+                             <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" value="<?php //echo $allPspIncome->PlannedAmt; ?>" placeholder="CRR Amount">
                           
                         </div>
                       </div>
@@ -339,8 +339,9 @@
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Bank Commission</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="hidden" class="form-control xyz" name="bankcommP" id="bankcommP" onkeypress="javascript:return isNumber(event)">
-                          <input type="text" class="form-control xyz" name="bankcomm" id="bankcomm" value="<?php echo $allPspIncome->BankCom ?>" onkeypress="javascript:return isNumber(event)" readonly>
+						<input type="hidden" class="form-control xyz" name="bankcommP" id="bankcommP" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" disabled class="form-control xyz" name="bankcomm1" id="bankcomm1" value="<?php echo $allPspIncome->BankCom ?>" >			
+                        <input type="hidden" readonly name="bankcomm" id="bankcomm" value="<?php echo $allPspIncome->BankCom ?>" >
                         </div>
                       </div>
                     </div>
@@ -422,6 +423,7 @@
 
     $('#psp').attr('disabled',true);
     $('#accommval').attr('disabled',true);
+$('#acamtval').attr('disabled',true);
 
     var pldatereceive = $("#pldatereceive").val();
     var acdatereceive = $("#acdatereceive").val();
@@ -436,87 +438,12 @@
     autoclose: true
       });
 
-/*var date = new Date();
-var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-if (acdatereceive == "01/01/1970") {
-    $('#acdatereceive').datepicker({
-    format: "d/mm/yyyy",
-    todayHighlight: true,
-    autoclose: true
-      });
-    $( '#acdatereceive' ).datepicker( 'setDate', today );
-}*/
-//$('#pldatereceive').datepicker('setDate', acdatereceive);
-    /*$('#pldatereceive').datepicker('setDate', pldatereceive);
-    $('#pldatereceive').datepicker('setDate', acdatereceive);*/
-    //$( "#nettoBankAmt" ).keyup(function( event ) {
-/*var pspid=document.getElementById("psp").value;
-         $.ajax({
-                url:"<?php echo base_url ('Psp_income/getBanks/')?>"+ pspid ,
-                    type: "POST",
-                    data : {pspid:pspid},
-                    dataType: "html",
-                    success: function(data) {
-                    var obj = JSON.parse(data);
-                      console.log(obj.getpsp);
-                      $("#bank").val(obj.getpsp.BankName);
-                      $("#bankid").val(obj.getpsp.BankId);
-                      $("#plcurr").val(obj.getpsp.CurName);
-                      $("#accurr").val(obj.getpsp.CurName);
-                      $("#accommP").val(obj.getpsp.Commission);
-                      var commAmount = $("#accommP").val();
-                      var commAmount = commAmount;
-                      $("#bankcommP").val(obj.getpsp.InComP);
-                      $("#accommval").val(commAmount);
-                    if (obj.getpsp.Crr > 0.00) {
-                      $("#crr").show();
-                    $("#crrComm").val(obj.getpsp.Crr);
-                    $("#crrValue").val(obj.getpsp.Crr);
-                    }else{
-                      $("#crrComm").val(obj.getpsp.Crr);
-                      $("#crr").hide();
-                    }*/
 
-                    //net to bank amount calculation start
-                    /*var acamtReceive = $("#acamtReceive").val();
-                    if (acamtReceive == "") {
-                        var actualAmt = 0;
-                    }else{
-                        var actualAmt = acamtReceive;
-                    }
-                    var accommP = $("#accommval").val();
-                    var bankcommP = $("#bankcommP").val();
-                    var additionalfees = $("#additionalFees").val();
-                    var rolingReserved = $("#crrAmt").val();
-                    if (additionalfees != "") {
-                      var fees = additionalfees;
-                    }else{
-                      var fees = 0;
-                    }
-                    //var commAmount = ("#acamtval").val();
-
-                    var bankcomm = Number(actualAmt*(bankcommP/100)).toFixed(2);
-
-                    var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
-
-                    var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees)-parseInt(rolingReserved);
-                    var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
-
-                    var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);
-                    $("#bankcomm").val(bankcomm2);
-                    $("#acamtval").val(commAmount);
-                    $("#nettoBankAmt").val(netToBank);*/
-                    //net to bank amount calculation end
-                    /*var actualAmt = $("#acamtReceive").val();
-                    var CRR = obj.getpsp.Crr;
-                    var CRR = ((actualAmt/CRR)*100);
-                    alert(CRR);*/
-                  /* }
-               });*/
 
 
 if ($("#acamtReceive").val() == 0.00) {
-    if (($("#crrVal").val() == 0) && ($("#crrVAlId").val() == 0)) {             //Not CRR record and Actual amount is zero
+    if (($("#crrVal").val() == 0) && ($("#crrVAlId").val() == 0)) {
+	//Not CRR record and Actual amount is zero
       $( "#acamtReceive" ).keyup(function( event ) {
         var pspid=document.getElementById("psp").value;  
          $.ajax({
@@ -561,6 +488,8 @@ if ($("#acamtReceive").val() == 0.00) {
 
                     var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)).toFixed(2);  
                     $("#bankcomm").val(bankcomm2);
+                    $("#bankcomm1").val(bankcomm2);
+					
                     $("#acamtval").val(commAmount);
                     $("#nettoBankAmt").val(netToBank);
 
@@ -604,6 +533,7 @@ if ($("#acamtReceive").val() == 0.00) {
 
       var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)).toFixed(2);  
       $("#bankcomm").val(bankcomm2);
+      $("#bankcomm1").val(bankcomm2);
       $("#acamtval").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
 
@@ -617,9 +547,9 @@ if ($("#acamtReceive").val() == 0.00) {
       //net to bank amount calculation end
     });
     }else if(($("#crrVal").val() == 0) && ($("#crrVAlId").val() != 0)){        //CRR record and Actual amount is zero 
+	
       $( "#acamtReceive" ).keyup(function( event ) {
         $("#accommval").attr('disabled',true);
-        $("#acamtval").attr('disabled',true);
         $("#acamtval").attr('disabled',true);
         var pspid=document.getElementById("psp").value;  
         //alert(pspid);
@@ -663,6 +593,7 @@ if ($("#acamtReceive").val() == 0.00) {
 
                     var netToBank = Number(parseInt(actualAmt)-parseInt(bankcomm2)-parseInt(fees)).toFixed(2);  
                     $("#bankcomm").val(bankcomm2);
+                    $("#bankcomm1").val(bankcomm2);
                     //$("#acamtval").val(commAmount);
                     $("#nettoBankAmt").val(netToBank);
 
@@ -708,6 +639,7 @@ if ($("#acamtReceive").val() == 0.00) {
 
       var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)).toFixed(2);  
       $("#bankcomm").val(bankcomm2);
+      $("#bankcomm1").val(bankcomm2);
       $("#acamtval").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
 
@@ -721,27 +653,8 @@ if ($("#acamtReceive").val() == 0.00) {
       //net to bank amount calculation end
     });
     }else if(($("#crrVal").val() == 1) && ($("#crrVAlId").val() == 0)){
-		//alert(444);
-    /*var pspid=document.getElementById("psp").value;  
-        $.ajax({
-                url:"<?php echo base_url ('Psp_income/getBanks/')?>"+ pspid ,
-                    type: "POST",
-                    data : {pspid:pspid},
-                    dataType: "html",
-                    success: function(data) {
-                    var obj = JSON.parse(data);
-                    console.log(obj.getpsp.Crr);
-                    $("#accommval").val(commAmount);
-                    if (obj.getpsp.Crr > 0.00) {
-                      $("#crr").show();
-                    $("#crrComm").val(obj.getpsp.Crr);
-                    }else{
-                      $("#crr").hide();
-                    }
-                   }
-               });*/
-
-      $( "#acamtReceive" ).keyup(function( event ) { 
+		
+    $( "#acamtReceive" ).keyup(function( event ) { 
 
       var pspid=document.getElementById("psp").value;  
         $.ajax({
@@ -751,9 +664,9 @@ if ($("#acamtReceive").val() == 0.00) {
                     dataType: "html",
                     success: function(data) {
                     var obj = JSON.parse(data);
-                    console.log(obj.getpsp.Crr);
+                    console.log(obj.getpsp);
                     $("#bankcommP").val(obj.getpsp.InComP);
-                    $("#accommval").val(commAmount);
+                    $("#accommval").val(obj.getpsp.Commission);
                     if (obj.getpsp.Crr > 0.00) {
                       $("#crr").show();
                     $("#crrComm").val(obj.getpsp.Crr);
@@ -803,17 +716,11 @@ if ($("#acamtReceive").val() == 0.00) {
       var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2); 
       //console.log('Net To Bank' +  netToBank);
       $("#bankcomm").val(bankcomm2);
+	   $("#bankcomm1").val(bankcomm2);
       $("#acamtval").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
 
-      /*console.log('commission %' +  accommP);
-      console.log('bankcommP %' +  bankcommP);
-
-      console.log('Bank commission' +  bankcomm);
-      console.log('commission Amount' +  commAmount);
-
-      console.log('Net To Bank' +  netToBank);*/
-      //net to bank amount calculation end
+     
     });
     $( "#additionalFees" ).keyup(function( event ) { 
       var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");   //actual process amount
@@ -860,7 +767,7 @@ if ($("#acamtReceive").val() == 0.00) {
     });
 	}
 }else{
-  //alert(333);
+  //alert("4");
 }
 
 

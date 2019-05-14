@@ -82,7 +82,6 @@ class Psp_income extends CI_Controller {
         		//unset($_SESSION['token_pspincome']);
         		if(!empty($token) == $session_token)
         		{	
-                    //print_r($_POST);exit();
         			$pspid = $this->input->post('psp');
         			$BankId = $this->input->post('bankid');
         			$desc = $this->input->post('desc');
@@ -319,7 +318,8 @@ class Psp_income extends CI_Controller {
 			$data['allPspIncome'] = $this->all_model->pspIncome($id);
             //print_r($data['allPspIncome']);
             $data['crrData'] = $this->all_model->getCrrGeneratedData($id); // get only CRR data
-            //print_r($data['crrData']);exit();
+			//echo $this->db->last_query();
+          //  print_r($data['crrData']);exit();
 			$this->load->view('templates/header');
 			$this->load->view('templates/left-sidebar');
 			$this->load->view('edit-deposit-details',$data);
@@ -367,7 +367,7 @@ class Psp_income extends CI_Controller {
                     $crrAmt = str_replace(',','',$this->input->post('crrAmt'));
                     $additionalFees = str_replace(',','',$this->input->post('additionalFees'));
         			$uid = $this->input->post('userid');
-
+					$bankcomm = str_replace(',','',$this->input->post('bankcomm'));
                     $data['allPspIncome'] = $this->all_model->pspIncome($id);
                     //$acamtnetReceivebefore = $data['allPspIncome']->ActualNetAmt;
                     $acamtnetReceivebefore = $data['allPspIncome']->NetBankAmt;
@@ -440,6 +440,7 @@ class Psp_income extends CI_Controller {
                         'ExchangeRate' => $exchange_rate,
                         'EuroValue' => $euro_amount,
                         'isCRR' => $isCrr,
+						 'BankCom' => $bankcomm,
                         //'CreatedBy' => $uid,
                         'ModifiedBy'=> $uid
                     );
@@ -522,6 +523,7 @@ class Psp_income extends CI_Controller {
                         'ExchangeRate' => $exchange_rate,
                         'EuroValue' => $euro_amount,
                         'isCRR' => $isCrr,
+						 'BankCom' => $bankcomm,
                         //'CreatedBy' => $uid,
                         'ModifiedBy'=> $uid
                     );
