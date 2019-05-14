@@ -404,7 +404,7 @@ Limit 4");
 			return $result;
 	}
 	public function banksIncomm(){
-		$query= $this->db->query("SELECT SUM(NetAmount) value, Monthval, B.BankName
+		$query= $this->db->query("SELECT SUM(NetAmount) value, Monthval, b.BankName
 									FROM 
 									(
 									SELECT SUM(NetBankAmt) NetAmount, MONTHNAME(CreatedOn) Monthval, Bankid  FROM pspincome
