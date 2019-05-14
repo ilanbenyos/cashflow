@@ -1,4 +1,4 @@
-<h1>Report Dashboard</h1>
+<h1>Bank Dashboard</h1>
 <div class="white-bg">
   <div class="row-flex clearfix">
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 less-pad spacebottom1x">
@@ -14,13 +14,13 @@
         <h4>Current Bank Balance</h4>
         <div class="detail-info-box">
 		
-          <div class="curreny-amount "><span id="sum"></span> <span class="currency-icon">$</span></div>
+          <div class="curreny-amount "><span id="sum"></span> <span class="currency-icon"></span></div>
         </div>
       </div>
       <div class="border-frame small-frame">
         <h4>&nbsp;</h4>
         <div class="detail-info-box">
-          <div class="curreny-amount green"><span id="sum1"></span> <span class="currency-icon">$</span></div>
+          <div class="curreny-amount green"><span id="sum1"></span> <span class="currency-icon"></span></div>
           <p class="no-margin"><strong>From Last Month</strong></p>
         </div>
       </div>
@@ -263,7 +263,7 @@
               type: "hlineargauge",
               renderAt: "bank-expenses",
               width: "209",
-              height: "253",
+              height: "230",
               dataFormat: "json",
               dataSource
             }).render();
@@ -441,164 +441,80 @@ function unique(arr, prop) {
           var jsonData = $.parseJSON(data);
 		 var val1 = [];
 		 var newjsonData = jsonData.cat;
+		 var BankData = jsonData.bankname;
+		 var AllbnkData = jsonData.series;
+		 
+		 console.log(newjsonData);
 		var uniqueNames = [];
-for(i = 0; i< newjsonData.length; i++){    
-    if(uniqueNames.indexOf(newjsonData[i].label) === -1){
-        uniqueNames.push(newjsonData[i].label);        
-    }        
-}
+		var seriesData = '';
+		var bankseriesData = '';
+		 uniqueNames+='[';
+		$.each( newjsonData, function( key, value ) {
+          uniqueNames+= '{ "label": "'+ value + '" },';
+          
+
+        });
+		uniqueNames+=']';
+			//bankseriesData+='[';
+		$.each( BankData, function( key, value ) {
+			
+          bankseriesData+= '{ "seriesname": "'+ value + '","data": [';
+		  $.each( AllbnkData, function( skey, svalue ) {
+			  
+			  if(svalue.BankName == value)
+			  {
+				  bankseriesData+= '{ "value": "'+ svalue.NetAmount + '"},';
+				  
+			  }
+			  
+		  });
+		  bankseriesData+= ' ] },';
+		 
+          
+
+        });
+		//bankseriesData+=']';
+		
+		/*$.each( BankData, function( key, value ) {
+          bankseriesData+= '{ "seriesname": "'+ value + '","data:["'+
+		  $.each( AllbnkData, function( skey, svalue ) {
+			  if(svalue.BankName == value)
+			  {
+				  
+				  
+			  }
+			  
+		  }
+		  
+		  +'" },';
+          
+
+        });
+		
+		*/
+
 
 console.log(uniqueNames);
+console.log(jsonData.bankseriesData);
+console.log(bankseriesData);
          
+		 
+
           const dataSource = {
   chart: {
     //showLabels:"0",
+	palettecolors:"526069,c2c81e,20a1a7,90989d,0e1727",
     plottooltext:
-      "$label produces <b>$dataValue</b> of energy from $seriesName",
+      "Total Income of $seriesName bank in $label is <b>$dataValue</b>",
     theme: "fusion",
     drawcrossline: "1"
   },
   categories: [
     {
-      category: [
-        {
-          "label": "Canada"
-        },
-        {
-          "label": "China"
-        },
-        {
-          "label": "Russia"
-        },
-        {
-          "label": "Australia"
-        },
-        {
-          "label": "United States"
-        },
-        {
-          "label": "France"
-        }
-      ]
+      category: jsonData.mfinalData
     }
   ],
-  dataset: [
-    {
-      seriesname: "Coal",
-      data: [
-        {
-          value: "400"
-        },
-        {
-          value: "830"
-        },
-        {
-          value: "500"
-        },
-        {
-          value: "420"
-        },
-        {
-          value: "790"
-        },
-        {
-          value: "380"
-        }
-      ]
-    },
-    {
-      seriesname: "Hydro",
-      data: [
-        {
-          value: "350"
-        },
-        {
-          value: "620"
-        },
-        {
-          value: "410"
-        },
-        {
-          value: "370"
-        },
-        {
-          value: "720"
-        },
-        {
-          value: "310"
-        }
-      ]
-    },
-    {
-      seriesname: "Nuclear",
-      data: [
-        {
-          value: "210"
-        },
-        {
-          value: "400"
-        },
-        {
-          value: "450"
-        },
-        {
-          value: "180"
-        },
-        {
-          value: "570"
-        },
-        {
-          value: "270"
-        }
-      ]
-    },
-    {
-      seriesname: "Gas",
-      data: [
-        {
-          value: "180"
-        },
-        {
-          value: "330"
-        },
-        {
-          value: "230"
-        },
-        {
-          value: "160"
-        },
-        {
-          value: "440"
-        },
-        {
-          value: "350"
-        }
-      ]
-    },
-    {
-      seriesname: "Oil",
-      data: [
-        {
-          value: "60"
-        },
-        {
-          value: "200"
-        },
-        {
-          value: "200"
-        },
-        {
-          value: "50"
-        },
-        {
-          value: "230"
-        },
-        {
-          value: "150"
-        }
-      ]
-    }
-  ]
+  dataset: jsonData.bankseriesData
 };
 
 FusionCharts.ready(function() {
