@@ -404,10 +404,10 @@ Limit 4");
 			return $result;
 	}
 	public function banksIncomm(){
-		$query= $this->db->query("SELECT SUM(NetAmount) value, Monthval, b.BankName
+		$query= $this->db->query("SELECT SUM(EuroValue) value, Monthval, b.BankName
 									FROM 
 									(
-									SELECT SUM(NetBankAmt) NetAmount, MONTHNAME(CreatedOn) Monthval, Bankid  FROM pspincome
+									SELECT SUM(NetBankAmt) EuroValue, MONTHNAME(CreatedOn) Monthval, Bankid  FROM pspincome
 									WHERE NetBankAmt > 0 AND CreatedOn > DATE_SUB(now(), INTERVAL 6 MONTH)
 									GROUP BY CreatedOn,Bankid
 
@@ -421,10 +421,10 @@ Limit 4");
 	
 	
 	public function banksIncomm2(){
-		$query= $this->db->query("SELECT SUM(NetAmount) value
+		$query= $this->db->query("SELECT SUM(EuroValue) value
 									FROM 
 									(
-									SELECT SUM(NetBankAmt) NetAmount, MONTHNAME(CreatedOn) Monthval, Bankid  FROM pspincome
+									SELECT SUM(NetBankAmt) EuroValue, MONTHNAME(CreatedOn) Monthval, Bankid  FROM pspincome
 									WHERE NetBankAmt > 0 AND CreatedOn > DATE_SUB(now(), INTERVAL 6 MONTH)
 									GROUP BY CreatedOn,Bankid
 

@@ -216,7 +216,7 @@
           const dataSource = {
             chart: {
               //"caption": "Total Bank Expenses This Month",
-              "subcaption": total + " €",
+             // "subcaption": total + " €",
               "numbersuffix": "€",
               "gaugefillmix": "{dark-20},{light+70},{dark-10}",
               "theme": "fusion",
@@ -263,7 +263,7 @@
               type: "hlineargauge",
               renderAt: "bank-expenses",
               width: "209",
-              height: "230",
+              height: "180",
               dataFormat: "json",
               dataSource
             }).render();
@@ -505,7 +505,7 @@ console.log(bankseriesData);
     //showLabels:"0",
 	palettecolors:"526069,c2c81e,20a1a7,90989d,0e1727",
     plottooltext:
-      "Total Income of $seriesName bank in $label is <b>$dataValue</b>",
+      "Total Income of $seriesName bank in $label was <b>$dataValue</b>",
     theme: "fusion",
     drawcrossline: "1"
   },
