@@ -1,6 +1,6 @@
 <h1>Bank Dashboard</h1>
 <div class="white-bg">
-  <div class="row-flex clearfix">
+  <div class="row-flex clearfix grey-bg">
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 less-pad spacebottom1x">
       <div class="border-frame">
         <h4>Total Bank Income this month</h4>
@@ -82,17 +82,29 @@
             if(isNaN(jsonData[i].amount)){
                 continue;
                  }
-                 var values = jsonData[i].amount;
+                 var values = Math.round(jsonData[i].amount);
                  val.push(values);
-                 total += parseInt(Number(jsonData[i].amount).toFixed(2));
+                 total += parseInt(Number(jsonData[i].amount).toFixed());
 
 
 
           }
           maxVal = Math.max(...val);
           minVal = Math.min(...val);
-           /*console.log(minVal)
-           console.log(maxVal);*/
+           /*console.log(minVal)*/
+		   var minValue1 = 0;
+		   var maxValue1 = total/3;
+		   var minValue2 = maxValue1;
+		   var maxValue2 = maxValue1*2;
+		   var minValue3 = maxValue2;
+		   var maxValue3 = maxValue1*3;
+           console.log(minValue1);
+		    console.log(maxValue1);
+		   console.log(minValue2);
+		   console.log(maxValue2);
+		   console.log(minValue3);
+		   console.log(maxValue3);
+		   
           const dataSource = {
                     chart: {
                     //"caption": "Total Bank Income This Month",
@@ -116,20 +128,20 @@
                     "captionFontSize": "12",
                     "captionFontColor": "#9e9b9b",
                     "captionFontBold": "1",
-                    "numberSuffix": "€",
+                    "numberSuffix": "K",
                     },
                     "colorRange": {
                       "color": [{
-                        "minValue": "0",
-                        "maxValue": "350000",
+                        "minValue": minValue1,
+                        "maxValue": maxValue1,
                         "code": "#526069"
                       }, {
-                        "minValue": "350000",
-                        "maxValue": "750440",
+                        "minValue": minValue2,
+                        "maxValue": maxValue2,
                         "code": "#c2c81e"
                       }, {
-                        "minValue": "750440",
-                        "maxValue": "1100000",
+                        "minValue": minValue3,
+                        "maxValue": maxValue3,
                         "code": "#20a0a7"
                       }]
                     },
@@ -146,8 +158,8 @@
             var myChart = new FusionCharts({
               type: "angulargauge",
               renderAt: "chart-container",
-              width: "230",
-              height: "240",
+              width: "100%",
+              height: "100%",
               dataFormat: "json",
               dataSource
             }).render();
@@ -262,8 +274,8 @@
             var myChart = new FusionCharts({
               type: "hlineargauge",
               renderAt: "bank-expenses",
-              width: "209",
-              height: "180",
+              width: "100%",
+              height: "60%",
               dataFormat: "json",
               dataSource
             }).render();
@@ -408,8 +420,8 @@
             var myChart = new FusionCharts({
               type: "multilevelpie",
               renderAt: "bank-comm",
-              width: "209",
-              height: "253",
+              width: "100%",
+              height: "100%",
               dataFormat: "json",
               dataSource
             }).render();
@@ -521,8 +533,8 @@ FusionCharts.ready(function() {
   var myChart = new FusionCharts({
     type: "stackedcolumn2d",
     renderAt: "bank-income",
-    width: "454",
-    height: "253",
+    width: "100%",
+    height: "100%",
     dataFormat: "json",
     dataSource
   }).render();
@@ -553,17 +565,19 @@ FusionCharts.ready(function() {
 		  
 		  var jsonData = $.parseJSON(data);
         
-         
+         console.log(jsonData.modaldata);
           const dataSource = {
  "chart": {
             
             //"xAxisName": "",
            // "yAxisName": "",
             //"numberPrefix": "$",
+			
 			"showLabels":"0",
             "theme": "fusion"
         },
-  "data": jsonData,
+  "data": jsonData.bankbalance,
+  "linkeddata": jsonData.modaldata,
    "trendlines": [{
             "line": [{
                 "startvalue": "1000",
@@ -572,11 +586,11 @@ FusionCharts.ready(function() {
 };
 
 FusionCharts.ready(function() {
-  var myChart = new FusionCharts({
+  const myChart = new FusionCharts({
     type: "column2d",
     renderAt: "bank-balance",
-    width: "454",
-    height: "253",
+    width: "100%",
+    height: "100%",
     dataFormat: "json",
     dataSource
   }).render();

@@ -243,12 +243,12 @@ class Data_model extends CI_Model {
 
 	//dashboard queries start
 	public function totalBankIncome(){
-		$this->db->select('TransId,BankId,sum(EuroValue) as amount,ActualDate');
+		$this->db->select('TransId,BankId,sum(EuroValue)/1000 as amount,ActualDate');
 		$this->db->from('pspincome');
 		//$this->db->where('ActualDate',date('Y-m'));
 		$this->db->where('EuroValue >','0.00'); 
-		//$this->db->where('MONTH(ActualDate) = ',date('m'));
-		$this->db->where('MONTH(ActualDate) = ',date('04'));
+		$this->db->where('MONTH(ActualDate) = ',date('m'));
+		//$this->db->where('MONTH(ActualDate) = ',date('04'));
 		$this->db->group_by('BankId');
 		return $this->db->get()->result_array();
 	}
@@ -296,8 +296,8 @@ class Data_model extends CI_Model {
 			SELECT sum(Balance) as monthly,0 as lastmonth 
 			FROM `bankmaster` WHERE `Active` = 1 AND `IsDelete` = 1 
 			UNION 
-			SELECT 0,sum(TotalBankBalnce) 
-			FROM `currentbankbalance` WHERE `BalanceDate` <= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+			SELECT 0,sum(BankBalance) 
+			FROM `newcurrentbankbalance` WHERE `BalanceDate` <= DATE_SUB(NOW(), INTERVAL 1 MONTH)
 			) A");
 			$result=$query->result_array();
 			return $result;

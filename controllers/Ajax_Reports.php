@@ -329,14 +329,61 @@ foreach ($banksIncomm as $val) {
 		
 		$data = array();
 		$data2 = array();
+		
+		$data4 = array();
+		$data5 = array();
+		$data3 = array();
 		foreach ($data_1 as $val) {
 			$data2['label'] = $val->BankName;
 	        $data2['value'] = $val->Balance;
 			$data2['color'] = "#0e1727";
+			$data2['link'] = "newchart-json-".$val->BankName;
+			
             $data[] = $data2;
 		}
+		 $data3['bankbalance'] = $data;
+		 $chart = array();
+		 $data6 = array();
+		  $data7 = array();
+		   $data8 = array();
+		    $data9 = array();
+		 foreach ($data_1 as $val) {
+			 $data4['id'] = $val->BankName;
+			 
+			 $query= $this->db->query("SELECT sum(BankBalance) as value,MONTHNAME(BalanceDate) label,BankId FROM `newcurrentbankbalance` WHERE`BankId`='".$val->BankId."' AND BalanceDate > DATE_SUB(now(), INTERVAL 12 MONTH) Group By label,BankId ORDER By label");
+			$result=$query->result_array();
+			
+			 $new = array();
+		$new2 = array();
+        foreach($result as $a){
+            if($a['BankId'] == $val->BankId)
 		
-		print_r(json_encode($data, true));
+		$new2[] =$a; 	
+				
+        }
+			
+			
+			
+			 $chart= array (
+				'xaxisname' => 'Monthwise',
+				'yaxisname' => $val->BankName.' Bank Balance',
+				'theme' => 'fusion',
+				'palettecolors' => '#0e1727',
+		
+		);
+		$data7['chart']=$chart;
+		$data7['data']=$new2;
+		$data4['linkedchart'] =$data7; 
+		//$data4['linkedchart'] = $data8;
+		
+		$data9[] =$data4;
+		 }
+		 $data3['modaldata'] = $data9;
+		 $log = "date:" . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "modaldata". PHP_EOL
+                . "modaldata: " .json_encode($data3['modaldata']).PHP_EOL . "-------------------------" . PHP_EOL;
+                file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );
+		 
+		print_r(json_encode($data3, true));
 	}
 	 
 	
