@@ -110,7 +110,7 @@ class Expenses extends CI_Controller {
 			$this->load->view('templates/footer');
 		}else{
 			
-				$config['upload_path'] = realpath(APPPATH . 'upload_document');
+				$config['upload_path'] = 'upload_document';
 				$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
 				$this->load->library('upload', $config);
 				if (!$this->upload->do_upload('upload_file')) {
@@ -394,18 +394,15 @@ class Expenses extends CI_Controller {
 						if (!$this->upload->do_upload('upload_file')) {
 							$error = array('error' => $this->upload->display_errors());
 							$upload_doc="";
-							print_r($error);
 						} else {
 							$data = array('image_metadata' => $this->upload->data());
 							$upload_doc =$data['image_metadata']['file_name'];
-							echo "Uploaded";
 						}
 					}
 					else{
 						$upload_doc=$getexpenses->DocumentPath;
 					}
 					
-					exit();
 					
 					
 					
