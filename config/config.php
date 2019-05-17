@@ -26,7 +26,7 @@ define('logger_url_exp', '/var/www/staging-cashflow.forexwebsolutions.com/Logs/'
 |
 */
 //$config['base_url'] = 'http://192.168.0.250:8080/cashflow/';
-$config['base_url'] = 'http://staging-cashflow.forexwebsolutions.com';
+$config['base_url'] = 'https://staging-cashflow.forexwebsolutions.com';
 
 
 /*
