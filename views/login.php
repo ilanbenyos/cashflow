@@ -18,7 +18,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
                 <div class="col-xs-12">
                   <div class="form-group" id="uname1">
                     <div class="col-xs-12">
-                      <input type="text" class="form-control" id="username" placeholder="Username" name="username">
+                      <input type="text" class="form-control" id="username" placeholder="Username2222" name="username">
                       <span id="errmsg1" class="help-block form-error msg"></span>
                     </div>
                   </div>
