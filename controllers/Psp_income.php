@@ -85,7 +85,7 @@ class Psp_income extends CI_Controller {
         		if(!empty($token) == $session_token)
         		{	
 			
-					$config['upload_path'] = realpath(APPPATH . '../upload_document');
+					$config['upload_path'] = 'upload_document';
 					$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
 					$this->load->library('upload', $config);
 					if (!$this->upload->do_upload('upload_file')) {
@@ -342,7 +342,7 @@ class Psp_income extends CI_Controller {
 			$this->load->view('templates/footer');
 		}else{  
 					
-				$config['upload_path'] = realpath(APPPATH . '../upload_document');
+				$config['upload_path'] = 'upload_document';
 				$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
 				
 				

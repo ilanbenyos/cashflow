@@ -221,7 +221,7 @@ class Add_expenses extends CI_Controller {
     		$session_token = $_SESSION['token_expense_add'];
     		if(!empty($token) == $session_token){	
 				
-				$config['upload_path'] = realpath(APPPATH . '../upload_document');
+				$config['upload_path'] = 'upload_document';
 				$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
 				$this->load->library('upload', $config);
 				if (!$this->upload->do_upload('upload_file')) {
@@ -360,7 +360,7 @@ class Add_expenses extends CI_Controller {
         		if(!empty($token) == $session_token)
         		{
 					
-					$config['upload_path'] = realpath(APPPATH . '../upload_document');
+					$config['upload_path'] = 'upload_document';
 					$config['allowed_types'] = 'Pdf|excel|png|PDF|PNG|XLSX|xlsx';
 					$this->load->library('upload', $config);
 					$getexpenses = $this->all_model->editCallCenterExp($id);
