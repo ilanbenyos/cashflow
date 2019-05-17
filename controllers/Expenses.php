@@ -384,7 +384,7 @@ class Expenses extends CI_Controller {
 			
 				
 			
-					$config['upload_path'] = realpath(APPPATH . 'upload_document');
+					$config['upload_path'] = 'upload_document';
 					$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
 					$this->load->library('upload', $config);
 					$getexpenses = $this->all_model->getexpenses($id);
