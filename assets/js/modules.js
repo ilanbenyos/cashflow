@@ -15,14 +15,18 @@ jQuery(function ($) {
         });
 });
 $(document).ready(function() {
-  $('#tabledata').DataTable( {
+ /* $('#tabledata').DataTable( {
     "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
     dom: "lBfrtip",
     aaSorting: [[4, "asc"],[0, "asc"]],
+    //"processing": false,
+    //"ajax": '<?= base_url('configuration/bank/listbankdata')?>',
+    //data: data,
+    //columns: columns
     columnDefs: [
    { orderable: false, targets: 5 }
 ]
-  });
+  });*/
   
 $('#tablebank').DataTable({
   "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],

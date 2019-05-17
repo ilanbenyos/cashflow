@@ -1,4 +1,4 @@
-//$(document).ready(function() {
+$(document).ready(function() {
 	$('#tabledata').DataTable( {
     "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
     dom: "lBfrtip",
@@ -7,4 +7,4 @@
    { orderable: false, targets: 5 }
     ]
   });
-//});
+});

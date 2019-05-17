@@ -199,6 +199,19 @@ color: #7b7b7b;
 .btn-submit:hover, .btn-submit:focus { background: #107479; }
 .btn-reset { background: #dd4b4b; margin-left: 15px; }
 .btn-reset:hover, .btn-reset:focus { background: #bb2d2d; color: #fff; }
+.browse-btn, .browse-btn:focus {
+    height: 36px;
+    background: #21a0a7;
+    border: 1px solid #21a0a7;
+    color: #fff;
+    padding-left: 7px;
+    font-size: 13px;
+    padding-right: 7px;
+}
+.file {
+  visibility: hidden;
+  position: absolute;
+}
 /***** Checbox CSS Style *****/
 .form-horizontal .form-group .checkbox label { font-size: 15px; }
 .checkbox label:after { content: ''; display: table; clear: both; }
