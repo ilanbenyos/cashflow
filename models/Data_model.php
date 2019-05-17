@@ -296,8 +296,8 @@ class Data_model extends CI_Model {
 			SELECT sum(Balance) as monthly,0 as lastmonth 
 			FROM `bankmaster` WHERE `Active` = 1 AND `IsDelete` = 1 
 			UNION 
-			SELECT 0,sum(BankBalance) 
-			FROM `newcurrentbankbalance` WHERE `BalanceDate` <= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+			SELECT 0,sum(TotalBankBalnce) 
+			FROM `currentbankbalance` WHERE `BalanceDate` <= DATE_SUB(NOW(), INTERVAL 1 MONTH)
 			) A");
 			$result=$query->result_array();
 			return $result;
@@ -336,18 +336,18 @@ class Data_model extends CI_Model {
 		$query= $this->db->query("SELECT SUM(bankcomm) as comm FROM (
 							SELECT sum(BankCom) as bankcomm
 							FROM `pspincome` 
-							WHERE MONTH(CreatedOn) = '05'
+							WHERE MONTH(CreatedOn) = MONTH(CURRENT_DATE())
 							UNION 
 							SELECT sum(FinalBankComm) 
 							FROM `expenses` 
-							WHERE MONTH(CreatedOn) = '05'
+							WHERE MONTH(CreatedOn) = MONTH(CURRENT_DATE())
 							UNION 
 							SELECT sum(Amount) 
 							FROM `banktransfercharges` 
-							WHERE MONTH(CreatedOn) = '05'
+							WHERE MONTH(CreatedOn) = MONTH(CURRENT_DATE())
 							UNION 
 							SELECT (sum(InCom) +(OutCom)) 
-							FROM `bankmaster` WHERE MONTH(CreatedOn) = '05'
+							FROM `bankmaster` WHERE MONTH(CreatedOn) = MONTH(CURRENT_DATE())
 							) A
 
 		");

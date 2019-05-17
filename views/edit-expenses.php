@@ -10,7 +10,7 @@
           <!-- <div class="middle-section light-blue-box spacebottom2x clearfix"> -->
           <h2 class="modal-title">Edit Expense</h2>
           <div class="defination-box clearfix">
-            <form class="form-horizontal clearfix" id="edit-expenses" method="post" >
+            <form class="form-horizontal clearfix" id="edit-expenses" method="post" enctype="multipart/form-data">
               <?php 
                   $token = md5(uniqid(rand(), TRUE));
                   if(isset ($_SESSION['token_edit-expenses']))
@@ -26,11 +26,11 @@
               <input type="hidden" name="TransferCommAmount" id="TransferCommAmount" value="<?php echo number_format($expenses->TransferCommAmount, 2, '.', ',') ?>">
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex">
-                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+                  <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                       <h4>Gerneral Information</h4>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Vendor</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -43,7 +43,21 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group align-4x-top">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Expense Category</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12"> 
+                          <!-- <input type="hidden" name="transferAmt" id="transferAmt"> -->
+                          <select class="form-control" name="expCat" id="expCat" onchange="">
+                            <option selected="" value="">Select Expense Category</option>
+                            <?php foreach ($expCat as $cat) { ?>
+                            <option <?php if($cat->CatId == $expenses->CatId){ echo 'selected="selected"'; } ?> value="<?php echo $cat->CatId; ?>"><?php echo $cat->Category; ?></option>
+                            <?php   } ?>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Bank</label>
                         <div class="col-md-7 col-sm-7 col-xs-12"> 
@@ -59,7 +73,16 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+					 <div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <textarea class="form-control" name="desc" id="desc" rows="3" placeholder="Description" style="height:58px;"><?php echo $expenses->Description ?></textarea>
+                        </div>
+                      </div>
+                    </div>
+                   
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -67,37 +90,14 @@
                         </div>
                       </div>
                     </div>
+                     
+                  
                     
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group align-4x-top">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Expense Category</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12"> 
-                          <!-- <input type="hidden" name="transferAmt" id="transferAmt"> -->
-                          <select class="form-control" name="expCat" id="expCat" onchange="">
-                            <option selected="" value="">Select Expense Category</option>
-                            <?php foreach ($expCat as $cat) { ?>
-                            <option <?php if($cat->CatId == $expenses->CatId){ echo 'selected="selected"'; } ?> value="<?php echo $cat->CatId; ?>"><?php echo $cat->Category; ?></option>
-                            <?php   } ?>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <textarea class="form-control" name="desc" id="desc" placeholder="Description" style="height: 80px;"><?php echo $expenses->Description ?></textarea>
-                        </div>
-                      </div>
-                    </div>
-                    
-                  </div>
                   <!--planned info starts -->
-                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                       <h4>Planned Information</h4>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Planned date <span class="red">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -108,7 +108,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group align-4x-top">
                         <label class="col-md-5 col-sm-5 col-xs-12">Planned Amount <span class="red">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12"><span>
@@ -116,93 +116,97 @@
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+                        <label class="col-md-5 col-sm-5 col-xs-12">Document Upload</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="plcurr" id="plcurr" value="<?php echo $expenses->Currency ?>" readonly>
+						<?php if($expenses->DocumentPath){ ?>
+						 <div class="input-group col-xs-12">
+							<a href="/upload_document/<?php echo $expenses->DocumentPath?>" target="_blank" title="view Document" ><i class="fa fa-eye"></i> </a>
+							<a download href="/upload_document/<?php echo $expenses->DocumentPath?>" title="Download Document" class="btn btn-transparent text-blue"><i class="fa  fa-cloud-download"></i> </a>
+						</div>
+						 <?php }else{ ?>
+                        <input type="file" name="upload_file"  id="upload_file" class="file">
+                        <div class="input-group col-xs-12">
+						  <input class="form-control" data-icon="false" name="upload_doc" id="upload_doc" disabled placeholder="Upload file" type="text"/>
+						  <span class="input-group-btn">
+							<button class="browse browse-btn" type="button"><i class="glyphicon glyphicon-search"></i> Browse</button>
+						  </span>
+						</div>
+						<?php  } ?>
                         </div>
                       </div>
-                    </div> -->
-                    
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Shares %</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control" name="plshares" id="plshares" value="<?php echo $expenses->Shares ?>" onkeypress="javascript:return isNumber(event)">
-                        </div>
-                      </div>
-                    </div> --> 
                   </div>
+                </div>
                   <!--planned info ends --> 
                   <!-- Actual info starts -->
-                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
-                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                      <h4>Actual Information</h4>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Actual date</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <div class="input-group date">
-                            <?php  if ($expenses->ActualDate != '0000-00-00') { ?>
-                            <input type="text" class="form-control" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ActualDate))) ?>" placeholder="Actual Date" />
-                            <?php }else{ ?>
-                            <input type="text" class="form-control" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive"  placeholder="Actual Date" />
-                            <?php } ?>
-                            <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Actual Amount</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php echo number_format($expenses->ActualAmt, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
-                        </div>
-                      </div>
-                    </div>
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="accurr" id="accurr"  value="<?php echo $expenses->Currency ?>" readonly>
-                        </div>
-                      </div>
-                    </div> -->
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Transfer Type</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="hidden" name="transferAmt" id="transferAmt">
-                          <select class="form-control" name="transType" id="transType" onchange="">
-                            <option selected="" value="">Select Transfer Type</option>
-                            <?php foreach ($transType as $type) { ?>
-                            <option <?php if($type->BankTransferId == $expenses->BankTransferId){ echo 'selected="selected"'; } ?> value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>
-                            <?php   } ?>
-                          </select>
-                          <input type="hidden" class="form-control xyz" name="transferCommP" id="transferCommP" value="<?php echo $expenses->TransferCommP ?>">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Share %</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="shareP" id="shareP" value="<?php echo number_format($expenses->Share, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group align-top">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Final bank commission</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="fbc" id="fbc" value="<?php echo number_format($expenses->FinalBankComm, 2, '.', ',') ?>" placeholder="Final Bank Commission" readonly/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
+						<div class="col-md-12 col-sm-12 col-xs-12 text-center">
+						  <h4>Actual Information</h4>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+						  <div class="form-group">
+							<label class="col-md-5 col-sm-5 col-xs-12">Actual date</label>
+							<div class="col-md-7 col-sm-7 col-xs-12">
+							  <div class="input-group date">
+								<?php  if ($expenses->ActualDate != '0000-00-00') { ?>
+								<input type="text" class="form-control" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $expenses->ActualDate))) ?>" placeholder="Actual Date" />
+								<?php }else{ ?>
+								<input type="text" class="form-control" class="form-control datepicker" data-provide="datepicker" data-date-end-date="0d" name="acdatereceive" id="acdatereceive"  placeholder="Actual Date" />
+								<?php } ?>
+								<div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+						  <div class="form-group">
+							<label class="col-md-5 col-sm-5 col-xs-12">Actual Amount</label>
+							<div class="col-md-7 col-sm-7 col-xs-12">
+							  <input type="text" class="form-control xyz" name="acamtReceive" id="acamtReceive" value="<?php echo number_format($expenses->ActualAmt, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)" placeholder="Actual Amount" />
+							</div>
+						  </div>
+						</div>
+						<!-- <div class="col-md-12 col-sm-12 col-xs-12">
+						  <div class="form-group">
+							<label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
+							<div class="col-md-7 col-sm-7 col-xs-12">
+							  <input type="text" class="form-control" name="accurr" id="accurr"  value="<?php echo $expenses->Currency ?>" readonly>
+							</div>
+						  </div>
+						</div> -->
+						<div class="col-md-12 col-sm-12 col-xs-12">
+						  <div class="form-group">
+							<label class="col-md-5 col-sm-5 col-xs-12">Transfer Type</label>
+							<div class="col-md-7 col-sm-7 col-xs-12">
+							  <input type="hidden" name="transferAmt" id="transferAmt">
+							  <select class="form-control" name="transType" id="transType" onchange="">
+								<option selected="" value="">Select Transfer Type</option>
+								<?php foreach ($transType as $type) { ?>
+								<option <?php if($type->BankTransferId == $expenses->BankTransferId){ echo 'selected="selected"'; } ?> value="<?php echo $type->BankTransferId; ?>"><?php echo $type->BanktransferName; ?></option>
+								<?php   } ?>
+							  </select>
+							  <input type="hidden" class="form-control xyz" name="transferCommP" id="transferCommP" value="<?php echo $expenses->TransferCommP ?>">
+							</div>
+						  </div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+						  <div class="form-group">
+							<label class="col-md-5 col-sm-5 col-xs-12">Share %</label>
+							<div class="col-md-7 col-sm-7 col-xs-12">
+							  <input type="text" class="form-control xyz" name="shareP" id="shareP" value="<?php echo number_format($expenses->Share, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)">
+							</div>
+						  </div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+						  <div class="form-group align-top">
+							<label class="col-md-5 col-sm-5 col-xs-12">Final bank commission</label>
+							<div class="col-md-7 col-sm-7 col-xs-12">
+							  <input type="text" class="form-control xyz" name="fbc" id="fbc" value="<?php echo number_format($expenses->FinalBankComm, 2, '.', ',') ?>" placeholder="Final Bank Commission" readonly/>
+							</div>
+						  </div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Net From Bank</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -210,7 +214,9 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+					</div>
+					
+					<div class="clearfix"></div>
                   <!--Actual info ends -->
                   <div class="col-xs-12 text-center spacetop2x">
                     <div class="page-loader" style="display:none;">
@@ -264,6 +270,22 @@
     });*/
 
      $('#bankid').on('change',function() {
+		 //upload doc validation//
+		$('#upload_file').on('blur', function() {
+			if($('#upload_file').val()!=""){
+				var file =$('#upload_file').val();
+				var reg = /(.*?)\.(pdf|PDF|png|PNG|xlsx|XLSX)$/;
+				if(!file.match(reg)){
+					$(this).css("border", "1px solid #be1622");
+				}else{
+					$(this).css("border", "1px solid #CCCCCC"); 
+				}
+			}else{
+				$(this).css("border", "1px solid #CCCCCC"); 
+			}
+		})
+		//--------------------//
+		
         var bankid=document.getElementById("bankid").value;  
          $.ajax({
                 url:"<?php echo base_url ('Expenses/getBanks/')?>"+ bankid ,
@@ -612,6 +634,17 @@
 <script type="text/javascript">
    $("#editExpense").click(function(){
         var returnvar = true;
+		//upload doc validation//
+			if($('#upload_file').val()!=""){
+			var file =$('#upload_file').val();
+			   var reg = /(.*?)\.(pdf|PDF|png|PNG|xlsx|XLSX)$/;
+			   if(!file.match(reg))
+			   {
+					$(this).css("border", "1px solid #be1622");
+					returnvar = false;
+			   }
+			}
+			//---------------------// 
       if($("#vendor").val() ==""){
            $("#vendor").css("border", "1px solid #be1622");           
            returnvar = false;

@@ -21,9 +21,9 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
       <div class="row">
         <div class="col-md-12"> 
           <!-- <div class="middle-section light-blue-box spacebottom2x clearfix"> -->
-          <h2 class="modal-title">ADD Expense</h2>
+          <h2 class="modal-title">Add Call Center Expense</h2>
           <div class="defination-box clearfix">
-            <form class="form-horizontal clearfix" id="expenses" method="post" >
+            <form class="form-horizontal clearfix" action="<?php echo base_url ('call-center-expenses')?>" id="expenses" method="post" enctype="multipart/form-data" >
               <?php 
                   $token = md5(uniqid(rand(), TRUE));
                   if(isset ($_SESSION['token_expense_add']))
@@ -111,15 +111,32 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Document Upload</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                        <input type="file" name="upload_file" id="upload_file" class="file">
+                        <div class="input-group col-xs-12">
+						  <input class="form-control" data-icon="false" name="upload_doc" id="upload_doc" disabled placeholder="Upload file" type="text"/>
+						  <span class="input-group-btn">
+							<button class="browse browse-btn" type="button"><i class="glyphicon glyphicon-search"></i> Browse</button>
+						  </span>
+						</div>
+                          <!--<input class="form-control"  data-icon="false" name="upload_doc" id="upload_doc" type="file"/>-->
+                        </div>
+                      </div>
                   </div>
-                  
+                  </div>
+				  
+                  	  
+					<div class="clearfix"></div>
                   <!--planned info ends --> 
                   <!--Actual info ends -->
                   <div class="col-xs-12 text-center spacetop2x">
                     <div class="page-loader" style="display:none;">
                       <div class="page-wrapper"> <span class="loader"><span class="loader-inner"></span></span> </div>
                     </div>
-                    <button type="button" id="addExpense" class="btn-submit transitions">Submit</button>
+                    <button type="submit" id="addExpense" class="btn-submit transitions">Submit</button>
                     <!-- <button type="reset" class="btn-reset transitions">Reset</button> --> 
                     <a href="<?= base_url('all-expenses');?>" class="btn-reset transitions" style="text-decoration: none;">Cancel</a> </div>
                   <!-- </div> --> 
@@ -193,8 +210,38 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
     }    
 </script> 
 <script type="text/javascript">
+$(document).ready(function(){
+
+	//upload doc validation//
+		$('#upload_file').on('blur', function() {
+			if($('#upload_file').val()!=""){
+				var file =$('#upload_file').val();
+				var reg = /(.*?)\.(pdf|PDF|png|PNG|xlsx|XLSX)$/;
+				if(!file.match(reg)){
+					$(this).css("border", "1px solid #be1622");
+				}else{
+					$(this).css("border", "1px solid #CCCCCC"); 
+				}
+			}else{
+				$(this).css("border", "1px solid #CCCCCC"); 
+			}
+		})
+		//--------------------//
+
+  })
   $("#addExpense").click(function(){
         var returnvar = true;
+		//upload doc validation//
+			if($('#upload_file').val()!=""){
+			var file =$('#upload_file').val();
+			   var reg = /(.*?)\.(pdf|PDF|png|PNG|xlsx|XLSX)$/;
+			   if(!file.match(reg))
+			   {
+					$(this).css("border", "1px solid #be1622");
+					returnvar = false;
+			   }
+			}
+			//---------------------// 
       if($("#expName").val() ==""){
            $("#expName").css("border", "1px solid #be1622");           
            returnvar = false;
@@ -214,7 +261,7 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
           if(returnvar == true){
              $("#addExpense").hide();
             $(".page-loader").show();
-              $.ajax({
+            /*  $.ajax({
                 url:"<?php echo base_url ('call-center-expenses')?>",
                     type: "POST",
                     data : $("#expenses").serialize(),
@@ -228,7 +275,7 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                       window.location.href = '<?php echo base_url('all-expenses') ?>';
                     }
                    }
-               });
+               });*/
 
      } 
      return returnvar;

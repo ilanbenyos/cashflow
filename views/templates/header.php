@@ -168,14 +168,28 @@
 					$this->db->order_by('r.CreatedOn','DESC');
 					$callcenter_request= $this->db->get ()->result();
 				   //Bank Balance Alert end
+				   
+				   //call center approved amount received
+				    $this->db->select('*');
+				   $this->db->from('callcenter_expense_details c');
+				   $this->db->where('c.status',1);
+				   $this->db->where('adminread',null);
+				   //$this->db->where('c.vendor_id',$_SESSION['userid']);
+				   $this->db->order_by('createdon','DESC');
+				   $query5 = $this->db->get();
+				   $callcenter_expense_details = $query5->result();
+				   $countcallcenter = count($callcenter_expense_details);
 
-				   $alldata = $this->db->query($query1." UNION ALL ".$query2. " UNION ALL " .$query3);
+				     //call center approved amount received
+				   
+				   $alldata = $this->db->query($query1." UNION ALL ".$query2. " UNION ALL " .$query3 );
 				   
 				   $result1 = $alldata->result();
 				   $count1 = count($result1);
 
 				   $count1+= count($callcenter);
 				   $count1+= count($callcenter_request);
+				   $count1+= $countcallcenter;
 					  
 					/*}
 					
@@ -231,6 +245,61 @@
 						?>
                     <li> <a href="<?php echo base_url('Expenses/updateCallCenterExp/'.$notif1->NotificationId);?>"> <?php echo 'Call Center Expenses for -' . $notif1->VendorName;  ?> </a> </li>
                     <?php 
+						} 
+					foreach($callcenter_expense_details as $notif1)
+						{
+
+						?>
+                    <li> <a href="<?php echo base_url('Expenses/updateCallCenterExpDetails/'.$notif1->id);?>"> <?php echo 'Call Center Vendor Approved amount is received of €' . $notif1->NetFromBankEuroVal;  ?> </a> </li>
+                    <?php 
+						}
+						
+					
+						
+						
+					  ?>
+                  </ul>
+                </li>
+              </ul>
+              <div class="btm-view-all"><a href="<?php echo base_url('configuration/vendors/notification'); ?>">View all</a></div>
+            </div>
+            <?php }
+if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Call Center User"))
+               {
+				   $this->db->select('c.NetFromBankEuroVal,c.id');
+				   $this->db->from('callcenter_expense_details c');
+				   $this->db->join('usermaster u','c.vendor_id = u.CallCenterVendorId');
+				   $this->db->where('c.status',0);
+				   $this->db->where('u.UserID',$_SESSION['userid']);
+				   $this->db->order_by('c.createdon','DESC');
+				   $query4 = $this->db->get();
+				   $callcenter_expense_details = $query4->result();
+				   $countcallcenter = count($callcenter_expense_details);
+				   
+				   ?>
+			
+            <?php 
+				  if($countcallcenter > 0)
+				  {
+				  ?>
+            <abbr class="note-count" style="border-radius:10px;"><?php echo $countcallcenter; ?></abbr>
+            <?php 
+				  }
+				  ?>
+            <span><i class="fa fa-bell" aria-hidden="true"></i></span></a>
+            <div class="notification-dropdown">
+              <div class="note-title">You have <?php echo $countcallcenter; ?> notifications</div>
+              <ul class="notification-menu">
+                <li> 
+                  <!-- inner menu: contains the actual data -->
+                  <ul class="inner-menu">
+                    <?php 
+					foreach($callcenter_expense_details as $notif1)
+						{
+
+						?>
+                    <li> <a href="<?php echo base_url('Expenses/updateCallCenterExpDetails/'.$notif1->id);?>"> <?php echo 'Admin Added expense amount of 	€' . $notif1->NetFromBankEuroVal;  ?> </a> </li>
+                    <?php 
 						}
 						
 						
@@ -240,7 +309,10 @@
               </ul>
               <div class="btm-view-all"><a href="<?php echo base_url('configuration/vendors/notification'); ?>">View all</a></div>
             </div>
-            <?php } ?>
+			 <?php  } ?>
+
+
+			
           </div>
         </div>
       </div>

@@ -350,7 +350,7 @@ foreach ($banksIncomm as $val) {
 		 foreach ($data_1 as $val) {
 			 $data4['id'] = $val->BankName;
 			 
-			 $query= $this->db->query("SELECT sum(BankBalance) as value,MONTHNAME(BalanceDate) label,BankId FROM `newcurrentbankbalance` WHERE`BankId`='".$val->BankId."' AND BalanceDate > DATE_SUB(now(), INTERVAL 12 MONTH) Group By label,BankId ORDER By label");
+			 $query= $this->db->query("SELECT BankBalance as value,MONTHNAME(BalanceDate) label,BankId FROM `newcurrentbankbalance` WHERE`BankId`='".$val->BankId."' AND BalanceDate > DATE_SUB(now(), INTERVAL 12 MONTH) Group By label,BankId ORDER By label");
 			$result=$query->result_array();
 			
 			 $new = array();

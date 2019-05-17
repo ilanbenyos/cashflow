@@ -109,6 +109,18 @@ class Expenses extends CI_Controller {
 			$this->load->view('add-expenses',$data);
 			$this->load->view('templates/footer');
 		}else{
+			
+				$config['upload_path'] = realpath(APPPATH . '../upload_document');
+				$config['allowed_types'] = 'gif|jpg|png';
+				$this->load->library('upload', $config);
+				if (!$this->upload->do_upload('upload_file')) {
+					$error = array('error' => $this->upload->display_errors());
+					$upload_doc="";
+				} else {
+					$data = array('image_metadata' => $this->upload->data());
+					$upload_doc =$data['image_metadata']['file_name'];
+				}
+				
                 $this->db->select('UserID,Name');
                 $this->db->from('usermaster');
                 $this->db->where('UserID',$this->input->post('userid'));
@@ -227,7 +239,8 @@ class Expenses extends CI_Controller {
                         'Active' => 1,
                         'CreatedBy' => $uid,
                         'CreatedOn' => $date,
-                        'ModifiedBy' => $uid
+                        'ModifiedBy' => $uid,
+						'DocumentPath' =>$upload_doc
                     );
 
                         $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Exp". PHP_EOL
@@ -236,6 +249,37 @@ class Expenses extends CI_Controller {
                         $this->db->insert('expenses',$expenses);
                         $callCenterUserId = $this->db->insert_id();
                         if (!empty($callCenterNotiId)) {
+							
+							
+							
+							//check whether vendor is call center userName
+							$this->db->select('IsCallCenter');
+                    $this->db->from('vendormaster');
+                    $this->db->where('VendorId',$vendor);
+                    $IsCallCenter = $this->db->get()->row();
+					
+					$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Exp". PHP_EOL
+                        . "Is vendor IsCallCenter : ". $IsCallCenter .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+						
+						if($IsCallCenter == 1)
+						{
+							$callcenter_expense_details = array(
+                        'expense_id' => $callCenterNotiId,
+                        'createdon' => date('Y-m-j H:i:s'),
+                        'NetFromBank' => $nfb,
+                        'NetFromBankEuroVal' => $euro_amount,
+                        'vendor_id' => $vendor,
+						'currency' => $curr,
+						'ActualDate' => $to,
+                    );
+					$this->db->insert('callcenter_expense_details',$callcenter_expense_details);
+							
+						}
+							
+							
+							///check whether vendor is call center user
+							
                             
                             $this->db->where('NotificationId',$callCenterNotiId);
                             $this->db->update('callcenternotification',array('ExpId'=>$callCenterUserId,'Status'=>2));
@@ -290,13 +334,13 @@ class Expenses extends CI_Controller {
                                 $_SESSION['MinBalance']=$bal->MinBalance;
                                 $_SESSION['minBal']="yes";
                             }
-					return 1;
+					redirect('expenses');
         		}else{
         			$_SESSION['pop_mes'] = "Token does not match.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Exp". PHP_EOL
                         . "Add-Exp-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
-					return 1;
+					redirect('expenses');
         		}
 		}
 	}
@@ -337,6 +381,19 @@ class Expenses extends CI_Controller {
         		//unset($_SESSION['token_pspincome']);
         		if(!empty($token) == $session_token)
         		{   
+					$config['upload_path'] = realpath(APPPATH . '../upload_document');
+					$config['allowed_types'] = 'Pdf|excel|png|PDF|PNG|XLSX|xlsx';
+					$this->load->library('upload', $config);
+					if (!$this->upload->do_upload('upload_file')) {
+						$error = array('error' => $this->upload->display_errors());
+						$upload_doc="";
+					} else {
+						$data = array('image_metadata' => $this->upload->data());
+						$upload_doc =$data['image_metadata']['file_name'];
+					}
+					if(!$upload_doc){
+						$upload_doc=$data['expenses']['DocumentPath'];
+					}
         			$vendor = $this->input->post('vendor');
                     $BankId = $this->input->post('bankid');
                     $desc = $this->input->post('desc');
@@ -423,6 +480,7 @@ class Expenses extends CI_Controller {
                         'Active' => 1,
                         'ModifiedBy' => $uid,
                         'CreatedBy' => $uid,
+						'DocumentPath' =>$upload_doc
                     );
                         /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Exp" . PHP_EOL
                         . "Edit-Exp-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($expenses) .PHP_EOL . "-------------------------" . PHP_EOL;
@@ -465,6 +523,57 @@ class Expenses extends CI_Controller {
 
                         $this->db->where('TransId',$id);
                         $this->db->update('expenses',$expenses);  
+						
+						
+						
+						
+						//check whether vendor is call center userName
+							$this->db->select('IsCallCenter');
+                    $this->db->from('vendormaster');
+                    $this->db->where('VendorId',$vendor);
+                    $IsCallCenter = $this->db->get()->row();
+					
+					$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Exp". PHP_EOL
+                        . "Is vendor IsCallCenter : ". $IsCallCenter .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+						
+						if($IsCallCenter == 1)
+						{ 
+					if($beforeBal->NetFromBank != $nfb)
+						{
+							 $this->db->select('*');
+                        $this->db->from('callcenter_expense_details');
+                        $this->db->where('expense_id',$id);
+                        $callstatus = $this->db->get()->row();
+						if(count($callstatus) != 1)
+						{
+							$callcenter_expense_details = array(
+                        'expense_id' => $callCenterNotiId,
+                        'createdon' => date('Y-m-j H:i:s'),
+                        'NetFromBank' => $nfb,
+                        'NetFromBankEuroVal' => $euro_amount,
+                        'vendor_id' => $vendor,
+						'currency' => $curr,
+						'ActualDate' => $to,
+                    );
+					$this->db->insert('callcenter_expense_details',$callcenter_expense_details);
+							
+						}
+							
+						}
+							
+							
+							
+							
+						}
+							
+							
+							///check whether vendor is call center user
+						
+						
+						
+						
+						
                     /*}else{
                         $_SESSION['pop_mes'] = "Not Sufficient Balance.";
                     redirect('expenses');
@@ -500,6 +609,122 @@ class Expenses extends CI_Controller {
         }
         $_SESSION['callCenterUser'] =$id;
         redirect('Expenses/addExpenseDetails');
+    }
+	
+	public function updateCallCenterExpDetails($id){
+        if(!isset($_SESSION['logged_in']))
+        {
+            redirect('login');
+        }
+		if($_SESSION['user_role'] == "Admin") {
+			$expense = array(
+            			'adminread' => 1,
+            		);
+            		$this->db->where('id',$id);
+	        		$this->db->update('callcenter_expense_details',$expense);
+			
+		}
+	    $this->form_validation->set_rules ( 'userid', 'userid Name', 'trim|required' );
+		 $this->form_validation->set_rules ( 'editexpense_token', 'editexpense_token Name', 'trim|required' );
+		if ($this->form_validation->run () === FALSE) {
+            $this->db->select('*');
+		$this->db->from('callcenter_expense_details pt');
+		$this->db->where('pt.id',$id);
+		$callcenter_expense_details =  $this->db->get()->row();
+            $data['callcenter_expense_details'] = $callcenter_expense_details;
+			$this->load->view('templates/header');
+			$this->load->view('templates/left-sidebar');
+			$this->load->view('updateCallCenterExp',$data);
+			$this->load->view('templates/footer');
+		}
+		else{
+		$token = $this->input->post('editexpense_token');
+        		$session_token=null;
+        		$session_token = $_SESSION['token_edit-expenses'];
+        		//unset($_SESSION['token_pspincome']);
+        		if(!empty($token) == $session_token)
+        		{ 
+			//print_r($_POST);
+			//exit();
+			$receivedamount = str_replace(',','',$this->input->post('receivedamount'));
+			$received = $this->input->post('received');
+			$addedamount = $this->input->post('addedamount');
+			$userid = $this->input->post('userid');
+			$callcenterid = $this->input->post('callcenterid');
+			$vendor_id = $this->input->post('vendor_id');
+			
+			 $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-CallCenterExpenses". PHP_EOL
+                        . json_encode($_POST) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+			
+			$val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
+                                
+                        $val=json_decode($val);
+                        $exchange_rate = $val->rates->EUR;
+                        $euro_amount = $receivedamount * $exchange_rate;
+						
+						if ($received == 'on') {
+					$received = 1;
+					
+						}
+						else{
+							$received = 0;
+						}
+						
+						
+			
+			$expense = array(
+            			'Amount_Received' => $receivedamount,
+            			'Amount_ReceivedEuroVal'=> $euro_amount,
+            			'status' => $received,
+						'user_id' =>$_SESSION['userid'],
+						'modifiedon' =>date('Y-m-j H:i:s'),
+            		);
+            		$this->db->where('id',$callcenterid);
+	        		$this->db->update('callcenter_expense_details',$expense);
+					
+					$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-CallCenterExpenses Update Call data". PHP_EOL
+                        . json_encode($expense) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+					
+					if ($received == 1) {
+						
+						$this->db->select('Balance,EuroVal');
+                    $this->db->from('vendormaster');
+                    $this->db->where('VendorId',$vendor_id);
+                    $Vendorbal = $this->db->get()->row();
+					
+					
+					$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Vendorbal Balance data". PHP_EOL
+                        . json_encode($Vendorbal) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+					
+						$updatedBal = $Vendorbal->Balance+$receivedamount;
+						$updatedeuroBal = $Vendorbal->EuroVal+$euro_amount;
+						
+						$vendorbaldata = array('Balance'=>$updatedBal,'EuroVal'=>$updatedeuroBal);
+							$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Vendormaster Update Balance data". PHP_EOL
+                        . json_encode($vendorbaldata) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+						
+						$this->db->where('VendorId',$vendor_id);
+                        $this->db->update('vendormaster',$vendorbaldata);
+						
+					}
+			redirect('all-expenses');
+			
+				}
+				
+				else{
+        			$_SESSION['pop_mes'] = "Token does not match."; 
+                    $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Exp". PHP_EOL
+                        . "Edit-Exp-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+					redirect('all-expenses');
+        		}
+	}
+				
+		
     }
 
 }

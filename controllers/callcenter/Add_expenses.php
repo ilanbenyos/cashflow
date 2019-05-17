@@ -66,18 +66,25 @@ class Add_expenses extends CI_Controller {
 		if (!isset($_SESSION['logged_in'])) {
 			redirect('login');
 		}
+		//echo $_SESSION['user_role'];
+		
 		if ($_SESSION['user_role'] != "Call Center User") {
+			
 		$this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
 	      $this->db->from('usermaster');
 	      $this->db->where('UserID',$_SESSION['userid']);
 	      $this->db->where('Active',1);
 	      $query = $this->db->get();
 	      $VendorId = $query->row();
+		// print_r($VendorId);
+
 		}else{
+			//echo "in";
+			
 			$this->db->select('u.UserID,u.Name,u.RoleId,u.CallCenterVendorId,u.Active,v.Currency,c.CurName');
 			$this->db->from('usermaster u');
-			$this->db->join('vendormaster v','v.VendorId = u.CallCenterVendorId');
-			$this->db->join('currencymaster c','v.Currency = c.CurId');
+			$this->db->join('vendormaster v','v.VendorId = u.CallCenterVendorId','left');
+			$this->db->join('currencymaster c','v.Currency = c.CurId','left');
 			$this->db->where('u.UserID',$_SESSION['userid']);
 			$this->db->where('u.Active',1);
 			$query = $this->db->get();
@@ -96,7 +103,7 @@ class Add_expenses extends CI_Controller {
 		if ($_SESSION['user_role'] == "Call Center User") {
 			$data['userdetails'] = $VendorId;
 		}
-		//echo $_SESSION['user_role'];
+	//	echo $_SESSION['user_role'];
 		$this->load->view('callcenter/expenses',$data);
 		$this->load->view('templates/footer');
 	}
@@ -133,7 +140,7 @@ class Add_expenses extends CI_Controller {
 	      $this->db->from('vendormaster v');
 		  $this->db->join('usermaster u','v.VendorId = u.CallCenterVendorId');
 		  $this->db->join('bankmaster b','v.Bank = b.BankId','left');
-		  $this->db->join('currencymaster c','v.Currency = c.CurId');
+		  $this->db->join('currencymaster c','v.Currency = c.CurId','left');
 	      $this->db->where('u.UserID',$_SESSION['userid']);
 	      $query = $this->db->get();
 	      $VendorId = $query->row();
@@ -213,6 +220,18 @@ class Add_expenses extends CI_Controller {
     		$session_token=null;
     		$session_token = $_SESSION['token_expense_add'];
     		if(!empty($token) == $session_token){	
+				
+				$config['upload_path'] = realpath(APPPATH . '../upload_document');
+				$config['allowed_types'] = 'gif|jpg|png';
+				$this->load->library('upload', $config);
+				if (!$this->upload->do_upload('upload_doc')) {
+					$error = array('error' => $this->upload->display_errors());
+					$upload_doc="";
+				} else {
+					$data = array('image_metadata' => $this->upload->data());
+					$upload_doc =$data['image_metadata']['file_name'];
+				}
+			
     			$expName = $this->input->post('expName');
     			$Vendorid = $this->input->post('Vendorid');
 				$vendor_currncy = $this->all_model->get_vendor_currency_byid($Vendorid);
@@ -268,14 +287,44 @@ class Add_expenses extends CI_Controller {
 						'EuroValue'=>$EUR_Amount,
             			'ExpDate' => $from,
             			'ExpPaymentType' => $expPaymentType,
-            			'CreatedBy' => $uid
+            			'CreatedBy' => $uid,
+						'DocumentPath' =>$upload_doc
             		);
             		$this->db->insert('callcenterexpenses',$expense);
+					
+					
+					$this->db->select('Balance,EuroVal');
+                    $this->db->from('vendormaster');
+                    $this->db->where('VendorId',$Vendorid);
+                    $Vendorbal = $this->db->get()->row();
+					
+					
+					$updatedBal = $Vendorbal->Balance-$Converted_Amount;
+						$updatedeuroBal = $Vendorbal->EuroVal-$EUR_Amount;
+					
+					
+					$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Vendorbal Balance data". PHP_EOL
+                        . json_encode($Vendorbal) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+					
+					
+					$vendordata = array( 
+					'Balance'=> $updatedBal,
+            			'EuroVal' => $updatedeuroBal,
+            		);
+					$this->db->where ( 'VendorId', $Vendorid );
+		$this->db->update ( 'vendormaster', $vendordata );
+		
+		$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Vendorbal Balance while updating data". PHP_EOL
+                        . json_encode($vendordata) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+					
+					
             		$_SESSION['pop_mes'] = "Call Center Expenses Added Successfully."; 
-            		return 1;
+            		redirect('all-expenses');
         	}else{
         		$_SESSION['pop_mes'] = "Token does not match.";
-        		return 1;
+        		redirect('all-expenses');
         	}
 		}
 	}
@@ -306,6 +355,21 @@ class Add_expenses extends CI_Controller {
         		
         		if(!empty($token) == $session_token)
         		{
+					
+					$config['upload_path'] = realpath(APPPATH . '../upload_document');
+					$config['allowed_types'] = 'Pdf|excel|png|PDF|PNG|XLSX|xlsx';
+					$this->load->library('upload', $config);
+					if (!$this->upload->do_upload('upload_doc')) {
+						$error = array('error' => $this->upload->display_errors());
+						$upload_doc="";
+					} else {
+						$data = array('image_metadata' => $this->upload->data());
+						$upload_doc =$data['image_metadata']['file_name'];
+					}
+					if(!$upload_doc){
+						$upload_doc=$data['expenses']['DocumentPath'];
+					}
+					
         		$expName = $this->input->post('expName');
         		$Vendorid = $this->input->post('Vendorid');
 				$vendor_currncy = $this->all_model->get_vendor_currency_byid($Vendorid);
@@ -359,7 +423,8 @@ class Add_expenses extends CI_Controller {
 						'EuroValue'=>$EUR_Amount,
             			'ExpDate' => $from,
             			'ExpPaymentType' => $expPaymentType,
-            			'CreatedBy' => $uid
+            			'CreatedBy' => $uid,
+						'DocumentPath' =>$upload_doc
             		);
             		$this->db->where('ExpId',$id);
 	        		$this->db->update('callcenterexpenses',$expense);

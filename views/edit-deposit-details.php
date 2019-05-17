@@ -15,7 +15,7 @@
           <!-- <div class="middle-section light-blue-box spacebottom2x clearfix"> -->
 		   <h2 class="modal-title">EDIT PSP Income</h2>
             <div class="defination-box clearfix">
-            <form class="form-horizontal clearfix" id="pspIncome" method="post">
+            <form class="form-horizontal clearfix" id="pspIncome" method="post" enctype="multipart/form-data">
                 <?php 
                   $token = md5(uniqid(rand(), TRUE));
                   if(isset ($_SESSION['token_editpspincome']))
@@ -31,11 +31,11 @@
       <input type="hidden" name="crrValue" id="crrValue">
               <div class="row clearfix spacetop3x spacebottom2x">
                 <div class="clearfix row-flex">
-                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
-				   <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                  <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 common-border-box">
+                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                       <h4>Gerneral Information</h4>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">PSP</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -49,7 +49,16 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="hidden" class="form-control xyz" name="accommP" id="accommP" onkeypress="javascript:return isNumber(event)">
+                          <input type="text" class="form-control xyz" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualComP ?>" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Bank</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -58,6 +67,15 @@
                         </div>
                       </div>
                     </div>
+					   <div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <textarea class="form-control" name="desc" id="desc" placeholder="Description" value="" style="height: 44px;"><?php echo $allPspIncome->Description ?></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Bank</label>
@@ -71,7 +89,7 @@
                         </div>
                       </div>
                     </div> --> 
-                     <div class="col-md-12 col-sm-12 col-xs-12">
+                     <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -84,33 +102,15 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="hidden" class="form-control xyz" name="accommP" id="accommP" onkeypress="javascript:return isNumber(event)">
-                          <input type="text" class="form-control xyz" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualComP ?>" onkeypress="javascript:return isNumber(event)">
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Description</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <textarea class="form-control" name="desc" id="desc" placeholder="Description" value="" style="height: 44px;"><?php echo $allPspIncome->Description ?></textarea>
-                        </div>
-                      </div>
-                    </div>
                     
                     
-                  </div>
+                 
+                    
                   <!--planned info starts -->
-                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 common-border-box">
-				  <div class="col-md-10 col-sm-12 col-xs-12 text-center">
+                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                       <h4>Planned Information</h4>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12"> Received date <span class="red">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -133,36 +133,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12"> Processed Amount <!-- <span class="red">*</span> --></label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo $allPspIncome->PlannedAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount"  />
-                        </div>
-                      </div>
-                    </div>
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="plcurr" id="plcurr" value="<?php echo $allPspIncome->Currency; ?>" readonly> -->
-                          <!-- <select class="form-control" name="plcurr" id="plcurr" >
-                            <option value="USD" selected="">USD</option>
-                            <option value="EUR">EUR</option>
-                            <!-- <option value="GBP">GBP</option> 
-                          </select> -->
-                        <!-- </div>
-                      </div>
-                    </div> -->
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="plcommval" id="plcommval" value="<?php echo $allPspIncome->PlannedComP ?>" onkeypress="javascript:return isNumber(event)">
-                        </div>
-                      </div>
-                    </div> -->
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+					 <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Commission Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -170,36 +141,19 @@
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Commission</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <div class="clearfix spacebottom1x">
-                            <div class="form-check col-md-5 col-sm-5 col-xs-12">
-                              <label>
-                                 <input type="radio" name="plcomm" id="plcomm" class="checkcomm"  checked=""> 
-                                <span class="label-text">%</span> </label>
-                            </div>
-                            <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="plcommval" id="plcommval" value="<?php echo $allPspIncome->PlannedComP ?>" 
-                              onkeypress="javascript:return isNumber(event)" placeholder="Commission">
-                            </div>
-                          </div>
-                          <div class="clearfix">
-                            <div class="form-check col-md-5 col-sm-5 col-xs-12">
-                              <label>
-                                 <input type="radio" name="plcomm" id="plamt" class="checkamt" > 
-                                <span class="label-text">Amount</span> </label>
-                            </div>
-                            <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="plamtval" id="plamtval" onkeypress="javascript:return isNumber(event)" value="<?php echo $allPspIncome->PlannedCom ?>" placeholder="Amount">
-                            </div>
-                          </div>
+                        <label class="col-md-5 col-sm-5 col-xs-12"> Processed Amount <!-- <span class="red">*</span> --></label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo $allPspIncome->PlannedAmt ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Processed Amount"  />
                         </div>
                       </div>
-                    </div> -->
+                    </div>
+                  
+                   
+                    
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Net Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12 xyz">
@@ -207,6 +161,28 @@
                         </div>
                       </div>
                     </div>
+					<div class="clearfix"></div>
+					<div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Document Upload</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+						<?php if($allPspIncome->DocumentPath){ ?>
+						 <div class="input-group col-xs-12">
+							<a href="/upload_document/<?php echo $allPspIncome->DocumentPath?>" target="_blank" title="view Document" ><i class="fa fa-eye"></i> </a>
+							<a download href="/upload_document/<?php echo $allPspIncome->DocumentPath?>" title="Download Document" class="btn btn-transparent text-blue"><i class="fa  fa-cloud-download"></i> </a>
+						</div>
+						 <?php }else{ ?>
+                        <input type="file" name="upload_file"  id="upload_file" class="file">
+                        <div class="input-group col-xs-12">
+						  <input class="form-control" data-icon="false" name="upload_doc" id="upload_doc" disabled placeholder="Upload file" type="text"/>
+						  <span class="input-group-btn">
+							<button class="browse browse-btn" type="button"><i class="glyphicon glyphicon-search"></i> Browse</button>
+						  </span>
+						</div>
+						<?php  } ?>
+                        </div>
+                      </div>
+					</div>
                   </div>
                   <!--planned info ends -->
                   <!-- Actual info starts -->
@@ -391,6 +367,8 @@
                       </div>
                     </div> -->
                   </div>
+				
+					<div class="clearfix"></div>
                   <!--Actual info ends -->
                     <div class="col-xs-12 text-center spacetop2x">
                   <div class="page-loader" style="display:none;">
@@ -1066,6 +1044,23 @@ autoclose: true
 </script>
 <script type="text/javascript">
     (function($){
+		
+		//upload doc validation//
+		$('#upload_file').on('blur', function() {
+			if($('#upload_file').val()!=""){
+				var file =$('#upload_file').val();
+				var reg = /(.*?)\.(pdf|PDF|png|PNG|xlsx|XLSX)$/;
+				if(!file.match(reg)){
+					$(this).css("border", "1px solid #be1622");
+				}else{
+					$(this).css("border", "1px solid #CCCCCC"); 
+				}
+			}else{
+				$(this).css("border", "1px solid #CCCCCC"); 
+			}
+		})
+		//--------------------//
+		
       $('#psp').on('blur', function() {
         $(this).css("border", "1px solid #CCCCCC");
             if($(this).val()!="")
@@ -1156,6 +1151,19 @@ autoclose: true
       })*/
       $("#editPspIncome").click(function(){
         var returnvar = true;
+		
+			//upload doc validation//
+			if($('#upload_file').val()!=""){
+			var file =$('#upload_file').val();
+			   var reg = /(.*?)\.(pdf|PDF|png|PNG|xlsx|XLSX)$/;
+			   if(!file.match(reg))
+			   {
+					$(this).css("border", "1px solid #be1622");
+					returnvar = false;
+			   }
+			}
+			//---------------------// 
+			
       if($("#psp").val() ==""){
            $("#psp").css("border", "1px solid #be1622");           
            returnvar = false;

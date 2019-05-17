@@ -314,7 +314,7 @@ class All_model extends CI_Model {
 		$this->db->join('bankmaster b','b.BankId = e.BankId');
 		$this->db->where('e.Active',1);
 		$this->db->where('e.TransId',$id);*/
-		$this->db->select('e.TransId,e.VendorId,e.BankId,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Share,e.FinalBankComm,e.NetFromBank,e.Active,e.ShareAmount,e.BankOutCommP,e.BankOutCommAmount,e.TransferCommP,e.TransferCommAmount,v.VendorId,v.VendorName,b.BankId,b.BankName,bt.BanktransferName,bt.BankTransferId');
+		$this->db->select('e.TransId,e.VendorId,e.BankId,e.DocumentPath,e.Description,e.Currency,e.CatId,e.PlannedAmt,e.ExpDate,e.ActualDate,e.ActualAmt,e.BankTransferId,e.Share,e.FinalBankComm,e.NetFromBank,e.Active,e.ShareAmount,e.BankOutCommP,e.BankOutCommAmount,e.TransferCommP,e.TransferCommAmount,v.VendorId,v.VendorName,b.BankId,b.BankName,bt.BanktransferName,bt.BankTransferId');
 		$this->db->from('expenses e');
 		$this->db->join('vendormaster v','v.VendorId = e.VendorId');
 		//$this->db->join('banktransfercharges bc','bc.BankTransferId = e.BankTransferId');
@@ -365,7 +365,7 @@ class All_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 	public function editCallCenterExp($id){
-		$this->db->select('c.ExpId,c.ExpName,c.VendorId,c.ExpAmount,c.EuroValue,c.ExpDate,c.ExpPaymentType,e.CatId,e.Category,e.Active');
+		$this->db->select('c.ExpId,c.ExpName,c.DocumentPath,c.VendorId,c.ExpAmount,c.EuroValue,c.ExpDate,c.ExpPaymentType,e.CatId,e.Category,e.Active');
 		$this->db->from('callcenterexpenses c');
 		$this->db->join('callcenter_expense_category e','c.ExpName = e.CatId');
 		//$this->db->join('psptype p','p.TypeId=c.ExpPaymentType');

@@ -15,9 +15,9 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
       <div class="row">
         <div class="col-md-12">
           <!-- <div class="middle-section light-blue-box spacebottom2x clearfix"> -->
-            <h2 class="modal-title">Edit Expense</h2>
+            <h2 class="modal-title">Edit Call Center Expnese</h2>
             <div class="defination-box clearfix">
-            <form class="form-horizontal clearfix" id="edit-expenses" method="post" >
+            <form class="form-horizontal clearfix" id="edit-expenses" method="post" enctype="multipart/form-data" >
                 <?php 
                   $token = md5(uniqid(rand(), TRUE));
                   if(isset ($_SESSION['token_expense_edit']))
@@ -104,6 +104,27 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                         </div>
                       </div>
                     </div>
+					<div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Document Upload</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+						<?php if($expenses->DocumentPath){ ?>
+						 <div class="input-group col-xs-12">
+							<a href="/upload_document/<?php echo $expenses->DocumentPath?>" target="_blank" title="view Document" ><i class="fa fa-eye"></i> </a>
+							<a download href="/upload_document/<?php echo $expenses->DocumentPath?>" title="Download Document" class="btn btn-transparent text-blue"><i class="fa  fa-cloud-download"></i> </a>
+						</div>
+						 <?php }else{ ?>
+                        <input type="file" name="upload_file"  id="upload_file" class="file">
+                        <div class="input-group col-xs-12">
+						  <input class="form-control" data-icon="false" name="upload_doc" id="upload_doc" disabled placeholder="Upload file" type="text"/>
+						  <span class="input-group-btn">
+							<button class="browse browse-btn" type="button"><i class="glyphicon glyphicon-search"></i> Browse</button>
+						  </span>
+						</div>
+						<?php  } ?>
+                        </div>
+                      </div>
+					</div>
                   </div>
                   
                   <!--planned info ends --> 
@@ -141,10 +162,36 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
     $('#expAmount').attr('disabled',true);
     $('#expDate').attr('disabled',true);
     $('#expPaymentType').attr('disabled',true);
+	//upload doc validation//
+		$('#upload_doc').on('blur', function() {
+			if($('#upload_doc').val()!=""){
+				var file =$('#upload_doc').val();
+				var reg = /(.*?)\.(pdf|PDF|png|PNG|xlsx|XLSX)$/;
+				if(!file.match(reg)){
+					$(this).css("border", "1px solid #be1622");
+				}else{
+					$(this).css("border", "1px solid #CCCCCC"); 
+				}
+			}else{
+				$(this).css("border", "1px solid #CCCCCC"); 
+			}
+		})
+		//--------------------//
 
   })
   $("#editExpense").click(function(){
         var returnvar = true;
+		//upload doc validation//
+			if($('#upload_doc').val()!=""){
+			var file =$('#upload_doc').val();
+			   var reg = /(.*?)\.(pdf|PDF|png|PNG|xlsx|XLSX)$/;
+			   if(!file.match(reg))
+			   {
+					$(this).css("border", "1px solid #be1622");
+					returnvar = false;
+			   }
+			}
+			//---------------------// 
       if($("#expName").val() ==""){
            $("#expName").css("border", "1px solid #be1622");           
            returnvar = false;

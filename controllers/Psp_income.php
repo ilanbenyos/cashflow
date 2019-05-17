@@ -63,7 +63,9 @@ class Psp_income extends CI_Controller {
 			$this->load->view('add-deposit-details',$data);
 			$this->load->view('templates/footer');
 		}else{   
-                
+		/*echo '<pre/>';
+                   print_r($_POST);
+				   exit(); */
                 //Log
                 $this->db->select('UserID,Name');
                 $this->db->from('usermaster');
@@ -82,6 +84,18 @@ class Psp_income extends CI_Controller {
         		//unset($_SESSION['token_pspincome']);
         		if(!empty($token) == $session_token)
         		{	
+			
+					$config['upload_path'] = realpath(APPPATH . '../upload_document');
+					$config['allowed_types'] = 'gif|jpg|png';
+					$this->load->library('upload', $config);
+					if (!$this->upload->do_upload('upload_doc')) {
+						$error = array('error' => $this->upload->display_errors());
+						$upload_doc="";
+					} else {
+						$data = array('image_metadata' => $this->upload->data());
+						$upload_doc =$data['image_metadata']['file_name'];
+					}
+					
         			$pspid = $this->input->post('psp');
         			$BankId = $this->input->post('bankid');
         			$desc = $this->input->post('desc');
@@ -208,8 +222,10 @@ class Psp_income extends CI_Controller {
 
                         'isCRR' => $isCrr,
         				'CreatedBy' => $uid,
-                        'ModifiedBy ' => $uid
+                        'ModifiedBy ' => $uid,
+						'DocumentPath' =>$upload_doc
         			);
+					
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-PSP". PHP_EOL
                     . "Add-PSP-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($pspIncomeInfo) .PHP_EOL . "-------------------------" . PHP_EOL;
                     file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );
@@ -293,13 +309,13 @@ class Psp_income extends CI_Controller {
                                 $_SESSION['MaxBalance']=$data['getBankBal']->MaxBalance;
                                 $_SESSION['maxBal']="yes";
                             }
-					return 1;
+					redirect('psp-income');
         		}else{
         			$_SESSION['pop_mes'] = "Token does not match."; 
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-PSP" . PHP_EOL
                         . "Add-PSP-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );
-					return 1;
+					redirect('psp-income');
         		}
 		}
 	}
@@ -326,6 +342,19 @@ class Psp_income extends CI_Controller {
 			$this->load->view('templates/footer');
 		}else{  
 
+				$config['upload_path'] = realpath(APPPATH . '../upload_document');
+				$config['allowed_types'] = 'Pdf|excel|png|PDF|PNG|XLSX|xlsx';
+				$this->load->library('upload', $config);
+				if (!$this->upload->do_upload('upload_doc')) {
+					$error = array('error' => $this->upload->display_errors());
+					$upload_doc="";
+				} else {
+					$data = array('image_metadata' => $this->upload->data());
+					$upload_doc =$data['image_metadata']['file_name'];
+				}
+				if(!$upload_doc){
+					$upload_doc=$data['allPspIncome']['DocumentPath'];
+				}
 
                 //echo logger_url_psp;
                 $this->db->select('UserID,Name');
@@ -442,7 +471,8 @@ class Psp_income extends CI_Controller {
                         'isCRR' => $isCrr,
 						 'BankCom' => $bankcomm,
                         //'CreatedBy' => $uid,
-                        'ModifiedBy'=> $uid
+                        'ModifiedBy'=> $uid,
+						'DocumentPath' =>$upload_doc
                     );
                         //print_r($updatePspIncomeInfo);
                     /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-PSP". PHP_EOL
@@ -478,7 +508,8 @@ class Psp_income extends CI_Controller {
                         //'isCRR' => $isCrr,
                         'CRRId' => $id,
                         'CreatedBy' => $uid,
-                        'ModifiedBy ' => $uid
+                        'ModifiedBy ' => $uid,
+						'DocumentPath' =>$upload_doc
                         );
 
                         $this->db->select('PspId,Balance');
@@ -525,7 +556,8 @@ class Psp_income extends CI_Controller {
                         'isCRR' => $isCrr,
 						 'BankCom' => $bankcomm,
                         //'CreatedBy' => $uid,
-                        'ModifiedBy'=> $uid
+                        'ModifiedBy'=> $uid,
+						'DocumentPath' =>$upload_doc
                     );
 
                     $log = "ip:" . $_SERVER['REMOTE_ADDR'] . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . ' : ' . "Edit-PSP" . PHP_EOL

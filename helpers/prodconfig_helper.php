@@ -27,6 +27,14 @@
 	</div>
 	<?php } 
 }*/
+
+
+function valuelist($array, $array_column) {
+    return array_column($array, $array_column);
+}
+
+
+
 function popup2() {
     if (isset ( $_SESSION ['pop_mes'] )) {
         ?>
