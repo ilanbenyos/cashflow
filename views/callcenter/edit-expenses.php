@@ -109,9 +109,11 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                         <label class="col-md-5 col-sm-5 col-xs-12">Document Upload</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
 						<?php if($expenses->DocumentPath){ ?>
+							<input disabled name="upload_file" value="<?php echo $expenses->DocumentPath?>" id="upload_file" class="file">
 						 <div class="input-group col-xs-12">
-							<a href="/upload_document/<?php echo $expenses->DocumentPath?>" target="_blank" title="view Document" ><i class="fa fa-eye"></i> </a>
 							<a download href="/upload_document/<?php echo $expenses->DocumentPath?>" title="Download Document" class="btn btn-transparent text-blue"><i class="fa  fa-cloud-download"></i> </a>
+							
+						<a  href="/upload_document/<?php echo $expenses->DocumentPath?>" target="_blank" title="view Document" class="btn btn-transparent text-blue"><i class="fa fa-eye"></i> </a>
 						</div>
 						 <?php }else{ ?>
                         <input type="file" name="upload_file"  id="upload_file" class="file">
@@ -163,9 +165,9 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
     $('#expDate').attr('disabled',true);
     $('#expPaymentType').attr('disabled',true);
 	//upload doc validation//
-		$('#upload_doc').on('blur', function() {
-			if($('#upload_doc').val()!=""){
-				var file =$('#upload_doc').val();
+		$('#upload_file').on('blur', function() {
+			if($('#upload_file').val()!=""){
+				var file =$('#upload_file').val();
 				var reg = /(.*?)\.(pdf|PDF|png|PNG|xlsx|XLSX)$/;
 				if(!file.match(reg)){
 					$(this).css("border", "1px solid #be1622");
@@ -182,8 +184,8 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
   $("#editExpense").click(function(){
         var returnvar = true;
 		//upload doc validation//
-			if($('#upload_doc').val()!=""){
-			var file =$('#upload_doc').val();
+			if($('#upload_file').val()!=""){
+			var file =$('#upload_file').val();
 			   var reg = /(.*?)\.(pdf|PDF|png|PNG|xlsx|XLSX)$/;
 			   if(!file.match(reg))
 			   {

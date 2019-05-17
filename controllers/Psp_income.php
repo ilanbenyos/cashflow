@@ -86,9 +86,9 @@ class Psp_income extends CI_Controller {
         		{	
 			
 					$config['upload_path'] = realpath(APPPATH . '../upload_document');
-					$config['allowed_types'] = 'gif|jpg|png';
+					$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
 					$this->load->library('upload', $config);
-					if (!$this->upload->do_upload('upload_doc')) {
+					if (!$this->upload->do_upload('upload_file')) {
 						$error = array('error' => $this->upload->display_errors());
 						$upload_doc="";
 					} else {
@@ -341,21 +341,31 @@ class Psp_income extends CI_Controller {
 			$this->load->view('edit-deposit-details',$data);
 			$this->load->view('templates/footer');
 		}else{  
-
+					
 				$config['upload_path'] = realpath(APPPATH . '../upload_document');
-				$config['allowed_types'] = 'Pdf|excel|png|PDF|PNG|XLSX|xlsx';
+				$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
+				
+				
+				
 				$this->load->library('upload', $config);
-				if (!$this->upload->do_upload('upload_doc')) {
+				$allPspIncome = $this->all_model->pspIncome($id);
+				//print_r($allPspIncome);
+				if($allPspIncome->DocumentPath == "")
+				{
+				if (!$this->upload->do_upload('upload_file')) {
 					$error = array('error' => $this->upload->display_errors());
 					$upload_doc="";
 				} else {
 					$data = array('image_metadata' => $this->upload->data());
 					$upload_doc =$data['image_metadata']['file_name'];
 				}
-				if(!$upload_doc){
-					$upload_doc=$data['allPspIncome']['DocumentPath'];
+				}
+				else{
+					$upload_doc=$allPspIncome->DocumentPath;
 				}
 
+				//echo"doc" .$upload_doc;
+				//exit();
                 //echo logger_url_psp;
                 $this->db->select('UserID,Name');
                 $this->db->from('usermaster');

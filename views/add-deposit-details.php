@@ -140,6 +140,7 @@
                         </div>
                       </div>
                     </div>
+					<div class="clearfix"></div>
 					 <!--planned info ends --> 
                     <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
@@ -235,7 +236,7 @@
                         <label class="col-md-5 col-sm-5 col-xs-12">Rolling Reserved Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" name="crrComm" id="crrComm">
-                          <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" placeholder="CRR Amount" readonly />
+                          <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" placeholder="CRR Amount" />
                         </div>
                       </div>
                     </div>
@@ -333,9 +334,13 @@
 	  if(document.getElementById("myCheck").checked == true){
 			$('#acamtval_hid').attr('disabled',false);
 			$('#bankcomm_hid').attr('disabled',false);
+			$('#crrAmt').attr('disabled',false);
 	  }else{
 			$('#acamtval_hid').attr('disabled',true);
 			$('#bankcomm_hid').attr('disabled',true);
+			$("#bankcomm_hid").val($("#bankcomm").val());
+			$("#acamtval_hid").val($("#acamtval").val());
+			$('#crrAmt').attr('disabled',true);
 	  }
 	  
 	}	
@@ -372,7 +377,7 @@ $('.datepicker').datepicker({
     });*/
     //sort by albhabetical order end
 
-
+$('#crrAmt').attr('disabled',true);
 $('#bank_hid').attr('disabled',true);
 $('#plcurr_hid').attr('disabled',true);
 $('#accommval_hid').attr('disabled',true);
@@ -552,7 +557,7 @@ $('#bankcomm_hid').attr('disabled',true);
 			$("#nettoBankAmt").val(netToBank);
 	console.log('bankcomm->'+bankcomm2+' acamtval->'+commAmount+' Net To Bank->' +  netToBank);	  
 		  
-		}if(document.getElementById("myCheck").checked == true){
+		}else if(document.getElementById("myCheck").checked == true){
 			var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");   //actual process amount
 			var crrComm = document.getElementById("crrComm").value;        // CRR Commission %
 			var crrAmt = (crrComm/100);                                    
@@ -757,6 +762,7 @@ $('#bankcomm_hid').attr('disabled',true);
 				returnvar = false;
 			}
 			if(returnvar == true){
+				$('#crrAmt').attr('disabled',false);
 				$("#bankcomm").val($("#bankcomm_hid").val());
 				$("#acamtval").val($("#acamtval_hid").val());
 				$("#addPspIncome").hide();

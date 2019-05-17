@@ -111,7 +111,7 @@ class Expenses extends CI_Controller {
 		}else{
 			
 				$config['upload_path'] = realpath(APPPATH . '../upload_document');
-				$config['allowed_types'] = 'gif|jpg|png';
+				$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
 				$this->load->library('upload', $config);
 				if (!$this->upload->do_upload('upload_file')) {
 					$error = array('error' => $this->upload->display_errors());
@@ -381,19 +381,31 @@ class Expenses extends CI_Controller {
         		//unset($_SESSION['token_pspincome']);
         		if(!empty($token) == $session_token)
         		{   
+			
+				
+			
 					$config['upload_path'] = realpath(APPPATH . '../upload_document');
-					$config['allowed_types'] = 'Pdf|excel|png|PDF|PNG|XLSX|xlsx';
+					$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
 					$this->load->library('upload', $config);
-					if (!$this->upload->do_upload('upload_file')) {
-						$error = array('error' => $this->upload->display_errors());
-						$upload_doc="";
-					} else {
-						$data = array('image_metadata' => $this->upload->data());
-						$upload_doc =$data['image_metadata']['file_name'];
+					$getexpenses = $this->all_model->getexpenses($id);
+					//print_r($getexpenses);
+					if($getexpenses->DocumentPath == "")
+					{
+						if (!$this->upload->do_upload('upload_file')) {
+							$error = array('error' => $this->upload->display_errors());
+							$upload_doc="";
+						} else {
+							$data = array('image_metadata' => $this->upload->data());
+							$upload_doc =$data['image_metadata']['file_name'];
+						}
 					}
-					if(!$upload_doc){
-						$upload_doc=$data['expenses']['DocumentPath'];
+					else{
+						$upload_doc=$getexpenses->DocumentPath;
 					}
+					
+					
+					
+					
         			$vendor = $this->input->post('vendor');
                     $BankId = $this->input->post('bankid');
                     $desc = $this->input->post('desc');

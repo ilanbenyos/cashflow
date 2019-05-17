@@ -222,9 +222,9 @@ class Add_expenses extends CI_Controller {
     		if(!empty($token) == $session_token){	
 				
 				$config['upload_path'] = realpath(APPPATH . '../upload_document');
-				$config['allowed_types'] = 'gif|jpg|png';
+				$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
 				$this->load->library('upload', $config);
-				if (!$this->upload->do_upload('upload_doc')) {
+				if (!$this->upload->do_upload('upload_file')) {
 					$error = array('error' => $this->upload->display_errors());
 					$upload_doc="";
 				} else {
@@ -291,6 +291,10 @@ class Add_expenses extends CI_Controller {
 						'DocumentPath' =>$upload_doc
             		);
             		$this->db->insert('callcenterexpenses',$expense);
+					
+					$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "callcenterexpenses data". PHP_EOL
+                        . json_encode($expense) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
 					
 					
 					$this->db->select('Balance,EuroVal');
@@ -359,15 +363,18 @@ class Add_expenses extends CI_Controller {
 					$config['upload_path'] = realpath(APPPATH . '../upload_document');
 					$config['allowed_types'] = 'Pdf|excel|png|PDF|PNG|XLSX|xlsx';
 					$this->load->library('upload', $config);
-					if (!$this->upload->do_upload('upload_doc')) {
-						$error = array('error' => $this->upload->display_errors());
-						$upload_doc="";
-					} else {
-						$data = array('image_metadata' => $this->upload->data());
-						$upload_doc =$data['image_metadata']['file_name'];
-					}
-					if(!$upload_doc){
-						$upload_doc=$data['expenses']['DocumentPath'];
+					$getexpenses = $this->all_model->editCallCenterExp($id);
+					if($getexpenses->DocumentPath == "")
+					{
+						if (!$this->upload->do_upload('upload_file')) {
+							$error = array('error' => $this->upload->display_errors());
+							$upload_doc="";
+						} else {
+							$data = array('image_metadata' => $this->upload->data());
+							$upload_doc =$data['image_metadata']['file_name'];
+						}
+					}else{
+						$upload_doc=$getexpenses->DocumentPath;
 					}
 					
         		$expName = $this->input->post('expName');

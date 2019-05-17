@@ -54,7 +54,8 @@
                         <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" class="form-control xyz" name="accommP" id="accommP" onkeypress="javascript:return isNumber(event)">
-                          <input type="text" class="form-control xyz" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualComP ?>" onkeypress="javascript:return isNumber(event)">
+                          <input type="hidden" class="form-control xyz" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualComP ?>" onkeypress="javascript:return isNumber(event)">
+						  <input type="text" class="form-control xyz" name="accommval_hid" id="accommval_hid" value="<?php echo $allPspIncome->ActualComP ?>">
                         </div>
                       </div>
                     </div>
@@ -63,7 +64,8 @@
                         <label class="col-md-5 col-sm-5 col-xs-12">Bank</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" class="form-control" name="bankid" id="bankid" value="<?php echo $allPspIncome->BankId ?>" />
-                          <input type="text" class="form-control" name="bank" id="bank" value="<?php echo $allPspIncome->BankName ?>" readonly/>
+                          <input type="text" class="form-control" name="bank_hid" id="bank_hid" value="<?php echo $allPspIncome->BankName ?>" />
+                          <input type="hidden" class="form-control" name="bank" id="bank" value="<?php echo $allPspIncome->BankName ?>" />
                         </div>
                       </div>
                     </div>
@@ -75,30 +77,14 @@
                         </div>
                       </div>
                     </div>
-                    
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Bank</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <select class="form-control" name="bank" id="bank" onChange="">
-                             <option selected="" value="">Select Bank</option>
-                            <?php foreach ($banks as $bank) { ?>
-                            <option value="<?php echo $bank->BankId; ?>"><?php echo $bank->BankName; ?></option>      
-                                  <?php   } ?>
-                          </select>
-                        </div>
-                      </div>
-                    </div> --> 
+              
                      <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="plcurr" id="plcurr" value="<?php echo $allPspIncome->Currency; ?>" readonly>
-                          <!-- <select class="form-control" name="plcurr" id="plcurr" >
-                            <option value="USD" selected="">USD</option>
-                            <option value="EUR">EUR</option>
-                            <!-- <option value="GBP">GBP</option> 
-                          </select> -->
+                          <input type="hidden" class="form-control" name="plcurr" id="plcurr" value="<?php echo $allPspIncome->Currency; ?>" >
+                          <input type="text" class="form-control" name="plcurr_hid" id="plcurr_hid" value="<?php echo $allPspIncome->Currency; ?>" >
+                         
                         </div>
                       </div>
                     </div>
@@ -167,9 +153,12 @@
                         <label class="col-md-5 col-sm-5 col-xs-12">Document Upload</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
 						<?php if($allPspIncome->DocumentPath){ ?>
+							<input disabled name="upload_file" value="<?php echo $allPspIncome->DocumentPath?>" id="upload_file" class="file">
+
 						 <div class="input-group col-xs-12">
-							<a href="/upload_document/<?php echo $allPspIncome->DocumentPath?>" target="_blank" title="view Document" ><i class="fa fa-eye"></i> </a>
 							<a download href="/upload_document/<?php echo $allPspIncome->DocumentPath?>" title="Download Document" class="btn btn-transparent text-blue"><i class="fa  fa-cloud-download"></i> </a>
+							
+							<a  href="/upload_document/<?php echo $allPspIncome->DocumentPath?>" target="_blank" title="view Document" class="btn btn-transparent text-blue"><i class="fa fa-eye"></i> </a>
 						</div>
 						 <?php }else{ ?>
                         <input type="file" name="upload_file"  id="upload_file" class="file">
@@ -225,6 +214,15 @@
                         </div>
                       </div>
                     </div>
+					<div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                          <div class="col-md-6 col-sm-6 col-xs-12 checkbox">
+                            <label>
+                              <input type="checkbox" id="myCheck" onclick="check()">
+                              <span class="cr"><i class="cr-icon fa fa-check"></i></span> <span class="acceptance">Insert Manually</span> </label>
+                          </div>
+                        </div>
+                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Processed Amount</label>
@@ -234,33 +232,13 @@
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Currency</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="accurr" id="accurr" value="<?php echo $allPspIncome->Currency; ?>" readonly> -->
-                          <!-- <select class="form-control" name="accurr" id="accurr" onchange="">
-                            <option selected="">USD</option>
-                            <option>EUR</option>
-                            <option>GBP</option> 
-                          </select> -->
-                        <!-- </div>
-                      </div>
-                    </div> -->
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Commission %</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="hidden" class="form-control xyz" name="accommP" id="accommP" onkeypress="javascript:return isNumber(event)">
-                          <input type="text" class="form-control xyz" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualComP ?>" onkeypress="javascript:return isNumber(event)">
-                        </div>
-                      </div>
-                    </div> -->
+            
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Commission Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control xyz" name="acamtval" id="acamtval" value="<?php echo $allPspIncome->ActualCom ?>"  onkeypress="javascript:return isNumber(event)">
+                          <input type="hidden" class="form-control xyz" name="acamtval" id="acamtval" value="<?php echo $allPspIncome->ActualCom ?>"  onkeypress="javascript:return isNumber(event)">
+						   <input type="text" class="form-control xyz" name="acamtval_hid" id="acamtval_hid" value="<?php echo $allPspIncome->ActualCom ?>" >
                         </div>
                       </div>
                     </div>
@@ -272,28 +250,14 @@
                         </div>
                       </div>
                     </div>
-                    <!-- <?php if ($allPspIncome->isCRR == 1) { ?>
-                      <div class="col-md-12 col-sm-12 col-xs-12" id="crr">
-                      <div class="form-group">
-                        <label class="col-md-5 col-sm-5 col-xs-12">Rolling Reserved Amount</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="hidden" name="crrComm" id="crrComm">
-                           <?php if (isset($crrData->isCRR) == 0 && isset($crrData->CRRId) == $allPspIncome->TransId ) { ?>
-                             <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" value="<?php echo $crrData->PlannedAmt; ?>" placeholder="CRR Amount" readonly/>
-                          <?php  } else { ?> 
-                          <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" value="<?php echo $allPspIncome->PlannedAmt; ?>" placeholder="CRR Amount" readonly/>
-                        <?php } ?>
-                        </div>
-                      </div>
-                    </div>
-                   <?php  } ?> -->
+              
                    <?php if ($crrSet == "set") { ?>
                       <div class="col-md-12 col-sm-12 col-xs-12" id="crr">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Rolling Reserved Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="hidden" name="crrComm" id="crrComm">
-                             <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" value="<?php echo $crrData->PlannedAmt;; ?>" placeholder="CRR Amount" readonly/>
+                             <input type="text" class="form-control xyz" name="crrAmt" id="crrAmt" value="<?php echo $crrData->PlannedAmt;; ?>" placeholder="CRR Amount"/>
                          
                           
                         </div>
@@ -316,8 +280,8 @@
                         <label class="col-md-5 col-sm-5 col-xs-12">Bank Commission</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
 						<input type="hidden" class="form-control xyz" name="bankcommP" id="bankcommP" onkeypress="javascript:return isNumber(event)">
-                          <input type="text" disabled class="form-control xyz" name="bankcomm1" id="bankcomm1" value="<?php echo $allPspIncome->BankCom ?>" >			
-                        <input type="hidden" readonly name="bankcomm" id="bankcomm" value="<?php echo $allPspIncome->BankCom ?>" >
+                          <input type="text"  class="form-control xyz" name="bankcomm_hid" id="bankcomm_hid" value="<?php echo $allPspIncome->BankCom ?>" >			
+                        <input type="hidden"  class="form-control xyz" name="bankcomm" id="bankcomm" value="<?php echo $allPspIncome->BankCom ?>" >
                         </div>
                       </div>
                     </div>
@@ -329,43 +293,7 @@
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Commission</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <div class="clearfix spacebottom1x">
-                            <div class="form-check col-md-5 col-sm-5 col-xs-12">
-                              <label>
-                                 <input type="radio" name="accomm" id="accomm" class="checkcomm" value="" checked> 
-                                <span class="label-text">%</span> </label>
-                            </div>
-                            <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="accommval" id="accommval" value="<?php echo $allPspIncome->ActualComP ?>" 
-                              onkeypress="javascript:return isNumber(event)" placeholder="Commission">
-                            </div>
-                          </div>
-                          <div class="clearfix">
-                            <div class="form-check col-md-5 col-sm-5 col-xs-12">
-                              <label>
-                                 <input type="radio" name="accomm" id="acamt" > 
-                                <span class="label-text">Amount</span> </label>
-                            </div>
-                            <div class="form-check col-md-7 col-sm-7 col-xs-12 no-padding">
-                              <input type="text" class="form-control" name="acamtval" id="acamtval" value="<?php echo $allPspIncome->ActualCom ?>" onkeypress="javascript:return isNumber(event)" placeholder="Amount">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="col-md-4 col-sm-4 col-xs-12">Net Amount</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="text" class="form-control xyz" name="acnetAmt" id="acnetAmt" placeholder="Actual Net Amount" value="<?php echo $allPspIncome->ActualNetAmt ?>" /> -->
-                          <!-- <input type="hidden" class="form-control" name="acamtnetReceivebefore" id="acamtnetReceivebefore" /> -->
-                        <!-- </div>
-                      </div>
-                    </div> -->
+                    
                   </div>
 				
 					<div class="clearfix"></div>
@@ -395,13 +323,32 @@
 
         return true;
     }    
+	function check() {
+	  if(document.getElementById("myCheck").checked == true){
+			$('#acamtval_hid').attr('disabled',false);
+			$('#bankcomm_hid').attr('disabled',false);
+			$('#crrAmt').attr('disabled',false);
+
+	  }else{
+			$('#acamtval_hid').attr('disabled',true);
+			$('#bankcomm_hid').attr('disabled',true);
+			$("#bankcomm_hid").val($("#bankcomm").val());
+			$("#acamtval_hid").val($("#acamtval").val());
+			$('#crrAmt').attr('disabled',true);
+	  }
+	  
+	}	
 </script>
 <script type="text/javascript">
   $(document).ready(function(){
-
+	$('#crrAmt').attr('disabled',true);
     $('#psp').attr('disabled',true);
-    $('#accommval').attr('disabled',true);
-$('#acamtval').attr('disabled',true);
+	$('#accommval_hid').attr('disabled',true);
+	$('#bank_hid').attr('disabled',true);
+	$('#plcurr_hid').attr('disabled',true);
+	$('#acamtval_hid').attr('disabled',true);
+	$('#bankcomm_hid').attr('disabled',true);
+
 
     var pldatereceive = $("#pldatereceive").val();
     var acdatereceive = $("#acdatereceive").val();
@@ -416,9 +363,17 @@ $('#acamtval').attr('disabled',true);
     autoclose: true
       });
 
-
-
-
+if(document.getElementById("myCheck").checked == true){
+			var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");   //actual process amount
+			var crrComm = document.getElementById("crrComm").value;        // CRR Commission %
+			var crrAmt = (crrComm/100);                                    
+			var crrAmt = Number(actualAmt*crrAmt).toFixed(2);
+			$("#crrAmt").val(crrAmt);      
+	console.log('actualAmt->'+actualAmt);		
+	console.log('crrComm->'+crrComm);		
+	console.log('crrAmt->'+crrAmt);		
+	console.log('additionalfees->'+additionalfees);
+}else if(document.getElementById("myCheck").checked == true){
 if ($("#acamtReceive").val() == 0.00) {
     if (($("#crrVal").val() == 0) && ($("#crrVAlId").val() == 0)) {
 	//Not CRR record and Actual amount is zero
@@ -433,15 +388,18 @@ if ($("#acamtReceive").val() == 0.00) {
                     var obj = JSON.parse(data);
                     //console.log(obj.getpsp);
                     $("#bank").val(obj.getpsp.BankName);
+                    $("#bank_hid").val(obj.getpsp.BankName);
                     $("#bankid").val(obj.getpsp.BankId);
                     $("#plcurr").val(obj.getpsp.CurName);
+                    $("#plcurr_hid").val(obj.getpsp.CurName);
                     $("#accurr").val(obj.getpsp.CurName);
                     $("#accommP").val(obj.getpsp.Commission);
                     var commAmount = $("#accommP").val();
                     var commAmount = commAmount;
                     $("#bankcommP").val(obj.getpsp.InComP);
+					
                     $("#accommval").val(commAmount);
-                    
+                    $("#accommval_hid").val(commAmount);
 
 
                     var additionalfees = $("#additionalFees").val();
@@ -466,18 +424,14 @@ if ($("#acamtReceive").val() == 0.00) {
 
                     var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)).toFixed(2);  
                     $("#bankcomm").val(bankcomm2);
-                    $("#bankcomm1").val(bankcomm2);
+                    $("#bankcomm_hid").val(bankcomm2);
 					
                     $("#acamtval").val(commAmount);
+                    $("#acamtval_hid").val(commAmount);
+					
                     $("#nettoBankAmt").val(netToBank);
 
-                    /*console.log('commission %' +  accommP);
-                    console.log('bankcommP %' +  bankcommP);
-
-                    console.log('Bank commission' +  bankcomm);
-                    console.log('commission Amount' +  commAmount);
-
-                    console.log('Net To Bank' +  netToBank);*/
+                    
                     //net to bank amount calculation end
                    }
                });
@@ -511,8 +465,9 @@ if ($("#acamtReceive").val() == 0.00) {
 
       var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)).toFixed(2);  
       $("#bankcomm").val(bankcomm2);
-      $("#bankcomm1").val(bankcomm2);
+      $("#bankcomm_hid").val(bankcomm2);
       $("#acamtval").val(commAmount);
+      $("#acamtval_hid").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
 
       /*console.log('commission %' +  accommP);
@@ -540,8 +495,10 @@ if ($("#acamtReceive").val() == 0.00) {
                     var obj = JSON.parse(data);
                     //console.log(obj.getpsp);
                     $("#bank").val(obj.getpsp.BankName);
+                    $("#bank_hid").val(obj.getpsp.BankName);
                     $("#bankid").val(obj.getpsp.BankId);
                     $("#plcurr").val(obj.getpsp.CurName);
+                    $("#plcurr_hid").val(obj.getpsp.CurName);
                     $("#accurr").val(obj.getpsp.CurName);
                     $("#accommP").val(obj.getpsp.Commission);
                     var commAmount = $("#accommP").val();
@@ -571,18 +528,10 @@ if ($("#acamtReceive").val() == 0.00) {
 
                     var netToBank = Number(parseInt(actualAmt)-parseInt(bankcomm2)-parseInt(fees)).toFixed(2);  
                     $("#bankcomm").val(bankcomm2);
-                    $("#bankcomm1").val(bankcomm2);
-                    //$("#acamtval").val(commAmount);
-                    $("#nettoBankAmt").val(netToBank);
+                    $("#bankcomm_hid").val(bankcomm2);
+					$("#nettoBankAmt").val(netToBank);
 
-                    /*console.log('commission %' +  accommP);
-                    console.log('bankcommP %' +  bankcommP);
-
-                    console.log('Bank commission' +  bankcomm);
-                    console.log('commission Amount' +  commAmount);
-
-                    console.log('Net To Bank' +  netToBank);*/
-                    //net to bank amount calculation end
+                  
                    }
                });
       });
@@ -617,8 +566,9 @@ if ($("#acamtReceive").val() == 0.00) {
 
       var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)).toFixed(2);  
       $("#bankcomm").val(bankcomm2);
-      $("#bankcomm1").val(bankcomm2);
+      $("#bankcomm_hid").val(bankcomm2);
       $("#acamtval").val(commAmount);
+      $("#acamtval_hid").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
 
       /*console.log('commission %' +  accommP);
@@ -645,6 +595,8 @@ if ($("#acamtReceive").val() == 0.00) {
                     console.log(obj.getpsp);
                     $("#bankcommP").val(obj.getpsp.InComP);
                     $("#accommval").val(obj.getpsp.Commission);
+                    $("#accommval_hid").val(obj.getpsp.Commission);
+					
                     if (obj.getpsp.Crr > 0.00) {
                       $("#crr").show();
                     $("#crrComm").val(obj.getpsp.Crr);
@@ -694,12 +646,14 @@ if ($("#acamtReceive").val() == 0.00) {
       var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2); 
       //console.log('Net To Bank' +  netToBank);
       $("#bankcomm").val(bankcomm2);
-	   $("#bankcomm1").val(bankcomm2);
+	   $("#bankcomm_hid").val(bankcomm2);
       $("#acamtval").val(commAmount);
+      $("#acamtval_hid").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
 
      
     });
+	
     $( "#additionalFees" ).keyup(function( event ) { 
       var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");   //actual process amount
       var crrComm = document.getElementById("crrComm").value;        // CRR Commission %
@@ -740,7 +694,10 @@ if ($("#acamtReceive").val() == 0.00) {
 
       var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2);  
       $("#bankcomm").val(bankcomm2);
+      $("#bankcomm_hid").val(bankcomm2);
+	  
       $("#acamtval").val(commAmount);
+	  $("#acamtval_hid").val(commAmount);
       $("#nettoBankAmt").val(netToBank);
     });
 	}
@@ -748,53 +705,7 @@ if ($("#acamtReceive").val() == 0.00) {
   //alert("4");
 }
 
-
-/*$( "#nettoBankAmt" ).on('blur', function() {
-
-var crrVal = $("#crrVal").val();
-    if (crrVal == 0) {
-      var pspid=document.getElementById("psp").value;  
-         $.ajax({
-                url:"<?php echo base_url ('Psp_income/getBanks/')?>"+ pspid ,
-                    type: "POST",
-                    data : {pspid:pspid},
-                    dataType: "html",
-                    success: function(data) {
-                    var obj = JSON.parse(data);
-                    console.log(obj.getpsp);
-                    $("#bank").val(obj.getpsp.BankName);
-                    $("#bankid").val(obj.getpsp.BankId);
-                    $("#plcurr").val(obj.getpsp.CurName);
-                    $("#accurr").val(obj.getpsp.CurName);
-                    $("#accommP").val(obj.getpsp.Commission);
-                    var commAmount = $("#accommP").val();
-                    var commAmount = commAmount;
-                    $("#bankcommP").val(obj.getpsp.InComP);
-                    $("#accommval").val(commAmount);
-
-                    var acamtReceive = $("#acamtReceive").val();
-                    if (acamtReceive == "") {
-                        var actualAmt = 0;
-                        $("#nettoBankAmt").val(actualAmt);
-                    }else{
-                        var actualAmt = acamtReceive;
-                        $("#nettoBankAmt").val(actualAmt);
-                    }
-                    var bankcommP = $("#bankcommP").val();
-                    var netTobankamount = $("#nettoBankAmt").val();
-
-                    var bankcomm = (actualAmt*(bankcommP/100));
-
-                    var netToBank = (parseInt(netTobankamount)-parseInt(bankcomm));
-                    $("#bankcomm").val(bankcomm);
-                    $("#nettoBankAmt").val(netToBank);
-                   }
-               });
-    }/*else{
-      alert(222);
-    }*/
-     //}); 
-//})*/
+}
       
     
   });
@@ -814,14 +725,20 @@ var crrVal = $("#crrVal").val();
                     var obj = JSON.parse(data);
                     //console.log(obj.getpsp);
                     $("#bank").val(obj.getpsp.BankName);
+                    $("#bank_hid").val(obj.getpsp.BankName);
+					
                     $("#bankid").val(obj.getpsp.BankId);
                     $("#plcurr").val(obj.getpsp.CurName);
+                    $("#plcurr_hid").val(obj.getpsp.CurName);
+					
                     $("#accurr").val(obj.getpsp.CurName);
                     $("#accommP").val(obj.getpsp.Commission);
                     var commAmount = $("#accommP").val();
                     var commAmount = commAmount;
                     $("#bankcommP").val(obj.getpsp.InComP);
                     $("#accommval").val(commAmount);
+                    $("#accommval_hid").val(commAmount);
+					
                     if (obj.getpsp.Crr > 0) {
                       $("#crr").show();
                     $("#crrComm").val(obj.getpsp.Crr);
@@ -847,7 +764,9 @@ var crrVal = $("#crrVal").val();
 
                     var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)).toFixed(2); ;
                     $("#bankcomm").val(bankcomm2);
+                    $("#bankcomm_hid").val(bankcomm2);
                     $("#acamtval").val(commAmount);
+					$("#acamtval_hid").val(commAmount);
                     $("#nettoBankAmt").val(netToBank);
                     //net to bank amount calculation end
                    }
@@ -875,170 +794,11 @@ var crrVal = $("#crrVal").val();
       //alert(actualAmt);
       }
 
-      /*var crrValue = $("#crrVal").val();
-      if (crrValue == 0) {
-        var amt = $("#acamtReceive").val().replace(/,/gi, "");
-        var netToBankAmt = $("#nettoBankAmt").val().replace(/,/gi, "");
-        if (amt == "" && amt == 0.00) {
-          amt = 0.00;
-        }else {
-          amt = Number(amt).toFixed(2);
-        }
-        $("#nettoBankAmt").val(amt);
-      }*/
 
-      //net to bank calculation
-      /*var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");
-      var accommP = $("#accommval").val();
-      var bankcommP = $("#bankcommP").val();
-
-      var bankcomm = (actualAmt*(bankcommP/100));
-      var commAmount = (actualAmt*(accommP/100));
-      var netToBank = (parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm));
-      $("#bankcomm").val(bankcomm);
-      $("#acamtval").val(commAmount);
-      $("#nettoBankAmt").val(netToBank);
-
-      console.log('commission %' +  accommP);
-      console.log('bankcommP %' +  bankcommP);
-
-      console.log('Bank commission' +  bankcomm);
-      console.log('commission Amount' +  commAmount);
-
-      console.log('Net To Bank' +  netToBank);*/
 
       
     });
-     /*var crrValue = $("#crrVal").val();
-      if (crrValue == 0) {
-        var amt = $("#acamtReceive").val().replace(/,/gi, "");
-        var netToBankAmt = $("#nettoBankAmt").val().replace(/,/gi, "");
-        if (amt == "" && amt == 0.00) {
-          amt = 0.00;
-        }else {
-          amt = Number(amt).toFixed(2);
-        }
-        $("#nettoBankAmt").val(amt);
-      }*
-    /*var crrValue = $("#crrVal").val();
-    
-    
 
-    /*var aBeforeBal = $('#acnetAmt').val();
-    $('#acamtnetReceivebefore').val(aBeforeBal);*/
-
-
-/*var pldatereceive = document.getElementById("pldatereceive").value();
-var acdatereceive = document.getElementById("acdatereceive").value();
-
-$('#pldatereceive').datepicker({
-format: "d/m/Y",
-todayHighlight: true,
-startDate: pldatereceive,
-endDate: end,
-autoclose: true
-  });*/
-     /*var date = new Date();
-  var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  var end = new Date(date.getFullYear(), date.getMonth(), date.getDate());*/
-    /*$('#pldatereceive').datepicker('setDate', pldatereceive);
-    $('#pldatereceive').datepicker('setDate', acdatereceive);*/
-
-        /*$('#plamtval').attr('disabled',true);
-        $('#acamtval').attr('disabled',true);
-    $('input[type="radio"]').click(function(){  
-    if ($(this).is(':checked'))        // Planned PSP Income
-    {   //alert($(this).is(':checked'));
-      //alert($(this).attr('id'));
-      //if($(this).val() == "plcomm"){
-
-        if($(this).attr('id')== "plcomm"){
-       // alert($(this).attr('id'));
-        $('#plamtval').val('');       // to clear input fields
-        $("#plamtval").attr('disabled', true);
-        $("#plcommval").attr('disabled', false);
-        $( "#plcommval").click(function() {
-        $( "#plcommval" ).keyup();
-      });
-      }else if($(this).attr('id') == "plamt"){
-        //alert($(this).attr('id'));
-        $('#plcommval').val('');  // to clear input fields
-        $("#plcommval").attr('disabled', true);
-        $("#plamtval").attr('disabled', false);
-        $( "#plamtval").click(function() {
-        $( "#plamtval" ).keyup();
-      });
-    }
-    }
-    if ($(this).is(':checked'))   // Actual PSP Income
-    {
-      //alert($(this).attr('id'));
-      //if($(this).val() == "plcomm"){
-        if($(this).attr('id')== "accomm"){
-        //alert($(this).attr('id'));
-        $('#acamtval').val('');  // to clear input fields
-        $("#acamtval").attr('disabled', true);
-        $("#accommval").attr('disabled', false);
-          $( "#accommval").click(function() {
-          $( "#accommval" ).keyup();
-        });
-      }else if($(this).attr('id') == "acamt"){
-        $('#accommval').val('');  // to clear input fields
-        $("#accommval").attr('disabled', true);
-        $("#acamtval").attr('disabled', false);
-        $( "#acamtval").click(function() {
-          $( "#acamtval" ).keyup();
-        });
-      }
-    }
-  });*/
-
-    /*$( "#plcommval" ).keyup(function( event ) {    // Planned PSP Income
-      var plamt =document.getElementById("plamtReceived").value;  
-      var comm = document.getElementById("plcommval").value;
-      var amt = document.getElementById("plamtval").value;
-      var commission = (comm/100);  // 0.5%
-      var commamt = (plamt*commission);
-      $("#plamtval").val(commamt);
-      var plnetamt = (plamt-commamt);
-      $("#plnetAmt").val(plnetamt);
-      
-    })*//*.keydown(function( event ) {
-      //alert(11111);
-    });*/
-    /*$( "#plamtval" ).keyup(function( event ) {  // Planned PSP Income
-      var plamt =document.getElementById("plamtReceived").value;  
-      var comm = document.getElementById("plcommval").value;
-      var amt = document.getElementById("plamtval").value;
-      //var commission = (comm/100);  // 0.5%
-      var plnetamt = (plamt-amt);
-      $("#plnetAmt").val(plnetamt);
-      
-    })*//*.keydown(function( event ) {
-      //alert(11111);
-    });*/
-
-    /*$( "#accommval" ).keyup(function( event ) {    // Actual PSP Income
-      var acamt =document.getElementById("acamtReceive").value;  
-      var comm = document.getElementById("accommval").value;
-      var amt = document.getElementById("acamtval").value;
-      var commission = (comm/100);  // 0.5%
-      var commamt = (acamt*commission);
-      $("#acamtval").val(commamt);
-      var acnetamt = (acamt-commamt);
-      $("#acnetAmt").val(acnetamt);
-    })*/
-
-    /*$( "#acamtval" ).keyup(function( event ) {  // Actual PSP Income
-      var acamt =document.getElementById("acamtReceive").value;  
-      var comm = document.getElementById("accommval").value;
-      var amt = document.getElementById("acamtval").value;
-      //var commission = (comm/100);  // 0.5%
-      var acnetamt = (acamt-amt);
-      $("#acnetAmt").val(acnetamt);
-      
-    })
-*/
   });
 
 </script>
@@ -1072,7 +832,8 @@ autoclose: true
           $(this).css("border", "1px solid #be1622");
         }
       })
-      $('#bank').on('blur', function() {
+ 
+	   $('#bank_hid').on('blur', function() {
         $(this).css("border", "1px solid #CCCCCC");
             if($(this).val()!="")
         { 
@@ -1083,17 +844,7 @@ autoclose: true
           $(this).css("border", "1px solid #be1622");
         }
       })
-      /*$('#plamtReceived').on('blur', function() {
-        $(this).css("border", "1px solid #CCCCCC");
-            if($(this).val()!="")
-        { 
-          $(this).css("border", "1px solid #CCCCCC");                         
-        }
-        else if($(this).val()=="") 
-        {
-          $(this).css("border", "1px solid #be1622");
-        }
-      })*/
+
       $('#pldatereceive').on('blur', function() {
         $(this).css("border", "1px solid #CCCCCC");
             if($(this).val()!="")
@@ -1127,34 +878,14 @@ autoclose: true
           $(this).css("border", "1px solid #be1622");
         }
       })
-      /*$('#acdatereceive').on('blur', function() {
-        $(this).css("border", "1px solid #CCCCCC");
-            if($(this).val()!="")
-        { 
-          $(this).css("border", "1px solid #CCCCCC");                         
-        }
-        else if($(this).val()=="") 
-        {
-          $(this).css("border", "1px solid #be1622");
-        }
-      })
-      $('#acamtReceive').on('blur', function() {
-        $(this).css("border", "1px solid #CCCCCC");
-            if($(this).val()!="")
-        { 
-          $(this).css("border", "1px solid #CCCCCC");                         
-        }
-        else if($(this).val()=="") 
-        {
-          $(this).css("border", "1px solid #be1622");
-        }
-      })*/
+ 
       $("#editPspIncome").click(function(){
+		 
         var returnvar = true;
-		
 			//upload doc validation//
 			if($('#upload_file').val()!=""){
 			var file =$('#upload_file').val();
+			
 			   var reg = /(.*?)\.(pdf|PDF|png|PNG|xlsx|XLSX)$/;
 			   if(!file.match(reg))
 			   {
@@ -1163,23 +894,21 @@ autoclose: true
 			   }
 			}
 			//---------------------// 
-			
-      if($("#psp").val() ==""){
+					
+
+		  if($("#psp").val() ==""){
            $("#psp").css("border", "1px solid #be1622");           
            returnvar = false;
           }
-          if($("#bank").val() ==""){
-           $("#bank").css("border", "1px solid #be1622");           
+          
+		  if($("#bank_hid").val() ==""){
+           $("#bank_hid").css("border", "1px solid #be1622");           
            returnvar = false;
           }
           if($("#pldatereceive").val()==""){                  
            $("#pldatereceive").css("border", "1px solid #be1622");
            returnvar = false;
           }
-          /*if($("#plamtReceived").val()==""){                  
-           $("#plamtReceived").css("border", "1px solid #be1622");
-           returnvar = false;
-          }*/
           var actualAmt = $("#acamtReceive").val();
           var actualDate = $("#acdatereceive").val();
           if (actualAmt == 0.00) {
@@ -1189,152 +918,17 @@ autoclose: true
             $("#acdatereceive").css("border", "1px solid #be1622");
             returnvar = false;
           }
-          /*if(actualAmt != "" && actualDate == ""){
-            $("#acdatereceive").css("border", "1px solid #be1622");
-            returnvar = false;
-            //alert(returnvar);
-          }else if(actualAmt == 0 && actualDate == ""){
-            //$("#acdatereceive").css("border", "1px solid #be1622");
-            $("#acdatereceive").css("border", "1px solid #CCCCCC");  
-            returnvar = true;
-          }*/
-          /*if($("#acdatereceive").val()==""){                  
-           $("#acdatereceive").css("border", "1px solid #be1622");
-           returnvar = false;
-          }
-          if($("#acamtReceive").val()==""){                  
-           $("#acamtReceive").css("border", "1px solid #be1622");
-           returnvar = false;
-          }*/
           if(returnvar == true){
             //alert(returnvar);
             $('#psp').attr('disabled',false);
-            $('#accommval').attr('disabled',false);
-            $("#acamtval").attr('disabled',false);
-             $("#editPspIncome").hide();
+			$('#crrAmt').attr('disabled',false);
+			$("#bankcomm").val($("#bankcomm_hid").val());
+			$("#acamtval").val($("#acamtval_hid").val());
+            $("#editPspIncome").hide();
             $(".page-loader").show();
      } 
      return returnvar;
       });
     })(jQuery);
 </script> 
-<!-- <script type="text/javascript">
-    (function($){
-      $('#psp').on('blur', function() {
-        $(this).css("border", "1px solid #CCCCCC");
-            if($(this).val()!="")
-        { 
-          $(this).css("border", "1px solid #CCCCCC");                         
-        }
-        else if($(this).val()=="") 
-        {
-          $(this).css("border", "1px solid #be1622");
-        }
-      })
-      $('#bank').on('blur', function() {
-        $(this).css("border", "1px solid #CCCCCC");
-            if($(this).val()!="")
-        { 
-          $(this).css("border", "1px solid #CCCCCC");                         
-        }
-        else if($(this).val()=="") 
-        {
-          $(this).css("border", "1px solid #be1622");
-        }
-      })
-      $('#plamtReceived').on('blur', function() {
-        $(this).css("border", "1px solid #CCCCCC");
-            if($(this).val()!="")
-        { 
-          $(this).css("border", "1px solid #CCCCCC");                         
-        }
-        else if($(this).val()=="") 
-        {
-          $(this).css("border", "1px solid #be1622");
-        }
-      })
-      $('#pldatereceive').on('blur', function() {
-        $(this).css("border", "1px solid #CCCCCC");
-            if($(this).val()!="")
-        { 
-          $(this).css("border", "1px solid #CCCCCC");                         
-        }
-        else if($(this).val()=="") 
-        {
-          $(this).css("border", "1px solid #be1622");
-        }
-      })
-      $('#acdatereceive').on('blur', function() {
-        $(this).css("border", "1px solid #CCCCCC");
-            if($(this).val()!="")
-        { 
-          $(this).css("border", "1px solid #CCCCCC");                         
-        }
-        else if($(this).val()=="") 
-        {
-          $(this).css("border", "1px solid #be1622");
-        }
-      })
-      $('#acamtReceive').on('blur', function() {
-        $(this).css("border", "1px solid #CCCCCC");
-            if($(this).val()!="")
-        { 
-          $(this).css("border", "1px solid #CCCCCC");                         
-        }
-        else if($(this).val()=="") 
-        {
-          $(this).css("border", "1px solid #be1622");
-        }
-      })
-      $("#addPspIncome").click(function(){
-      var returnvar = true;
-      if($("#psp").val() ==""){
-           $("#psp").css("border", "1px solid #be1622");           
-           returnvar = false;
-          }
-          if($("#bank").val() ==""){
-           $("#bank").css("border", "1px solid #be1622");           
-           returnvar = false;
-          }
-          if($("#pldatereceive").val()==""){                  
-           $("#pldatereceive").css("border", "1px solid #be1622");
-           returnvar = false;
-          }
-          if($("#plamtReceived").val()==""){                  
-           $("#plamtReceived").css("border", "1px solid #be1622");
-           returnvar = false;
-          }
-          if($("#acdatereceive").val()==""){                  
-           $("#acdatereceive").css("border", "1px solid #be1622");
-           returnvar = false;
-          }
-          if($("#acamtReceive").val()==""){                  
-           $("#acamtReceive").css("border", "1px solid #be1622");
-           returnvar = false;
-          }
-          if(returnvar == true){ 
-            alert(returnvar);
-            var bank = document.getElementById('bank').value;
-            alert(bank);
-             $("#addPspIncome").hide();
-            $(".page-loader").show();
-              $.ajax({
-                url:"<?php echo base_url ('add-psp-income/')?>",
-                    type: "POST",
-                    data : $("#pspIncome").serialize(),
-                    dataType: "html",
-                   success: function(data) {
-                    console.log(data);
-                    if(data == 1){
-                      window.location.href = '<?php echo base_url('psp-income') ?>';
-                    }else{
-                       window.location.href = '<?php echo base_url('psp-income') ?>';
-                    }
-                   }
-               });
 
-     }  
-     return returnvar;
-      });
-    })(jQuery);
-</script>  -->
