@@ -394,15 +394,18 @@ class Expenses extends CI_Controller {
 						if (!$this->upload->do_upload('upload_file')) {
 							$error = array('error' => $this->upload->display_errors());
 							$upload_doc="";
+							echo $error;
 						} else {
 							$data = array('image_metadata' => $this->upload->data());
 							$upload_doc =$data['image_metadata']['file_name'];
+							echo "Uploaded";
 						}
 					}
 					else{
 						$upload_doc=$getexpenses->DocumentPath;
 					}
 					
+					exit();
 					
 					
 					
