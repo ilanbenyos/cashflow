@@ -130,6 +130,11 @@ header { position:relative; background: #fff; }
 /***** Right Content CSS Style *****/
 #content { width: 100%; padding:30px 0 30px 20px; min-height: 100vh; transition: all 0.3s; position:relative; overflow: hidden; }
 .white-bg { background: #fff; padding: 24px; box-shadow: 0 0 10px #b1b1b1; position:relative; }
+.white-bg.grey-color-cox{background: #e4e4e4;}
+.grey-box-wrapper {
+    background: #e6e6e6;
+}
+.white-bg.grey-color-cox .border-frame{background: #fff;}
 .add-icon-box { margin-bottom: 20px; text-transform: capitalize; }
 .plus-icon { line-height: normal; margin-right: 10px; color: #20a0a7; font-size: 17px; }
 .add-icon-box a, .add-icon-box a:hover, .add-icon-box:focus { color:#000; text-decoration: none; font-size: 15px; }
