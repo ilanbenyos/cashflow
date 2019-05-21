@@ -1,19 +1,26 @@
+ <style type="text/css">
+  .grp-color {
+      color: #8E8B8B !important;
+      font-family: "Arial Bold";
+  }
+</style> 
 <h1>Bank Dashboard</h1>
-<div class="white-bg">
-  <div class="row-flex clearfix grey-bg">
+<div class="white-bg grey-color-cox">
+  <!-- <div class="frame1" style="border: 1px solid #ccc;    padding: 10px 12px;height: 700px;background-color: #e6e6e6 !important"> -->
+    <div class="row-flex clearfix grey-bg">
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 less-pad spacebottom1x">
       <div class="border-frame">
-        <h4>Total Bank Income this month</h4>
+        <h4 class="grp-color">Total Bank Income this month</h4>
         <div class="detail-info-box" id="chart-container">
-		
-		</div>
+    
+    </div>
       </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 less-pad spacebottom1x">
       <div class="border-frame small-frame">
-        <h4>Current Bank Balance</h4>
+        <h4 class="grp-color">Current Bank Balance</h4>
         <div class="detail-info-box">
-		
+    
           <div class="curreny-amount "><span id="sum"></span> <span class="currency-icon"></span></div>
         </div>
       </div>
@@ -27,32 +34,34 @@
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 less-pad spacebottom1x">
       <div class="border-frame">
-        <h4>Total Bank Expenses this month</h4>
+        <h4 class="grp-color">Total Bank Expenses this month</h4>
         <div class="detail-info-box" id="bank-expenses">
-		
-		</div>
+    
+    </div>
       </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 less-pad spacebottom1x">
       <div class="border-frame">
-        <h4>Bank Comissions Top 4</h4>
+        <h4 class="grp-color">Bank Comissions Top 4</h4>
         <div class="detail-info-box" id="bank-comm"></div>
       </div>
     </div>
     <div class="clearfix"></div>
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 less-pad spacebottom1x">
       <div class="border-frame">
-        <h4>Bank Income</h4>
+        <h4 class="grp-color">Bank Income</h4>
         <div class="detail-info-box" id="bank-income"></div>
       </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 less-pad spacebottom1x">
       <div class="border-frame">
-        <h4>Bank Balance</h4>
+        <h4 class="grp-color">Bank Balance</h4>
         <div class="detail-info-box" id="bank-balance"></div>
       </div>
     </div>
   </div>
+  <!-- </div> -->
+  
 </div>
 </div>
 </div>
@@ -112,7 +121,7 @@
                     "origh": "300",
                     "gaugeStartAngle": "135",
                     "gaugeEndAngle": "45",
-                    "gaugeOriginX": "195",
+                    "gaugeOriginX": "145",
                     "gaugeOriginY": "220",
                     "gaugeOuterRadius": "150",
                     "theme": "fusion",
@@ -128,7 +137,7 @@
                     "captionFontSize": "12",
                     "captionFontColor": "#9e9b9b",
                     "captionFontBold": "1",
-                    "numberSuffix": "K",
+                    "numberSuffix": "K"
                     },
                     "colorRange": {
                       "color": [{
@@ -183,11 +192,14 @@
 
       for (var i = 0; i < jsonData.length; i++) {
             
-                 var monthly = parseInt(Number(jsonData[i].monthly).toFixed(2)) + " €";
-                 var lastmonth = parseInt(Number(jsonData[i].lastmonth).toFixed(2)) + " €";
-
-                 $("#sum").html(monthly);
-                 $("#sum1").html(lastmonth);
+                 /*var monthly = parseInt(Number(jsonData[i].monthly).toFixed(2)) + " €";
+                 var lastmonth = parseInt(Number(jsonData[i].lastmonth).toFixed(2)) + " €";*/
+                 var monthly = Number(jsonData[i].monthly).toFixed(2) + " €";
+                 var lastmonth = Number(jsonData[i].lastmonth).toFixed(2) + " €";
+                 var monthlyVal = Number(monthly).toLocaleString('en');
+                 var lastmonthVal = Number(lastmonth).toLocaleString('en');
+                 $("#sum").html(commaSeparateNumber(monthly));
+                 $("#sum1").html(commaSeparateNumber(lastmonth));
           }
     }/*,
     error: function(e) {
@@ -243,6 +255,10 @@
         "subcaptionFontBold": "1",
         "lowerLimit": "0",
           "upperLimit": "50000",
+          //"baseFontColor":"#ffffff",
+          "baseFontSize":"11",
+          "baseFont":"Arial Bold",
+
             },
             "colorRange": {
                       "color": [{
@@ -335,7 +351,17 @@
     "theme": "fusion",
     "showPercentValues": "1",
     "showPercentInTooltip": "0",
-    "enableSmartLabels": "1"
+    "enableSmartLabels": "1",
+    "baseFontSize":"9",
+    "highlightParentPieSlices":"1",
+    "highlightChildPieSlices":"1",
+    //"valueFontSize":"9",
+   // "valueFontItalic":"1",
+    /*"showlegend": "1",
+    "plothighlighteffect": "fadeout|color=#7f7f7f, alpha=60",
+    "legendcaption": "Hover over these:",
+    "legendcaptionbold": "1",
+    "legendcaptionfontsize": "16",*/
   },
   "category": [
     {
@@ -599,5 +625,11 @@ FusionCharts.ready(function() {
       }
      });
     }
+    function commaSeparateNumber(val){
+    while (/(\d+)(\d{3})/.test(val.toString())){
+      val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+    }
+    return val;
+  }
 </script>
 <!-- Banks Income end -->
