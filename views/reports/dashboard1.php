@@ -744,7 +744,7 @@ FusionCharts.ready(function() {
          console.log(jsonData.modaldata);
           const dataSource = {
  "chart": {
-           "bgColor":"#e6e6e6",
+           //"bgColor":"#e6e6e6",
             //"xAxisName": "",
            // "yAxisName": "",
             //"numberPrefix": "$",
