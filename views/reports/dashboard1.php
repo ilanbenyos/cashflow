@@ -107,12 +107,12 @@
 		   var maxValue2 = maxValue1*2;
 		   var minValue3 = maxValue2;
 		   var maxValue3 = maxValue1*3;
-           console.log(minValue1);
+           /*console.log(minValue1);
 		    console.log(maxValue1);
 		   console.log(minValue2);
 		   console.log(maxValue2);
 		   console.log(minValue3);
-		   console.log(maxValue3);
+		   console.log(maxValue3);*/
 		   
           const dataSource = {
                     chart: {
@@ -168,7 +168,7 @@
               type: "angulargauge",
               renderAt: "chart-container",
               width: "100%",
-              height: "90%",
+              height: "100%",
               dataFormat: "json",
               dataSource
             }).render();
@@ -255,9 +255,10 @@
         "subcaptionFontBold": "1",
         "lowerLimit": "0",
           "upperLimit": "50000",
-          //"baseFontColor":"#ffffff",
+          "baseFontColor":"#ffffff",
           "baseFontSize":"11",
           "baseFont":"Arial Bold",
+          //"baseChartMessageColor":"#0f0f0f",
 
             },
             "colorRange": {
@@ -355,6 +356,7 @@
     "baseFontSize":"9",
     "highlightParentPieSlices":"1",
     "highlightChildPieSlices":"1",
+    "showLegend":"1",
     //"valueFontSize":"9",
    // "valueFontItalic":"1",
     /*"showlegend": "1",
