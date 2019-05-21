@@ -1,8 +1,18 @@
  <style type="text/css">
   .grp-color {
       color: #8E8B8B !important;
-      font-family: "Arial Bold";
+      /*font-family: "Arial Bold";*/
   }
+
+  .border-frame h4 {
+    font-family: arial;
+    font-weight: bold;
+    font-size: 13px;
+    margin: 0;
+}
+/*.white-bg.grey-color-cox .border-frame.bb {
+    background: #e6e6e6;
+}*/
 </style> 
 <h1>Bank Dashboard</h1>
 <div class="white-bg grey-color-cox">
@@ -54,11 +64,17 @@
       </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 less-pad spacebottom1x">
-      <div class="border-frame">
+      <div class="border-frame bb">
         <h4 class="grp-color">Bank Balance</h4>
         <div class="detail-info-box" id="bank-balance"></div>
       </div>
     </div>
+    <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 less-pad spacebottom1x">
+      <div class="border-frame">
+        <h4 class="grp-color">Bank Comissions Top 4</h4>
+        <div class="detail-info-box" id="bank-comm1"></div>
+      </div>
+    </div> -->
   </div>
   <!-- </div> -->
   
@@ -258,6 +274,7 @@
           "baseFontColor":"#ffffff",
           "baseFontSize":"11",
           "baseFont":"Arial Bold",
+         // "toolTipColor":"#ffffff",
           //"baseChartMessageColor":"#0f0f0f",
 
             },
@@ -265,12 +282,12 @@
                       "color": [{
                         "minValue": "0",
                         "maxValue": "10000",
-                        "label": "Below{br}Average",
+                        "label": "Low",
                         "code": "#526069"
                       }, {
                         "minValue": "10000",
                         "maxValue": "20000",
-                        "label": "Average",
+                        "label": "Avg",
                         "code": "#c2c81e"
                       }, {
                         "minValue": "20000",
@@ -304,7 +321,7 @@
 <!--Total Bank Expenses This Month ends-->
 
 <!-- Banks Commission top 4 starts -->
-<script type="text/javascript">
+  <script type="text/javascript">
   FusionCharts.ready(function() {
         drawChart2()
       });
@@ -339,6 +356,8 @@
                 
           }
          console.log(val); 
+         console.log(val1);
+         //console.log(val2);
           const dataSource = {
   chart: {
     //"caption": "Banks Commission Top 4",
@@ -353,10 +372,17 @@
     "showPercentValues": "1",
     "showPercentInTooltip": "0",
     "enableSmartLabels": "1",
-    "baseFontSize":"9",
+    "baseFontSize":"12",
     "highlightParentPieSlices":"1",
     "highlightChildPieSlices":"1",
-    "showLegend":"1",
+    "showLabels":"1",
+    /*"showValuesInTooltip":"1",
+    "enableSmartLabels":"0",
+    "skipOverlapLabels":"1",
+    "labelDistance":"50",
+    "manageLabelOverflow":"0",
+    "useEllipsesWhenOverflow":"1",*/
+    
     //"valueFontSize":"9",
    // "valueFontItalic":"1",
     /*"showlegend": "1",
@@ -376,6 +402,7 @@
           "label": val[0],
           "color": "#016d72",
           "value": val3[0],
+          "toolText":val[0],
           "category": [
             {
               "label": "In",
@@ -393,6 +420,7 @@
           "label": val[1],
           "color": "#69cbcf",
           "value": val3[1],
+          "toolText":val[1],
           "category": [
             {
               "label": "In",
@@ -410,6 +438,7 @@
           "label": val[2],
           "color": "#90989d",
           "value": val3[2],
+          "toolText":val[2],
           "category": [
             {
               "label": "In",
@@ -427,6 +456,7 @@
           "label": val[3],
           "color": "#526069",
           "value": val3[3],
+          "toolText":val[3],
           "category": [
             {
               "label": "In",
@@ -457,7 +487,125 @@
       }
      });
     }
-</script>
+</script> 
+ <!-- <script type="text/javascript">
+  FusionCharts.ready(function() {
+        drawChart5()
+      });
+  function drawChart5() {
+        $.ajax({
+        type: 'POST',
+        url: "<?php echo base_url('Ajax_Reports/bankComm'); ?>" ,
+        success: function (data) {
+          
+          val = [];
+          val1 = [];
+      val2 = [];
+       val3 = [];
+      
+          //console.log(data);
+          var jsonData = $.parseJSON(data);
+          
+          for (var i = 0; i < jsonData.length; i++) {
+             //console.log(jsonData[i]);
+            
+                var obj =  jsonData[i].BankName
+                
+                val.push(obj);
+                var incomm = jsonData[i].incomm
+                val1.push(incomm);
+        
+        var outcomm = jsonData[i].outcomm
+                val2.push(outcomm);
+        
+        var TotalComm = jsonData[i].TotalComm
+                val3.push(TotalComm);
+                
+          }
+         console.log(val); 
+         console.log(val1);
+         console.log(val2);
+          const dataSource = {
+  "chart": {
+        "theme": "fusion",
+        //"caption": "Comparison of Quarterly Revenue",
+       // "xAxisname": "Quarter",
+        //"yAxisName": "Revenues (In USD)",
+        "numberPrefix": "€",
+        "plotFillAlpha": "80",
+        "divLineIsDashed": "1",
+        "divLineDashLen": "1",
+        "divLineGapLen": "1",
+        "showPercentValues": "1",
+      },
+  "categories": [{
+        "category": [{
+          "label": val[0]
+        }, {
+          "label": val[1]
+        }, {
+          "label": val[2]
+        }, {
+          "label": val[3]
+        }]
+      }],
+      "dataset": [{
+        "seriesname": "IN",
+        "data": [{
+          "value": val1[0]
+        }, {
+          "value": val1[1]
+        }, {
+          "value": val1[2]
+        }, {
+          "value": val1[3]
+        }]
+      }, {
+        "seriesname": "OUT",
+        "data": [{
+          "value": val2[0]
+        }, {
+          "value": val2[1]
+        }, {
+          "value": val2[2]
+        }, {
+          "value": val2[3]
+        }]
+      }],
+      /*"trendlines": [{
+        "line": [{
+          "startvalue": "12250",
+          "color": "#5D62B5",
+          "displayvalue": "Previous{br}Average",
+          "valueOnRight": "1",
+          "thickness": "1",
+          "showBelow": "1",
+          "tooltext": "Previous year quarterly target  : $13.5K"
+        }, {
+          "startvalue": "25950",
+          "color": "#29C3BE",
+          "displayvalue": "Current{br}Average",
+          "valueOnRight": "1",
+          "thickness": "1",
+          "showBelow": "1",
+          "tooltext": "Current year quarterly target  : $23K"
+        }]
+      }]*/
+};
+          FusionCharts.ready(function() {
+            var myChart = new FusionCharts({
+              type: "mscolumn2d",
+              renderAt: "bank-comm1",
+              width: "100%",
+              height: "100%",
+              dataFormat: "json",
+              dataSource
+            }).render();
+          });
+      }
+     });
+    }
+</script>  -->
 <!-- Banks Commission top 4 ends -->
 
 
@@ -484,7 +632,7 @@ function unique(arr, prop) {
 		 var BankData = jsonData.bankname;
 		 var AllbnkData = jsonData.series;
 		 
-		 console.log(newjsonData);
+		 //console.log(newjsonData);
 		var uniqueNames = [];
 		var seriesData = '';
 		var bankseriesData = '';
@@ -534,9 +682,9 @@ function unique(arr, prop) {
 		*/
 
 
-console.log(uniqueNames);
+/*console.log(uniqueNames);
 console.log(jsonData.bankseriesData);
-console.log(bankseriesData);
+console.log(bankseriesData);*/
          
 		 
 
@@ -596,7 +744,7 @@ FusionCharts.ready(function() {
          console.log(jsonData.modaldata);
           const dataSource = {
  "chart": {
-            
+           "bgColor":"#e6e6e6",
             //"xAxisName": "",
            // "yAxisName": "",
             //"numberPrefix": "$",

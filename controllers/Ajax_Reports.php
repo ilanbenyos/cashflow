@@ -369,6 +369,7 @@ foreach ($banksIncomm as $val) {
 				'yaxisname' => $val->BankName.' Bank Balance',
 				'theme' => 'fusion',
 				'palettecolors' => '#0e1727',
+				'bgColor'=>"#e6e6e6",
 		
 		);
 		$data7['chart']=$chart;
