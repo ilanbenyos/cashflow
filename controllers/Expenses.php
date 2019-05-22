@@ -81,6 +81,7 @@ class Expenses extends CI_Controller {
 		$this->form_validation->set_rules ('expCat', 'Expense Category', 'trim|required');
         $this->form_validation->set_rules ('transType', 'Transfer Type', 'trim|required');
 		if ($this->form_validation->run () === FALSE) {
+
 			if(!empty($_SESSION['vendor_id'])){
 				$vendorID = $_SESSION['vendor_id'];
 				$data['vendors_first']=$this->all_model->GET_vendors($vendorID);
@@ -93,9 +94,17 @@ class Expenses extends CI_Controller {
                  $data['vendors_first']=$this->all_model->GET_vendors($vendorID);
                  unset($_SESSION['callCenterUser']);
                 }
-                 
+            }elseif(!empty($_SESSION['callCenterUserReqFund'])){
+                $requestId = $_SESSION['callCenterUserReqFund'];
 
-            }else{
+                $data['callCenterReq'] = $this->all_model->getCallCenterFunds($requestId);
+                //print_r($data['callCenterReq']);exit();
+                if (isset($data['callCenterReq']->VendorID)) {
+                    $vendorid = $data['callCenterReq']->VendorID;
+                 $data['vendors_first']=$this->all_model->GET_vendors($vendorid);
+                 //unset($_SESSION['callCenterUserReqFund']);
+            }
+        }else{
 			   $data['vendors_first']="";
 			}
 			$data['currency'] = $this->all_model->getAllCurrency();
@@ -163,8 +172,15 @@ class Expenses extends CI_Controller {
                     $TransferCommAmount = str_replace(',','',$this->input->post('TransferCommAmount'));
                     $outCommP = str_replace(',','',$this->input->post('outCommP'));
                     $callCenterNotiId = $this->input->post('callCenterNotiId');
+                    $callCenterReqId = $this->input->post('callCenterReqId');
+                    
+                    if (!empty($callCenterNotiId)) {
+                        $notiId = $callCenterNotiId;
+                    }
+                    if (!empty($callCenterReqId)) {
+                        $reqId = $callCenterReqId;
+                    }
 
-                  
 			       $from = $pldatereceive;
 		
             		$a = explode ( '/', $from );
@@ -248,9 +264,7 @@ class Expenses extends CI_Controller {
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
                         $this->db->insert('expenses',$expenses);
                         $callCenterUserId = $this->db->insert_id();
-                        if (!empty($callCenterNotiId)) {
-							
-							
+                        if ((!empty($callCenterReqId)) || (!empty($callCenterNotiId))) {
 							
 							//check whether vendor is call center userName
 							$this->db->select('IsCallCenter');
@@ -265,7 +279,7 @@ class Expenses extends CI_Controller {
 						if($IsCallCenter == 1)
 						{
 							$callcenter_expense_details = array(
-                        'expense_id' => $callCenterNotiId,
+                        'expense_id' => $callCenterUserId,
                         'createdon' => date('Y-m-j H:i:s'),
                         'NetFromBank' => $nfb,
                         'NetFromBankEuroVal' => $euro_amount,
@@ -277,9 +291,9 @@ class Expenses extends CI_Controller {
 							
 						}
 							
-							
-							///check whether vendor is call center user
-							
+							//if (!empty($callCenterNotiId)) {
+                            ///check whether vendor is call center user
+                            
                             
                             $this->db->where('NotificationId',$callCenterNotiId);
                             $this->db->update('callcenternotification',array('ExpId'=>$callCenterUserId,'Status'=>2));
@@ -299,8 +313,12 @@ class Expenses extends CI_Controller {
                                 $this->db->where('ExpId',$value);
                                 $this->db->update('callcenterexpenses',array('IsInvoiceGen'=>2,'ExpenseId'=>$callCenterUserId));
                             }
+                        //}
+							
 
                         }
+
+                        
 
                         $UpdatedBal = ($bal->Balance-$euro_amount);
                         /*$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . PHP_EOL
@@ -620,6 +638,14 @@ class Expenses extends CI_Controller {
             redirect('login');
         }
         $_SESSION['callCenterUser'] =$id;
+        redirect('Expenses/addExpenseDetails');
+    }
+    public function updateCallCenterReqFund($id){
+        if(!isset($_SESSION['logged_in']))
+        {
+            redirect('login');
+        }
+        $_SESSION['callCenterUserReqFund'] =$id;
         redirect('Expenses/addExpenseDetails');
     }
 	

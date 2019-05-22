@@ -462,6 +462,11 @@ class All_model extends CI_Model {
 		$this->db->order_by('c.CreatedOn','DESC'); 
 		return $this->db->get()->row();
 	}*/
-
+	public function getCallCenterFunds($id){
+		$this->db->select('RequestId,VendorID,RequestAmount,Currency');
+		$this->db->from('callcenter_request');
+		$this->db->where('RequestId',$id);
+		return $this->db->get()->row();
+	}
 	
 }

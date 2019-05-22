@@ -59,62 +59,11 @@
           <div class="notification-detail">
             <?php 
           
-               /*$this->db->select('*');
-               $this->db->from('vendormaster');
-               $this->db->where('Active',1);
-               $this->db->where('ReminderOn !=',"");
-               $this->db->order_by('VendorId','desc');
-               $query = $this->db->get();
-               $result = $query->result();*/
-
-               /*foreach ($result as $value) {
-                 if ($value->InvoiceType == 'Quarterly') {
-                    $val = $value->ReminderOn ;
-                    $effectiveDate = date('Y-m', strtotime("+3 months", strtotime($val)));
-                    //print_r($effectiveDate);
-                    
-               /*echo 'effectiveDate' . $effectiveDate;
-               echo '<br>';
-               echo date('Y-m');*/
-               /*if ($effectiveDate == date('Y-m')) {
-                  $date2 = $effectiveDate;
-               }else{
-                  $date2 = "";
-
-                 }
-               }
-               }*/
+              
                $date = date('l');
                $date1 = date('d/m/Y');
 
-               /*$this->db->select('VendorId,VendorName,InvoiceType,ReminderOn,Comments,Active,ReminderStatus,ModifiedOn');
-               $this->db->from('vendormaster');
-               $this->db->or_where('InvoiceType = "Weekly" AND ReminderOn = "'. $date .'"');
-               $this->db->or_where('InvoiceType = "Monthly" AND ReminderOn = "'. $date1 .'"');
-               foreach ($result as $value) {
-                 if ($value->InvoiceType == 'Quarterly') {
-                    $val = $value->ReminderOn ;
-                    $effectiveDate = date('Y-m', strtotime("+3 months", strtotime($val)));
-                    
-               if ($effectiveDate == date('Y-m')) {
-                  $date2 = $effectiveDate;
-
-               }else{
-                  $date2 = "";
-
-                 }
-               $this->db->or_where('InvoiceType = "Quarterly" AND ReminderOn <= "'.  $date2 .'" AND ReminderOn != "'."".'"');
-               }
-
-              }
-               $this->db->where('Active',1);
-               $this->db->where('ReminderOn !=',"");
-               $this->db->order_by('VendorId','desc');
-
-               $query1 = $this->db->get();
-               $result1 = $query1->result();
-               $count1 = count($result1);*/
-               //print_r($this->db->last_query());
+               
 		   if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Admin"))
                {
                
@@ -225,9 +174,10 @@
                     <?php 
 					foreach($callcenter_request as $notif1)
 						{
-
+              //print_r($notif1);
 						?>
-                    <li> <a  class="announce" data-toggle="modal"   id="<?php  echo $notif1->RequestId.'^'.$notif1->RequestAmount.'^'.$notif1->Name .'^'.$notif1->CurName ?>"> <?php echo $notif1->Name. ' Requested Fund Of ' . $notif1->RequestAmount .' '.$notif1->CurName  ?> </a> </li>
+                    <!-- <li> <a  class="announce" data-toggle="modal"   id="<?php  echo $notif1->RequestId.'^'.$notif1->RequestAmount.'^'.$notif1->Name .'^'.$notif1->CurName ?>"> <?php echo $notif1->Name. ' Requested Fund Of ' . $notif1->RequestAmount .' '.$notif1->CurName  ?> </a> </li> -->
+                    <li> <a  href="<?php echo base_url('Expenses/updateCallCenterReqFund/'.$notif1->RequestId);?>" > <?php echo $notif1->Name. ' Requested Fund Of ' . $notif1->RequestAmount .' '.$notif1->CurName  ?> </a> </li>
                     <?php 
 						}
 					foreach($result1 as $notif)

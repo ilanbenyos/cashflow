@@ -216,13 +216,14 @@ class Add_expenses extends CI_Controller {
 			$this->load->view('callcenter/add-expenses',$data);
 			$this->load->view('templates/footer');
 		}else{
+			//print_r($_POST);
 			$token = $this->input->post('expense_token_add');
     		$session_token=null;
     		$session_token = $_SESSION['token_expense_add'];
     		if(!empty($token) == $session_token){	
 				
 				$config['upload_path'] = 'upload_document';
-				$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
+				$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX|jpg';
 				$this->load->library('upload', $config);
 				if (!$this->upload->do_upload('upload_file')) {
 					$error = array('error' => $this->upload->display_errors());
@@ -302,6 +303,14 @@ class Add_expenses extends CI_Controller {
                     $this->db->where('VendorId',$Vendorid);
                     $Vendorbal = $this->db->get()->row();
 					
+					/*echo 'Vendorbal' + $Vendorbal->Balance;
+					echo '<br>';
+					echo 'Converted_Amount' + $Converted_Amount;
+					echo '<br>';
+					echo 'VendorEURbal' + $Vendorbal->EuroVal;
+					echo '<br>';
+					echo 'EUR_Amount' + $EUR_Amount;
+					exit();*/
 					
 					$updatedBal = $Vendorbal->Balance-$Converted_Amount;
 						$updatedeuroBal = $Vendorbal->EuroVal-$EUR_Amount;
