@@ -1,5 +1,5 @@
 <!-- Page Content  -->
-<?print_r( $Vendor_details);?>
+<?php //print_r( $Vendor_details);?>
 
 <!--<div id="content">
   <div class="container-fluid">-->
@@ -60,6 +60,14 @@
                         <label class="col-md-4 col-sm-4 col-xs-12">Comments</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <input readonly type="text" class="form-control" name="Comments" id="Comments" value="<?php echo $Vendor_details->Comments; ?>"  placeholder="Comments" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-4 col-sm-4 col-xs-12">Balance</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <input readonly type="text" class="form-control" name="Balance" id="Balance" value="<?php echo $Vendor_details->Balance; ?>"  placeholder="Balance" />
                         </div>
                       </div>
                     </div>
