@@ -136,7 +136,7 @@ class Add_expenses extends CI_Controller {
 	}
 	
 	public function callProfile(){
-		  $this->db->select('v.VendorName,v.InvoiceType,v.Comments,c.CurName,v.BankAddress,v.IBAN,v.Comments,v.Balance,u.Email,u.Password,b.BankName,v.Active');
+		  $this->db->select('v.VendorName,v.InvoiceType,v.Comments,c.CurName,v.BankAddress,v.IBAN,v.CallCenterCashBalance,v.Comments,v.Balance,u.Email,u.Password,b.BankName,v.Active');
 	      $this->db->from('vendormaster v');
 		  $this->db->join('usermaster u','v.VendorId = u.CallCenterVendorId');
 		  $this->db->join('bankmaster b','v.Bank = b.BankId','left');
@@ -336,7 +336,8 @@ class Add_expenses extends CI_Controller {
             		$_SESSION['pop_mes'] = "Call Center Expenses Added Successfully."; 
             		redirect('all-expenses');
         	}else{
-        		$_SESSION['pop_mes'] = "Token does not match.";
+        		//$_SESSION['pop_mes'] = "Token does not match.";
+        		$_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
         		redirect('all-expenses');
         	}
 		}
@@ -447,7 +448,8 @@ class Add_expenses extends CI_Controller {
 	        		$_SESSION['pop_mes'] = "Call Center Expense Updated Successfully.";
 					redirect('all-expenses');	
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not match.";
+        			//$_SESSION['pop_mes'] = "Token does not match.";
+        			$_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
         			redirect('all-expenses');
         		}
 

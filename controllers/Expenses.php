@@ -281,6 +281,7 @@ class Expenses extends CI_Controller {
 							$callcenter_expense_details = array(
                         'expense_id' => $callCenterUserId,
                         'createdon' => date('Y-m-j H:i:s'),
+                        'ActualAmt' => $acamtReceive,
                         'NetFromBank' => $nfb,
                         'NetFromBankEuroVal' => $euro_amount,
                         'vendor_id' => $vendor,
@@ -354,7 +355,8 @@ class Expenses extends CI_Controller {
                             }
 					redirect('expenses');
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not match.";
+        			//$_SESSION['pop_mes'] = "Token does not match.";
+                    $_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Exp". PHP_EOL
                         . "Add-Exp-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
@@ -623,7 +625,8 @@ class Expenses extends CI_Controller {
                             file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );*/
 	        		redirect('expenses');
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not match."; 
+        			//$_SESSION['pop_mes'] = "Token does not match."; 
+                    $_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Exp". PHP_EOL
                         . "Edit-Exp-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
@@ -727,7 +730,7 @@ class Expenses extends CI_Controller {
 					
 					if ($received == 1) {
 						
-						$this->db->select('Balance,EuroVal');
+						$this->db->select('CallCenterCashBalance,EuroVal');
                     $this->db->from('vendormaster');
                     $this->db->where('VendorId',$vendor_id);
                     $Vendorbal = $this->db->get()->row();
@@ -737,10 +740,10 @@ class Expenses extends CI_Controller {
                         . json_encode($Vendorbal) .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
 					
-						$updatedBal = $Vendorbal->Balance+$receivedamount;
+						$updatedBal = $Vendorbal->CallCenterCashBalance+$receivedamount;
 						$updatedeuroBal = $Vendorbal->EuroVal+$euro_amount;
 						
-						$vendorbaldata = array('Balance'=>$updatedBal,'EuroVal'=>$updatedeuroBal);
+						$vendorbaldata = array('CallCenterCashBalance'=>$updatedBal,'EuroVal'=>$updatedeuroBal);
 							$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Vendormaster Update Balance data". PHP_EOL
                         . json_encode($vendorbaldata) .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );

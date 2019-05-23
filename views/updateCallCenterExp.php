@@ -37,7 +37,7 @@
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Amount Added</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="addedamount" id="addedamount" value="<?php echo number_format($callcenter_expense_details->NetFromBank, 2, '.', ',') ?>"  readonly>
+                          <input type="text" class="form-control" name="addedamount" id="addedamount" value="<?php echo number_format($callcenter_expense_details->ActualAmt, 2, '.', ',') ?>"  readonly>
                         </div>
                       </div>
                     </div>

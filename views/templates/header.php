@@ -32,7 +32,11 @@
    });
 </script>
 </head>
- 
+ <?php 
+ if (isset ( $_SESSION ['session_exp'] )) {
+   popup3 ();
+}
+ ?>
 <body>
 <header class="site-header">
   <div class="container-fluid">
@@ -216,7 +220,7 @@
             <?php }
 if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "Call Center User"))
                {
-				   $this->db->select('c.NetFromBankEuroVal,c.id');
+				   $this->db->select('c.id,c.ActualAmt');
 				   $this->db->from('callcenter_expense_details c');
 				   $this->db->join('usermaster u','c.vendor_id = u.CallCenterVendorId');
 				   $this->db->where('c.status',0);
@@ -248,7 +252,7 @@ if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESS
 						{
 
 						?>
-                    <li> <a href="<?php echo base_url('Expenses/updateCallCenterExpDetails/'.$notif1->id);?>"> <?php echo 'Admin Added expense amount of 	€' . $notif1->NetFromBankEuroVal;  ?> </a> </li>
+                    <li> <a href="<?php echo base_url('Expenses/updateCallCenterExpDetails/'.$notif1->id);?>"> <?php echo 'Admin Added expense amount of 	€' . $notif1->ActualAmt;  ?> </a> </li>
                     <?php 
 						}
 						

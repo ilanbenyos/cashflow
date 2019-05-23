@@ -67,7 +67,7 @@
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Balance</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input readonly type="text" class="form-control" name="Balance" id="Balance" value="<?php echo $Vendor_details->Balance; ?>"  placeholder="Balance" />
+                          <input readonly type="text" class="form-control" name="Balance" id="Balance" value="<?php echo $Vendor_details->CallCenterCashBalance; ?>"  placeholder="Balance" />
                         </div>
                       </div>
                     </div>
