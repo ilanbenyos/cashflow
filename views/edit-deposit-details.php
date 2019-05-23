@@ -373,7 +373,7 @@ if(document.getElementById("myCheck").checked == true){
 	console.log('crrComm->'+crrComm);		
 	console.log('crrAmt->'+crrAmt);		
 	console.log('additionalfees->'+additionalfees);
-}else if(document.getElementById("myCheck").checked == true){
+}else if(document.getElementById("myCheck").checked == false){
 if ($("#acamtReceive").val() == 0.00) {
     if (($("#crrVal").val() == 0) && ($("#crrVAlId").val() == 0)) {
 	//Not CRR record and Actual amount is zero
@@ -583,7 +583,6 @@ if ($("#acamtReceive").val() == 0.00) {
     }else if(($("#crrVal").val() == 1) && ($("#crrVAlId").val() == 0)){
 		
     $( "#acamtReceive" ).keyup(function( event ) { 
-
       var pspid=document.getElementById("psp").value;  
         $.ajax({
                 url:"<?php echo base_url ('Psp_income/getBanks/')?>"+ pspid ,
