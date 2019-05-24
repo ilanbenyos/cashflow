@@ -729,7 +729,7 @@
 //console.log(dataSource);
           FusionCharts.ready(function() {
             var myChart = new FusionCharts({
-            type: 'pie3d',
+            type: 'pie2d',
             renderAt: 'bank-comm',
             width: '100%',
             height: '100%',
