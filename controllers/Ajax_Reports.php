@@ -226,8 +226,9 @@ return $hex;
 		print_r(json_encode($data, true));
 	}
 	public function bankComm(){
-		$data = $this->data_model->bankCommissions();
-		print_r(json_encode($data, true));
+		$data_1 = $this->data_model->bankCommissions();
+		
+		print_r(json_encode($data_1, true));
 	}
 	public function bankIncome(){
 		

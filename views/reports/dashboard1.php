@@ -69,12 +69,12 @@
         <div class="detail-info-box" id="bank-balance"></div>
       </div>
     </div>
-    <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 less-pad spacebottom1x">
+     <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 less-pad spacebottom1x">
       <div class="border-frame">
         <h4 class="grp-color">Bank Comissions Top 4</h4>
         <div class="detail-info-box" id="bank-comm1"></div>
       </div>
-    </div> -->
+    </div> --> 
   </div>
   <!-- </div> -->
   
@@ -321,174 +321,7 @@
 <!--Total Bank Expenses This Month ends-->
 
 <!-- Banks Commission top 4 starts -->
-  <script type="text/javascript">
-  FusionCharts.ready(function() {
-        drawChart2()
-      });
-  function drawChart2() {
-        $.ajax({
-        type: 'POST',
-        url: "<?php echo base_url('Ajax_Reports/bankComm'); ?>" ,
-        success: function (data) {
-          
-          val = [];
-          val1 = [];
-		  val2 = [];
-		   val3 = [];
-		  
-          //console.log(data);
-          var jsonData = $.parseJSON(data);
-          
-          for (var i = 0; i < jsonData.length; i++) {
-             //console.log(jsonData[i]);
-            
-                var obj =  jsonData[i].BankName
-                
-                val.push(obj);
-                var incomm = jsonData[i].incomm
-                val1.push(incomm);
-				
-				var outcomm = jsonData[i].outcomm
-                val2.push(outcomm);
-				
-				var TotalComm = jsonData[i].TotalComm
-                val3.push(TotalComm);
-                
-          }
-         console.log(val); 
-         console.log(val1);
-         //console.log(val2);
-          const dataSource = {
-  chart: {
-    //"caption": "Banks Commission Top 4",
-    //subcaption: "Last Quarter",
-    "showplotborder": "1",
-    "plotfillalpha": "60",
-    "hoverfillcolor": "#CCCCCC",
-    "numberprefix": "$",
-    "plottooltext":
-      "Bank <b>$label</b> charge $percentValue of the total bank commision",
-    "theme": "fusion",
-    "showPercentValues": "1",
-    "showPercentInTooltip": "0",
-    "enableSmartLabels": "1",
-    "baseFontSize":"12",
-    "highlightParentPieSlices":"1",
-    "highlightChildPieSlices":"1",
-    "showLabels":"1",
-    /*"showValuesInTooltip":"1",
-    "enableSmartLabels":"0",
-    "skipOverlapLabels":"1",
-    "labelDistance":"50",
-    "manageLabelOverflow":"0",
-    "useEllipsesWhenOverflow":"1",*/
-    
-    //"valueFontSize":"9",
-   // "valueFontItalic":"1",
-    /*"showlegend": "1",
-    "plothighlighteffect": "fadeout|color=#7f7f7f, alpha=60",
-    "legendcaption": "Hover over these:",
-    "legendcaptionbold": "1",
-    "legendcaptionfontsize": "16",*/
-  },
-  "category": [
-    {
-      //label: "Products",
-      "tooltext": "Please hover over on IN & OUT to see details",
-      "color": "#ffffff",
-      "value": "300",
-      "category": [
-        {
-          "label": val[0],
-          "color": "#016d72",
-          "value": val3[0],
-          "toolText":val[0],
-          "category": [
-            {
-              "label": "In",
-              "color": "#016d72",
-              "value": val1[0]
-            },
-            {
-              "label": "Out",
-              "color": "#016d72",
-              "value": val2[0]
-            }
-          ]
-        },
-        {
-          "label": val[1],
-          "color": "#69cbcf",
-          "value": val3[1],
-          "toolText":val[1],
-          "category": [
-            {
-              "label": "In",
-              "color": "#69cbcf",
-              "value": val1[1]
-            },
-            {
-              "label": "Out",
-              "color": "#69cbcf",
-              "value": val2[1]
-            }
-          ]
-        },
-        {
-          "label": val[2],
-          "color": "#90989d",
-          "value": val3[2],
-          "toolText":val[2],
-          "category": [
-            {
-              "label": "In",
-              "color": "#90989d",
-              "value": val1[2]
-            },
-            {
-              "label": "Out",
-              "color": "#90989d",
-              "value": val2[2]
-            }
-          ]
-        },
-        {
-          "label": val[3],
-          "color": "#526069",
-          "value": val3[3],
-          "toolText":val[3],
-          "category": [
-            {
-              "label": "In",
-              "color": "#526069",
-              "value": val1[3]
-            },
-            {
-              "label": "Out",
-              "color": "#526069",
-              "value": val2[3]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-};
-          FusionCharts.ready(function() {
-            var myChart = new FusionCharts({
-              type: "multilevelpie",
-              renderAt: "bank-comm",
-              width: "100%",
-              height: "100%",
-              dataFormat: "json",
-              dataSource
-            }).render();
-          });
-      }
-     });
-    }
-</script> 
- <!-- <script type="text/javascript">
+  <!-- <script type="text/javascript">
   FusionCharts.ready(function() {
         drawChart5()
       });
@@ -498,15 +331,15 @@
         url: "<?php echo base_url('Ajax_Reports/bankComm'); ?>" ,
         success: function (data) {
           
-          val = [];
+          /*val = [];
           val1 = [];
       val2 = [];
-       val3 = [];
+       val3 = [];*/
       
           //console.log(data);
           var jsonData = $.parseJSON(data);
-          
-          for (var i = 0; i < jsonData.length; i++) {
+          console.log(jsonData);
+          /*for (var i = 0; i < jsonData.length; i++) {
              //console.log(jsonData[i]);
             
                 var obj =  jsonData[i].BankName
@@ -524,88 +357,237 @@
           }
          console.log(val); 
          console.log(val1);
-         console.log(val2);
+         console.log(val2);*/
           const dataSource = {
-  "chart": {
-        "theme": "fusion",
-        //"caption": "Comparison of Quarterly Revenue",
-       // "xAxisname": "Quarter",
-        //"yAxisName": "Revenues (In USD)",
-        "numberPrefix": "€",
-        "plotFillAlpha": "80",
-        "divLineIsDashed": "1",
-        "divLineDashLen": "1",
-        "divLineGapLen": "1",
-        "showPercentValues": "1",
-      },
-  "categories": [{
-        "category": [{
-          "label": val[0]
-        }, {
-          "label": val[1]
-        }, {
-          "label": val[2]
-        }, {
-          "label": val[3]
+ "chart": {
+           //"bgColor":"#e6e6e6",
+            //"xAxisName": "",
+           // "yAxisName": "",
+            //"numberPrefix": "$",
+      
+      "showLabels":"0",
+            "theme": "fusion"
+        },
+  "data": jsonData.bankbalance,
+  "linkeddata": jsonData.modaldata,
+   "trendlines": [{
+            "line": [{
+                "startvalue": "1000",
+            }]
         }]
-      }],
-      "dataset": [{
-        "seriesname": "IN",
-        "data": [{
-          "value": val1[0]
-        }, {
-          "value": val1[1]
-        }, {
-          "value": val1[2]
-        }, {
-          "value": val1[3]
-        }]
-      }, {
-        "seriesname": "OUT",
-        "data": [{
-          "value": val2[0]
-        }, {
-          "value": val2[1]
-        }, {
-          "value": val2[2]
-        }, {
-          "value": val2[3]
-        }]
-      }],
-      /*"trendlines": [{
-        "line": [{
-          "startvalue": "12250",
-          "color": "#5D62B5",
-          "displayvalue": "Previous{br}Average",
-          "valueOnRight": "1",
-          "thickness": "1",
-          "showBelow": "1",
-          "tooltext": "Previous year quarterly target  : $13.5K"
-        }, {
-          "startvalue": "25950",
-          "color": "#29C3BE",
-          "displayvalue": "Current{br}Average",
-          "valueOnRight": "1",
-          "thickness": "1",
-          "showBelow": "1",
-          "tooltext": "Current year quarterly target  : $23K"
-        }]
-      }]*/
 };
+//console.log(dataSource);
           FusionCharts.ready(function() {
             var myChart = new FusionCharts({
-              type: "mscolumn2d",
-              renderAt: "bank-comm1",
-              width: "100%",
-              height: "100%",
-              dataFormat: "json",
+            type: 'pie2d',
+            renderAt: 'bank-comm1',
+            width: '100%',
+            height: '100%',
+            dataFormat: 'json',
               dataSource
             }).render();
+
+            myChart.configureLink({
+        type: "column2d",
+        overlayButton: {
+            message: 'Back', // Set the button to show diff messafe
+            //bgColor: '#999999',
+            borderColor: '#cccccc'
+        }
+    });
           });
       }
      });
     }
-</script>  -->
+</script>   -->
+<script type="text/javascript">
+  FusionCharts.ready(function() {
+        drawChart5()
+      });
+  function drawChart5() {
+        $.ajax({
+        type: 'POST',
+        url: "<?php echo base_url('Ajax_Reports/bankComm'); ?>" ,
+        success: function (data) {
+          
+          val = [];
+          val1 = [];
+      val2 = [];
+       val3 = [];
+      
+          //console.log(data);
+          var jsonData = $.parseJSON(data);
+          console.log(jsonData);
+          for (var i = 0; i < jsonData.length; i++) {
+             //console.log(jsonData[i]);
+            
+                var obj =  jsonData[i].BankName
+                
+                val.push(obj);
+                var incomm = jsonData[i].incomm
+                val1.push(incomm);
+        
+        var outcomm = jsonData[i].outcomm
+                val2.push(outcomm);
+        
+        var TotalComm = jsonData[i].TotalComm
+                val3.push(TotalComm);
+                
+          }
+         //console.log('total ' +val3); 
+         /*console.log(val1);
+         console.log(val2);*/
+          const dataSource = {
+ "chart": {
+                /*"caption": "Quarterly revenue",
+                    "subCaption": "Last year",
+                    "captionFontSize": "13",
+                    "subCaptionFontSize": "12",*/
+                    "xAxisName": "Quarter (Click to drill down)",
+                    "yAxisName": "Revenue (In USD)",
+                    //"numberPrefix": "$",
+                    "theme": "fusion",
+                    "showPercentValues":"0",
+                    "baseFontSize":"11",
+                    "legendItemFontSize":"13"
+            },
+
+                "data": [{
+                "label": val[0],
+                    "value": val3[0],
+                    "link": "newchart-json-q1"
+            }, {
+                "label": val[1],
+                    "value": val3[1],
+                    "link": "newchart-json-q2"
+            }, {
+                "label": val[2],
+                    "value": val3[2],
+                    "link": "newchart-json-q3"
+            }, {
+                "label": val[3],
+                    "value": val3[3],
+                    "link": "newchart-json-q4"
+            }],
+
+                "linkeddata": [{
+                "id": "q1",
+                    "linkedchart": {
+                    "chart": {
+                       /* "caption": "Monthly Revenue",
+                            "subcaption": "First Quarter",
+                            "captionFontSize": "13",
+                            "subCaptionFontSize": "12",*/
+                            "xAxisName": "Commission",
+                            "yAxisName": "Total Commission",
+                            //"numberPrefix": "k",
+                            "theme": "fusion",
+                            "yAxisMaxValue": "250000",
+                            "yAxisMinValue": "100000"
+                    },
+                        "data": [{
+                        "label": "IN",
+                            "value": val1[0]
+                    }, {
+                        "label": "OUT",
+                            "value": val2[0]
+                    }]
+                }
+            }, {
+                "id": "q2",
+                    "linkedchart": {
+                    "chart": {
+                       /* "caption": "Monthly Revenue",
+                            "subcaption": "Second Quarter",
+                            "captionFontSize": "13",
+                            "subCaptionFontSize": "12",*/
+                            "xAxisName": "Commission",
+                            "yAxisName": "Total Commission",
+                            //"numberPrefix": "k",
+                            "theme": "fusion",
+                            "yAxisMaxValue": "250000",
+                            "yAxisMinValue": "100000"
+                    },
+                        "data": [{
+                        "label": "IN",
+                            "value": val1[1]
+                    }, {
+                        "label": "OUT",
+                            "value": val2[1]
+                    }]
+                }
+            }, {
+                "id": "q3",
+                    "linkedchart": {
+                    "chart": {
+                        /*"caption": "Monthly Revenue",
+                            "subcaption": "Third Quarter",*/
+                            /*"captionFontSize": "13",
+                            "subCaptionFontSize": "12",*/
+                            "xAxisName": "Commission",
+                            "yAxisName": "Total Commission",
+                            //"numberPrefix": "$",
+                            "theme": "fusion",
+                            "yAxisMaxValue": "250000",
+                            "yAxisMinValue": "100000"
+                    },
+                        "data": [{
+                        "label": "IN",
+                            "value": val1[2]
+                    }, {
+                        "label": "OUT",
+                            "value": val2[2]
+                    }]
+                }
+            }, {
+                "id": "q4",
+                    "linkedchart": {
+                    "chart": {
+                       /* "caption": "Monthly Revenue",
+                            "subcaption": "Fourth Quarter",
+                            "captionFontSize": "13",
+                            "subCaptionFontSize": "12",*/
+                            "xAxisName": "Commission",
+                            "yAxisName": "Total Commission",
+                           //"numberPrefix": "$",
+                            "theme": "fusion",
+                            "yAxisMaxValue": "250000",
+                            "yAxisMinValue": "100000"
+                    },
+                        "data": [{
+                        "label": "IN",
+                            "value": val1[3]
+                    }, {
+                        "label": "OUT",
+                            "value": val2[3]
+                    }]
+                }
+            }]
+};
+//console.log(dataSource);
+          FusionCharts.ready(function() {
+            var myChart = new FusionCharts({
+            type: 'pie3d',
+            renderAt: 'bank-comm',
+            width: '100%',
+            height: '100%',
+            dataFormat: 'json',
+              dataSource
+            }).render();
+
+            myChart.configureLink({
+        type: "column2d",
+        overlayButton: {
+            message: 'Back', // Set the button to show diff messafe
+            //bgColor: '#999999',
+            borderColor: '#cccccc'
+        }
+    });
+          });
+      }
+     });
+    }
+</script>  
 <!-- Banks Commission top 4 ends -->
 
 
@@ -741,7 +723,7 @@ FusionCharts.ready(function() {
 		  
 		  var jsonData = $.parseJSON(data);
         
-         console.log(jsonData.modaldata);
+         //console.log(jsonData.modaldata);
           const dataSource = {
  "chart": {
            //"bgColor":"#e6e6e6",
