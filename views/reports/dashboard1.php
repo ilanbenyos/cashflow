@@ -52,7 +52,7 @@
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 less-pad spacebottom1x">
       <div class="border-frame">
-        <h4 class="grp-color">Bank Comissions Top 4</h4>
+        <h4 class="grp-color">Bank Comissions Top 10</h4>
         <div class="detail-info-box" id="bank-comm"></div>
       </div>
     </div>
@@ -468,6 +468,30 @@
                 "label": val[3],
                     "value": val3[3],
                     "link": "newchart-json-q4"
+            }, {
+                "label": val[4],
+                    "value": val3[4],
+                    "link": "newchart-json-q5"
+            }, {
+                "label": val[5],
+                    "value": val3[5],
+                    "link": "newchart-json-q6"
+            }, {
+                "label": val[6],
+                    "value": val3[6],
+                    "link": "newchart-json-q7"
+            }, {
+                "label": val[7],
+                    "value": val3[7],
+                    "link": "newchart-json-q8"
+            }, {
+                "label": val[8],
+                    "value": val3[8],
+                    "link": "newchart-json-q9"
+            }, {
+                "label": val[9],
+                    "value": val3[9],
+                    "link": "newchart-json-q10"
             }],
 
                 "linkeddata": [{
@@ -560,6 +584,144 @@
                     }, {
                         "label": "OUT",
                             "value": val2[3]
+                    }]
+                }
+            }, {
+                "id": "q5",
+                    "linkedchart": {
+                    "chart": {
+                       /* "caption": "Monthly Revenue",
+                            "subcaption": "Fourth Quarter",
+                            "captionFontSize": "13",
+                            "subCaptionFontSize": "12",*/
+                            "xAxisName": "Commission",
+                            "yAxisName": "Total Commission",
+                           //"numberPrefix": "$",
+                            "theme": "fusion",
+                            "yAxisMaxValue": "250000",
+                            "yAxisMinValue": "100000"
+                    },
+                        "data": [{
+                        "label": "IN",
+                            "value": val1[4]
+                    }, {
+                        "label": "OUT",
+                            "value": val2[4]
+                    }]
+                }
+            }, {
+                "id": "q6",
+                    "linkedchart": {
+                    "chart": {
+                       /* "caption": "Monthly Revenue",
+                            "subcaption": "Fourth Quarter",
+                            "captionFontSize": "13",
+                            "subCaptionFontSize": "12",*/
+                            "xAxisName": "Commission",
+                            "yAxisName": "Total Commission",
+                           //"numberPrefix": "$",
+                            "theme": "fusion",
+                            "yAxisMaxValue": "250000",
+                            "yAxisMinValue": "100000"
+                    },
+                        "data": [{
+                        "label": "IN",
+                            "value": val1[5]
+                    }, {
+                        "label": "OUT",
+                            "value": val2[5]
+                    }]
+                }
+            }, {
+                "id": "q7",
+                    "linkedchart": {
+                    "chart": {
+                       /* "caption": "Monthly Revenue",
+                            "subcaption": "Fourth Quarter",
+                            "captionFontSize": "13",
+                            "subCaptionFontSize": "12",*/
+                            "xAxisName": "Commission",
+                            "yAxisName": "Total Commission",
+                           //"numberPrefix": "$",
+                            "theme": "fusion",
+                            "yAxisMaxValue": "250000",
+                            "yAxisMinValue": "100000"
+                    },
+                        "data": [{
+                        "label": "IN",
+                            "value": val1[6]
+                    }, {
+                        "label": "OUT",
+                            "value": val2[6]
+                    }]
+                }
+            }, {
+                "id": "q8",
+                    "linkedchart": {
+                    "chart": {
+                       /* "caption": "Monthly Revenue",
+                            "subcaption": "Fourth Quarter",
+                            "captionFontSize": "13",
+                            "subCaptionFontSize": "12",*/
+                            "xAxisName": "Commission",
+                            "yAxisName": "Total Commission",
+                           //"numberPrefix": "$",
+                            "theme": "fusion",
+                            "yAxisMaxValue": "250000",
+                            "yAxisMinValue": "100000"
+                    },
+                        "data": [{
+                        "label": "IN",
+                            "value": val1[7]
+                    }, {
+                        "label": "OUT",
+                            "value": val2[7]
+                    }]
+                }
+            }, {
+                "id": "q9",
+                    "linkedchart": {
+                    "chart": {
+                       /* "caption": "Monthly Revenue",
+                            "subcaption": "Fourth Quarter",
+                            "captionFontSize": "13",
+                            "subCaptionFontSize": "12",*/
+                            "xAxisName": "Commission",
+                            "yAxisName": "Total Commission",
+                           //"numberPrefix": "$",
+                            "theme": "fusion",
+                            "yAxisMaxValue": "250000",
+                            "yAxisMinValue": "100000"
+                    },
+                        "data": [{
+                        "label": "IN",
+                            "value": val1[8]
+                    }, {
+                        "label": "OUT",
+                            "value": val2[8]
+                    }]
+                }
+            }, {
+                "id": "q10",
+                    "linkedchart": {
+                    "chart": {
+                       /* "caption": "Monthly Revenue",
+                            "subcaption": "Fourth Quarter",
+                            "captionFontSize": "13",
+                            "subCaptionFontSize": "12",*/
+                            "xAxisName": "Commission",
+                            "yAxisName": "Total Commission",
+                           //"numberPrefix": "$",
+                            "theme": "fusion",
+                            "yAxisMaxValue": "250000",
+                            "yAxisMinValue": "100000"
+                    },
+                        "data": [{
+                        "label": "IN",
+                            "value": val1[9]
+                    }, {
+                        "label": "OUT",
+                            "value": val2[9]
                     }]
                 }
             }]
