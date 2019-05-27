@@ -267,7 +267,7 @@ class Expenses extends CI_Controller {
                         if ((!empty($callCenterNotiId))) {
 							echo 'callCenterNoti';
 							//check whether vendor is call center userName
-							/*$this->db->select('IsCallCenter');
+							$this->db->select('IsCallCenter');
                     $this->db->from('vendormaster');
                     $this->db->where('VendorId',$vendor);
                     $IsCallCenter = $this->db->get()->row();
@@ -308,17 +308,30 @@ class Expenses extends CI_Controller {
                             /*$data = array();
                             foreach ($res as $val) {
                                 $data = $val;
-                            }*/
-                           /* $res = explode(',', $res->CallCenterExpId);
+                            }
+                            $res = explode(',', $res->CallCenterExpId);
                             foreach ($res as $value) {
                                 $this->db->where('ExpId',$value);
                                 $this->db->update('callcenterexpenses',array('IsInvoiceGen'=>2,'ExpenseId'=>$callCenterUserId));
-                            }*/
+                            }
                         //}
                         }elseif (!empty($callCenterReqId)) {
-                            echo 'callCenterReqId';
+                           
+                            $callcenter_fund_details = array(
+                        'expense_id' => $callCenterUserId,
+                        'createdon' => date('Y-m-j H:i:s'),
+                        'ActualAmt' => $acamtReceive,
+                        'NetFromBank' => $nfb,
+                        'NetFromBankEuroVal' => $euro_amount,
+                        'vendor_id' => $vendor,
+                        'currency' => $curr,
+                        'ActualDate' => $to,
+                    );
+                    $this->db->insert('callcenter_fund_details',$callcenter_fund_details);
+                            
+                        
+                            
                         }
-                        exit();
                         
 
                         $UpdatedBal = ($bal->Balance-$euro_amount);
