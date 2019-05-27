@@ -193,6 +193,7 @@ print_r($_SESSION);
                 <input type="hidden" name="category_token" value="<?php echo $token;?>">
                 <input type="hidden" name="VendorID" value="<?php echo $userdetails->CallCenterVendorId; ?>">
                 <input type="hidden" name="Currency" value="<?php echo $userdetails->Currency; ?>">
+                <input type="hidden" name="userid" value="<?php echo $_SESSION['userid']; ?>">
                 <div class="row clearfix spacetop4x">
                   <div class="clearfix">
                     <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
