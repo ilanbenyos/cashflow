@@ -265,7 +265,7 @@ class Expenses extends CI_Controller {
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
                         $this->db->insert('expenses',$expenses);
                         $callCenterUserId = $this->db->insert_id();
-                        if (!empty($callCenterNotiId) {
+                        if (!empty($callCenterNotiId)) {
 							
 							//check whether vendor is call center userName
 							$this->db->select('IsCallCenter');
