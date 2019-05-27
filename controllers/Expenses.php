@@ -118,7 +118,7 @@ class Expenses extends CI_Controller {
 			$this->load->view('add-expenses',$data);
 			$this->load->view('templates/footer');
 		}else{
-            print_r($_POST);exit();
+            //print_r($_POST);exit();
 			
 				$config['upload_path'] = 'upload_document';
 				$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
@@ -292,6 +292,23 @@ class Expenses extends CI_Controller {
 					$this->db->insert('callcenter_expense_details',$callcenter_expense_details);
 							
 						}
+                        if($callCenterReqId == 1)
+                        {
+                            $callcenter_fund_details = array(
+                        'expense_id' => $callCenterUserId,
+                        'createdon' => date('Y-m-j H:i:s'),
+                        'ActualAmt' => $acamtReceive,
+                        'NetFromBank' => $nfb,
+                        'NetFromBankEuroVal' => $euro_amount,
+                        'vendor_id' => $vendor,
+                        'currency' => $curr,
+                        'ActualDate' => $to,
+                        'CreatedBy' => $uid
+                    );
+                    $this->db->insert('callcenter_fund_details',$callcenter_fund_details);
+                            
+                        }
+
 							
 							//if (!empty($callCenterNotiId)) {
                             ///check whether vendor is call center user
