@@ -118,7 +118,7 @@ class Expenses extends CI_Controller {
 			$this->load->view('add-expenses',$data);
 			$this->load->view('templates/footer');
 		}else{
-            print_r($_POST);exit();
+            //print_r($_POST);exit();
 			
 				$config['upload_path'] = 'upload_document';
 				$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
