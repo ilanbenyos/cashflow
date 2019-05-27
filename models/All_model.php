@@ -464,7 +464,7 @@ class All_model extends CI_Model {
 	}*/
 	public function getCallCenterFunds($id){
 		$this->db->select('RequestId,VendorID,RequestAmount,Currency');
-		$this->db->from('callcenter_request');
+		$this->db->from('callcenter_fund_request');
 		$this->db->where('RequestId',$id);
 		return $this->db->get()->row();
 	}
