@@ -174,7 +174,12 @@ class Expenses extends CI_Controller {
                     $outCommP = str_replace(',','',$this->input->post('outCommP'));
                     $callCenterNotiId = $this->input->post('callCenterNotiId');
                     $callCenterReqId = $this->input->post('callCenterReqId');
-                    
+                    if($callCenterReqId == 1)
+                        {
+                           echo 'callcenter';
+                            
+                        }
+                        exit();
                     if (!empty($callCenterNotiId)) {
                         $notiId = $callCenterNotiId;
                     }
@@ -292,22 +297,7 @@ class Expenses extends CI_Controller {
 					$this->db->insert('callcenter_expense_details',$callcenter_expense_details);
 							
 						}
-                        if($callCenterReqId == 1)
-                        {
-                            $callcenter_fund_details = array(
-                        'expense_id' => $callCenterUserId,
-                        'createdon' => date('Y-m-j H:i:s'),
-                        'ActualAmt' => $acamtReceive,
-                        'NetFromBank' => $nfb,
-                        'NetFromBankEuroVal' => $euro_amount,
-                        'vendor_id' => $vendor,
-                        'currency' => $curr,
-                        'ActualDate' => $to,
-                        'CreatedBy' => $uid
-                    );
-                    $this->db->insert('callcenter_fund_details',$callcenter_fund_details);
-                            
-                        }
+                        
 
 							
 							//if (!empty($callCenterNotiId)) {
