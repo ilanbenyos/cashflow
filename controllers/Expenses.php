@@ -118,7 +118,6 @@ class Expenses extends CI_Controller {
 			$this->load->view('add-expenses',$data);
 			$this->load->view('templates/footer');
 		}else{
-            //print_r($_POST);exit();
 			
 				$config['upload_path'] = 'upload_document';
 				$config['allowed_types'] = 'pdf|PDF|png|PNG|xlsx|XLSX';
@@ -175,12 +174,12 @@ class Expenses extends CI_Controller {
                     $callCenterNotiId = $this->input->post('callCenterNotiId');
                     $callCenterReqId = $this->input->post('callCenterReqId');
                     
-                    if (!empty($callCenterNotiId)) {
+                    /*if (!empty($callCenterNotiId)) {
                         $notiId = $callCenterNotiId;
-                    }
-                    if (!empty($callCenterReqId)) {
+                    }*/
+                    /*if (!empty($callCenterReqId)) {
                         $reqId = $callCenterReqId;
-                    }
+                    }*/
 
 			       $from = $pldatereceive;
 		
@@ -263,12 +262,12 @@ class Expenses extends CI_Controller {
                         $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Exp". PHP_EOL
                         . "Add-Exp-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($expenses) .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
-                        $this->db->insert('expenses',$expenses);
+                        //$this->db->insert('expenses',$expenses);
                         $callCenterUserId = $this->db->insert_id();
-                        if (!empty($callCenterNotiId)) {
-							
+                        if ((!empty($callCenterNotiId))) {
+							echo 'callCenterNoti';
 							//check whether vendor is call center userName
-							$this->db->select('IsCallCenter');
+							/*$this->db->select('IsCallCenter');
                     $this->db->from('vendormaster');
                     $this->db->where('VendorId',$vendor);
                     $IsCallCenter = $this->db->get()->row();
@@ -292,7 +291,7 @@ class Expenses extends CI_Controller {
 					$this->db->insert('callcenter_expense_details',$callcenter_expense_details);
 							
 						}
-                        
+							
 							//if (!empty($callCenterNotiId)) {
                             ///check whether vendor is call center user
                             
@@ -310,35 +309,16 @@ class Expenses extends CI_Controller {
                             foreach ($res as $val) {
                                 $data = $val;
                             }*/
-                            $res = explode(',', $res->CallCenterExpId);
+                           /* $res = explode(',', $res->CallCenterExpId);
                             foreach ($res as $value) {
                                 $this->db->where('ExpId',$value);
                                 $this->db->update('callcenterexpenses',array('IsInvoiceGen'=>2,'ExpenseId'=>$callCenterUserId));
-                            }
+                            }*/
                         //}
-							
-
+                        }elseif (!empty($callCenterReqId)) {
+                            echo 'callCenterReqId';
                         }
-
-                        // call center vender request for for fund
-                        if(($callCenterReqId == 1) && ($callCenterUserId == 1))
-                        {
-                            $callcenter_fund_details = array(
-                        'expense_id' => $callCenterUserId,
-                        'createdon' => date('Y-m-j H:i:s'),
-                        'ActualAmt' => $acamtReceive,
-                        'NetFromBank' => $nfb,
-                        'NetFromBankEuroVal' => $euro_amount,
-                        'vendor_id' => $vendor,
-                        'currency' => $curr,
-                        'ActualDate' => $to,
-                        'CreatedBy' => $uid
-                    );
-                            //print_r($callcenter_fund_details);
-                    $this->db->insert('callcenter_fund_details',$callcenter_fund_details);
-                            
-                        }
-
+                        exit();
                         
 
                         $UpdatedBal = ($bal->Balance-$euro_amount);
