@@ -154,14 +154,15 @@ class Add_expenses extends CI_Controller {
 		$this->load->view('callcenter/profile_view',$data);
 	}
 	public function AddFundReuest(){
-		print_r($_SESSION);exit();
 		$Vendorid = $this->input->post('VendorID');
 		$Amount = $this->input->post('Amount');
 		$Currency = $this->input->post('Currency');
+		$userid = $this->input->post('userid');
 	  $request = array(
 					'VendorID' => $Vendorid,
 					'RequestAmount'=> $Amount,
-					'Currency' => $Currency
+					'Currency' => $Currency,
+					'CreatedBy' =>$userid
 	  );
 	$insert = $this->db->insert('callcenter_fund_request',$request);
 		if($insert == 1){
