@@ -52,7 +52,7 @@
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 less-pad spacebottom1x">
       <div class="border-frame">
-        <h4 class="grp-color">Bank Comissions Top 10</h4>
+        <h4 class="grp-color">Bank Comissions Top 6</h4>
         <div class="detail-info-box" id="bank-comm"></div>
       </div>
     </div>
