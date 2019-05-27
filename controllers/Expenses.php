@@ -308,7 +308,7 @@ class Expenses extends CI_Controller {
                             /*$data = array();
                             foreach ($res as $val) {
                                 $data = $val;
-                            }
+                            }*/
                             $res = explode(',', $res->CallCenterExpId);
                             foreach ($res as $value) {
                                 $this->db->where('ExpId',$value);
