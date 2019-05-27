@@ -34,6 +34,7 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                 ?>
               <input type="hidden" name="expense_token_add" value="<?php echo $token;?>">
               <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
+              <input type="hidden" name="callCenterUser" value="1">
               <?php if($_SESSION['user_role'] != "Admin") { ?>
               <input type="hidden" name="Vendorid" value="<?php echo $VendorId->CallCenterVendorId ?>">
               <?php }?>

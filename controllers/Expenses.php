@@ -305,7 +305,8 @@ class Expenses extends CI_Controller {
                         'ActualDate' => $to,
                         'CreatedBy' => $uid
                     );
-                    $this->db->insert('callcenter_fund_details',$callcenter_fund_details);
+                            print_r($callcenter_fund_details);
+                    //$this->db->insert('callcenter_fund_details',$callcenter_fund_details);
                             
                         }
 
