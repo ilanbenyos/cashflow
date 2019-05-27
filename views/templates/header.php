@@ -240,7 +240,8 @@ if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESS
 				   $query5 = $this->db->get();
 				   $callcenter_fund_details = $query4->result();
 				   $countcallcenterReq = count($callcenter_fund_details);
-				   $countcallcenter+= $countcallcenterReq;
+				   //$countcallcenter+= $countcallcenterReq;
+
 				   ?>
 			
             <?php 
@@ -266,10 +267,7 @@ if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESS
                     <li> <a href="<?php echo base_url('Expenses/updateCallCenterExpDetails/'.$notif1->id);?>"> <?php echo 'Admin Added expense amount of 	€' . $notif1->ActualAmt;  ?> </a> </li>
                     <?php 
 						}
-						foreach ($countcallcenterReq as $notif2) {
-							?>
-					<li> <a href="<?php echo base_url('Expenses/updateCallCenterExpDetails/'.$notif1->id);?>"> <?php echo 'Admin Added expense amount of 	' . $notif2->ActualAmt;  ?> </a> </li>
-						<?php }
+						
 						
 					  ?>
                   </ul>
