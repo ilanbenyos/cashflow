@@ -443,7 +443,7 @@
                     "subCaption": "Last year",
                     "captionFontSize": "13",
                     "subCaptionFontSize": "12",*/
-                    "paletteColors":"#526069,#90989d,#016d72,#69cbcf,#7b7d3b,#223c60,#dbdeb5,#89a6a2",
+                    "paletteColors":"526069,c2c81e,20a1a7,90989d,0e1727",
                     "xAxisName": "Quarter (Click to drill down)",
                     "yAxisName": "Revenue (In USD)",
                     //"numberPrefix": "$",
@@ -477,7 +477,7 @@
                 "label": val[5],
                     "value": val3[5],
                     "link": "newchart-json-q6"
-            }, {
+            }/*, {
                 "label": val[6],
                     "value": val3[6],
                     "link": "newchart-json-q7"
@@ -493,7 +493,7 @@
                 "label": val[9],
                     "value": val3[9],
                     "link": "newchart-json-q10"
-            }],
+            }*/],
 
                 "linkeddata": [{
                 "id": "q1",
@@ -633,14 +633,11 @@
                             "value": val2[5]
                     }]
                 }
-            }, {
+            }/*, {
                 "id": "q7",
                     "linkedchart": {
                     "chart": {
-                       /* "caption": "Monthly Revenue",
-                            "subcaption": "Fourth Quarter",
-                            "captionFontSize": "13",
-                            "subCaptionFontSize": "12",*/
+                      
                             "xAxisName": "Commission",
                             "yAxisName": "Total Commission",
                            //"numberPrefix": "$",
@@ -660,10 +657,7 @@
                 "id": "q8",
                     "linkedchart": {
                     "chart": {
-                       /* "caption": "Monthly Revenue",
-                            "subcaption": "Fourth Quarter",
-                            "captionFontSize": "13",
-                            "subCaptionFontSize": "12",*/
+                       
                             "xAxisName": "Commission",
                             "yAxisName": "Total Commission",
                            //"numberPrefix": "$",
@@ -683,10 +677,7 @@
                 "id": "q9",
                     "linkedchart": {
                     "chart": {
-                       /* "caption": "Monthly Revenue",
-                            "subcaption": "Fourth Quarter",
-                            "captionFontSize": "13",
-                            "subCaptionFontSize": "12",*/
+                       
                             "xAxisName": "Commission",
                             "yAxisName": "Total Commission",
                            //"numberPrefix": "$",
@@ -706,10 +697,7 @@
                 "id": "q10",
                     "linkedchart": {
                     "chart": {
-                       /* "caption": "Monthly Revenue",
-                            "subcaption": "Fourth Quarter",
-                            "captionFontSize": "13",
-                            "subCaptionFontSize": "12",*/
+                       
                             "xAxisName": "Commission",
                             "yAxisName": "Total Commission",
                            //"numberPrefix": "$",
@@ -725,7 +713,7 @@
                             "value": val2[9]
                     }]
                 }
-            }]
+            }*/]
 };
 //console.log(dataSource);
           FusionCharts.ready(function() {

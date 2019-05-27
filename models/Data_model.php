@@ -399,7 +399,7 @@ FROM `banktransaction` GROUP BY `ToBank`
 INNER JOIN bankmaster b ON A.BankId=b.BankId
 GROUP BY A.BankId
 ORDER BY TotalComm  DESC 
-Limit 10");
+Limit 6");
 			$result=$query->result_array();
 			return $result;
 	}
