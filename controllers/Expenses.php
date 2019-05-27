@@ -258,14 +258,14 @@ class Expenses extends CI_Controller {
                         'ModifiedBy' => $uid,
 						'DocumentPath' =>$upload_doc
                     );
-
+                        print_r($expenses);exit();
                         $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Exp". PHP_EOL
                         . "Add-Exp-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($expenses) .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
-                        //$this->db->insert('expenses',$expenses);
+                        $this->db->insert('expenses',$expenses);
                         $callCenterUserId = $this->db->insert_id();
-                        if ((!empty($callCenterNotiId))) {
-							echo 'callCenterNoti';
+                        if (!empty($callCenterNotiId)) {
+							//echo 'callCenterNoti';
 							//check whether vendor is call center userName
 							$this->db->select('IsCallCenter');
                     $this->db->from('vendormaster');
@@ -328,8 +328,6 @@ class Expenses extends CI_Controller {
                         'ActualDate' => $to,
                     );
                     $this->db->insert('callcenter_fund_details',$callcenter_fund_details);
-                            
-                        
                             
                         }
                         

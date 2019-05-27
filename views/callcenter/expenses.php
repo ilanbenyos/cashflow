@@ -3,7 +3,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
    popup2 ();
 }
 
-print_r($_SESSION);
+//print_r($_SESSION);
 ?>
 
 <!-- Page Content  -->
