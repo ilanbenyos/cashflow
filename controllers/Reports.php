@@ -70,7 +70,7 @@ class Reports extends CI_Controller {
 	}
 	public function dashboard1(){
 		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar2');
+		//$this->load->view('templates/left-sidebar2');
 		$this->load->view('templates/content');
 		$this->load->view('reports/dashboard1');
 		$this->load->view('templates/footer');
