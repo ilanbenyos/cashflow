@@ -258,7 +258,7 @@ class Expenses extends CI_Controller {
                         'ModifiedBy' => $uid,
 						'DocumentPath' =>$upload_doc
                     );
-                        print_r($expenses);exit();
+                        //print_r($expenses);exit();
                         $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Exp". PHP_EOL
                         . "Add-Exp-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($expenses) .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
