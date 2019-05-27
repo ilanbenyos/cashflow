@@ -109,6 +109,7 @@
           <li class="callCenterExpRep"><a href="#">Call Center Expenses</a></li>
         </ul>
       </li>
+      <li class="dashboard"><a class="nav-link" href="<?php echo base_url('reports/dashboard1') ?>"><i class="fa fa-download" aria-hidden="true"></i> <span>Dashboard</span></a></li>
       <?php }else if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESSION['user_role'] == "CEO")){?>
       <li class="psp-income"><a class="nav-link" href="#"><i class="fa fa-download" aria-hidden="true"></i> <span>PSP Income</span></a></li>
       <li class="expenses"><a class="nav-link" href="#"><i  class="fa fa-briefcase"  aria-hidden="true"></i> <span>Expenses</span></a></li>
