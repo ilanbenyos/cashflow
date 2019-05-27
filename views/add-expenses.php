@@ -14,7 +14,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
   }else{
     $isSetReq = "";
   }
-  //print_r($_SESSION);
+  /*print_r($_SESSION);
+  echo '<br>';
+  echo $isSetReq;*/
  ?>
 <!-- Page Content  -->
 <div id="content">

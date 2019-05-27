@@ -114,7 +114,8 @@
 
 				   //Bank Balance Alert start
 				    $this->db->select('r.RequestId,r.VendorID,r.RequestAmount,c.CurName,v.VendorName as Name,r.CreatedOn');
-					$this->db->from('callcenter_request r');
+					//$this->db->from('callcenter_request r');
+					$this->db->from('callcenter_fund_request r');
 					$this->db->join('vendormaster v','v.VendorId = r.VendorID');
 					$this->db->join('currencymaster c','r.Currency = c.CurId');
 					$this->db->where('r.ReminderStatus',0);
