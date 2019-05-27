@@ -231,6 +231,16 @@ if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESS
 				   $callcenter_expense_details = $query4->result();
 				   $countcallcenter = count($callcenter_expense_details);
 				   
+				   $this->db->select('c.id,c.ActualAmt');
+				   $this->db->from('callcenter_fund_details c');
+				   $this->db->join('usermaster u','c.vendor_id = u.CallCenterVendorId');
+				   $this->db->where('c.status',0);
+				   $this->db->where('u.UserID',$_SESSION['userid']);
+				   $this->db->order_by('c.createdon','DESC');
+				   $query5 = $this->db->get();
+				   $callcenter_fund_details = $query4->result();
+				   $countcallcenterReq = count($callcenter_fund_details);
+				   $countcallcenter+= $countcallcenterReq;
 				   ?>
 			
             <?php 
