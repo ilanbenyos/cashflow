@@ -513,3 +513,6 @@ h3 { font-size: 22px; }
 .notification-detail { margin-right: 12px; }
 .action-icons span { padding: 0; font-size: 20px; margin-top: -5px; }
 }
+.ui-pnotify.custom .ui-pnotify-container {
+background-color: #90989d !important;
+}

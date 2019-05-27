@@ -275,7 +275,8 @@ class Bank_transaction extends CI_Controller {
 
                     redirect('bank-transaction');
                 }else{
-                    $_SESSION['pop_mes'] = "Token does not match.";
+                    //$_SESSION['pop_mes'] = "Token does not match.";
+                    $_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Bank-Trans". PHP_EOL
                         . "Add-Bank-Trans-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_banktrans, $log . "\n", FILE_APPEND );
@@ -493,7 +494,8 @@ class Bank_transaction extends CI_Controller {
                         file_put_contents ( logger_url_banktrans, $log . "\n", FILE_APPEND );
                     return 1;
                 }else{
-                    $_SESSION['pop_mes'] = "Token does not match.";
+                    //$_SESSION['pop_mes'] = "Token does not match.";
+                    $_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Bank-Trans". PHP_EOL
                         . "Edit-Bank-Trans-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( 'Logs/banktrans.txt', $log . "\n", FILE_APPEND );

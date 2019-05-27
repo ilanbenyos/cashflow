@@ -311,7 +311,8 @@ class Psp_income extends CI_Controller {
                             }
 					redirect('psp-income');
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not match."; 
+        			//$_SESSION['pop_mes'] = "Token does not match."; 
+                    $_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-PSP" . PHP_EOL
                         . "Add-PSP-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_psp , $log . "\n", FILE_APPEND );
@@ -690,7 +691,8 @@ class Psp_income extends CI_Controller {
                             
 	        		redirect('psp-income');
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not match.";
+        			//$_SESSION['pop_mes'] = "Token does not match.";
+                    $_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" . "Edit-PSP-POST" . PHP_EOL
                         . "Edit-PSP-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_psp, $log . "\n", FILE_APPEND );

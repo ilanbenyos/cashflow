@@ -56,7 +56,8 @@ class Expense_category extends CI_Controller {
         			$_SESSION['pop_mes'] = "Expense Category Added Successfully."; 
 					return 1;
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not match."; 
+        			//$_SESSION['pop_mes'] = "Token does not match."; 
+        			$_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
 					return 1;
         		}
 		}
@@ -91,7 +92,8 @@ class Expense_category extends CI_Controller {
         			$_SESSION['pop_mes'] = "Expense Category Updated Successfully."; 
 					return 1;
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not match."; 
+        			//$_SESSION['pop_mes'] = "Token does not match."; 
+        			$_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
 					return 1;
         		}
 

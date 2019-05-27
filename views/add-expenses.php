@@ -14,7 +14,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
   }else{
     $isSetReq = "";
   }
-  //print_r($callCenterReq);
+  //print_r($_SESSION);
  ?>
 <!-- Page Content  -->
 <div id="content">
@@ -174,7 +174,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                           <?php if (!empty($callCenter)) { ?>
                           <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo $callCenter->Amount ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                           <?php } elseif (!empty($callCenterReq)) { ?>
-                            <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo $callCenterReq->RequestAmount ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
+                            <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" value="<?php echo $_SESSION['euroAmt'] ?>" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                           <?php }else { ?>
                           <input type="text" class="form-control xyz" name="plamtReceived" id="plamtReceived" onkeypress="javascript:return isNumber(event)" placeholder="Planned Amount" />
                           <?php } ?>

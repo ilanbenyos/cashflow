@@ -99,8 +99,8 @@ public function que()
     	           return 1;
     	        
     	    }else{
-    	        $_SESSION['pop_mes'] = "Token does not match.";
-    	            return 1;
+    	        $_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
+	       		return 1;
     	    }
     			
     	}
@@ -151,7 +151,7 @@ public function que()
 	            'Name' => $name,
 	            'Email' => $email,
 	            'Password' => $password,
-	            'CreatedOn' => $date.$time,
+	            //'CreatedOn' => $date.$time,
 	            'RoleId' => $role,
 	            'CallCenterVendorId'=>$vendor,
 				'Active' => $status
@@ -163,7 +163,7 @@ public function que()
 	        return 1;
 	        //redirect('configuration/users');
 	    }else{
-	    	$_SESSION['pop_mes'] = "Token does not match.";
+	    	$_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
 	       return 1;
 	    }
 	        

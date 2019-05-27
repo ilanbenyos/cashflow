@@ -117,7 +117,7 @@ $this->db->select('UserID,Name,RoleId,CallCenterVendorId,Active');
                         <div class="col-md-7 col-sm-7 col-xs-12">
                         <input type="file" name="upload_file" id="upload_file" class="file">
                         <div class="input-group col-xs-12">
-						  <input class="form-control" data-icon="false" name="upload_doc" id="upload_doc" disabled placeholder="Upload file" type="text"/>
+						  <input class="form-control" data-icon="false" name="upload_doc" id="upload_doc"  placeholder="Upload file" type="text"/>
 						  <span class="input-group-btn">
 							<button class="browse browse-btn" type="button"><i class="glyphicon glyphicon-search"></i> Browse</button>
 						  </span>
@@ -234,7 +234,7 @@ $(document).ready(function(){
 		//upload doc validation//
 			if($('#upload_file').val()!=""){
 			var file =$('#upload_file').val();
-			   var reg = /(.*?)\.(pdf|PDF|png|PNG|xlsx|XLSX)$/;
+			   var reg = /(.*?)\.(pdf|PDF|png|PNG|xlsx|XLSX|jpg)$/;
 			   if(!file.match(reg))
 			   {
 					$(this).css("border", "1px solid #be1622");
@@ -258,7 +258,9 @@ $(document).ready(function(){
            $("#expPaymentType").css("border", "1px solid #be1622");
            returnvar = false;
           }
+          //alert(returnvar); 
           if(returnvar == true){
+            //alert(returnvar);
              $("#addExpense").hide();
             $(".page-loader").show();
             /*  $.ajax({

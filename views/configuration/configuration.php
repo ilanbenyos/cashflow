@@ -6,9 +6,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 ?>
 <!-- Page Content  -->
 <style type="text/css">
-  .ui-pnotify.custom .ui-pnotify-container {
+  /*.ui-pnotify.custom .ui-pnotify-container {
 background-color: #90989d !important;
-}
+}*/
 </style>
 
 <!-- <div id="content">

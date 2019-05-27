@@ -164,7 +164,8 @@ echo '<pre/>';
                 $_SESSION['pop_mes'] = "New Vendor Created."; 
     	       redirect('configuration/vendors');
     	    }else{
-    	        $_SESSION['pop_mes'] = "Token does not match.";
+    	        //$_SESSION['pop_mes'] = "Token does not match.";
+    	        $_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
     	      redirect('configuration/vendors');
     	    }
     			
@@ -261,7 +262,8 @@ echo '<pre/>';
                 $_SESSION['pop_mes'] = "New Vendor Created."; 
 			    echo 'success';
     	    }else{
-    	        $_SESSION['pop_mes'] = "Token does not match.";
+    	        //$_SESSION['pop_mes'] = "Token does not match.";
+    	        $_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
     	      echo 'fail';
     	    }
     			
@@ -383,8 +385,8 @@ echo '<pre/>';
 					
 				}
 				else{
-					$_SESSION['pop_mes'] = "Token does not match."; 
-				
+					//$_SESSION['pop_mes'] = "Token does not match."; 
+					$_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
 					redirect('configuration/vendors');
 					
 				}

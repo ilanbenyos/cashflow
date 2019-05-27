@@ -73,6 +73,47 @@ $('#myModal2_popup').modal('show');
 <?php
 	}
 }
+
+function popup3() {
+    if (isset ( $_SESSION ['session_exp'] )) {
+        ?>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+<script type="text/javascript">
+  $(document).ready(function() { 
+$('#myModal3_popup').modal('show');
+
+  
+       
+  });
+  </script>
+ <div class="modal common-modal" id="myModal3_popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content clearfix">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h2 class="modal-title">Notice</h2>
+            </div>
+            <div class="modal-body clearfix">
+              <div class="defination-box clearfix">
+                <p><?php  print $_SESSION ['session_exp']; ?>
+              <?php unset ( $_SESSION ['session_exp'] ); ?>
+             </p>
+
+              </div>
+              <div class="col-xs-12 text-center spacetop2x">
+              <a href="<?php echo base_url('login') ?>"> 
+                <button type="button"  class="btn-submit transitions">OK</button>
+              </a>
+            </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+<?php
+  }
+}
 function get_client_ip() {
     $ipaddress = '';
     if (isset($_SERVER['HTTP_CLIENT_IP']))

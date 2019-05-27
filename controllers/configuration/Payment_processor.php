@@ -97,7 +97,8 @@ class Payment_processor extends CI_Controller {
     	        $_SESSION['pop_mes'] = "Payment Provider Added Successfully."; 
     	           return 1;
     	    }else{
-    	    	$_SESSION['pop_mes'] = "Token does not match.";
+    	    	//$_SESSION['pop_mes'] = "Token does not match.";
+                $_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
     	            return 1;
     	    }
     	}
@@ -162,7 +163,7 @@ class Payment_processor extends CI_Controller {
 	        	$_SESSION['pop_mes'] = "Payment Provider Updated Successfully.";
 	        		return 1;
     	    }else{
-    	    	$_SESSION['pop_mes'] = "Token does not match.";
+    	    	$_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
     	            return 1;
     	    }
     	}

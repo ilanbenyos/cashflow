@@ -1,6 +1,8 @@
 <?php 
 defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
-
+if (isset ( $_SESSION ['pop_mes'] )) {
+    popup2 ();
+}
 ?>
 
 <!-- Page Content  -->

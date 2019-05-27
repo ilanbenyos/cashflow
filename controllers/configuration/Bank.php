@@ -145,7 +145,8 @@ class Bank extends CI_Controller {
 				redirect('configuration/bank');
 				}
 				else{
-					$_SESSION['pop_mes'] = "Token does not match."; 
+					//$_SESSION['pop_mes'] = "Token does not match."; 
+					$_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
 				
 				redirect('configuration/bank');
 					
@@ -244,8 +245,9 @@ class Bank extends CI_Controller {
 				redirect('configuration/bank');	
 				}
 				else{
-					$_SESSION['pop_mes'] = "Token does not match."; 
-				
+					//$_SESSION['pop_mes'] = "Token does not match."; 
+				$_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
+	       
 				redirect('configuration/bank');
 					
 				}	
@@ -292,7 +294,8 @@ class Bank extends CI_Controller {
         			$_SESSION['pop_mes'] = "Bank Transfer Type Added Successfully."; 
 					return 1;
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not match."; 
+        			//$_SESSION['pop_mes'] = "Token does not match."; 
+        			$_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
 					return 1;
         		}
 		}
@@ -323,7 +326,8 @@ class Bank extends CI_Controller {
         			$_SESSION['pop_mes'] = "Bank Transfer Type Updated Successfully."; 
 					return 1;
         		}else{
-        			$_SESSION['pop_mes'] = "Token does not match."; 
+        			//$_SESSION['pop_mes'] = "Token does not match."; 
+        			$_SESSION['session_exp'] = "Session Expired. Please Login To Continue.";
 					return 1;
         		}
 
