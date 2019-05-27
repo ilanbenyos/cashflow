@@ -3,7 +3,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
    popup2 ();
 }
 
-
+print_r($_SESSION);
 ?>
 
 <!-- Page Content  -->
@@ -346,11 +346,11 @@ $('#exptabledata tbody').on('change', 'input[type="checkbox"]', function(){
                     data : $("#request_fund_form").serialize(),
                     dataType: "html",
                    success: function(data) {
-						if(data == 1){
+						/*if(data == 1){
                       window.location.href = '<?php echo base_url('all-expenses') ?>';
                     }else{
                       window.location.href = '<?php echo base_url('all-expenses') ?>';
-                    }
+                    }*/
                    }
                });
 
