@@ -265,7 +265,7 @@ class Expenses extends CI_Controller {
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
                         $this->db->insert('expenses',$expenses);
                         $callCenterUserId = $this->db->insert_id();
-                        if ((!empty($callCenterReqId)) || (!empty($callCenterNotiId))) {
+                        if (!empty($callCenterNotiId) {
 							
 							//check whether vendor is call center userName
 							$this->db->select('IsCallCenter');
@@ -277,7 +277,7 @@ class Expenses extends CI_Controller {
                         . "Is vendor IsCallCenter : ". $IsCallCenter .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
 						
-						/*if($IsCallCenter == 1)
+						if($IsCallCenter == 1)
 						{
 							$callcenter_expense_details = array(
                         'expense_id' => $callCenterUserId,
@@ -291,26 +291,8 @@ class Expenses extends CI_Controller {
                     );
 					$this->db->insert('callcenter_expense_details',$callcenter_expense_details);
 							
-						}*/
-                        if($callCenterReqId == 1)
-                        {
-                            $callcenter_fund_details = array(
-                        'expense_id' => $callCenterUserId,
-                        'createdon' => date('Y-m-j H:i:s'),
-                        'ActualAmt' => $acamtReceive,
-                        'NetFromBank' => $nfb,
-                        'NetFromBankEuroVal' => $euro_amount,
-                        'vendor_id' => $vendor,
-                        'currency' => $curr,
-                        'ActualDate' => $to,
-                        'CreatedBy' => $uid
-                    );
-                            print_r($callcenter_fund_details);
-                    //$this->db->insert('callcenter_fund_details',$callcenter_fund_details);
-                            
-                        }
-
-							
+						}
+                        
 							//if (!empty($callCenterNotiId)) {
                             ///check whether vendor is call center user
                             
@@ -336,6 +318,25 @@ class Expenses extends CI_Controller {
                         //}
 							
 
+                        }
+
+                        // call center vender request for for fund
+                        if(($callCenterReqId == 1) && ($callCenterUserId == 1))
+                        {
+                            $callcenter_fund_details = array(
+                        'expense_id' => $callCenterUserId,
+                        'createdon' => date('Y-m-j H:i:s'),
+                        'ActualAmt' => $acamtReceive,
+                        'NetFromBank' => $nfb,
+                        'NetFromBankEuroVal' => $euro_amount,
+                        'vendor_id' => $vendor,
+                        'currency' => $curr,
+                        'ActualDate' => $to,
+                        'CreatedBy' => $uid
+                    );
+                            //print_r($callcenter_fund_details);
+                    $this->db->insert('callcenter_fund_details',$callcenter_fund_details);
+                            
                         }
 
                         
