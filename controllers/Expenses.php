@@ -277,7 +277,7 @@ class Expenses extends CI_Controller {
                         . "Is vendor IsCallCenter : ". $IsCallCenter .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
 						
-						if($IsCallCenter == 1)
+						/*if($IsCallCenter == 1)
 						{
 							$callcenter_expense_details = array(
                         'expense_id' => $callCenterUserId,
@@ -291,7 +291,7 @@ class Expenses extends CI_Controller {
                     );
 					$this->db->insert('callcenter_expense_details',$callcenter_expense_details);
 							
-						}
+						}*/
                         if($callCenterReqId == 1)
                         {
                             $callcenter_fund_details = array(
