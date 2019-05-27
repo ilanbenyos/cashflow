@@ -162,7 +162,7 @@ class Add_expenses extends CI_Controller {
 					'RequestAmount'=> $Amount,
 					'Currency' => $Currency
 	  );
-	$insert = $this->db->insert('callcenter_request',$request);
+	$insert = $this->db->insert('callcenter_fund_request',$request);
 		if($insert == 1){
 			$_SESSION['pop_mes'] = "Call Center Fund Request Added Successfully.";
 			echo 1;
