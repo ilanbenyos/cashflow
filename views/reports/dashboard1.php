@@ -443,6 +443,7 @@
                     "subCaption": "Last year",
                     "captionFontSize": "13",
                     "subCaptionFontSize": "12",*/
+                    "paletteColors":"#526069,#90989d,#016d72,#69cbcf,#7b7d3b,#223c60,#dbdeb5,#89a6a2",
                     "xAxisName": "Quarter (Click to drill down)",
                     "yAxisName": "Revenue (In USD)",
                     //"numberPrefix": "$",
