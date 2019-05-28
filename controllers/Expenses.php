@@ -96,8 +96,9 @@ class Expenses extends CI_Controller {
                 }
             }elseif(!empty($_SESSION['callCenterUserReqFund'])){
                 $requestId = $_SESSION['callCenterUserReqFund'];
-
+                //$reqAmout = $_SESSION['euro_val'];
                 $data['callCenterReq'] = $this->all_model->getCallCenterFunds($requestId);
+                $data['callCenterReq']->reqAmt = $_SESSION['euro_val'];
                 //print_r($data['callCenterReq']);exit();
                 if (isset($data['callCenterReq']->VendorID)) {
                     $vendorid = $data['callCenterReq']->VendorID;
@@ -267,11 +268,11 @@ class Expenses extends CI_Controller {
                         if (!empty($callCenterNotiId)) {
 							//echo 'callCenterNoti';
 							//check whether vendor is call center userName
-							$this->db->select('IsCallCenter');
+							$this->db->select('IsCallCenter,Currency');
                     $this->db->from('vendormaster');
                     $this->db->where('VendorId',$vendor);
                     $IsCallCenter = $this->db->get()->row();
-					
+					//print_r($IsCallCenter);exit();
 					$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-Exp". PHP_EOL
                         . "Is vendor IsCallCenter : ". $IsCallCenter .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
@@ -316,17 +317,33 @@ class Expenses extends CI_Controller {
                             }
                         //}
                         }elseif (!empty($callCenterReqId)) {
-                           
+
+                      $this->db->select('IsCallCenter,Currency');
+                    $this->db->from('vendormaster');
+                    $this->db->where('VendorId',$vendor);
+                    $IsCallCenter = $this->db->get()->row();
+                           $curr = 'EUR';
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
+                                
+                        $val=json_decode($val);
+                        $exchange_rate = $val->rates->USD;
+                           if ($IsCallCenter->Currency == 1) {
+                               $amount = $acamtReceive * 1;
+                           }else{
+                                $amount = $acamtReceive * $exchange_rate;
+                           }
+
                             $callcenter_fund_details = array(
                         'expense_id' => $callCenterUserId,
                         'createdon' => date('Y-m-j H:i:s'),
-                        'ActualAmt' => $acamtReceive,
+                        'ActualAmt' => $amount,
                         'NetFromBank' => $nfb,
                         'NetFromBankEuroVal' => $euro_amount,
                         'vendor_id' => $vendor,
-                        'currency' => $curr,
+                        'currency' => $IsCallCenter->Currency,
                         'ActualDate' => $to,
                     );
+                            //print_r($callcenter_fund_details);
                     $this->db->insert('callcenter_fund_details',$callcenter_fund_details);
                             
                         }
@@ -659,7 +676,10 @@ class Expenses extends CI_Controller {
         {
             redirect('login');
         }
+        //print_r($_SESSION['euro_amt'.$id]);exit();
+        $_SESSION['euro_val'] = $_SESSION['euro_amt'.$id];
         $_SESSION['callCenterUserReqFund'] =$id;
+        //print_r($_SESSION['callCenterUserReqFund']);exit();
         redirect('Expenses/addExpenseDetails');
     }
 	
@@ -777,6 +797,124 @@ class Expenses extends CI_Controller {
 	}
 				
 		
+    }
+    public function updateCallCenterFundDetails($id){
+        if(!isset($_SESSION['logged_in']))
+        {
+            redirect('login');
+        }
+        if($_SESSION['user_role'] == "Admin") {
+            $expense = array(
+                        'adminread' => 1,
+                    );
+                    $this->db->where('id',$id);
+                    $this->db->update('callcenter_fund_details',$expense);
+            
+        }
+        $this->form_validation->set_rules ( 'userid', 'userid Name', 'trim|required' );
+         $this->form_validation->set_rules ( 'editfund_token', 'editfund_token Name', 'trim|required' );
+        if ($this->form_validation->run () === FALSE) {
+            $this->db->select('*');
+        $this->db->from('callcenter_fund_details pt');
+        $this->db->where('pt.id',$id);
+        $callcenter_expense_details =  $this->db->get()->row();
+            $data['callcenter_fund_details'] = $callcenter_expense_details;
+            $this->load->view('templates/header');
+            $this->load->view('templates/left-sidebar');
+            $this->load->view('updateCallCenterFund',$data);
+            $this->load->view('templates/footer');
+        }
+        else{
+        $token = $this->input->post('editfund_token');
+                $session_token=null;
+                $session_token = $_SESSION['token_edit-fund'];
+                //unset($_SESSION['token_pspincome']);
+                if(!empty($token) == $session_token)
+                { 
+            /*print_r($_POST);
+            exit();*/
+            $receivedamount = str_replace(',','',$this->input->post('receivedamount'));
+            $received = $this->input->post('received');
+            $addedamount = $this->input->post('addedamount');
+            $userid = $this->input->post('userid');
+            $callcenterid = $this->input->post('callcenterid');
+            $vendor_id = $this->input->post('vendor_id');
+            
+            //$curr = $this->input->post('currency');
+            //print_r($curr);exit();
+             $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-CallCenterFund". PHP_EOL
+                        . json_encode($_POST) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+            
+            $curr = "EUR";
+            $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
+                                
+                        $val=json_decode($val);
+                        $exchange_rate = $val->rates->EUR;
+                        $euro_amount = $receivedamount * $exchange_rate;
+                        //print_r($euro_amount);exit();
+                        if ($received == 'on') {
+                    $received = 1;
+                    
+                        }
+                        else{
+                            $received = 0;
+                        }
+                        
+                        
+            
+            $expense = array(
+                        'Amount_Received' => $receivedamount,
+                        'Amount_ReceivedEuroVal'=> $euro_amount,
+                        'status' => $received,
+                        'user_id' =>$_SESSION['userid'],
+                        'modifiedon' =>date('Y-m-j H:i:s'),
+                    );
+                    $this->db->where('id',$callcenterid);
+                    $this->db->update('callcenter_fund_details',$expense);
+                    
+                    $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-CallCenterExpenses Update Call data". PHP_EOL
+                        . json_encode($expense) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+                    
+                    if ($received == 1) {
+                        
+                        $this->db->select('CallCenterCashBalance,EuroVal');
+                    $this->db->from('vendormaster');
+                    $this->db->where('VendorId',$vendor_id);
+                    $Vendorbal = $this->db->get()->row();
+                    
+                    
+                    $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Vendorbal Balance data". PHP_EOL
+                        . json_encode($Vendorbal) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+                    
+                        $updatedBal = $Vendorbal->CallCenterCashBalance+$receivedamount;
+                        $updatedeuroBal = $Vendorbal->EuroVal+$euro_amount;
+                        
+                        $vendorbaldata = array('CallCenterCashBalance'=>$updatedBal,'EuroVal'=>$updatedeuroBal);
+                            $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Vendormaster Update Balance data". PHP_EOL
+                        . json_encode($vendorbaldata) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+                        
+                        $this->db->where('VendorId',$vendor_id);
+                        $this->db->update('vendormaster',$vendorbaldata);
+                        
+                    }
+            redirect('all-expenses');
+            
+                }
+                
+                else{
+                    $_SESSION['pop_mes'] = "Token does not match."; 
+                    $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Exp". PHP_EOL
+                        . "Edit-Exp-Error-Message: ". "Transaction ID:" . $transactionId  . ' - ' . $_SESSION['pop_mes'] .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+                    redirect('all-expenses');
+                }
+    }
+                
+        
     }
 
 }

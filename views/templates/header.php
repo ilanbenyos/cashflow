@@ -121,6 +121,7 @@
 					$this->db->where('r.ReminderStatus',0);
 					$this->db->order_by('r.CreatedOn','DESC');
 					$callcenter_request= $this->db->get ()->result();
+					//print_r($this->db->last_query());
 				   //Bank Balance Alert end
 				   
 				   //call center approved amount received
@@ -179,10 +180,26 @@
                     <?php 
 					foreach($callcenter_request as $notif1)
 						{
-              //print_r($notif1);
+							//print_r($notif1->RequestAmount);
+
+              $curr = 'USD';
+              $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
+                                
+                        $val=json_decode($val);
+                        $exchange_rate = $val->rates->EUR;
+                        
+                        if ($notif1->CurName == 'EUR') {
+								$euro_amount = $notif1->RequestAmount * 1;
+		                        unset($_SESSION['euro_amt']);
+		                        $_SESSION['euro_amt'.$notif1->RequestId] = $euro_amount;
+							}else{
+								$euro_amount = $notif1->RequestAmount * $exchange_rate;
+		                        unset($_SESSION['euro_amt']);
+		                        $_SESSION['euro_amt'.$notif1->RequestId] = $euro_amount;
+							}
 						?>
                     <!-- <li> <a  class="announce" data-toggle="modal"   id="<?php  echo $notif1->RequestId.'^'.$notif1->RequestAmount.'^'.$notif1->Name .'^'.$notif1->CurName ?>"> <?php echo $notif1->Name. ' Requested Fund Of ' . $notif1->RequestAmount .' '.$notif1->CurName  ?> </a> </li> -->
-                    <li> <a  href="<?php echo base_url('Expenses/updateCallCenterReqFund/'.$notif1->RequestId);?>" > <?php echo $notif1->Name. ' Requested Fund Of ' . $notif1->RequestAmount .' '.$notif1->CurName  ?> </a> </li>
+                    <li> <a  href="<?php echo base_url('Expenses/updateCallCenterReqFund/'.$notif1->RequestId);?>" > <?php echo $notif1->Name. ' Requested Fund Of  €' . number_format($euro_amount, 2, '.', ',')   ?> </a> </li>
                     <?php 
 						}
 					foreach($result1 as $notif)
@@ -231,16 +248,18 @@ if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESS
 				   $callcenter_expense_details = $query4->result();
 				   $countcallcenter = count($callcenter_expense_details);
 				   
-				   $this->db->select('c.id,c.ActualAmt');
+				   $this->db->select('c.id,c.ActualAmt,c.currency');
 				   $this->db->from('callcenter_fund_details c');
 				   $this->db->join('usermaster u','c.vendor_id = u.CallCenterVendorId');
 				   $this->db->where('c.status',0);
 				   $this->db->where('u.UserID',$_SESSION['userid']);
 				   $this->db->order_by('c.createdon','DESC');
 				   $query5 = $this->db->get();
-				   $callcenter_fund_details = $query4->result();
+				   $callcenter_fund_details = $query5->result();
+				   //print_r($this->db->last_query());
 				   $countcallcenterReq = count($callcenter_fund_details);
-				   //$countcallcenter+= $countcallcenterReq;
+				   //print_r($countcallcenterReq);
+				   $countcallcenter+= $countcallcenterReq;
 
 				   ?>
 			
@@ -267,7 +286,17 @@ if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] === true) && ($_SESS
                     <li> <a href="<?php echo base_url('Expenses/updateCallCenterExpDetails/'.$notif1->id);?>"> <?php echo 'Admin Added expense amount of 	€' . $notif1->ActualAmt;  ?> </a> </li>
                     <?php 
 						}
-						
+						foreach ($callcenter_fund_details as  $notif2) { 
+							$Currency = $notif2->currency;
+							if ($Currency == 1) {
+								$currency = "€";
+							}elseif ($Currency == 2) {
+								$currency = "$";
+							}
+							//print_r($currency);
+							?>
+							<li> <a href="<?php echo base_url('Expenses/updateCallCenterFundDetails/'.$notif2->id);?>"> <?php echo 'Admin Added Fund amount of ' . $currency . $notif2->ActualAmt;  ?> </a> </li>
+						<?php }
 						
 					  ?>
                   </ul>
