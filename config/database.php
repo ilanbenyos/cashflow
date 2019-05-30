@@ -76,9 +76,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'cashflowlive_user',
-	'password' => 'Clw#2YA$g&wBq^C',
+	'hostname' => 'intiviondbinstance-cluster.cluster-cnwimv9knlsr.eu-west-1.rds.amazonaws.com',
+	'username' => 'cflowstage',
+	'password' => 'Freed0m',
 	'database' => 'cashflowlive_db',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
