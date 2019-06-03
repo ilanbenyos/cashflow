@@ -52,7 +52,7 @@
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 less-pad spacebottom1x">
       <div class="border-frame">
-        <h4 class="grp-color">Bank Comissions Top 6</h4>
+        <h4 class="grp-color">Bank Comissions Top 5</h4>
         <div class="detail-info-box" id="bank-comm"></div>
       </div>
     </div>
@@ -444,13 +444,25 @@
                     "captionFontSize": "13",
                     "subCaptionFontSize": "12",*/
                     "paletteColors":"526069,c2c81e,20a1a7,90989d,0e1727",
-                    "xAxisName": "Quarter (Click to drill down)",
-                    "yAxisName": "Revenue (In USD)",
+                    /*"xAxisName": "Quarter (Click to drill down)",
+                    "yAxisName": "Revenue (In USD)",*/
+                    "showpercentvalues" : "1",
+                    "showPercentInTooltip": "1",
+                    "usedataplotcolorforlabels": "1",
+                    "plottooltext":"<b> $label </b><b> $percentValue</b> of the total commission",
                     //"numberPrefix": "$",
-                    "theme": "fusion",
-                    "showPercentValues":"0",
+                    "theme": "gammel",
+                    "showLegend":"1",
+                    "legendposition": "bottom",
                     "baseFontSize":"11",
-                    "legendItemFontSize":"13"
+                    "legendItemFontSize":"13",
+                    "showPlotBorder":"0",
+                    /*"showPlotBorder":"1",
+                    "plotBorderColor":"#f2f2f2",
+                    "plotBorderThickness":"0",*/
+                    //"plotBorderThickness":"0",
+                    /*"borderColor":"#f2f2f2",
+                    "slicingDistance":"10px",*/
             },
 
                 "data": [{
@@ -499,23 +511,29 @@
                 "id": "q1",
                     "linkedchart": {
                     "chart": {
+
                        /* "caption": "Monthly Revenue",
                             "subcaption": "First Quarter",
                             "captionFontSize": "13",
                             "subCaptionFontSize": "12",*/
-                            "xAxisName": "Commission",
-                            "yAxisName": "Total Commission",
+                            //"stack100Percent": "1",
+                            "paletteColors":"526069,c2c81e",
+                            "showPercentValues":"1",
+                            "showPlotBorder":"0",
+                            
                             //"numberPrefix": "k",
-                            "theme": "fusion",
-                            "yAxisMaxValue": "250000",
-                            "yAxisMinValue": "100000"
+                            "theme": "gammel",
+                            "showLegend":"1",
+                            "legendposition": "bottom",
+                            
                     },
                         "data": [{
                         "label": "IN",
-                            "value": val1[0]
+                        "value": val1[0]
+
                     }, {
                         "label": "OUT",
-                            "value": val2[0]
+                        "value": val2[0]
                     }]
                 }
             }, {
@@ -526,12 +544,13 @@
                             "subcaption": "Second Quarter",
                             "captionFontSize": "13",
                             "subCaptionFontSize": "12",*/
-                            "xAxisName": "Commission",
-                            "yAxisName": "Total Commission",
+                            "paletteColors":"526069,c2c81e",
+                            "showPercentValues":"1",
+                            "showPlotBorder":"0",
                             //"numberPrefix": "k",
-                            "theme": "fusion",
-                            "yAxisMaxValue": "250000",
-                            "yAxisMinValue": "100000"
+                            "theme": "gammel",
+                            "showLegend":"1",
+                            "legendposition": "bottom",
                     },
                         "data": [{
                         "label": "IN",
@@ -549,12 +568,13 @@
                             "subcaption": "Third Quarter",*/
                             /*"captionFontSize": "13",
                             "subCaptionFontSize": "12",*/
-                            "xAxisName": "Commission",
-                            "yAxisName": "Total Commission",
-                            //"numberPrefix": "$",
-                            "theme": "fusion",
-                            "yAxisMaxValue": "250000",
-                            "yAxisMinValue": "100000"
+                            "paletteColors":"526069,c2c81e",
+                            "showPercentValues":"1",
+                            "showPlotBorder":"0",
+                            //"numberPrefix": "k",
+                            "theme": "gammel",
+                            "showLegend":"1",
+                            "legendposition": "bottom",
                     },
                         "data": [{
                         "label": "IN",
@@ -572,12 +592,13 @@
                             "subcaption": "Fourth Quarter",
                             "captionFontSize": "13",
                             "subCaptionFontSize": "12",*/
-                            "xAxisName": "Commission",
-                            "yAxisName": "Total Commission",
-                           //"numberPrefix": "$",
-                            "theme": "fusion",
-                            "yAxisMaxValue": "250000",
-                            "yAxisMinValue": "100000"
+                            "paletteColors":"526069,c2c81e",
+                            "showPercentValues":"1",
+                            "showPlotBorder":"0",
+                            //"numberPrefix": "k",
+                            "theme": "gammel",
+                            "showLegend":"1",
+                            "legendposition": "bottom",
                     },
                         "data": [{
                         "label": "IN",
@@ -595,12 +616,13 @@
                             "subcaption": "Fourth Quarter",
                             "captionFontSize": "13",
                             "subCaptionFontSize": "12",*/
-                            "xAxisName": "Commission",
-                            "yAxisName": "Total Commission",
-                           //"numberPrefix": "$",
-                            "theme": "fusion",
-                            "yAxisMaxValue": "250000",
-                            "yAxisMinValue": "100000"
+                            "paletteColors":"526069,c2c81e",
+                            "showPercentValues":"1",
+                            "showPlotBorder":"0",
+                            //"numberPrefix": "k",
+                            "theme": "gammel",
+                            "showLegend":"1",
+                            "legendposition": "bottom",
                     },
                         "data": [{
                         "label": "IN",
@@ -610,17 +632,12 @@
                             "value": val2[4]
                     }]
                 }
-            }, {
+            }/*, {
                 "id": "q6",
                     "linkedchart": {
                     "chart": {
-                       /* "caption": "Monthly Revenue",
-                            "subcaption": "Fourth Quarter",
-                            "captionFontSize": "13",
-                            "subCaptionFontSize": "12",*/
                             "xAxisName": "Commission",
                             "yAxisName": "Total Commission",
-                           //"numberPrefix": "$",
                             "theme": "fusion",
                             "yAxisMaxValue": "250000",
                             "yAxisMinValue": "100000"
@@ -633,7 +650,7 @@
                             "value": val2[5]
                     }]
                 }
-            }/*, {
+            }*//*, {
                 "id": "q7",
                     "linkedchart": {
                     "chart": {
@@ -727,12 +744,12 @@
             }).render();
 
             myChart.configureLink({
-        type: "column2d",
-        overlayButton: {
+        type: "pie2d",
+        /*overlayButton: {
             message: 'Back', // Set the button to show diff messafe
             //bgColor: '#999999',
             borderColor: '#cccccc'
-        }
+        }*/
     });
           });
       }
