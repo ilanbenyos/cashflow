@@ -2,7 +2,7 @@
 if (isset ( $_SESSION ['pop_mes'] )) {
    popup2 ();
 }
-
+//print_r($Vendor_details);
 //print_r($_SESSION);
 ?>
 
@@ -12,8 +12,12 @@ if (isset ( $_SESSION ['pop_mes'] )) {
   <div class="container-fluid"> 
   <?php } ?> -->
 
-<h1>Call Center Expenses</h1>
-<div class="white-bg">
+<div class="row clearfix">
+<div class="col-md-4"><h1>Call Center Expenses</h1></div>
+<?php  if ($_SESSION['user_role'] == "Call Center User") { ?>
+    <div class="col-md-8 current-blnc"><h4>Current Balance : <?php echo number_format($Vendor_details->CallCenterCashBalance, 2, '.', ','); ?></h4></div>
+  <?php } ?>
+</div><div class="white-bg">
   <div class="row">
     <?php  if ($_SESSION['user_role'] == "Call Center User") { ?>
     <div class="col-md-12 text-right">

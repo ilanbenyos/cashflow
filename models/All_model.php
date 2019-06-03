@@ -468,5 +468,14 @@ class All_model extends CI_Model {
 		$this->db->where('RequestId',$id);
 		return $this->db->get()->row();
 	}
+	public function profileDetails(){
+		$this->db->select('v.VendorName,v.InvoiceType,v.Comments,c.CurName,v.BankAddress,v.IBAN,v.CallCenterCashBalance,v.Comments,v.Balance,u.Email,u.Password,b.BankName,v.Active');
+	      $this->db->from('vendormaster v');
+		  $this->db->join('usermaster u','v.VendorId = u.CallCenterVendorId');
+		  $this->db->join('bankmaster b','v.Bank = b.BankId','left');
+		  $this->db->join('currencymaster c','v.Currency = c.CurId','left');
+	      $this->db->where('u.UserID',$_SESSION['userid']);
+	      return $this->db->get()->row();
+	}
 	
 }
