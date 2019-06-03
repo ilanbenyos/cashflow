@@ -59,6 +59,14 @@ h1 { color: #2b364a; font-size: 24px; margin: 0 0 20px; text-transform: capitali
 h2 { background:#526069; color: #fff; font-size: 20px; padding:15px 0; text-align:center; margin: 0 0 20px; text-transform: capitalize; font-family: "RobotoRegular", sans-serif; }
 .medium-heading { text-align: center; font-size: 24px; color: #000; text-decoration: none; margin-top: 8px; font-family: 'RobotoMedium'; }
 h4 { font-size: 17px; font-family: RobotoMedium; margin-bottom: 25px; margin-top: 0; color: #20a0a7; }
+.current-blnc h4 {
+color: #20a0a7;
+color: #2b364a;
+font-size: 24px;
+margin: 0 0 20px;
+text-transform: capitalize;
+font-family: "RobotoBold", sans-serif;
+}
 /***** Header CSS Style *****/
 header { position:relative; background: #fff; }
 .logo { padding-top: 18px; padding-bottom: 18px; width: 270px; max-width: 270px; text-align: center; background: #0e1727; }
