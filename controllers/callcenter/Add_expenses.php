@@ -95,6 +95,7 @@ class Add_expenses extends CI_Controller {
 			  
 		$data['expenses'] = $this->all_model->getAllCallCenterExp($VendorId->CallCenterVendorId);
 		$data['allexpenses'] = $this->all_model->getAllCallCenterVendor();
+		$data['Vendor_details'] = $this->all_model->profileDetails();
 		$this->load->view('templates/header');
 		$this->load->view('templates/left-sidebar2');
 		
@@ -131,20 +132,21 @@ class Add_expenses extends CI_Controller {
 		$data['expenses'] = $this->all_model->getAllCallCenterExp($VendorId->CallCenterVendorId);
 		//print_r($this->db->last_query());exit();
 		$data['allexpenses'] = $this->all_model->getAllCallCenterVendor();
+		$data['Vendor_details'] = $this->all_model->profileDetails();
 		//print_r($this->db->last_query());exit();
 		$this->load->view('callcenter/expenses',$data);
 	}
 	
 	public function callProfile(){
-		  $this->db->select('v.VendorName,v.InvoiceType,v.Comments,c.CurName,v.BankAddress,v.IBAN,v.CallCenterCashBalance,v.Comments,v.Balance,u.Email,u.Password,b.BankName,v.Active');
+		  /*$this->db->select('v.VendorName,v.InvoiceType,v.Comments,c.CurName,v.BankAddress,v.IBAN,v.CallCenterCashBalance,v.Comments,v.Balance,u.Email,u.Password,b.BankName,v.Active');
 	      $this->db->from('vendormaster v');
 		  $this->db->join('usermaster u','v.VendorId = u.CallCenterVendorId');
 		  $this->db->join('bankmaster b','v.Bank = b.BankId','left');
 		  $this->db->join('currencymaster c','v.Currency = c.CurId','left');
 	      $this->db->where('u.UserID',$_SESSION['userid']);
 	      $query = $this->db->get();
-	      $VendorId = $query->row();
-		  $data['Vendor_details'] = $VendorId;
+	      $VendorId = $query->row();*/
+		  $data['Vendor_details'] = $this->all_model->profileDetails();
 		  
 		  
 		  
@@ -300,7 +302,7 @@ class Add_expenses extends CI_Controller {
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
 					
 					
-					$this->db->select('Balance,EuroVal');
+					$this->db->select('CallCenterCashBalance,Balance,EuroVal');
                     $this->db->from('vendormaster');
                     $this->db->where('VendorId',$Vendorid);
                     $Vendorbal = $this->db->get()->row();
@@ -314,7 +316,7 @@ class Add_expenses extends CI_Controller {
 					echo 'EUR_Amount' + $EUR_Amount;
 					exit();*/
 					
-					$updatedBal = $Vendorbal->Balance-$Converted_Amount;
+                    $updatedBal = $Vendorbal->CallCenterCashBalance-$Converted_Amount;
 						$updatedeuroBal = $Vendorbal->EuroVal-$EUR_Amount;
 					
 					
@@ -324,7 +326,7 @@ class Add_expenses extends CI_Controller {
 					
 					
 					$vendordata = array( 
-					'Balance'=> $updatedBal,
+					'CallCenterCashBalance'=> $updatedBal,
             			'EuroVal' => $updatedeuroBal,
             		);
 					$this->db->where ( 'VendorId', $Vendorid );
