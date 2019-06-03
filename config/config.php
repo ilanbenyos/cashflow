@@ -1,5 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+//define('logger_url_psp', $_SERVER['DOCUMENT_ROOT'] .'/Logs/'.date("Y-m-d").'.-psp.log');
+//define('logger_url_exp', $_SERVER['DOCUMENT_ROOT'] .'/Logs/'.date("Y-m-d").'.-exp.log');
 define('logger_url_psp', '/var/www/staging-cashflow.forexwebsolutions.com/Logs/'.date("Y-m-d").'.-psp.log');
 define('logger_url_exp', '/var/www/staging-cashflow.forexwebsolutions.com/Logs/'.date("Y-m-d").'.-exp.log');
 
@@ -26,8 +28,8 @@ define('logger_url_exp', '/var/www/staging-cashflow.forexwebsolutions.com/Logs/'
 |
 */
 //$config['base_url'] = 'http://192.168.0.250:8080/cashflow/';
+//$config['base_url'] = 'http://cashflow:8080';
 $config['base_url'] = 'https://staging-cashflow.forexwebsolutions.com';
-
 
 /*
 |--------------------------------------------------------------------------

@@ -76,7 +76,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'intiviondbinstance-cluster.cluster-cnwimv9knlsr.eu-west-1.rds.amazonaws.com',
+		'hostname' => 'intiviondbinstance-cluster.cluster-cnwimv9knlsr.eu-west-1.rds.amazonaws.com',
 	'username' => 'cflowstage_user',
 	'password' => 'Clw#2YA$g&wBq',
 	'database' => 'cashflow_staging',
