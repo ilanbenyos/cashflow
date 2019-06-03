@@ -15,7 +15,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
 <div class="row clearfix">
 <div class="col-md-4"><h1>Call Center Expenses</h1></div>
 <?php  if ($_SESSION['user_role'] == "Call Center User") { ?>
-    <div class="col-md-8 current-blnc"><h4>Current Balance : <?php echo number_format($Vendor_details->CallCenterCashBalance, 2, '.', ','); ?></h4></div>
+    <div class="col-md-8 current-blnc"><h4>Balance : <?php echo number_format($Vendor_details->CallCenterCashBalance, 2, '.', ','); ?></h4></div>
   <?php } ?>
 </div><div class="white-bg">
   <div class="row">
