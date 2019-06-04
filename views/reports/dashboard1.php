@@ -467,6 +467,7 @@
                     "legendBorderColor":"FFFFFF",
                     "legendShadow":"0",
                     "legendNumColumns":"2",
+                    "legendBorderAlpha": "0",
                    
             },
 
