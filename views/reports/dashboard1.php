@@ -448,6 +448,7 @@
                     "plottooltext":"<b> $label </b><b> $percentValue</b> of the total commission",
                     "theme": "gammel",
                     "labelFontSize":"9",
+                    "smartLineColor":"FFFFFF",
                     "showLegend":"1",
                     "legendposition": "bottom",
                     "baseFontSize":"11",
@@ -463,14 +464,9 @@
                     "manageLabelOverflow":"1",
                     "useEllipsesWhenOverflow":"1",
                     "minimiseWrappingInLegend":"1",
-                   //"legendAllowDrag": "1",
-                    //"legendIconStartAngle":"45",
-                    /*"showPlotBorder":"1",
-                    "plotBorderColor":"#f2f2f2",
-                    "plotBorderThickness":"0",*/
-                    //"plotBorderThickness":"0",
-                    /*"borderColor":"#f2f2f2",
-                    "slicingDistance":"10px",*/
+                    "legendBorderColor":"FFFFFF",
+                    "legendShadow":"0",
+                   
             },
 
                 "data": [{
@@ -532,6 +528,7 @@
                             
                             //"numberPrefix": "k",
                             "labelFontSize":"9",
+                            "smartLineColor":"FFFFFF",
                             "showLegend":"1",
                             "legendposition": "bottom",
                             "baseFontSize":"11",
@@ -547,6 +544,8 @@
                             "manageLabelOverflow":"1",
                             "useEllipsesWhenOverflow":"1",
                             "minimiseWrappingInLegend":"1",
+                            "legendBorderColor":"FFFFFF",
+                            "legendShadow":"0",
                             
                     },
                         "data": [{
@@ -571,6 +570,7 @@
                             "showPlotBorder":"0",
                             //"numberPrefix": "k",
                             "labelFontSize":"9",
+                            "smartLineColor":"FFFFFF",
                             "showLegend":"1",
                             "legendposition": "bottom",
                             "baseFontSize":"11",
@@ -586,6 +586,8 @@
                             "manageLabelOverflow":"1",
                             "useEllipsesWhenOverflow":"1",
                             "minimiseWrappingInLegend":"1",
+                            "legendBorderColor":"FFFFFF",
+                            "legendShadow":"0",
                     },
                         "data": [{
                         "label": "IN",
@@ -608,6 +610,7 @@
                             "showPlotBorder":"0",
                             //"numberPrefix": "k",
                             "labelFontSize":"9",
+                            "smartLineColor":"FFFFFF",
                             "showLegend":"1",
                             "legendposition": "bottom",
                             "baseFontSize":"11",
@@ -623,6 +626,8 @@
                             "manageLabelOverflow":"1",
                             "useEllipsesWhenOverflow":"1",
                             "minimiseWrappingInLegend":"1",
+                            "legendBorderColor":"FFFFFF",
+                            "legendShadow":"0",
                     },
                         "data": [{
                         "label": "IN",
@@ -643,6 +648,7 @@
                             "paletteColors":"526069,c2c81e",
                             "showPercentValues":"1",
                             "showPlotBorder":"0",
+                            "smartLineColor":"FFFFFF",
                             //"numberPrefix": "k",
                             "labelFontSize":"9",
                             "showLegend":"1",
@@ -660,6 +666,8 @@
                             "manageLabelOverflow":"1",
                             "useEllipsesWhenOverflow":"1",
                             "minimiseWrappingInLegend":"1",
+                            "legendBorderColor":"FFFFFF",
+                            "legendShadow":"0",
                     },
                         "data": [{
                         "label": "IN",
@@ -680,6 +688,7 @@
                             "paletteColors":"526069,c2c81e",
                             "showPercentValues":"1",
                             "showPlotBorder":"0",
+                            "smartLineColor":"FFFFFF",
                             //"numberPrefix": "k",
                             "labelFontSize":"9",
                             "showLegend":"1",
@@ -697,6 +706,8 @@
                             "manageLabelOverflow":"1",
                             "useEllipsesWhenOverflow":"1",
                             "minimiseWrappingInLegend":"1",
+                            "legendBorderColor":"FFFFFF",
+                            "legendShadow":"0",
                     },
                         "data": [{
                         "label": "IN",
