@@ -117,19 +117,19 @@
           maxVal = Math.max(...val);
           minVal = Math.min(...val);
            /*console.log(minVal)*/
-		   var minValue1 = 0;
-		   var maxValue1 = total/3;
-		   var minValue2 = maxValue1;
-		   var maxValue2 = maxValue1*2;
-		   var minValue3 = maxValue2;
-		   var maxValue3 = maxValue1*3;
+       var minValue1 = 0;
+       var maxValue1 = total/3;
+       var minValue2 = maxValue1;
+       var maxValue2 = maxValue1*2;
+       var minValue3 = maxValue2;
+       var maxValue3 = maxValue1*3;
            /*console.log(minValue1);
-		    console.log(maxValue1);
-		   console.log(minValue2);
-		   console.log(maxValue2);
-		   console.log(minValue3);
-		   console.log(maxValue3);*/
-		   
+        console.log(maxValue1);
+       console.log(minValue2);
+       console.log(maxValue2);
+       console.log(minValue3);
+       console.log(maxValue3);*/
+       
           const dataSource = {
                     chart: {
                     //"caption": "Total Bank Income This Month",
@@ -439,24 +439,32 @@
          console.log(val2);*/
           const dataSource = {
  "chart": {
-                /*"caption": "Quarterly revenue",
-                    "subCaption": "Last year",
-                    "captionFontSize": "13",
-                    "subCaptionFontSize": "12",*/
+                
                     "paletteColors":"526069,c2c81e,20a1a7,90989d,0e1727",
-                    /*"xAxisName": "Quarter (Click to drill down)",
-                    "yAxisName": "Revenue (In USD)",*/
                     "showpercentvalues" : "1",
                     "showPercentInTooltip": "1",
-                    "usedataplotcolorforlabels": "1",
+                    //"usedataplotcolorforlabels": "1",
+                    "toolText":"$name",
                     "plottooltext":"<b> $label </b><b> $percentValue</b> of the total commission",
-                    //"numberPrefix": "$",
                     "theme": "gammel",
+                    "labelFontSize":"9",
                     "showLegend":"1",
                     "legendposition": "bottom",
                     "baseFontSize":"11",
-                    "legendItemFontSize":"13",
+                    "legendItemFontSize":"9",
                     "showPlotBorder":"0",
+                    "showBorder":"0",
+                    "bgColor":"FFFFFF",
+                    "pieRadius":"70",
+                    "toolTipPadding":"1",
+                    //"chartTopMargin":"10px",
+                    "chartBottomMargin":"0.5",
+                    "drawCustomLegendIcon":"1",
+                    "manageLabelOverflow":"1",
+                    "useEllipsesWhenOverflow":"1",
+                    "minimiseWrappingInLegend":"1",
+                   //"legendAllowDrag": "1",
+                    //"legendIconStartAngle":"45",
                     /*"showPlotBorder":"1",
                     "plotBorderColor":"#f2f2f2",
                     "plotBorderThickness":"0",*/
@@ -466,9 +474,10 @@
             },
 
                 "data": [{
+                //"name ": val[0],
                 "label": val[0],
-                    "value": val3[0],
-                    "link": "newchart-json-q1"
+                "value": val3[0],
+                "link": "newchart-json-q1"
             }, {
                 "label": val[1],
                     "value": val3[1],
@@ -482,7 +491,7 @@
                     "value": val3[3],
                     "link": "newchart-json-q4"
             }, {
-                "label": val[4],
+               "label": val[4],
                     "value": val3[4],
                     "link": "newchart-json-q5"
             }, {
@@ -522,9 +531,22 @@
                             "showPlotBorder":"0",
                             
                             //"numberPrefix": "k",
-                            "theme": "gammel",
+                            "labelFontSize":"9",
                             "showLegend":"1",
                             "legendposition": "bottom",
+                            "baseFontSize":"11",
+                            "legendItemFontSize":"9",
+                            "showPlotBorder":"0",
+                            "showBorder":"0",
+                            "bgColor":"FFFFFF",
+                            "pieRadius":"70",
+                            "toolTipPadding":"1",
+                            //"chartTopMargin":"10px",
+                            "chartBottomMargin":"0.5",
+                            "drawCustomLegendIcon":"1",
+                            "manageLabelOverflow":"1",
+                            "useEllipsesWhenOverflow":"1",
+                            "minimiseWrappingInLegend":"1",
                             
                     },
                         "data": [{
@@ -548,9 +570,22 @@
                             "showPercentValues":"1",
                             "showPlotBorder":"0",
                             //"numberPrefix": "k",
-                            "theme": "gammel",
+                            "labelFontSize":"9",
                             "showLegend":"1",
                             "legendposition": "bottom",
+                            "baseFontSize":"11",
+                            "legendItemFontSize":"9",
+                            "showPlotBorder":"0",
+                            "showBorder":"0",
+                            "bgColor":"FFFFFF",
+                            "pieRadius":"70",
+                            "toolTipPadding":"1",
+                            //"chartTopMargin":"10px",
+                            "chartBottomMargin":"0.5",
+                            "drawCustomLegendIcon":"1",
+                            "manageLabelOverflow":"1",
+                            "useEllipsesWhenOverflow":"1",
+                            "minimiseWrappingInLegend":"1",
                     },
                         "data": [{
                         "label": "IN",
@@ -572,9 +607,22 @@
                             "showPercentValues":"1",
                             "showPlotBorder":"0",
                             //"numberPrefix": "k",
-                            "theme": "gammel",
+                            "labelFontSize":"9",
                             "showLegend":"1",
                             "legendposition": "bottom",
+                            "baseFontSize":"11",
+                            "legendItemFontSize":"9",
+                            "showPlotBorder":"0",
+                            "showBorder":"0",
+                            "bgColor":"FFFFFF",
+                            "pieRadius":"70",
+                            "toolTipPadding":"1",
+                            //"chartTopMargin":"10px",
+                            "chartBottomMargin":"0.5",
+                            "drawCustomLegendIcon":"1",
+                            "manageLabelOverflow":"1",
+                            "useEllipsesWhenOverflow":"1",
+                            "minimiseWrappingInLegend":"1",
                     },
                         "data": [{
                         "label": "IN",
@@ -596,9 +644,22 @@
                             "showPercentValues":"1",
                             "showPlotBorder":"0",
                             //"numberPrefix": "k",
-                            "theme": "gammel",
+                            "labelFontSize":"9",
                             "showLegend":"1",
                             "legendposition": "bottom",
+                            "baseFontSize":"11",
+                            "legendItemFontSize":"9",
+                            "showPlotBorder":"0",
+                            "showBorder":"0",
+                            "bgColor":"FFFFFF",
+                            "pieRadius":"70",
+                            "toolTipPadding":"1",
+                            //"chartTopMargin":"10px",
+                            "chartBottomMargin":"0.5",
+                            "drawCustomLegendIcon":"1",
+                            "manageLabelOverflow":"1",
+                            "useEllipsesWhenOverflow":"1",
+                            "minimiseWrappingInLegend":"1",
                     },
                         "data": [{
                         "label": "IN",
@@ -620,9 +681,22 @@
                             "showPercentValues":"1",
                             "showPlotBorder":"0",
                             //"numberPrefix": "k",
-                            "theme": "gammel",
+                            "labelFontSize":"9",
                             "showLegend":"1",
                             "legendposition": "bottom",
+                            "baseFontSize":"11",
+                            "legendItemFontSize":"9",
+                            "showPlotBorder":"0",
+                            "showBorder":"0",
+                            "bgColor":"FFFFFF",
+                            "pieRadius":"70",
+                            "toolTipPadding":"1",
+                            //"chartTopMargin":"10px",
+                            "chartBottomMargin":"0.5",
+                            "drawCustomLegendIcon":"1",
+                            "manageLabelOverflow":"1",
+                            "useEllipsesWhenOverflow":"1",
+                            "minimiseWrappingInLegend":"1",
                     },
                         "data": [{
                         "label": "IN",
@@ -732,7 +806,7 @@
                 }
             }*/]
 };
-//console.log(dataSource);
+console.log(dataSource);
           FusionCharts.ready(function() {
             var myChart = new FusionCharts({
             type: 'pie2d',
@@ -777,71 +851,71 @@ function unique(arr, prop) {
         success: function (data) {
           //console.log(data);
           var jsonData = $.parseJSON(data);
-		 var val1 = [];
-		 var newjsonData = jsonData.cat;
-		 var BankData = jsonData.bankname;
-		 var AllbnkData = jsonData.series;
-		 
-		 //console.log(newjsonData);
-		var uniqueNames = [];
-		var seriesData = '';
-		var bankseriesData = '';
-		 uniqueNames+='[';
-		$.each( newjsonData, function( key, value ) {
+     var val1 = [];
+     var newjsonData = jsonData.cat;
+     var BankData = jsonData.bankname;
+     var AllbnkData = jsonData.series;
+     
+     //console.log(newjsonData);
+    var uniqueNames = [];
+    var seriesData = '';
+    var bankseriesData = '';
+     uniqueNames+='[';
+    $.each( newjsonData, function( key, value ) {
           uniqueNames+= '{ "label": "'+ value + '" },';
           
 
         });
-		uniqueNames+=']';
-			//bankseriesData+='[';
-		$.each( BankData, function( key, value ) {
-			
+    uniqueNames+=']';
+      //bankseriesData+='[';
+    $.each( BankData, function( key, value ) {
+      
           bankseriesData+= '{ "seriesname": "'+ value + '","data": [';
-		  $.each( AllbnkData, function( skey, svalue ) {
-			  
-			  if(svalue.BankName == value)
-			  {
-				  bankseriesData+= '{ "value": "'+ svalue.NetAmount + '"},';
-				  
-			  }
-			  
-		  });
-		  bankseriesData+= ' ] },';
-		 
+      $.each( AllbnkData, function( skey, svalue ) {
+        
+        if(svalue.BankName == value)
+        {
+          bankseriesData+= '{ "value": "'+ svalue.NetAmount + '"},';
+          
+        }
+        
+      });
+      bankseriesData+= ' ] },';
+     
           
 
         });
-		//bankseriesData+=']';
-		
-		/*$.each( BankData, function( key, value ) {
+    //bankseriesData+=']';
+    
+    /*$.each( BankData, function( key, value ) {
           bankseriesData+= '{ "seriesname": "'+ value + '","data:["'+
-		  $.each( AllbnkData, function( skey, svalue ) {
-			  if(svalue.BankName == value)
-			  {
-				  
-				  
-			  }
-			  
-		  }
-		  
-		  +'" },';
+      $.each( AllbnkData, function( skey, svalue ) {
+        if(svalue.BankName == value)
+        {
+          
+          
+        }
+        
+      }
+      
+      +'" },';
           
 
         });
-		
-		*/
+    
+    */
 
 
 /*console.log(uniqueNames);
 console.log(jsonData.bankseriesData);
 console.log(bankseriesData);*/
          
-		 
+     
 
           const dataSource = {
   chart: {
     //showLabels:"0",
-	palettecolors:"526069,c2c81e,20a1a7,90989d,0e1727",
+  palettecolors:"526069,c2c81e,20a1a7,90989d,0e1727",
     plottooltext:
       "Total Income of $seriesName bank in $label was <b>$dataValue</b>",
     theme: "fusion",
@@ -887,9 +961,9 @@ FusionCharts.ready(function() {
         success: function (data) {
           //console.log(data);
           
-		  
-		  
-		  var jsonData = $.parseJSON(data);
+      
+      
+      var jsonData = $.parseJSON(data);
         
          //console.log(jsonData.modaldata);
           const dataSource = {
@@ -898,8 +972,8 @@ FusionCharts.ready(function() {
             //"xAxisName": "",
            // "yAxisName": "",
             //"numberPrefix": "$",
-			
-			"showLabels":"0",
+      
+      "showLabels":"0",
             "theme": "fusion"
         },
   "data": jsonData.bankbalance,
