@@ -470,6 +470,7 @@
                     "legendShadow":"0",
                     "legendNumColumns":"2",
                     "legendBorderAlpha": "0",
+                    "use3DLighting":"0",
                    
             },
 
@@ -550,6 +551,7 @@
                             "minimiseWrappingInLegend":"1",
                             "legendBorderColor":"FFFFFF",
                             "legendShadow":"0",
+                            "use3DLighting":"0",
                             
                     },
                         "data": [{
@@ -592,6 +594,7 @@
                             "minimiseWrappingInLegend":"1",
                             "legendBorderColor":"FFFFFF",
                             "legendShadow":"0",
+                            "use3DLighting":"0",
                     },
                         "data": [{
                         "label": "IN",
@@ -632,6 +635,7 @@
                             "minimiseWrappingInLegend":"1",
                             "legendBorderColor":"FFFFFF",
                             "legendShadow":"0",
+                            "use3DLighting":"0",
                     },
                         "data": [{
                         "label": "IN",
@@ -672,6 +676,7 @@
                             "minimiseWrappingInLegend":"1",
                             "legendBorderColor":"FFFFFF",
                             "legendShadow":"0",
+                            "use3DLighting":"0",
                     },
                         "data": [{
                         "label": "IN",
@@ -712,6 +717,7 @@
                             "minimiseWrappingInLegend":"1",
                             "legendBorderColor":"FFFFFF",
                             "legendShadow":"0",
+                            "use3DLighting":"0",
                     },
                         "data": [{
                         "label": "IN",
