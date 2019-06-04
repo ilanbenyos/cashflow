@@ -68,18 +68,18 @@ class Reports extends CI_Controller {
 		$this->load->view('reports/callcenter-expense-category');
 		//$this->load->view('templates/footer');
 	}
-	public function dashboard1(){
+	/*public function dashboard1(){
 		$this->load->view('templates/header');
 		//$this->load->view('templates/left-sidebar2');
 		$this->load->view('templates/content');
 		$this->load->view('reports/dashboard1');
 		$this->load->view('templates/footer');
-	}
+	}*/
 	public function dashboard(){
 		$this->load->view('templates/header');
-		$this->load->view('templates/left-sidebar2');
+		//$this->load->view('templates/left-sidebar2');
 		$this->load->view('templates/content');
-		$this->load->view('reports/dashboard');
+		$this->load->view('reports/dashboard1');
 		$this->load->view('templates/footer');
 	}
 }
