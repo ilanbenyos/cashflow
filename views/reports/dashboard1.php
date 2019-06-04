@@ -447,6 +447,8 @@
                     "toolText":"$name",
                     "plottooltext":"<b> $label </b><b> $percentValue</b> of the total commission",
                     "theme": "gammel",
+                    "showLabels":"0",
+                    "showValues":"0",
                     "labelFontSize":"9",
                     "smartLineColor":"FFFFFF",
                     "showLegend":"1",
