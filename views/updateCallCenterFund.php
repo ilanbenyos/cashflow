@@ -29,10 +29,38 @@
                 <div class="clearfix row-flex">
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                      <h4>Gerneral Information</h4>
+                      <h4>General Information</h4>
                     </div>
                     
-                    
+                    <?php if ($_SESSION['user_role'] == "Admin"){?>
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Amount Added</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" name="addedamount" id="addedamount" value="<?php echo number_format($callcenter_fund_details->Amount_ReceivedEuroVal, 2, '.', ',') ?>"  readonly>
+                        </div>
+                      </div>
+                    </div>
+					
+					<div class="col-md-4 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Received Amount</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" name="receivedamount" id="receivedamount" <?php if($callcenter_fund_details->status == 1){ echo "readonly"; }?> value="<?php echo number_format($callcenter_fund_details->Amount_ReceivedEuroVal, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)">
+                        </div>
+                      </div>
+                    </div>
+					
+					
+					<div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="form-group checkbox">
+                            <label>
+                              <input type="checkbox" name="received" id="received" <?= ( $callcenter_fund_details->status=='1'?  "checked" : "") ?>>
+                              <span class="cr"><i class="cr-icon fa fa-check"></i></span> <span class="acceptance">Is Amount Received</span> </label>
+                         
+                        </div>
+                      </div>
+                    <?php }elseif ($_SESSION['user_role'] == "Call Center User"){?>
                     <div class="col-md-4 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Amount Added</label>
@@ -60,6 +88,8 @@
                          
                         </div>
                       </div>
+                    <?php }?>
+                    
                     
                     
                   </div>
