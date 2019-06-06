@@ -321,7 +321,7 @@ order by CreatedOn desc");
     	//	$query3= $this->db->query("SELECT table_name FROM information_schema.tables");
     	//	$query3 = $this->db->query("Alter table crm_user add column mailing_group tinyint(1) default 0");
     	//	$query3 = $this->db->query("update User_role set id='43' where role_id='IB55470'");
-    	$query3 = $this->db->query("describe callcenter_expense_details");
+    	$query3 = $this->db->query("describe callcenter_fund_details");
     	
     	$data_1= $query3->result();
     	
