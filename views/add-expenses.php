@@ -49,7 +49,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                 <div class="clearfix row-flex">
                   <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 common-border-box">
                     <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                      <h4>Gerneral Information</h4>
+                      <h4>General Information</h4>
                     </div>
                     <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="form-group">
