@@ -426,6 +426,10 @@ order by createdon desc");
                     			$currency = "€";
                     		}elseif ($Currency == 2) {
                     			$currency = "$";
+                    		}elseif ($Currency == 3) {
+                    			$currency = "RD$";
+                    		}elseif($Currency == 4){
+                    			$currency = "฿"; 
                     		}
                     		//print_r($currency);
                     		?>
