@@ -410,13 +410,13 @@ order by createdon desc");
                     	if($notif1->comment=="callcenter_expense_details")
                     	{
                     		$Currency = $notif1->currency;
-                    		if ($Currency == 1) {
+                    		if ($Currency == 1 || $Currency == 'EUR') {
                     			$currency = "€";
-                    		}elseif ($Currency == 2) {
+                    		}elseif ($Currency == 2 || $Currency == 'USD') {
                     			$currency = "$";
-                    		}elseif ($Currency == 3) {
+                    		}elseif ($Currency == 3 || $Currency == 'DOP') {
                     			$currency = "RD$";
-                    		}elseif($Currency == 4){
+                    		}elseif($Currency == 4 || $Currency == 'BTC'){
                     			$currency = "฿"; 
                     		}
                     		?>
@@ -426,13 +426,13 @@ order by createdon desc");
                     	if($notif1->comment=="callcenter_fund_details")
                     	{
                     		$Currency = $notif1->currency;
-                    		if ($Currency == 1) {
+                    		if ($Currency == 1 || $Currency == 'EUR') {
                     			$currency = "€";
-                    		}elseif ($Currency == 2) {
+                    		}elseif ($Currency == 2 || $Currency == 'USD') {
                     			$currency = "$";
-                    		}elseif ($Currency == 3) {
+                    		}elseif ($Currency == 3 || $Currency == 'DOP') {
                     			$currency = "RD$";
-                    		}elseif($Currency == 4){
+                    		}elseif($Currency == 4 || $Currency == 'BTC'){
                     			$currency = "฿"; 
                     		}
                     		//print_r($currency);
