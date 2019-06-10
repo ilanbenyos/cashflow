@@ -121,6 +121,10 @@ class Psp_income extends CI_Controller {
                     $additionalFees = str_replace(',','',$this->input->post('additionalFees'));
         			$uid = $this->input->post('userid');
 
+        			
+        			$acproccessed_startdate= $this->input->post('acproccessed_startdate');
+        			$acproccessed_enddate= $this->input->post('acproccessed_enddate');
+        			
         			if($plcommval == ""){
         				$plcommval = 0;
         			}
@@ -149,6 +153,21 @@ class Psp_income extends CI_Controller {
                     $to = $c2 . '-' . $a2 [1] . '-' . $d2;
 
 
+                   $acproccessed_startdate1 = $acproccessed_startdate;
+                    
+                    $a3 = explode ( '/', $acproccessed_startdate1);
+                    $c3 = trim ( $a3 [2], " " );
+                    $d3 = trim ( $a3 [0], " " );
+                    $acproccessed_startdate1 = $c3 . '-' . $a3 [1] . '-' . $d3;
+                    
+                    $acproccessed_enddate1 = $acproccessed_enddate;
+                    
+                    $a4 = explode ( '/', $acproccessed_enddate1);
+                    $c4 = trim ( $a4 [2], " " );
+                    $d4 = trim ( $a4 [0], " " );
+                    $acproccessed_enddate1 = $c4 . '-' . $a4 [1] . '-' . $d4;
+                    
+                    
                     if ($crrVal != "") {
                         $isCrr = 1;
                     }else{
@@ -175,6 +194,8 @@ class Psp_income extends CI_Controller {
                     }*/
 					/*if ($curr == 'USD') {
                         $cur = 'EUR';*/
+                        /*echo 'curr' . $curr;
+                        echo '<br>';*/
                         $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
                                 
                         $val=json_decode($val);
@@ -182,6 +203,10 @@ class Psp_income extends CI_Controller {
                         //echo "rate USD " . $rate;
                         $exchange_rate = $val->rates->EUR;
                         $euro_amount = $nettoBankAmt * $exchange_rate;
+                        /*echo 'exchange_rate' . $exchange_rate;
+                        echo '<br>';
+                        echo 'euro_amount' . $euro_amount;
+                        echo '<br>';*/
                     /*}else{
                         $cur = 'EUR';
                         $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$cur);
@@ -209,6 +234,8 @@ class Psp_income extends CI_Controller {
         				'ActualAmt' => $acamtReceive,
         				'ActualCom' => $acamtval,
                         'ActualComP' => $accommval,
+        				'ActualProcessedStartDate' => $acproccessed_startdate1,
+        				'ActualProcessedEndDate' => $acproccessed_enddate1,
                         'BankCom' => $bankcomm,
                         'NetBankAmt' => $nettoBankAmt,
                         'ActualNetAmt' => $nettoBankAmt,
@@ -225,6 +252,8 @@ class Psp_income extends CI_Controller {
                         'ModifiedBy ' => $uid,
 						'DocumentPath' =>$upload_doc
         			);
+                    /*print_r($pspIncomeInfo);
+                    exit();*/
 					
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Add-PSP". PHP_EOL
                     . "Add-PSP-Data-Array: ". "Transaction ID:" . $transactionId  . json_encode($pspIncomeInfo) .PHP_EOL . "-------------------------" . PHP_EOL;
@@ -265,6 +294,7 @@ class Psp_income extends CI_Controller {
                         'ExpDate' => $crrReceive,
                         //'ActualAmt' => $crrAmt,
                         'PlannedAmt' => $crrAmt,
+                        		'PlannedNetAmt'=> $crrAmt, //07June2019 
                         //'isCRR' => $isCrr,
                         'CRRId' => $crrId,
                         'CreatedBy' => $uid,
@@ -414,6 +444,9 @@ class Psp_income extends CI_Controller {
                     /*echo 'acamtnetReceivebefore ' . $acamtnetReceivebefore;
                     echo '</br>';*/
 
+                    $acproccessed_startdate= $this->input->post('acproccessed_startdate');
+                    $acproccessed_enddate= $this->input->post('acproccessed_enddate');
+                    
         			if($plcommval == ""){
         				$plcommval = 0;
         			}
@@ -440,6 +473,20 @@ class Psp_income extends CI_Controller {
                     $c2 = trim ( $a2 [2], " " );
                     $d2 = trim ( $a2 [0], " " );
                     $to = $c2 . '-' . $a2 [1] . '-' . $d2;
+                    
+                    $acproccessed_startdate1 = $acproccessed_startdate;
+                    
+                    $a2 = explode ( '/', $acproccessed_startdate1);
+                    $c2 = trim ( $a2 [2], " " );
+                    $d2 = trim ( $a2 [0], " " );
+                    $acproccessed_startdate1 = $c2 . '-' . $a2 [1] . '-' . $d2;
+                    
+                    $acproccessed_enddate1 = $acproccessed_enddate;
+                    
+                    $a2 = explode ( '/', $acproccessed_enddate1);
+                    $c2 = trim ( $a2 [2], " " );
+                    $d2 = trim ( $a2 [0], " " );
+                    $acproccessed_enddate1 = $c2 . '-' . $a2 [1] . '-' . $d2;
 
                     if ($crrAmt != 0.00) { 
                         $isCrr = 1;
@@ -473,6 +520,8 @@ class Psp_income extends CI_Controller {
                         //'ActualNetAmt' => $acnetAmt,
                         //'EuroValue' => $acnetAmt,
                         'ActualNetAmt' => $nettoBankAmt,
+                        		'ActualProcessedStartDate' => $acproccessed_startdate1,
+                        		'ActualProcessedEndDate' => $acproccessed_enddate1,
                         'AdditionalFees' => $additionalFees,
                         //'EuroValue' => $nettoBankAmt,
                         'NetBankAmt' => $nettoBankAmt,
@@ -558,6 +607,8 @@ class Psp_income extends CI_Controller {
                         //'ActualNetAmt' => $acnetAmt,
                         //'EuroValue' => $acnetAmt,
                         'ActualNetAmt' => $nettoBankAmt,
+                        		'ActualProcessedStartDate' => $acproccessed_startdate1,
+                        		'ActualProcessedEndDate' => $acproccessed_enddate1,
                         'AdditionalFees' => $additionalFees,
                         //'EuroValue' => $nettoBankAmt,
                         'NetBankAmt' => $nettoBankAmt,

@@ -22,7 +22,7 @@
               <input type="hidden" name="editfund_token" value="<?php echo $token;?>">
               <input type="hidden" name="userid" value="<?php echo $_SESSION['userid'] ?>">
 			  <input type="hidden" name="callcenterid" value="<?php echo $callcenter_fund_details->id ?>">
-			   <input type="hidden" name="currency" value="<?php echo $callcenter_fund_details->currency ?>">
+			   <input type="hidden" name="currency" id="currency" value="<?php echo $callcenter_fund_details->currency ?>">
 			   <input type="hidden" name="vendor_id" value="<?php echo $callcenter_fund_details->vendor_id ?>">
               
               <div class="row clearfix spacetop3x spacebottom2x">
@@ -75,11 +75,27 @@
                         <label class="col-md-5 col-sm-5 col-xs-12">Received Amount</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="receivedamount" id="receivedamount" <?php if($callcenter_fund_details->status == 1){ echo "readonly"; }?> value="<?php echo number_format($callcenter_fund_details->Amount_Received, 2, '.', ',') ?>" onkeypress="javascript:return isNumber(event)">
+                      
                         </div>
                       </div>
                     </div>
 					
-					
+					<div class="col-md-4 col-sm-12 col-xs-12" id="currencyShow" style="display: none;">
+                      <div class="form-group">
+              
+                        <div class="col-md-6 col-sm-4 col-xs-12">
+                             <select class="form-control" name="newCurr" id="newCurr" >
+                              <option value="">Select Currency</option>
+                            <option value="1">EUR</option>
+                            <option value="2">USD</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6 col-sm-4 col-xs-12" id="conversionCharges" style="display: none;">
+                             <input type="text" class="form-control" name="conversion_charges" id="conversion_charges" onkeypress="javascript:return isNumber(event)" placeholder="Conversion Charges">
+                        </div>
+                      </div>
+                    </div>
+                    
 					<div class="col-md-4 col-sm-12 col-xs-12">
                         <div class="form-group checkbox">
                             <label>
@@ -152,7 +168,21 @@
 
 </script> 
 <script type="text/javascript">
+var currency = $("#currency").val();
+var addedamount = $("#addedamount").val();
+var receivedamount = $("#receivedamount").val();
 
+if (currency != 1) {
+  $("#currencyShow").show();
+}
+$('#newCurr').on('change',function() {
+  var newCurr = $("#newCurr").val();
+  if (newCurr != 1) {
+     $("#conversionCharges").show();
+  }else{
+    $("#conversionCharges").hide();
+  }
+});
 $('#receivedamount').on('blur', function() {
         $(this).css("border", "1px solid #CCCCCC");
             if($(this).val()!="0.00" && $(this).val()!="")

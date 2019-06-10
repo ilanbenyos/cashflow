@@ -228,9 +228,9 @@
 				            </div>
 				            <div class="col-md-12 col-sm-12 col-xs-12" id="show3">
 				              <div class="form-group">
-				              <label class="col-md-6 col-sm-6 col-xs-12">Call Center Cash Balance</label>
+				              <label class="col-md-6 col-sm-6 col-xs-12">Call Center Balance</label>
 				              <div class="col-md-6 col-sm-6 col-xs-12">
-				                <input type="text" class="form-control xyz" name="callcenterCashBAl" id="callcenterCashBAl" value="<?php echo number_format($Vendor_details->CallCenterCashBalance, 2, '.', ','); ?>" placeholder="Call Center Cash Balance">
+				                <input type="text" class="form-control xyz" name="callcenterCashBAl" id="callcenterCashBAl" value="<?php echo number_format($Vendor_details->CallCenterCashBalance, 2, '.', ','); ?>" placeholder="Call Center Balance">
 				              </div>
 				              </div>
 				            </div>
@@ -258,9 +258,9 @@
                           </div>
                         </div>
                         <div class="form-group">
-                        	<label class="col-md-6 col-sm-6 col-xs-12">Call Center Cash Balance</label>
+                        	<label class="col-md-6 col-sm-6 col-xs-12">Call Center Balance</label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control xyz" name="callcenterCashBAl" id="callcenterCashBAl" placeholder="Call Center Cash Balance">
+                            <input type="text" class="form-control xyz" name="callcenterCashBAl" id="callcenterCashBAl" placeholder="Call Center Balance">
                           </div>
                         </div>
                       </div>

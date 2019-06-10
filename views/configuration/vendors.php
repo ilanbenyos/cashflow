@@ -264,9 +264,9 @@ if (isset ( $_SESSION ['pop_mes'] )) {
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="col-md-6 col-sm-6 col-xs-12">Call Center Cash Balance</label>
+                          <label class="col-md-6 col-sm-6 col-xs-12">Call Center Balance</label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control xyz" name="callcenterCashBAl" id="callcenterCashBAl" placeholder="Call Center Cash Balance">
+                            <input type="text" class="form-control xyz" name="callcenterCashBAl" id="callcenterCashBAl" placeholder="Call Center Balance">
                           </div>
                         </div>
                       </div>

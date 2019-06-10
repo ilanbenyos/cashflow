@@ -294,6 +294,46 @@
                       </div>
                     </div>
                     
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Processed Start Date</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <div class="input-group date" data-provide="datepicker">
+
+                            <?php if (($allPspIncome->ActualProcessedStartDate== '0000-00-00')||($allPspIncome->ActualProcessedStartDate== '')) { ?>
+                            <input type="text" class="form-control" data-provide="datepicker" data-date-end-date="0d" name="acproccessed_startdate" id="acproccessed_startdate" placeholder="Start Date" value="" />
+                           <?php }else { ?>
+                               <input type="text" class="form-control" data-provide="datepicker" data-date-end-date="0d" name="acproccessed_startdate" id="acproccessed_startdate" placeholder="Start Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualProcessedStartDate))) ?>" />
+                           <?php }?>                           
+                            
+                            <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+                          
+                                                       </div>
+                        </div>
+         
+                      </div>
+                    </div>
+                    
+                    
+                                          <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Processed End Date</label>
+
+                          <div class="col-md-7 col-sm-7 col-xs-12">
+                          <div class="input-group date" data-provide="datepicker">
+                           
+                           <?php if (($allPspIncome->ActualProcessedEndDate== '0000-00-00')||($allPspIncome->ActualProcessedEndDate== '')) { ?>
+                            <input type="text" class="form-control" data-provide="datepicker" data-date-end-date="0d" name="acproccessed_enddate" id="acproccessed_enddate" placeholder="End Date" value="" />
+                           <?php }else { ?>
+                               <input type="text" class="form-control" data-provide="datepicker" data-date-end-date="0d" name="acproccessed_enddate" id="acproccessed_enddate" placeholder="End Date" value="<?php echo date('d/m/Y', strtotime(str_replace('-','/', $allPspIncome->ActualProcessedEndDate))) ?>" />
+                           <?php }?> 
+                           
+                             <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
                   </div>
 				
 					<div class="clearfix"></div>

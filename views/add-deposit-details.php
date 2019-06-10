@@ -259,6 +259,33 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Processed Start Date</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <div class="input-group date" data-provide="datepicker">
+                            <input type="text" class="form-control" data-provide="datepicker" data-date-end-date="0d" name="acproccessed_startdate" id="acproccessed_startdate" placeholder="Start Date" />
+                            <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+                          
+                                                       </div>
+                        </div>
+      
+                      </div>
+                    </div> 
+                 
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-5 col-sm-5 col-xs-12">Processed End Date</label>
+        
+                          <div class="col-md-7 col-sm-7 col-xs-12">
+                          <div class="input-group date" data-provide="datepicker">
+                           
+                             <input type="text" class="form-control" data-provide="datepicker" data-date-end-date="0d" name="acproccessed_enddate" id="acproccessed_enddate" placeholder="End Date" />
+                            <div class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="form-group">
                         <label class="col-md-4 col-sm-4 col-xs-12">Commission</label>
@@ -530,8 +557,8 @@ $('#bankcomm_hid').attr('disabled',true);
 			var commAmount = Number(actualAmt*(accommP/100)).toFixed(2);
 			var bankcomm1 = parseInt(actualAmt)-parseInt(commAmount)-parseInt(fees)-parseInt(rolingReserved);
 	
-	console.log('accommP->'+accommP+' bankcommP->'+bankcommP+' bankInflowComm->'+bankInflowComm+' rolingReserved->'+rolingReserved);
-	console.log('bankcomm->'+bankcomm+' commAmount->'+commAmount+' bankcomm1->'+bankcomm1);
+	/*console.log('accommP->'+accommP+' bankcommP->'+bankcommP+' bankInflowComm->'+bankInflowComm+' rolingReserved->'+rolingReserved);
+	console.log('bankcomm->'+bankcomm+' commAmount->'+commAmount+' bankcomm1->'+bankcomm1);*/
 		
 			var bankcomm2 = Number((bankcommP/100)*bankcomm1).toFixed(2);
 			if (bankcomm2 =="NaN" || bankcomm2 == 0) {
@@ -539,7 +566,7 @@ $('#bankcomm_hid').attr('disabled',true);
             }else{	
 				var bankcomm2 = Number(parseInt(bankInflowComm)+parseInt(bankcomm2)).toFixed(2);
             }
-	console.log('bankcomm2->'+bankcomm2);
+	//console.log('bankcomm2->'+bankcomm2);
 		
 			var netToBank = Number(parseInt(actualAmt)-parseInt(commAmount)-parseInt(bankcomm2)-parseInt(fees)-parseInt(rolingReserved)).toFixed(2); 
 			if(netToBank == "NaN"){
@@ -555,7 +582,7 @@ $('#bankcomm_hid').attr('disabled',true);
 			$("#acamtval").val(commAmount);
 			$("#acamtval_hid").val(commAmount);
 			$("#nettoBankAmt").val(netToBank);
-	console.log('bankcomm->'+bankcomm2+' acamtval->'+commAmount+' Net To Bank->' +  netToBank);	  
+	//console.log('bankcomm->'+bankcomm2+' acamtval->'+commAmount+' Net To Bank->' +  netToBank);	  
 		  
 		}else if(document.getElementById("myCheck").checked == true){
 			var actualAmt = $("#acamtReceive").val().replace(/,/gi, "");   //actual process amount
@@ -563,10 +590,10 @@ $('#bankcomm_hid').attr('disabled',true);
 			var crrAmt = (crrComm/100);                                    
 			var crrAmt = Number(actualAmt*crrAmt).toFixed(2);
 			$("#crrAmt").val(crrAmt);      
-	console.log('actualAmt->'+actualAmt);		
+	/*console.log('actualAmt->'+actualAmt);		
 	console.log('crrComm->'+crrComm);		
 	console.log('crrAmt->'+crrAmt);		
-	console.log('additionalfees->'+additionalfees);
+	console.log('additionalfees->'+additionalfees);*/
 		}
     });
 	

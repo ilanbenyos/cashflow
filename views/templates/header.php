@@ -173,7 +173,14 @@ order by CreatedOn desc");
 					
 				   }*/
 
-				  
+				   $this->db->select('BankId,BankName,Balance,MinBalance,MaxBalance');
+				   $this->db->from('bankmaster');
+				   $this->db->where('Active',1);
+				   $this->db->where('IsDelete',1);
+				   $this->db->order_by('BankName','ASC');
+				   $query_bank = $this->db->get();
+				   $bank_data= $query_bank->result();
+				   $count1+= count($bank_data);
 
 				   
 			   ?>
@@ -318,9 +325,23 @@ order by CreatedOn desc");
 						}
 				*/		
 					
-						
-						
+			
+					
+					foreach($bank_data as $notif1){
+						if($notif1->Balance < $notif1->MinBalance){
+					     ?>
+                    	<li> <a href="<?php echo base_url('configuration/bank/update/'.$notif1->BankId);?>"> <?php echo $notif1->BankName."'s".' Balance Is Below Minimum Balance Of '. $notif1->MinBalance;  ?> </a> </li>
+                        <?php
+						}
+						else if($notif1->Balance > $notif1->MaxBalance){
+							?>
+                    	<li> <a href="<?php echo base_url('configuration/bank/update/'.$notif1->BankId);?>"> <?php echo $notif1->BankName."'s".' Balance Is More Than Maximum Balance Of '. $notif1->MaxBalance;  ?> </a> </li>
+                        <?php
+						}
+					   }
 					  ?>
+					  
+					  
                   </ul>
                 </li>
               </ul>
