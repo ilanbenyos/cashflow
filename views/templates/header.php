@@ -414,6 +414,10 @@ order by createdon desc");
                     			$currency = "€";
                     		}elseif ($Currency == 2) {
                     			$currency = "$";
+                    		}elseif ($Currency == 3) {
+                    			$currency = "RD$";
+                    		}elseif($Currency == 4){
+                    			$currency = "฿"; 
                     		}
                     		?>
                     <li> <a href="<?php echo base_url('Expenses/updateCallCenterExpDetails/'.$notif1->id);?>"> <?php echo 'Admin Added expense amount of ' .$currency. $notif1->Amount;  ?> </a> </li>
