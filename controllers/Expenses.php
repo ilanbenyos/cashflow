@@ -856,6 +856,9 @@ class Expenses extends CI_Controller {
         $this->db->where('pt.id',$id);
         $callcenter_expense_details =  $this->db->get()->row();
             $data['callcenter_fund_details'] = $callcenter_expense_details;
+            
+            $data['get_all_currency'] = $this->all_model->getAllCurrency();
+            
             $this->load->view('templates/header');
             $this->load->view('templates/left-sidebar');
             $this->load->view('updateCallCenterFund',$data);
@@ -877,9 +880,11 @@ class Expenses extends CI_Controller {
             $callcenterid = $this->input->post('callcenterid');
             $vendor_id = $this->input->post('vendor_id');
             $currency = $this->input->post('currency');
+            $newCurr = $this->input->post('newCurr');
             //$curr = $this->input->post('currency');
             //print_r($curr);exit();
-             $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-CallCenterFund". PHP_EOL
+            if ($currency ==1 ) {
+                $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-CallCenterFund". PHP_EOL
                         . json_encode($_POST) .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
             
@@ -889,7 +894,7 @@ class Expenses extends CI_Controller {
                         $val=json_decode($val);
                         $exchange_rate = $val->rates->EUR;
                         if ($currency == 1){
-                        	$euro_amount = $receivedamount * 1;
+                            $euro_amount = $receivedamount * 1;
                         }elseif ($currency == 2){
                         $euro_amount = $receivedamount * $exchange_rate;
                         }
@@ -904,7 +909,7 @@ class Expenses extends CI_Controller {
                         
                         
             
-            $expense = array(
+                $expense = array(
                         'Amount_Received' => $receivedamount,
                         'Amount_ReceivedEuroVal'=> $euro_amount,
                         'status' => $received,
@@ -942,6 +947,77 @@ class Expenses extends CI_Controller {
                         $this->db->update('vendormaster',$vendorbaldata);
                         
                     }
+            }elseif ($currency ==2) {
+
+                $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-CallCenterFund". PHP_EOL
+                        . json_encode($_POST) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+            
+                        $curr = "USD";
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
+                        
+                        $val=json_decode($val);
+                        
+                        if ($newCurr == 1){
+                        $exchange_rate = 1;
+                        $euro_amount = $receivedamount * $exchange_rate;
+                        }elseif ($newCurr == 2){
+                        $exchange_rate = $val->rates->EUR;
+                        $euro_amount = $receivedamount * $exchange_rate;
+                        }
+                        //print_r($euro_amount);exit();
+                        if ($received == 'on') {
+                    $received = 1;
+                    
+                        }
+                        else{
+                            $received = 0;
+                        }
+
+                        $expense = array(
+                        'Amount_Received' => $receivedamount,
+                        'Amount_ReceivedEuroVal'=> $euro_amount,
+                        'Transaction_Currency' => $newCurr,
+                        'ExchangeRate' => $exchange_rate,
+                        'Conversion_Charges' => str_replace(',','',$this->input->post('conversion_charges')),
+                        'status' => $received,
+                        'user_id' =>$_SESSION['userid'],
+                        'modifiedon' =>date('Y-m-j H:i:s'),
+                    );
+                    $this->db->where('id',$callcenterid);
+                    $this->db->update('callcenter_fund_details',$expense);
+                    
+                    $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-CallCenterExpenses Update Call data". PHP_EOL
+                        . json_encode($expense) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+
+                    if ($received == 1) {
+                        
+                    $this->db->select('CallCenterCashBalance,EuroVal');
+                    $this->db->from('vendormaster');
+                    $this->db->where('VendorId',$vendor_id);
+                    $Vendorbal = $this->db->get()->row();
+                    
+                    
+                    $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Vendorbal Balance data". PHP_EOL
+                        . json_encode($Vendorbal) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+                    
+                        $updatedBal = $Vendorbal->CallCenterCashBalance+$receivedamount;
+                        $updatedeuroBal = $Vendorbal->EuroVal+$euro_amount;
+                        
+                        $vendorbaldata = array('CallCenterCashBalance'=>$updatedBal,'EuroVal'=>$updatedeuroBal);
+                            $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-Vendormaster Update Balance data". PHP_EOL
+                        . json_encode($vendorbaldata) .PHP_EOL . "-------------------------" . PHP_EOL;
+                        file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
+                        
+                        $this->db->where('VendorId',$vendor_id);
+                        $this->db->update('vendormaster',$vendorbaldata);
+                        
+                    }
+
+            }
+             
             redirect('all-expenses');
             
                 }
