@@ -322,7 +322,7 @@ order by CreatedOn desc");
     	//	$query3 = $this->db->query("Alter table crm_user add column mailing_group tinyint(1) default 0");
     	//	$query3 = $this->db->query("UPDATE callcenter_fund_request SET CreatedOn = '2019-06-06 01:01:01' where CreatedOn = '2019-06-06 13:57:00'");
     	//$query3 = $this->db->query("select * from callcenter_fund_request");
-    	$query3 = $this->db->query("select * from callcenter_fund_details");
+    	$query3 = $this->db->query("select * from callcenter_fund_request");
     	$data_1= $query3->result();
     	
     	print"<pre>";
