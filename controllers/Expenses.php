@@ -345,17 +345,29 @@ class Expenses extends CI_Controller {
                     $this->db->from('vendormaster');
                     $this->db->where('VendorId',$vendor);
                     $IsCallCenter = $this->db->get()->row();
-                           $curr = 'EUR';
+                           
+                        $curr = "EUR";
+                        /*echo 'curr' . $curr; 
+                        echo '<br>';*/
                         $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
                                 
                         $val=json_decode($val);
-                        $exchange_rate = $val->rates->USD;
+                        //$exchange_rate = $val->rates->EUR;
                            if ($IsCallCenter->Currency == 1) {
                                $amount = $acamtReceive * 1;
-                           }else{
+                           }elseif($IsCallCenter->Currency == 2){
+                                $exchange_rate = $val->rates->USD;
+                                $amount = $acamtReceive * $exchange_rate;
+                           }elseif($IsCallCenter->Currency == 3){
+                                $exchange_rate = $val->rates->BTC;
+                                $amount = $acamtReceive * $exchange_rate;
+                           }elseif($IsCallCenter->Currency == 4){
+                                $exchange_rate = $val->rates->DOP;
                                 $amount = $acamtReceive * $exchange_rate;
                            }
-
+                          /* echo 'exchange_rate' . $exchange_rate;
+                           echo 'amount' . $amount; 
+                           exit();*/
                             $callcenter_fund_details = array(
                         'expense_id' => $callCenterUserId,
                         'createdon' => date('Y-m-j H:i:s'),
@@ -366,7 +378,7 @@ class Expenses extends CI_Controller {
                         'currency' => $IsCallCenter->Currency,
                         'ActualDate' => $to,
                     );
-                            //print_r($callcenter_fund_details);
+                            //print_r($callcenter_fund_details);exit();
                     $this->db->insert('callcenter_fund_details',$callcenter_fund_details);
                             
                         }
@@ -947,27 +959,33 @@ class Expenses extends CI_Controller {
                         $this->db->update('vendormaster',$vendorbaldata);
                         
                     }
-            }elseif ($currency ==2) {
-
+            }else {
                 $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-CallCenterFund". PHP_EOL
                         . json_encode($_POST) .PHP_EOL . "-------------------------" . PHP_EOL;
                         file_put_contents ( logger_url_exp, $log . "\n", FILE_APPEND );
-            
-                        $curr = "USD";
+                        if ($newCurr == 2) {
+                            $cur = "USD";
+                        }elseif ($newCurr == 3) {
+                            $cur = "BTC";
+                        }elseif ($newCurr == 4){
+                            $cur = "DOP";
+                        }
+                        $curr = $cur;
                         $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
                         
                         $val=json_decode($val);
-                        
+                       //echo 'val ' . $val;
                         if ($newCurr == 1){
                         $exchange_rate = 1;
                         $euro_amount = $receivedamount * $exchange_rate;
-                        }elseif ($newCurr == 2){
+                        }elseif ($newCurr != 1){
                         $exchange_rate = $val->rates->EUR;
                         $euro_amount = $receivedamount * $exchange_rate;
                         }
-                        //print_r($euro_amount);exit();
+                        /*print_r($euro_amount);
+                        echo '<br>';*/
                         if ($received == 'on') {
-                    $received = 1;
+                            $received = 1;
                     
                         }
                         else{
@@ -984,6 +1002,7 @@ class Expenses extends CI_Controller {
                         'user_id' =>$_SESSION['userid'],
                         'modifiedon' =>date('Y-m-j H:i:s'),
                     );
+                        //print_r($expense);exit();
                     $this->db->where('id',$callcenterid);
                     $this->db->update('callcenter_fund_details',$expense);
                     

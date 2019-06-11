@@ -18,6 +18,7 @@ if (isset ( $_SESSION ['pop_mes'] )) {
   echo '<br>';
   echo $isSetReq;
   exit();*/
+  //print_r($_SESSION);
  ?>
 <!-- Page Content  -->
 <div id="content">

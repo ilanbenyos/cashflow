@@ -1,4 +1,4 @@
-<?php //print_r($expenses); ?>
+<?php //print_r($callcenter_fund_details); ?>
 <!-- Page Content  -->
 
 <div id="content">
@@ -82,14 +82,23 @@
 					
 					<div class="col-md-4 col-sm-12 col-xs-12" id="currencyShow" style="display: none;">
                       <div class="form-group">
-              
-                        <div class="col-md-6 col-sm-4 col-xs-12">
+                <?php 
+                $this->db->select("CurId,CurName,CurSymbol,Active");
+                $this->db->from("currencymaster");
+                $this->db->where("CurId",$callcenter_fund_details->currency);
+                $this->db->where("Active",1);
+                $curr=  $this->db->get ()->row ();
+                //print_r($curr->CurName);
+                ?>
+                  <div class="col-md-6 col-sm-4 col-xs-12">
                              <select class="form-control" name="newCurr" id="newCurr" >
-                              <option value="">Select Currency</option>
+                               <option value="">Select Currency</option>
                             <option value="1">EUR</option>
-                            <option value="2">USD</option>
+                            <option value="<?php  echo $curr->CurId ?>"><?php echo $curr->CurName ?></option> 
                           </select>
                         </div>
+                
+                        
                         <div class="col-md-6 col-sm-4 col-xs-12" id="conversionCharges" style="display: none;">
                              <input type="text" class="form-control" name="conversion_charges" id="conversion_charges" onkeypress="javascript:return isNumber(event)" placeholder="Conversion Charges">
                         </div>

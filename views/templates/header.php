@@ -211,6 +211,7 @@ order by CreatedOn desc");
                
 					foreach($query_res as $notif1)
 					{
+						//print_r($notif1);
 						if($notif1->comment=="Call Center Expenses")
 						{
 							?>
@@ -219,7 +220,8 @@ order by CreatedOn desc");
 						}
 						if($notif1->comment=="Requested Fund")
 						{
-							$curr = 'USD';
+							//$curr = 'USD';
+							$curr = $notif1->CurName;
 							$val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
 							
 							$val=json_decode($val);
@@ -430,9 +432,9 @@ order by createdon desc");
                     			$currency = "€";
                     		}elseif ($Currency == 2 || $Currency == 'USD') {
                     			$currency = "$";
-                    		}elseif ($Currency == 3 || $Currency == 'DOP') {
+                    		}elseif ($Currency == 4 || $Currency == 'DOP') {
                     			$currency = "RD$";
-                    		}elseif($Currency == 4 || $Currency == 'BTC'){
+                    		}elseif($Currency == 3 || $Currency == 'BTC'){
                     			$currency = "฿"; 
                     		}
                     		//print_r($currency);

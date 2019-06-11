@@ -220,7 +220,6 @@ class Add_expenses extends CI_Controller {
 			$this->load->view('callcenter/add-expenses',$data);
 			$this->load->view('templates/footer');
 		}else{
-			//print_r($_POST);
 			$token = $this->input->post('expense_token_add');
     		$session_token=null;
     		$session_token = $_SESSION['token_expense_add'];
@@ -245,7 +244,6 @@ class Add_expenses extends CI_Controller {
     			$expDate = $this->input->post('expDate');
                 $expPaymentType = $this->input->post('expPaymentType');
                 $uid = $this->input->post('userid');
-
                 $from = $expDate;
 				 if($_SESSION['user_role'] == "Admin") {
 						
@@ -274,6 +272,21 @@ class Add_expenses extends CI_Controller {
 						$val=json_decode($val);
 						$exchange_rate = $val->rates->EUR;
 						$EUR_Amount = $expAmount * $exchange_rate;
+					}else if($V_Currency == 'BTC'){
+						$base_currency = 'BTC';
+						$Converted_Amount = $expAmount;
+						$val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$base_currency);
+						$val=json_decode($val);
+						$exchange_rate = $val->rates->EUR;
+						$EUR_Amount = $expAmount * $exchange_rate;
+					}
+					else if($V_Currency == 'DOP'){
+						$base_currency = 'DOp';
+						$Converted_Amount = $expAmount;
+						$val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$base_currency);
+						$val=json_decode($val);
+						$exchange_rate = $val->rates->EUR;
+						$EUR_Amount = $expAmount * $exchange_rate;
 					}
 				 }
 				
@@ -295,6 +308,7 @@ class Add_expenses extends CI_Controller {
             			'CreatedBy' => $uid,
 						'DocumentPath' =>$upload_doc
             		);
+            		//print_r($expense);exit();
             		$this->db->insert('callcenterexpenses',$expense);
 					
 					$log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "callcenterexpenses data". PHP_EOL
