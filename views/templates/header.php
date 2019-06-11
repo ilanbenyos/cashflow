@@ -423,7 +423,7 @@ order by createdon desc");
                     		}
                     		?>
                     <li> <a href="<?php echo base_url('Expenses/updateCallCenterExpDetails/'.$notif1->id);?>"> <?php echo 'Admin Added expense amount of ' .
-                    $currency .' '. $notif1->Amount;  ?> </a> </li>
+                    $currency .''. $notif1->Amount;  ?> </a> </li>
                     <?php 
                     	}
                     	if($notif1->comment=="callcenter_fund_details")
@@ -440,7 +440,7 @@ order by createdon desc");
                     		}
                     		//print_r($currency);
                     		?>
-							<li> <a href="<?php echo base_url('Expenses/updateCallCenterFundDetails/'.$notif1->id);?>"> <?php echo 'Admin Added Fund amount of ' . $currency .' '. $notif1->Amount;  ?> </a> </li>
+							<li> <a href="<?php echo base_url('Expenses/updateCallCenterFundDetails/'.$notif1->id);?>"> <?php echo 'Admin Added Fund amount of ' . $currency .''. $notif1->Amount;  ?> </a> </li>
 						<?php 
                     	}
                     }
