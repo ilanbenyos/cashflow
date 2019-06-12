@@ -35,7 +35,7 @@
                       <div class="form-group">
                         <label class="col-md-5 col-sm-5 col-xs-12">Amount Added</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="addedamount" id="addedamount" value="<?php echo number_format($callcenter_fund_details->Amount_ReceivedEuroVal, 2, '.', ',') ?>"  readonly>
+                          <input type="text" class="form-control" name="addedamount" id="addedamount" value="<?php echo  number_format($callcenter_fund_details->Amount_ReceivedEuroVal, 2, '.', ',') ?>"  readonly>
                         </div>
                       </div>
                     </div>
@@ -57,6 +57,15 @@
                     <?php }elseif ($_SESSION['user_role'] == "Call Center User"){?>
                     <div class="col-md-3 col-sm-12 col-xs-12">
                       <div class="form-group">
+                        <?php if ($callcenter_fund_details->currency == 1) {
+                            $curr = "€";
+                          }elseif ($callcenter_fund_details->currency == 2) {
+                            $curr = "$";
+                          }elseif ($callcenter_fund_details->currency == 3) {
+                            $curr = "฿";
+                          }elseif ($callcenter_fund_details->currency == 4) {
+                            $curr = " RD$";
+                          } ?>
                         <label class="col-md-5 col-sm-5 col-xs-12">Amount Added</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
                           <input type="text" class="form-control" name="addedamount" id="addedamount" value="<?php echo number_format($callcenter_fund_details->ActualAmt, 2, '.', ',') ?>"  readonly>
@@ -84,8 +93,8 @@
                 $this->db->from("currencymaster");
                 $this->db->where("CurId",$callcenter_fund_details->currency);
                 $this->db->where("Active",1);
-                $curr=  $this->db->get ()->row ();
-                //print_r($curr->CurName);
+                $curr=  $this->db->get ()->row();
+                //print_r($curr);
                 ?>
                             <option value="<?php echo $curr->CurId ?>"><?php echo $curr->CurName ?></option>
                           </select>

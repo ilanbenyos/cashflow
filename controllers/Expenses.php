@@ -347,14 +347,14 @@ class Expenses extends CI_Controller {
                     $this->db->where('VendorId',$vendor);
                     $IsCallCenter = $this->db->get()->row();
                            
-                        $curr = "EUR";
+                        $curr1 = "EUR";
                         /*echo 'curr' . $curr; 
                         echo '<br>';*/
-                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr);
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$curr1);
                                 
                         $val=json_decode($val);
                         //$exchange_rate = $val->rates->EUR;
-                           if ($IsCallCenter->Currency == 1) {
+                           /*if ($IsCallCenter->Currency == 1) {
                                $amount = $acamtReceive * 1;
                            }elseif($IsCallCenter->Currency == 2){
                                 $exchange_rate = $val->rates->USD;
@@ -365,18 +365,34 @@ class Expenses extends CI_Controller {
                            }elseif($IsCallCenter->Currency == 4){
                                 $exchange_rate = $val->rates->DOP;
                                 $amount = $acamtReceive * $exchange_rate;
+                           }*/
+                           
+                           if ($curr == "EUR") {
+                               $currId = 1;
+                               //$amount = $acamtReceive * 1;
+                           }elseif($curr == "USD"){
+                                $currId = 2;
+                               /* $exchange_rate = $val->rates->USD;
+                                $amount = $acamtReceive * $exchange_rate;*/
+                           }elseif($curr == "BTC"){
+                                $currId = 3;
+                                /*$exchange_rate = $val->rates->BTC;
+                                $amount = $acamtReceive * $exchange_rate;*/
+                           }elseif($curr == "DOP"){
+                                $currId = 4;
+                                /*$exchange_rate = $val->rates->DOP;
+                                $amount = $acamtReceive * $exchange_rate;*/
                            }
-                          /* echo 'exchange_rate' . $exchange_rate;
-                           echo 'amount' . $amount; 
-                           exit();*/
+
+                           
                             $callcenter_fund_details = array(
                         'expense_id' => $callCenterUserId,
                         'createdon' => date('Y-m-j H:i:s'),
-                        'ActualAmt' => $amount,
+                        'ActualAmt' => $acamtReceive,
                         'NetFromBank' => $nfb,
                         'NetFromBankEuroVal' => $euro_amount,
                         'vendor_id' => $vendor,
-                        'currency' => $IsCallCenter->Currency,
+                        'currency' => $currId,
                         'ActualDate' => $to,
                     );
                             //print_r($callcenter_fund_details);exit();
@@ -869,7 +885,7 @@ class Expenses extends CI_Controller {
         $this->db->where('pt.id',$id);
         $callcenter_expense_details =  $this->db->get()->row();
             $data['callcenter_fund_details'] = $callcenter_expense_details;
-            
+            //print_r($data['callcenter_fund_details']);
             $data['get_all_currency'] = $this->all_model->getAllCurrency();
             
             $this->load->view('templates/header');
