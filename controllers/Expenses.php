@@ -310,6 +310,7 @@ class Expenses extends CI_Controller {
                         'NetFromBankEuroVal' => $euro_amount,
                         'vendor_id' => $vendor,
 						'currency' => $IsCallCenter->Currency,
+                        'CreatedBy' => $uid,
 						'ActualDate' => $to,
                     );
 					$this->db->insert('callcenter_expense_details',$callcenter_expense_details);
@@ -1005,6 +1006,58 @@ class Expenses extends CI_Controller {
                         //print_r($expense);exit();
                     $this->db->where('id',$callcenterid);
                     $this->db->update('callcenter_fund_details',$expense);
+
+                    $charge = str_replace(',','',$this->input->post('conversion_charges'));
+                    if (!empty($charge)) {
+
+                        $this->db->select('CatId,Category,Active');
+                        $this->db->from('callcenter_expense_category');
+                        $this->db->where('Active',1);
+                        $this->db->where('Category','Currency Conversion');
+                        $res = $this->db->get()->row();
+                        // create call center expense 
+                        if($newCurr == 1){
+                        $exchange_rate = 0.00;
+                        $EUR_Amount = $Converted_Amount = $charge;
+                    }else if($newCurr == 2){
+                        $base_currency = 'USD';
+                        $Converted_Amount = $charge;
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$base_currency);
+                        $val=json_decode($val);
+                        $exchange_rate = $val->rates->EUR;
+                        $EUR_Amount = $charge * $exchange_rate;
+                    }else if($newCurr == 3){
+                        $base_currency = 'BTC';
+                        $Converted_Amount = $charge;
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$base_currency);
+                        $val=json_decode($val);
+                        $exchange_rate = $val->rates->EUR;
+                        $EUR_Amount = $charge * $exchange_rate;
+                    }
+                    else if($newCurr == 4){
+                        $base_currency = 'DOp';
+                        $Converted_Amount = $charge;
+                        $val=file_get_contents('https://openexchangerates.org/api/latest.json?app_id=ad149373bf4741148162546987ec9720&base='.$base_currency);
+                        $val=json_decode($val);
+                        $exchange_rate = $val->rates->EUR;
+                        $EUR_Amount = $charge * $exchange_rate;
+                    }
+
+
+                    $expense = array(
+                        'ExpName' => $res->CatId,
+                        'VendorId'=> $vendor_id,
+                        'ExpAmount' => $charge,
+                        'ExchangeRate' =>$exchange_rate,
+                        'EuroValue'=>$EUR_Amount,
+                        'ExpPaymentType'=>'Wire',
+                        'ExpDate'=> date("Y-m-d"),
+                        'CreatedBy' => $userid,
+                    );
+                    //print_r($expense);exit();
+                    $this->db->insert('callcenterexpenses',$expense);
+                    }
+                    
                     
                     $log = "ip:" . get_client_ip () . ' - ' . date ( "F j, Y, g:i a" ) . "[INFO]" .' : ' . "Edit-CallCenterExpenses Update Call data". PHP_EOL
                         . json_encode($expense) .PHP_EOL . "-------------------------" . PHP_EOL;
