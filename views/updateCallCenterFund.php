@@ -75,7 +75,11 @@
                       <div class="form-group">
                         
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <?php 
+
+                          <select class="form-control" name="newCurr" id="newCurr" >
+                            <option value="">Select Currency</option>
+                            <option value="1">EUR</option>
+                            <?php 
                 $this->db->select("CurId,CurName,CurSymbol,Active");
                 $this->db->from("currencymaster");
                 $this->db->where("CurId",$callcenter_fund_details->currency);
@@ -83,10 +87,7 @@
                 $curr=  $this->db->get ()->row ();
                 //print_r($curr->CurName);
                 ?>
-                          <select class="form-control" name="newCurr" id="newCurr" >
-                            <option value="">Select Currency</option>
-                            <option value="1">EUR</option>
-                            <option value="<?php  echo $curr->CurId ?>"><?php echo $curr->CurName ?></option>
+                            <option value="<?php echo $curr->CurId ?>"><?php echo $curr->CurName ?></option>
                           </select>
                         </div>
                         <div class="col-md-6 col-sm-4 col-xs-12" id="conversionCharges" style="display: none;">
