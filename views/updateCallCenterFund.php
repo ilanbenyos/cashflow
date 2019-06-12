@@ -73,7 +73,9 @@
                     </div>
                     <div class="col-md-6 col-sm-12 col-xs-12" id="currencyShow" style="display: none;">
                       <div class="form-group">
-                        <?php 
+                        
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <?php 
                 $this->db->select("CurId,CurName,CurSymbol,Active");
                 $this->db->from("currencymaster");
                 $this->db->where("CurId",$callcenter_fund_details->currency);
@@ -81,7 +83,6 @@
                 $curr=  $this->db->get ()->row ();
                 //print_r($curr->CurName);
                 ?>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
                           <select class="form-control" name="newCurr" id="newCurr" >
                             <option value="">Select Currency</option>
                             <option value="1">EUR</option>
